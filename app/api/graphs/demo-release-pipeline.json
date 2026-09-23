@@ -1,0 +1,30 @@
+{
+  "id": "ws-demo",
+  "title": "Demo · 发布流水线",
+  "path": "C:/projects/agent-canvas",
+  "description": "复刻 v0 演示拓扑：环境初始化 → 数据处理/报告生成 → 汇报，含失败处置错误路由。",
+  "graph": {
+    "zones": [
+      { "id": "z-prepare", "title": "准备" },
+      { "id": "z-exec", "title": "执行" },
+      { "id": "z-deliver", "title": "交付" }
+    ],
+    "nodes": [
+      { "id": "n-coord", "type": "coordinator", "title": "Coordinator", "status": "queued", "harness": "canvas-orchestrator", "env": "herdr-local", "agentId": "ag-coord-01", "x": 80, "y": 64, "zoneId": "z-prepare" },
+      { "id": "n-env", "type": "operation", "title": "环境初始化", "status": "queued", "harness": "shell-agent", "env": "herdr-local", "agentId": "ag-env-01", "x": 80, "y": 224, "zoneId": "z-prepare" },
+      { "id": "n-data", "type": "operation", "title": "数据处理", "status": "queued", "harness": "shell-agent", "env": "herdr-local", "agentId": "ag-data-01", "x": 500, "y": 64, "zoneId": "z-exec" },
+      { "id": "n-report", "type": "operation", "title": "报告生成", "status": "queued", "harness": "shell-agent", "env": "herdr-local", "agentId": "ag-report-01", "x": 500, "y": 224, "zoneId": "z-exec" },
+      { "id": "n-chat", "type": "chat", "title": "分析汇报", "status": "queued", "harness": "shell-agent", "env": "herdr-local", "agentId": "ag-chat-01", "x": 920, "y": 64, "zoneId": "z-deliver" },
+      { "id": "n-fail", "type": "artifact", "title": "失败处置", "status": "queued", "harness": "shell-agent", "env": "herdr-local", "agentId": "ag-fail-01", "x": 920, "y": 224, "zoneId": "z-deliver" }
+    ],
+    "edges": [
+      { "id": "e-coord-env", "source": "n-coord", "target": "n-env", "kind": "strong" },
+      { "id": "e-env-data", "source": "n-env", "target": "n-data", "kind": "strong" },
+      { "id": "e-env-report", "source": "n-env", "target": "n-report", "kind": "strong" },
+      { "id": "e-report-fail", "source": "n-report", "target": "n-fail", "kind": "error" },
+      { "id": "e-coord-env-weak", "source": "n-coord", "target": "n-env", "kind": "weak", "label": "0 msg/min" },
+      { "id": "e-data-chat", "source": "n-data", "target": "n-chat", "kind": "weak", "label": "0 msg/min" }
+    ],
+    "runState": "idle"
+  }
+}

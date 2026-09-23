@@ -1,0 +1,28 @@
+{
+  "id": "ws-etl",
+  "title": "Nightly ETL · 数据管道",
+  "path": "C:/projects/nightly-etl",
+  "description": "另一个项目：两路抽取 → 清洗转换 → 加载 → 校验的夜间批处理拓扑。",
+  "graph": {
+    "zones": [
+      { "id": "z-extract", "title": "抽取" },
+      { "id": "z-transform", "title": "转换" },
+      { "id": "z-load", "title": "加载" }
+    ],
+    "nodes": [
+      { "id": "n-ext-a", "type": "operation", "title": "抽取 · 订单库", "status": "queued", "harness": "shell-agent", "env": "herdr-local", "agentId": "ag-ext-a-01", "x": 80, "y": 64, "zoneId": "z-extract", "command": "bash scripts/agents/seed-etl.sh n-ext-a" },
+      { "id": "n-ext-b", "type": "operation", "title": "抽取 · 日志流", "status": "queued", "harness": "shell-agent", "env": "herdr-local", "agentId": "ag-ext-b-01", "x": 80, "y": 224, "zoneId": "z-extract", "command": "bash scripts/agents/seed-etl.sh n-ext-b" },
+      { "id": "n-transform", "type": "operation", "title": "清洗转换", "status": "queued", "harness": "shell-agent", "env": "herdr-local", "agentId": "ag-transform-01", "x": 500, "y": 144, "zoneId": "z-transform", "command": "bash scripts/agents/seed-etl.sh n-transform" },
+      { "id": "n-load", "type": "operation", "title": "加载数仓", "status": "queued", "harness": "shell-agent", "env": "herdr-local", "agentId": "ag-load-01", "x": 920, "y": 64, "zoneId": "z-load", "command": "bash scripts/agents/seed-etl.sh n-load" },
+      { "id": "n-verify", "type": "artifact", "title": "质量校验报告", "status": "queued", "harness": "shell-agent", "env": "herdr-local", "agentId": "ag-verify-01", "x": 920, "y": 224, "zoneId": "z-load", "command": "bash scripts/agents/seed-etl.sh n-verify" }
+    ],
+    "edges": [
+      { "id": "e-exta-transform", "source": "n-ext-a", "target": "n-transform", "kind": "strong" },
+      { "id": "e-extb-transform", "source": "n-ext-b", "target": "n-transform", "kind": "strong" },
+      { "id": "e-transform-load", "source": "n-transform", "target": "n-load", "kind": "strong" },
+      { "id": "e-load-verify", "source": "n-load", "target": "n-verify", "kind": "strong" },
+      { "id": "e-transform-verify", "source": "n-transform", "target": "n-verify", "kind": "weak", "label": "0 msg/min" }
+    ],
+    "runState": "idle"
+  }
+}
