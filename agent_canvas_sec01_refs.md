@@ -1,0 +1,47 @@
+# 第 1 章 来源映射（agent_canvas_sec01.md）
+
+- [^1^] workflowbuilder.io《LangGraph Studio Guide》 | https://www.workflowbuilder.io/blog/langgraph-studio-guide | 2026-09-17
+- [^2^] workflowbuilder.io《Live Workflow Execution Visualization》 | https://www.workflowbuilder.io/blog/live-workflow-execution-visualization | 2026-06-19
+- [^3^] Dify 官方文档《运行历史》 | https://docs.dify.ai/zh/cloud/use-dify/debug/history-and-logs | 2026-07-13
+- [^4^] 扣子官方文档《AI 工作流开发指南》 | https://docs.coze.cn/guides_ai_powered_workflow_development | 2026-08-13
+- [^5^] GitHub n8n issue #27961（画布执行高亮回归） | https://github.com/n8n-io/n8n/issues/27961 | 2026-04-02
+- [^6^] GitHub ComfyUI issue #4573（执行节点绿色高亮） | https://github.com/Comfy-Org/ComfyUI/issues/4573 | 2024-08-23
+- [^7^] DataCamp《Software Development With Devin》 | https://www.datacamp.com/tutorial/devin-ai | 2025-06-26
+- [^8^] arXiv 用户研究《Industry Aspirations vs. User Realities with AI Agents》 | https://arxiv.org/html/2509.14528 | 2026-05-03
+- [^9^] 智东西（新浪转载）Kimi OK Computer 实测 | https://finance.sina.com.cn/stock/t/2025-09-27/doc-infrxmap9785958.shtml | 2025-09-27
+- [^10^] OpenAI 官方博客《Introducing ChatGPT Agent》（中文） | https://openai.com/zh-Hans-CN/index/introducing-chatgpt-agent/ | 2025-07-17
+- [^11^] 人人都是产品经理《MiniMax Agent 初体验》 | https://www.woshipm.com/ai/6332177.html | 2026-01-25
+- [^12^] OpenHands ICLR 2025 论文 | https://proceedings.iclr.cc/paper_files/paper/2025/file/a4b6ad6b48850c0c331d1259fc66a69c-Paper-Conference.pdf | 2025-01
+- [^13^] GitHub agent-patterns-ts《In the Wild: Coding Agent Harnesses》 | https://github.com/blessanm86/agent-patterns-ts/blob/main/src/todo-lists/README.md | 2026-02-22
+- [^14^] 知乎 Manus 实测（回放链接） | https://zhuanlan.zhihu.com/p/29042529587 | 2025-03-09
+- [^15^] 博客园 Kimi OK Computer 实测 | https://www.cnblogs.com/yangykaifa/p/19195822 | 2025-11-06
+- [^16^] Nielsen Norman Group《Initial Impressions of ChatGPT's Agent》 | https://www.nngroup.com/articles/impressions-chatgpt-agent/ | 2025-08-08
+- [^17^] OpenAI Help Center（ChatGPT agent 接管与隐私） | https://help.openai.com/en/articles/11752874 | 2026-04-11
+- [^18^] OpenHands SDK 论文（arXiv 2511.03690） | https://arxiv.org/html/2511.03690v1 | 2025-11-05
+- [^19^] NVIDIA NeMo Relay 文档《Agent Trajectory Observability Format (ATOF)》 | https://docs.nvidia.com/nemo/relay/v0.7.0/reference/atof-event-format | 2026-03-01
+- [^20^] Langflow 官方文档《Custom Components》 | https://docs.langflow.org/components/custom | 现行版（抓取于调研期）
+- [^21^] altaitools《Langflow vs Flowise》2026 综合评测 | https://altaitools.com/langflow-vs-flowise/ | 2026-08-30
+- [^22^] ComfyUI Cloud 节点文档《Fill Example Progress Bar》 | https://comfy.icu/node/FLExampleProgressBar | 2026-08-25
+- [^23^] ComfyUI 官方文档《Nodes》 | https://docs.comfy.org/basic-concepts/nodes | 2026-08-26
+- [^24^] KNIME 官方培训材料（L1-DW slides） | https://www.knime.com/sites/default/files/2021-01/2021-01-slides-l1-dw.pdf | 2021-01
+- [^25^] altaitools《n8n workflow has issues 排错指南》 | https://altaitools.com/n8n-workflow-has-issues-and-cannot-be-executed/ | 2026-09-02
+- [^26^] mem0.ai《LangGraph Studio: Complete Guide To Debugging Visual AI Agents》 | https://mem0.ai/blog/visual-ai-agent-debugging-langgraph-studio | 2025-12-29
+- [^27^] Dify 官方博客《Dify 1.5.0: Real-time Workflow Debugging That Actually Works》 | https://dify.ai/blog/dify-1-5-0-real-time-workflow-debugging-that-actually-works | 2025-06-25
+- [^28^] GitHub n8n issue #13767（test step 须从起点重跑） | https://github.com/n8n-io/n8n/issues/13767 | 2025-03-07
+- [^29^] earngenix 术语文档《Queue Prompt》（ComfyUI 缓存增量重算） | https://www.earngenix.com/glossary/queue-prompt | 2026-09-17
+- [^30^] Apatero《Fix Messy ComfyUI Workflows: Reroute Nodes Organization Guide 2025》 | https://apatero.com/blog/fix-messy-comfyui-workflows-reroute-nodes-organization-guide-2025/ | 2025-09-15
+- [^31^] GitHub n8n issue #18414（逐步执行日志消失） | https://github.com/n8n-io/n8n/issues/18414 | 2025-08-15
+- [^32^] doria.fi 平台对比研究（学术 PDF） | https://www.doria.fi/bitstream/handle/10024/193122/serafim_de_oliveira_mariana_celi.pdf | 2024-2025
+- [^33^] 扣子官方文档《工作流限制》 | https://docs.coze.cn/guides_workflow_limits | 2026-06-24
+- [^34^] Microsoft Research 官方博客《Introducing AutoGen Studio》 | https://www.microsoft.com/en-us/research/blog/introducing-autogen-studio-a-low-code-interface-for-building-multi-agent-workflows/ | 2024-06-17
+- [^35^] Siyu's Newsletter（Thoughtworks）《AI Agent 产品交互设计：设计模式与案例分析》 | https://siyujia.net/posts/ai-agent-hci | 2025-06-07
+- [^36^] Contrary Research《Cognition (Devin) 公司研究》 | https://research.contrary.com/company/cognition | 2026-09-17
+- [^37^] penchan.co《Manus 中文评测》 | https://penchan.co/zh-cn/ai/agent/manus/ | 2026-06-16
+- [^38^] Grafloria Demo Gallery（语义缩放四级渲染） | https://grafloria.com/demos/index.html | 抓取于调研期
+- [^39^] LangChain 官方文档《LangSmith Studio》 | https://docs.langchain.com/langsmith/studio | 2026-09-21
+- [^40^] VS Code 插件 LangGraph Visualizers 文档 | https://marketplace.visualstudio.com/items?itemName=smazee.langgraph-visualizer | 2026-09-20
+- [^41^] Dify 官方文档《If-Else 节点》 | https://docs.dify.ai/zh/cloud/use-dify/nodes/ifelse | 2026-06-22
+- [^42^] fastmcp.me n8n skill 文档（实线/虚线连接语义） | https://fastmcp.me/skills/details/294/n8n | 2026-03-06
+- [^43^] ComfyUI 官方文档《Links》 | https://docs.comfy.org/basic-concepts/links | 2026-09-16
+- [^44^] CrewAI 官方博客《Crew Studio: Automated Agent Builder》 | https://crewai.com/blog/crew-studio-automated-agent-builder | 2026-07-28
+- [^45^] madappgang《AI Agent Framework Decision Guide 2026》 | https://madappgang.com/blog/ai-agent-framework-decision-guide-2026/ | 2026-05-04

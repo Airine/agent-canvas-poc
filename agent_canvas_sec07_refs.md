@@ -1,0 +1,36 @@
+# 第 7 章来源映射（章节内编号，待全局重排）
+
+- [^1^] Time travel — LangChain Docs | https://docs.langchain.com/oss/python/langgraph/use-time-travel | 2026-06-11
+- [^2^] Time-Travel Debugging for AI Agents with LangGraph.js Checkpoints — dev.to (Gabriel Anhaia) | https://dev.to/gabrielanhaia/time-travel-debugging-for-ai-agents-with-langgraphjs-checkpoints-42ie | 2026-08-06
+- [^3^] NervaFS 官网（core concepts / enforcement / capabilities） | https://nervafs.xyz | 站点标注 M1 · Early access v0.3.5，审计示例时间戳 2026-05-19，抓取于调研当日
+- [^4^] Show HN: AgentLens — Hacker News | https://news.ycombinator.com/item?id=47205382 | 2026-03-01
+- [^5^] OpenTelemetry GenAI Semantic Conventions Explained — Dash0；OpenTelemetry GenAI Semantic Conventions Implementation Guide — hidekazu-konishi.com | https://www.dash0.com/knowledge/opentelemetry-genai-semantic-conventions-explained ; https://hidekazu-konishi.com/entry/opentelemetry_genai_semantic_conventions_guide.html | 2026-09-15 / 2026-08-02
+- [^6^] Run (span) data format — LangChain Docs | https://docs.langchain.com/langsmith/run-data-format | 2026-09-21
+- [^7^] Observability Data Model — Langfuse Docs | https://langfuse.com/docs/observability/data-model | 2026-09-14
+- [^8^] A2A Protocol Specification（AgentCard，Gitee 镜像全文） | https://gitee.com/liwen_test_sync_group/a2a-protocol/blob/main/schema/spec.txt | spec v0.3.0（2025 起）
+- [^9^] Sandbox Persistence — E2B Docs | https://docs.e2b.dev/sandbox/persistence | 2026-09-08
+- [^10^] Pod Conditions / Pod Lifecycle — kubernetes.io | https://kubernetes.io/docs/concepts/workloads/pods/pod-condition/ | 2026-06-20
+- [^11^] AI agents as CRDT peers with Yjs — electric.ax | https://electric.ax/blog/2026/04/08/ai-agents-as-crdt-peers-with-yjs | 2026-08-04
+- [^12^] Letta: Platform for Stateful LLM Agents — stackademic | https://blog.stackademic.com/letta-platform-for-stateful-llm-agents-a83b58a1c926 | 2025-09-16
+- [^13^] Workflow commands（::add-mask::）— GitHub Docs | https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands | 官方文档（持续更新）
+- [^14^] reactflow npm 官方包说明（d3-zoom/zustand 底座） | https://www.npmjs.com/package/reactflow | 2024-06-20（页面快照）
+- [^15^] Contextual Zoom 官方示例 — reactflow.dev | https://reactflow.dev/examples/interaction/contextual-zoom | 2026-08-31（页面快照）
+- [^16^] Utility Classes（nodrag/nopan）— reactflow.dev | https://reactflow.dev/learn/customization/utility-classes | 2026-08-31（页面快照）
+- [^17^] Svelte Flow API reference（onlyRenderVisibleElements，同 xyflow 代码库） | https://svelteflow.dev/api-reference/svelte-flow | 2026-08-24
+- [^18^] Performance — tldraw SDK 官方文档 | https://tldraw.dev/sdk-features/performance | 2026-01-31
+- [^19^] Embed shape — tldraw SDK 官方文档 | https://tldraw.dev/sdk-features/embed-shape | 检索快照 2026
+- [^20^] Cursors / Collaboration — tldraw 官方文档；tldraw sync 架构分析 | https://tldraw.dev/sdk-features/cursors ; https://nothing.graphics/docs/wg/research/crdt/tldraw | 2026-07-23（sync 分析）
+- [^21^] tldraw SDK…With a License Catch — Hysen Labs | https://hysenlabs.com/en/projects/tldraw-tldraw | 2026-08-17（React Flow/Excalidraw/LiteGraph/Rete/Drawflow 为 MIT 的口径同此来源及 dim03 C42）
+- [^22^] LiteGraph.js GitHub README | https://github.com/jagenjo/litegraph.js/ | 长期有效
+- [^23^] LiteGraph Canvas Settings — ComfyUI 官方文档 | https://docs.comfy.org/interface/settings/lite-graph | 2026-09-02
+- [^24^] Excalidraw issue #8136（性能基准）/ #6262（双 canvas）；CVE-2024-32472 Advisory | https://github.com/excalidraw/excalidraw/issues/8136 ; https://github.com/excalidraw/excalidraw/security/advisories/GHSA-m64q-4jqh-f72f | 2024-06-13 / 2024-04-17
+- [^25^] Migration to v2 — Rete.js 官方文档 | https://retejs.org/docs/migration/ | 2023-04-24
+- [^26^] Drawflow GitHub README | https://github.com/jerosoler/Drawflow | 2024-09-03（最近更新）
+- [^27^] React Flow 架构性能分档（社区整理）；The Ultimate Guide to Optimize React Flow Performance — Medium (Łukasz Jazwa) | https://skillselion.com/skills/existential-birds/beagle/react-flow-architecture ; https://medium.com/@lukasz.jazwa_32493/the-ultimate-guide-to-optimize-react-flow-project-performance-42f4297b2b7b | 2026-07-21 / 未标注
+- [^28^] ComfyUI_frontend issue #10831（Nodes 2.0 DOM 化掉帧） | https://github.com/Comfy-Org/ComfyUI_frontend/issues/10831 | 2026-04-02
+- [^29^] ComfyUI_frontend issue #14599（GPU 合成器竞争逐层 profile） | https://github.com/Comfy-Org/ComfyUI_frontend/issues/14599 | 2026-08-03
+- [^30^] Architecting for Massive Scale in React Flow — VisualFlow 工程博客 | https://www.visualflow.dev/blogs/scale-studio-pro | 2026-05-24
+- [^31^] Keeping iframes Running When Hidden — Medium (raw-fun-gaming) | https://medium.com/raw-fun-gaming/keeping-iframes-running-when-hidden-a-journey-through-browser-optimizations-18f83ac0a334 | 2025-06-20
+- [^32^] xyflow Discussion #2849（fitView 与 minZoom/maxZoom 一致性） | https://github.com/xyflow/xyflow/discussions/2849 | 2023-02-17
+- [^33^] adobe/react-spectrum issue #10506（全屏复用 DOM 节点、勿重定向 Portal） | https://github.com/adobe/react-spectrum/issues/10506 | 2026-08-24（讨论活跃时间）
+- [^34^] canvas_kit GitHub；Vyuh Node Flow 官网 | https://github.com/vento007/canvas_kit ; https://flow.vyuh.tech/ | 2026-03 / 官网未标注
