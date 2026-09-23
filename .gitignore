@@ -1,0 +1,19 @@
+# 依赖与构建产物
+node_modules/
+dist/
+
+# 运行时数据与日志
+app/api/data/
+*.log
+__pycache__/
+*.pyc
+
+# herdr 二进制（Linux ELF，约 25MB，可从 https://herdr.dev 获取）
+app/bin/herdr
+spike/herdr
+
+# 二进制资产暂不入库，见 README
+render-preview/*.pdf
+render-preview/page-*.png
+/*.docx
+/*.png
