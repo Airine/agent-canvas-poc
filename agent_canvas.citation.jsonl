@@ -1,0 +1,195 @@
+{"id": 1, "url": "https://tldraw.dev/sdk-features/performance", "page": {"site_name": "tldraw 官方性能文档（getEfficientZoomLevel、屏幕像素尺寸 LOD 阈值、空间索引裁剪）"}}
+{"id": 2, "url": "https://reactflow.dev/examples/interaction/contextual-zoom", "page": {"site_name": "React Flow 官方示例：Contextual Zoom（按 zoom 切换内容/占位视图）"}}
+{"id": 3, "url": "https://www.yfiles.com/demos/style/level-of-detail-style/", "page": {"site_name": "yFiles 官方 demo：Level of Detail Style（detail/intermediate/overview 三级）"}}
+{"id": 4, "url": "https://docs.comfy.org/interface/settings/lite-graph", "page": {"site_name": "ComfyUI 官方设置文档：LiteGraph Canvas Settings（低质量渲染 zoom 阈值默认 0.6）"}}
+{"id": 5, "url": "https://tldraw.dev/sdk-features/embed-shape", "page": {"site_name": "tldraw 官方文档：Embed shape（单击选中/双击交互模式、sandbox 分级）"}}
+{"id": 6, "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a4b6ad6b48850c0c331d1259fc66a69c-Paper-Conference.pdf", "page": {"site_name": "OpenHands ICLR 2025 论文（VNC/Browser/VSCode Web 三通道观察同一 runtime）"}}
+{"id": 7, "url": "https://openai.com/zh-Hans-CN/index/introducing-chatgpt-agent/", "page": {"site_name": "OpenAI 官方博客《Introducing ChatGPT Agent》（中文）"}}
+{"id": 8, "url": "https://docs.asciinema.org/manual/asciicast/v2/", "page": {"site_name": "asciinema 官方文档 asciicast v2 格式规范 / asciinema 3.0 发布文与 streaming 文档（字符流体积为视频 1/100~1/1000；录制=实时管道旁路）"}}
+{"id": 9, "url": "https://docs.langchain.com/oss/python/langgraph/use-time-travel", "page": {"site_name": "LangChain 官方文档：LangGraph Time Travel（append-only 检查点与回放）"}}
+{"id": 10, "url": "https://code.claude.com/docs/en/agent-sdk/todo-tracking", "page": {"site_name": "Claude Code Agent SDK 官方文档：Track todos"}}
+{"id": 11, "url": "https://github.com/n8n-io/n8n/issues/27961", "page": {"site_name": "GitHub n8n issue #27961（2.14.x 画布执行高亮回归 bug 引发 issue 风暴）"}}
+{"id": 12, "url": "https://help.openai.com/en/articles/11752874", "page": {"site_name": "OpenAI Help Center：ChatGPT agent 接管与隐私（接管期间不截图）"}}
+{"id": 13, "url": "https://www.dash0.com/knowledge/opentelemetry-genai-semantic-conventions-explained", "page": {"site_name": "Dash0：OpenTelemetry GenAI Semantic Conventions Explained（invoke_agent/chat/execute_tool span）"}}
+{"id": 14, "url": "https://nervafs.xyz", "page": {"site_name": "NervaFS 官网（core concepts / 全量审计流，站点标注 M1 · Early access v0.3.5）"}}
+{"id": 15, "url": "https://wiki.factorio.com/Production_statistics", "page": {"site_name": "Factorio 官方 Wiki：Production statistics（速率/瓶颈/吞吐量一阶可视化）"}}
+{"id": 16, "url": "https://www.xuexivp.com/gallery/deep-dive-bpmn-message-flows-lane-communication/", "page": {"site_name": "BPMN 消息流深度解析（xuexivp，虚线=跨池消息流语义）"}}
+{"id": 17, "url": "https://flowagenz.com/blog/n8n-ai-node-automate-decisions-with-llms", "page": {"site_name": "Flowagenz：n8n AI 节点教程（ai_tool 虚线连接语义，不能传 item）"}}
+{"id": 18, "url": "https://www.workflowbuilder.io/blog/langgraph-studio-guide", "page": {"site_name": "workflowbuilder.io《LangGraph Studio Guide》"}}
+{"id": 19, "url": "https://www.workflowbuilder.io/blog/live-workflow-execution-visualization", "page": {"site_name": "workflowbuilder.io《Live Workflow Execution Visualization》"}}
+{"id": 20, "url": "https://docs.dify.ai/zh/cloud/use-dify/debug/history-and-logs", "page": {"site_name": "Dify 官方文档《运行历史》"}}
+{"id": 21, "url": "https://docs.coze.cn/guides_ai_powered_workflow_development", "page": {"site_name": "扣子官方文档《AI 工作流开发指南》"}}
+{"id": 22, "url": "https://github.com/Comfy-Org/ComfyUI/issues/4573", "page": {"site_name": "GitHub ComfyUI issue #4573（执行节点绿色高亮）"}}
+{"id": 23, "url": "https://www.datacamp.com/tutorial/devin-ai", "page": {"site_name": "DataCamp《Software Development With Devin》"}}
+{"id": 24, "url": "https://arxiv.org/html/2509.14528", "page": {"site_name": "arXiv 用户研究《Industry Aspirations vs. User Realities with AI Agents》"}}
+{"id": 25, "url": "https://finance.sina.com.cn/stock/t/2025-09-27/doc-infrxmap9785958.shtml", "page": {"site_name": "智东西（新浪转载）Kimi OK Computer 实测"}}
+{"id": 26, "url": "https://www.woshipm.com/ai/6332177.html", "page": {"site_name": "人人都是产品经理《MiniMax Agent 初体验》"}}
+{"id": 27, "url": "https://github.com/blessanm86/agent-patterns-ts/blob/main/src/todo-lists/README.md", "page": {"site_name": "GitHub agent-patterns-ts《In the Wild: Coding Agent Harnesses》"}}
+{"id": 28, "url": "https://zhuanlan.zhihu.com/p/29042529587", "page": {"site_name": "知乎 Manus 实测（回放链接）"}}
+{"id": 29, "url": "https://www.cnblogs.com/yangykaifa/p/19195822", "page": {"site_name": "博客园 Kimi OK Computer 实测"}}
+{"id": 30, "url": "https://www.nngroup.com/articles/impressions-chatgpt-agent/", "page": {"site_name": "Nielsen Norman Group《Initial Impressions of ChatGPT's Agent》"}}
+{"id": 31, "url": "https://arxiv.org/html/2511.03690v1", "page": {"site_name": "OpenHands SDK 论文（arXiv 2511.03690）"}}
+{"id": 32, "url": "https://docs.nvidia.com/nemo/relay/v0.7.0/reference/atof-event-format", "page": {"site_name": "NVIDIA NeMo Relay 文档《Agent Trajectory Observability Format (ATOF)》"}}
+{"id": 33, "url": "https://docs.langflow.org/components/custom", "page": {"site_name": "Langflow 官方文档《Custom Components》"}}
+{"id": 34, "url": "https://altaitools.com/langflow-vs-flowise/", "page": {"site_name": "altaitools《Langflow vs Flowise》2026 综合评测"}}
+{"id": 35, "url": "https://comfy.icu/node/FLExampleProgressBar", "page": {"site_name": "ComfyUI Cloud 节点文档《Fill Example Progress Bar》"}}
+{"id": 36, "url": "https://docs.comfy.org/basic-concepts/nodes", "page": {"site_name": "ComfyUI 官方文档《Nodes》"}}
+{"id": 37, "url": "https://www.knime.com/sites/default/files/2021-01/2021-01-slides-l1-dw.pdf", "page": {"site_name": "KNIME 官方培训材料（L1-DW slides）"}}
+{"id": 38, "url": "https://altaitools.com/n8n-workflow-has-issues-and-cannot-be-executed/", "page": {"site_name": "altaitools《n8n workflow has issues 排错指南》"}}
+{"id": 39, "url": "https://mem0.ai/blog/visual-ai-agent-debugging-langgraph-studio", "page": {"site_name": "mem0.ai《LangGraph Studio: Complete Guide To Debugging Visual AI Agents》"}}
+{"id": 40, "url": "https://dify.ai/blog/dify-1-5-0-real-time-workflow-debugging-that-actually-works", "page": {"site_name": "Dify 官方博客《Dify 1.5.0: Real-time Workflow Debugging That Actually Works》"}}
+{"id": 41, "url": "https://github.com/n8n-io/n8n/issues/13767", "page": {"site_name": "GitHub n8n issue #13767（test step 须从起点重跑）"}}
+{"id": 42, "url": "https://www.earngenix.com/glossary/queue-prompt", "page": {"site_name": "earngenix 术语文档《Queue Prompt》（ComfyUI 缓存增量重算）"}}
+{"id": 43, "url": "https://apatero.com/blog/fix-messy-comfyui-workflows-reroute-nodes-organization-guide-2025/", "page": {"site_name": "Apatero《Fix Messy ComfyUI Workflows: Reroute Nodes Organization Guide 2025》"}}
+{"id": 44, "url": "https://github.com/n8n-io/n8n/issues/18414", "page": {"site_name": "GitHub n8n issue #18414（逐步执行日志消失）"}}
+{"id": 45, "url": "https://www.doria.fi/bitstream/handle/10024/193122/serafim_de_oliveira_mariana_celi.pdf", "page": {"site_name": "doria.fi 平台对比研究（学术 PDF）"}}
+{"id": 46, "url": "https://docs.coze.cn/guides_workflow_limits", "page": {"site_name": "扣子官方文档《工作流限制》"}}
+{"id": 47, "url": "https://www.microsoft.com/en-us/research/blog/introducing-autogen-studio-a-low-code-interface-for-building-multi-agent-workflows/", "page": {"site_name": "Microsoft Research 官方博客《Introducing AutoGen Studio》"}}
+{"id": 48, "url": "https://madappgang.com/blog/ai-agent-framework-decision-guide-2026/", "page": {"site_name": "madappgang《AI Agent Framework Decision Guide 2026》"}}
+{"id": 49, "url": "https://siyujia.net/posts/ai-agent-hci", "page": {"site_name": "Siyu's Newsletter（Thoughtworks）《AI Agent 产品交互设计：设计模式与案例分析》"}}
+{"id": 50, "url": "https://research.contrary.com/company/cognition", "page": {"site_name": "Contrary Research《Cognition (Devin) 公司研究》"}}
+{"id": 51, "url": "https://penchan.co/zh-cn/ai/agent/manus/", "page": {"site_name": "penchan.co《Manus 中文评测》"}}
+{"id": 52, "url": "https://grafloria.com/demos/index.html", "page": {"site_name": "Grafloria Demo Gallery（语义缩放四级渲染）"}}
+{"id": 53, "url": "https://docs.langchain.com/langsmith/studio", "page": {"site_name": "LangChain 官方文档《LangSmith Studio》"}}
+{"id": 54, "url": "https://marketplace.visualstudio.com/items?itemName=smazee.langgraph-visualizer", "page": {"site_name": "VS Code 插件 LangGraph Visualizers 文档"}}
+{"id": 55, "url": "https://docs.dify.ai/zh/cloud/use-dify/nodes/ifelse", "page": {"site_name": "Dify 官方文档《If-Else 节点》"}}
+{"id": 56, "url": "https://fastmcp.me/skills/details/294/n8n", "page": {"site_name": "fastmcp.me n8n skill 文档（实线/虚线连接语义）"}}
+{"id": 57, "url": "https://docs.comfy.org/basic-concepts/links", "page": {"site_name": "ComfyUI 官方文档《Links》"}}
+{"id": 58, "url": "https://crewai.com/blog/crew-studio-automated-agent-builder", "page": {"site_name": "CrewAI 官方博客《Crew Studio: Automated Agent Builder》"}}
+{"id": 59, "url": "https://juejin.cn/post/6885588334182137870", "page": {"site_name": "掘金工程博客：拖拽经过 iframe 时 mousemove 被吞的解法（pointer-events:none/auto）"}}
+{"id": 60, "url": "https://github.com/SeleniumHQ/docker-selenium", "page": {"site_name": "SeleniumHQ docker-selenium（内置 noVNC，SE_VNC_VIEW_ONLY=1 只读模式；旁证 E2B getUrl({viewOnly:true})）"}}
+{"id": 61, "url": "https://openai.com/index/introducing-operator/", "page": {"site_name": "OpenAI 官方：Introducing Operator（takeover mode 接管期不截图、不收集用户输入）"}}
+{"id": 62, "url": "https://docs.langchain.com/oss/python/langchain/human-in-the-loop", "page": {"site_name": "LangChain 官方文档：Human-in-the-loop（approve/edit/reject/respond 四类决策，按工具粒度配置）"}}
+{"id": 63, "url": "https://tldraw.dev/sdk-features/focus", "page": {"site_name": "tldraw 官方文档：Focus（多编辑器手动管理 focus/blur，blur 自动 complete()）"}}
+{"id": 64, "url": "https://oceanrep.geomar.de/61118/1/MSc-Bamberg.pdf", "page": {"site_name": "GEOMAR 硕士论文：Semantic Zoom With Immersive Detail View for ExplorViz（Semantic Zoom Manager 离散档位统一调度）"}}
+{"id": 65, "url": "https://www.visualflow.dev/blogs/scale-studio-pro", "page": {"site_name": "VisualFlow 工程博客：Architecting for Massive Scale in React Flow（zoom<0.5 换轻量占位节点；全局视图绕过虚拟化）"}}
+{"id": 66, "url": "https://medium.com/raw-fun-gaming/keeping-iframes-running-when-hidden-a-journey-through-browser-optimizations-18f83ac0a334", "page": {"site_name": "Medium（raw-fun-gaming）：Keeping iframes Running When Hidden（display:none/opacity/clip-path 均被冻结；遮罩法保活）"}}
+{"id": 67, "url": "https://svelteflow.dev/api-reference/svelte-flow", "page": {"site_name": "Svelte Flow API Reference（onlyRenderVisibleElements 视口裁剪，与 React Flow 同 xyflow 代码库）"}}
+{"id": 68, "url": "https://github.com/Comfy-Org/ComfyUI_frontend/issues/14599", "page": {"site_name": "GitHub Comfy-Org/ComfyUI_frontend issue #14599（GPU 合成器竞争 ~47%、实时预览流 ~23%、DOM 更新 ~30%）"}}
+{"id": 69, "url": "https://github.com/Comfy-Org/ComfyUI_frontend/issues/10831", "page": {"site_name": "GitHub Comfy-Org/ComfyUI_frontend issue #10831（Nodes 2.0 DOM 化后 60+→<5 FPS）"}}
+{"id": 70, "url": "https://github.com/puppeteer/puppeteer/issues/478", "page": {"site_name": "GitHub puppeteer issue #478（Page.startScreencast 实测约 5fps，headless 1fps）"}}
+{"id": 71, "url": "https://github.com/adobe/react-spectrum/issues/10506", "page": {"site_name": "GitHub adobe/react-spectrum issue #10506（\"Move the DOM node; do not re-target the React portal. Otherwise: remount, iframe reload, focus loss.\"）"}}
+{"id": 72, "url": "https://bugs.webkit.org/show_bug.cgi?id=133801", "page": {"site_name": "WebKit Bugzilla #133801（CSS scale 放大含 fixed 定位内容的 iframe 导致整体模糊）"}}
+{"id": 73, "url": "https://reactflow.dev/learn/troubleshooting/common-errors", "page": {"site_name": "React Flow 官方文档：Common Errors（CSS transform 缩放下 DOM 尺寸不变，坐标需乘 1/zoom 校正）"}}
+{"id": 74, "url": "https://tldraw.dev/examples/focus-mode", "page": {"site_name": "tldraw 官方示例：Focus Mode（isFocusMode 隐藏全部 UI 的无干扰模式）"}}
+{"id": 75, "url": "https://github.com/Aider-AI/aider/issues/625", "page": {"site_name": "Aider GitHub issue #625（全量重写 vs diff 实证讨论）"}}
+{"id": 76, "url": "https://anishgandhi.com/why-ai-tools-dont-use-diffs/", "page": {"site_name": "Anish Gandhi 技术分析 \"Why AI coding tools rewrite full files instead of using diffs\"（400 行分界；Morph fast-apply 1000 行 1.3s vs Sonnet 10–12s）"}}
+{"id": 77, "url": "https://openreview.net/pdf/0a3bc2ca1a28fe7de0cdc2b00b66116b8f68d99e.pdf", "page": {"site_name": "OpenReview 论文（MT-SECCODEPLT 基准，多轮场景 whole-code 更稳）；modern-ai-guide《coding agents》文档（unified diff 可审计、失败响亮）"}}
+{"id": 78, "url": "https://cursor.com/blog/instant-apply", "page": {"site_name": "Cursor 官方博客 \"Editing Files at 1000 Tokens per Second\"（原文已下线，经 getbind 转载）"}}
+{"id": 79, "url": "https://openai.com/index/introducing-canvas/", "page": {"site_name": "OpenAI 官方公告 \"Introducing canvas\"（targeted edit vs rewrite；back button 恢复旧版；+18%）"}}
+{"id": 80, "url": "https://juejin.cn/post/7628156673577926694", "page": {"site_name": "掘金实战文《AI 对话流式输出：实现\"逐字丝滑、不闪烁、不卡顿\"的打字机效果》"}}
+{"id": 81, "url": "https://vercel.com/changelog/introducing-streamdown", "page": {"site_name": "Vercel 官方 changelog \"Introducing Streamdown\""}}
+{"id": 82, "url": "https://shiki.style/packages/stream", "page": {"site_name": "Shiki 官方文档 @shikijs/stream"}}
+{"id": 83, "url": "https://open.feishu.cn/document/cardkit-v1/card-element/content", "page": {"site_name": "飞书 CardKit 官方 API 文档 card-element/content（经 GitHub issue m1heng/clawdbot-feishu#446 根因分析引用）"}}
+{"id": 84, "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-structured-data", "page": {"site_name": "Vercel AI SDK 官方文档 \"Generating Structured Data\"（streamObject/useObject）；LangChain 论坛（withStructuredOutput 不流式）"}}
+{"id": 85, "url": "https://flowith.io/blog/gamma-app-2026-one-sentence-prompt-polished-deck-60-seconds/", "page": {"site_name": "Flowith 架构分析 \"Gamma App 2026\"（大纲优先 + 并行 narrative graph，30–60s 出 deck）"}}
+{"id": 86, "url": "https://www.thesys.dev/blogs/claude-in-powerpoint", "page": {"site_name": "Thesys 官方博客 \"Claude in PowerPoint\"（逐 slide 实时渲染）"}}
+{"id": 87, "url": "https://docs.lovable.dev/features/projects/preview", "page": {"site_name": "Lovable 官方文档 \"Preview and test your app\"（Live preview 开关）"}}
+{"id": 88, "url": "https://newsletter.pragmaticengineer.com/p/how-anthropic-built-artifacts", "page": {"site_name": "The Pragmatic Engineer \"How Anthropic built Artifacts\"（iframe sandbox + 全站进程隔离 + 严格 CSP）"}}
+{"id": 89, "url": "https://v0.app/docs/api/v2/guides/accessing-previews", "page": {"site_name": "v0 官方文档 \"Accessing Previews\"；Vercel 官方博客 \"Introducing the new v0 API\""}}
+{"id": 90, "url": "https://sandpack.codesandbox.io/docs/architecture/overview", "page": {"site_name": "Sandpack 官方文档 Architecture / Client"}}
+{"id": 91, "url": "https://blog.stackblitz.com/tags/webcontainers/", "page": {"site_name": "StackBlitz 官方博客 WebContainers；Bolt.new teardown（openaitoolshub）"}}
+{"id": 92, "url": "https://docs.unqork.io/docs/embedded-ui-iframe-mode-reference", "page": {"site_name": "Unqork 官方文档 Embedded UI Iframe Mode Reference（Shadow DOM vs iframe）；Invicti / WorkOS iframe 安全最佳实践"}}
+{"id": 93, "url": "https://github.com/excalidraw/excalidraw/security/advisories/GHSA-m64q-4jqh-f72f", "page": {"site_name": "GitHub Security Advisory GHSA-m64q-4jqh-f72f / NVD CVE-2024-32472（Excalidraw web embed 存储型 XSS，CVSS 6.1，修复于 0.17.6/0.16.4）"}}
+{"id": 94, "url": "https://support.anthropic.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them_", "page": {"site_name": "Anthropic 官方帮助中心 \"What are Artifacts and how do I use them?\"（版本选择器）；hostsmith.net 实操指南（旧版本编辑 fork 时间线）"}}
+{"id": 95, "url": "https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history", "page": {"site_name": "Figma 官方帮助 \"View a file's version history\"（30 分钟自动 checkpoint + 命名版本 + 只读预览 Restore）"}}
+{"id": 96, "url": "https://notionchina.co/guide/editing-pages/version-history", "page": {"site_name": "Notion Page History（notionchina.co / sparxno 转述官方 Help：10 分钟自动快照 + 整版恢复/部分复制）"}}
+{"id": 97, "url": "https://github.com/livepeer/storyboard/blob/main/remaining-improvements.md", "page": {"site_name": "livepeer/storyboard 开源项目 remaining-improvements.md（创作分支树，以 Figma 版本历史为心智模型）；coursiv.io Claude Artifacts 解读（消息编辑产生分支）"}}
+{"id": 98, "url": "https://allo.io/help/en/canvas/version-history", "page": {"site_name": "Allo.io 帮助文档 \"Use Version History\"（恢复前默认保存当前版本）"}}
+{"id": 99, "url": "https://github.com/CloudSecurityAlliance/csa-google-workspace/blob/main/experiments/docs-suggestions/RESULTS.md", "page": {"site_name": "Cloud Security Alliance 对 Google Docs Suggestions API 的实测（三种只读预览模式）；Deckoholic Google Docs track-changes 教程"}}
+{"id": 100, "url": "https://stackoverflow.com/questions/15048958/", "page": {"site_name": "GitHub 官方博客 \"Introducing split diffs\"（经 StackOverflow 引用）；matklad 博客 \"Unified vs Split Diff\""}}
+{"id": 101, "url": "https://docs.sentry.io/product/snapshots/reviewing-snapshots/", "page": {"site_name": "Sentry 官方文档 \"Reviewing Snapshots\"（split/wipe/onion 三视图 + diff overlay）；getautonoma 视觉回归工具对比（噪声问题与组件级隔离）"}}
+{"id": 102, "url": "https://v0.app/docs/design-mode", "page": {"site_name": "v0 官方文档 \"Design mode\"（Cmd+I inspect，选中元素回写代码）"}}
+{"id": 103, "url": "https://docs.lovable.dev/features/preview-toolbar", "page": {"site_name": "Lovable 官方文档 \"Edit from the preview / Preview Toolbar\"（元素 chip 引用、\"Point first, then describe\"、draw annotation、tag Lovable 转指令）"}}
+{"id": 104, "url": "https://github.com/navikt/aksel-arcade/issues/314", "page": {"site_name": "navikt/aksel-arcade GitHub Issue #314（Agentation annotation envelope：selector/bbox/样式快照/intent/severity/status）"}}
+{"id": 105, "url": "https://www.geeksforgeeks.org/advanced-collaboration-features-in-figma-comments-annotations-and-more/", "page": {"site_name": "GeeksforGeeks \"Advanced Collaboration Features in Figma\"；Medium \"Annotations vs Comments in Figma\"（Comments 临时可 resolve vs Annotations 永久规格）"}}
+{"id": 106, "url": "https://ruslansinkevich.ru/en/blog/inline-diff-snapshots", "page": {"site_name": "Ruslan Sinkevich 博客 \"Inline diff & snapshots\"（Skycode：per-message 快照 + pending 标记不落盘）"}}
+{"id": 107, "url": "https://github.com/buddingnewinsights/pi-diff/", "page": {"site_name": "pi-diff 开源项目（edit-guard：oldText 过期即阻止写入）"}}
+{"id": 108, "url": "https://365.wps.cn/content/137f715766ca425681d2ad5bda63a938.html", "page": {"site_name": "WPS 365 官方内容《协同编辑怎么减少冲突？企业级 OT 算法与 CRDT 技术》（段落级锁定 + 冲突高亮一键选用）"}}
+{"id": 109, "url": "https://www.nr7.in/AI-is-not-autopilot", "page": {"site_name": "Naresh Rokkam \"AI Is Not Autopilot: Designing Copilot Interfaces\"（diff not overwrite / 临时态视觉 / 一键 undo）"}}
+{"id": 110, "url": "https://note.com/light_quoll2409/n/nd56cef1ac84c3", "page": {"site_name": "Cursor 官方文档 Checkpoints（经 note.com 日文指南与知乎教程转述：\"Checkpoints are not version control\"，只跟踪 agent 改动）"}}
+{"id": 111, "url": "https://github.com/anthropics/anthropic-quickstarts/blob/main/computer-use-demo/README.md", "page": {"site_name": "Anthropic computer-use-demo 官方 README（anthropic-quickstarts）"}}
+{"id": 112, "url": "https://pypi.org/project/e2b-desktop/", "page": {"site_name": "E2B Desktop SDK（PyPI e2b-desktop / 官方 docs computer-use）"}}
+{"id": 113, "url": "https://best-of-web.builder.io/library/SeleniumHQ/docker-selenium", "page": {"site_name": "docker-selenium 官方镜像文档（best-of-web 镜像）"}}
+{"id": 114, "url": "https://github.com/browser-use/webui", "page": {"site_name": "Browser Use WebUI（GitHub）"}}
+{"id": 115, "url": "https://github.com/kasmtech/KasmVNC", "page": {"site_name": "KasmVNC 官方 README（GitHub kasmtech/KasmVNC）"}}
+{"id": 116, "url": "https://dl.acm.org/doi/10.1145/3437881", "page": {"site_name": "ACM TOMM 论文（Huang et al.）：On the Performance Comparisons of Native and Clientless Real-Time Screen-Sharing Technologies（受控网络实测 noVNC 端到端延迟约 54 ms、RDP 51 ms）"}}
+{"id": 117, "url": "https://www.cs.oberlin.edu/~ctaylor/pubs/cbtaylor_cts10.pdf", "page": {"site_name": "Taylor & Taylor：Improving Video Performance in VNC Under Latency（CTS 2010；VNC 拉取式协议帧率上限 ≈1/RTT，150 ms 网络延迟下客户端更新率降约 10 倍）"}}
+{"id": 118, "url": "https://mediamtx.net/", "page": {"site_name": "mediamtx 官网"}}
+{"id": 119, "url": "https://www.mdpi.com/2073-431X/15/1/62", "page": {"site_name": "MDPI Computers：Low-Latency Hybrid RTSP-WebRTC Architecture 实测"}}
+{"id": 120, "url": "https://rrweb.com/glossary/session-replay", "page": {"site_name": "rrweb 官网 glossary / Bright Coding rrweb 深度文"}}
+{"id": 121, "url": "https://turbovnc.org/About/Introduction", "page": {"site_name": "TurboVNC 官方介绍（5 Mbps 宽带可传 10–12 百万像素/秒降质画面；感知无损画质需 100 Mbps 级局域网）"}}
+{"id": 122, "url": "https://dev.to/programmingcentral/streaming-browser-execution-video-feeds-to-frontend-react-components-the-ultimate-guide-to-3613", "page": {"site_name": "dev.to：Streaming Browser Execution Video Feeds（1080p RGBA 帧体积）"}}
+{"id": 123, "url": "https://tessl.io/registry/skills/github/citrolabs/ego-lite/ego-browser", "page": {"site_name": "ego-browser skill 文档（Tessl registry）"}}
+{"id": 124, "url": "https://scrapfly.io/blog/posts/human-in-the-loop-cloud-browsers", "page": {"site_name": "Scrapfly 工程博客：Human-in-the-Loop Cloud Browsers"}}
+{"id": 125, "url": "https://docs.browser-use.com/customize/sensitive-data", "page": {"site_name": "browser-use 官方文档 sensitive_data"}}
+{"id": 126, "url": "https://docs.browserbase.com/features/session-live-view", "page": {"site_name": "Browserbase 官方文档 Session Live View / Session Replay 博客"}}
+{"id": 127, "url": "https://docs.steel.dev/overview/sessions-api/human-in-the-loop", "page": {"site_name": "Steel 官方文档 Human-in-the-Loop"}}
+{"id": 128, "url": "https://tsl0922.github.io/ttyd/", "page": {"site_name": "ttyd 项目主页"}}
+{"id": 129, "url": "https://code.visualstudio.com/blogs/2017/10/03/terminal-renderer", "page": {"site_name": "VS Code 官方博客：Integrated Terminal Performance Improvements"}}
+{"id": 130, "url": "https://cn.x-cmd.com/install/asciinema/", "page": {"site_name": "X-CMD asciinema 中文推荐页 / dev.to asciinema 对比文"}}
+{"id": 131, "url": "https://blog.asciinema.org/post/", "page": {"site_name": "asciinema 官方博客（player 内建终端模拟器）"}}
+{"id": 132, "url": "https://playwright.dev/docs/trace-viewer", "page": {"site_name": "Playwright 官方文档 Trace Viewer / Videos"}}
+{"id": 133, "url": "https://blog.asciinema.org/post/three-point-o/", "page": {"site_name": "asciinema 官方博客 3.0 发布文 / CLI quick-start（`asciinema session -o demo.cast -r -l` 原文出处）/ streaming 文档"}}
+{"id": 134, "url": "https://qaskills.sh/blog/playwright-trace-viewer-complete-guide-2026", "page": {"site_name": "qaskills.sh Playwright Trace Viewer 完整指南"}}
+{"id": 135, "url": "https://github.com/OpenHands/trajectory-visualizer", "page": {"site_name": "OpenHands trajectory-visualizer（GitHub）"}}
+{"id": 136, "url": "https://swe-agent.com/latest/usage/inspector/", "page": {"site_name": "SWE-agent 官方文档 Trajectory Inspector"}}
+{"id": 137, "url": "https://arxiv.org/html/2604.28138v1", "page": {"site_name": "Crab 论文（arXiv 2604.28138，环境 checkpoint 分级）"}}
+{"id": 138, "url": "https://kagan.ai/catalog/vol-13/", "page": {"site_name": "The Agent UX Patterns Catalog Vol.13（kagan.ai）"}}
+{"id": 139, "url": "https://aiuxplayground.com/teardowns/perplexity/citations", "page": {"site_name": "aiuxplayground Perplexity Citations teardown"}}
+{"id": 140, "url": "https://github.com/OpenHands/OpenHands/issues/12102", "page": {"site_name": "OpenHands GitHub issue #12102"}}
+{"id": 141, "url": "https://github.com/anthropics/claude-code/issues/27577", "page": {"site_name": "anthropics/claude-code issues #27577 / #25776 / #12589"}}
+{"id": 142, "url": "https://forum.cursor.com/t/transcripts-no-longer-exported-in-full/150214", "page": {"site_name": "Cursor Community Forum（官方工程师 deanrie 回复）"}}
+{"id": 143, "url": "https://openai.com/index/introducing-deep-research/", "page": {"site_name": "OpenAI 官方公告 Introducing deep research"}}
+{"id": 144, "url": "https://nimasadri11.github.io/random/annotated-agent/", "page": {"site_name": "The Annotated Coding Agent；how-claude-code-works 社区逆向分析"}}
+{"id": 145, "url": "https://terminalskills.io/skills/aider", "page": {"site_name": "Aider best practices；aidermacs 配置文档"}}
+{"id": 146, "url": "https://github.com/anthropics/claude-code/issues/8723", "page": {"site_name": "anthropics/claude-code issue #8723"}}
+{"id": 147, "url": "https://gordonbeeming.com/blog/2026-03-22/building-a-custom-claude-code-status-line", "page": {"site_name": "gordonbeeming.com 自定义状态栏教程；ccusage statusline 文档"}}
+{"id": 148, "url": "https://github.com/anthropics/claude-code/issues/35374", "page": {"site_name": "anthropics/claude-code issues #35374 / #66021"}}
+{"id": 149, "url": "https://code.claude.com/docs/en/costs", "page": {"site_name": "Claude Code 官方文档 costs"}}
+{"id": 150, "url": "https://code.claude.com/docs/en/interactive-mode", "page": {"site_name": "Claude Code 官方文档 Interactive mode；aq.dev 跨 CLI 对比"}}
+{"id": 151, "url": "https://code.claude.com/docs/en/sub-agents", "page": {"site_name": "Claude Code 官方文档 sub-agents / tools-reference"}}
+{"id": 152, "url": "https://github.com/anthropics/claude-code/issues/5974", "page": {"site_name": "anthropics/claude-code issue #5974（Subagent Execution Transparency mockup）"}}
+{"id": 153, "url": "https://www.buildfastwithai.com/ai-tools/devin", "page": {"site_name": "buildfastwithai Devin 评测"}}
+{"id": 154, "url": "https://www.microsoft.com/en-us/research/blog/magentic-ui-an-experimental-human-centered-web-agent/", "page": {"site_name": "Microsoft Research 官方博客 Magentic-UI"}}
+{"id": 155, "url": "https://www.uml-diagrams.org/dependency.html", "page": {"site_name": "UML Dependency（uml-diagrams.org）"}}
+{"id": 156, "url": "https://time.geekbang.org/column/article/598258", "page": {"site_name": "极客时间 TurboFan/Sea of Nodes 课程"}}
+{"id": 157, "url": "https://es.mathworks.com/help/systemcomposer/gs/system-composer-concepts.html", "page": {"site_name": "MATLAB System Composer Concepts 官方文档"}}
+{"id": 158, "url": "https://www.zybuluo.com/songying/note/1359822", "page": {"site_name": "TensorFlow 数据流图中文笔记（转述官方文档）"}}
+{"id": 159, "url": "https://cloud.tencent.com/developer/article/2689527", "page": {"site_name": "ComfyUI 中文教程（腾讯云开发者社区）"}}
+{"id": 160, "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/basic-scripting?application_version=4.27", "page": {"site_name": "Unreal Engine Blueprint Visual Scripting 官方文档"}}
+{"id": 161, "url": "https://code.blender.org/2025/08/new-socket-shapes/", "page": {"site_name": "Blender 官方设计文：New Socket Shapes"}}
+{"id": 162, "url": "https://liambx.com/blog/tuning-edge-animations-reactflow-optimal-performance", "page": {"site_name": "Liam ERD 工程博客：Tuning Edge Animations in React Flow"}}
+{"id": 163, "url": "https://forums.unrealengine.com/t/helixthehare-gridline-blueprints/2702839", "page": {"site_name": "UE 论坛：Gridline Blueprints 插件帖"}}
+{"id": 164, "url": "https://www.stork.ai/blog/de/n8n-20s-quiet-killer-feature", "page": {"site_name": "Stork.ai 评测：n8n 2.0's Quiet Killer Feature"}}
+{"id": 165, "url": "https://comfy.icu/extension/Bob-Bar-B-Que__ComfyUI-AnimatedLinks", "page": {"site_name": "ComfyUI AnimatedLinks 扩展（comfy.icu）"}}
+{"id": 166, "url": "https://harrykp.vercel.app/", "page": {"site_name": "A2A Trace 项目页（harrykp.vercel.app）"}}
+{"id": 167, "url": "https://github.com/orgs/langfuse/discussions/16924", "page": {"site_name": "Langfuse Discussions #16924（泳道共享时间轴需求）"}}
+{"id": 168, "url": "https://www.theseus.fi/bitstream/handle/10024/886834/Feodorof_Cristian.pdf", "page": {"site_name": "Theseus 论文：Factorio 用于生产/库存控制教学（引 Boardman & Krejci 2021）"}}
+{"id": 169, "url": "https://news.ycombinator.com/item?id=24181783", "page": {"site_name": "HN 讨论：Factorio and Software Engineering"}}
+{"id": 170, "url": "https://blog.comfy.org/p/subgraphs-are-coming-to-comfyui", "page": {"site_name": "Comfy 官方博客：Subgraphs are coming to ComfyUI"}}
+{"id": 171, "url": "https://docs.langchain.com/oss/python/langgraph/use-subgraphs", "page": {"site_name": "LangGraph 官方文档：Use Subgraphs"}}
+{"id": 172, "url": "https://docs.crewai.com/en/concepts/flows", "page": {"site_name": "CrewAI 官方文档：Flows"}}
+{"id": 173, "url": "https://dev.to/gabrielanhaia/time-travel-debugging-for-ai-agents-with-langgraphjs-checkpoints-42ie", "page": {"site_name": "Time-Travel Debugging for AI Agents with LangGraph.js Checkpoints — dev.to (Gabriel Anhaia)"}}
+{"id": 174, "url": "https://news.ycombinator.com/item?id=47205382", "page": {"site_name": "Show HN: AgentLens — Hacker News"}}
+{"id": 175, "url": "https://docs.langchain.com/langsmith/run-data-format", "page": {"site_name": "Run (span) data format — LangChain Docs"}}
+{"id": 176, "url": "https://langfuse.com/docs/observability/data-model", "page": {"site_name": "Observability Data Model — Langfuse Docs"}}
+{"id": 177, "url": "https://gitee.com/liwen_test_sync_group/a2a-protocol/blob/main/schema/spec.txt", "page": {"site_name": "A2A Protocol Specification（AgentCard，Gitee 镜像全文）"}}
+{"id": 178, "url": "https://docs.e2b.dev/sandbox/persistence", "page": {"site_name": "Sandbox Persistence — E2B Docs"}}
+{"id": 179, "url": "https://kubernetes.io/docs/concepts/workloads/pods/pod-condition/", "page": {"site_name": "Pod Conditions / Pod Lifecycle — kubernetes.io"}}
+{"id": 180, "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands", "page": {"site_name": "Workflow commands（::add-mask::）— GitHub Docs"}}
+{"id": 181, "url": "https://electric.ax/blog/2026/04/08/ai-agents-as-crdt-peers-with-yjs", "page": {"site_name": "AI agents as CRDT peers with Yjs — electric.ax"}}
+{"id": 182, "url": "https://blog.stackademic.com/letta-platform-for-stateful-llm-agents-a83b58a1c926", "page": {"site_name": "Letta: Platform for Stateful LLM Agents — stackademic"}}
+{"id": 183, "url": "https://github.com/jagenjo/litegraph.js/", "page": {"site_name": "LiteGraph.js GitHub README"}}
+{"id": 184, "url": "https://github.com/excalidraw/excalidraw/issues/8136", "page": {"site_name": "Excalidraw issue #8136（性能基准）/ #6262（双 canvas）；CVE-2024-32472 Advisory"}}
+{"id": 185, "url": "https://github.com/vento007/canvas_kit", "page": {"site_name": "canvas_kit GitHub；Vyuh Node Flow 官网"}}
+{"id": 186, "url": "https://www.npmjs.com/package/reactflow", "page": {"site_name": "reactflow npm 官方包说明（d3-zoom/zustand 底座）"}}
+{"id": 187, "url": "https://reactflow.dev/learn/customization/utility-classes", "page": {"site_name": "Utility Classes（nodrag/nopan）— reactflow.dev"}}
+{"id": 188, "url": "https://hysenlabs.com/en/projects/tldraw-tldraw", "page": {"site_name": "tldraw SDK…With a License Catch — Hysen Labs"}}
+{"id": 189, "url": "https://tldraw.dev/sdk-features/cursors", "page": {"site_name": "Cursors / Collaboration — tldraw 官方文档；tldraw sync 架构分析"}}
+{"id": 190, "url": "https://retejs.org/docs/migration/", "page": {"site_name": "Migration to v2 — Rete.js 官方文档"}}
+{"id": 191, "url": "https://github.com/jerosoler/Drawflow", "page": {"site_name": "Drawflow GitHub README"}}
+{"id": 192, "url": "https://skillselion.com/skills/existential-birds/beagle/react-flow-architecture", "page": {"site_name": "React Flow 架构性能分档（社区整理）；The Ultimate Guide to Optimize React Flow Performance — Medium (Łukasz Jazwa)"}}
+{"id": 193, "url": "https://github.com/xyflow/xyflow/discussions/2849", "page": {"site_name": "xyflow Discussion #2849（fitView 与 minZoom/maxZoom 一致性）"}}
+{"id": 194, "url": "https://docs.devin.ai/product-guides/knowledge", "page": {"site_name": "Devin 官方文档：Knowledge（建议→人审→入库→触发器召回）；fast.io Devin Knowledge 使用指南"}}
+{"id": 195, "url": "https://tldraw.dev/legal/tldraw-license", "page": {"site_name": "tldraw 官方 SDK License（4.x，生产环境需 license key）；tldraw 官方博客：20 things I wish AI chatbots knew about tldraw（hobby 许可水印、100 天试用）"}}
