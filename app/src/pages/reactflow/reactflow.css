@@ -1,0 +1,46 @@
+/* React Flow 适配层样式覆盖（design.md §2 画布全局） */
+
+.react-flow {
+  background: var(--canvas-bg);
+}
+
+/* 自定义节点：去掉默认样式，选中态由 NodeShell 描边承担 */
+.react-flow__node {
+  z-index: var(--z-node);
+}
+.react-flow__node.selected {
+  z-index: var(--z-node-selected);
+}
+.react-flow__node.dragging {
+  z-index: var(--z-node-dragging);
+}
+
+/* 边层低于节点层（§1.3 z-index 阶梯） */
+.react-flow__edges {
+  z-index: var(--z-edge);
+}
+
+/* Handle 只做边锚点，不可见不可连 */
+.react-flow__handle {
+  pointer-events: none;
+  border: none;
+  background: transparent;
+}
+
+/* Minimap（§2.2.3）：200×130，surface-1 底 + border-subtle 描边，视口框 border-strong */
+.react-flow__minimap {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-inner);
+  overflow: hidden;
+}
+.react-flow__minimap-viewport {
+  fill: rgba(56, 65, 90, 0.28);
+  stroke: var(--border-strong);
+  stroke-width: 2;
+  rx: 2;
+}
+
+.react-flow__attribution {
+  background: transparent;
+  color: var(--text-tertiary);
+}
