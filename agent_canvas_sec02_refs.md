@@ -1,0 +1,29 @@
+# 第 2 章 来源映射
+
+- [^1^] tldraw 官方文档：Embed shape（单击选中/双击交互模式、sandbox 分级） | https://tldraw.dev/sdk-features/embed-shape | 2026（检索快照）
+- [^2^] 掘金工程博客：拖拽经过 iframe 时 mousemove 被吞的解法（pointer-events:none/auto） | https://juejin.cn/post/6885588334182137870 | 2020-10-20
+- [^3^] SeleniumHQ docker-selenium（内置 noVNC，SE_VNC_VIEW_ONLY=1 只读模式；旁证 E2B getUrl({viewOnly:true})） | https://github.com/SeleniumHQ/docker-selenium | 2026（检索快照）
+- [^4^] OpenAI 官方：Introducing Operator（takeover mode 接管期不截图、不收集用户输入） | https://openai.com/index/introducing-operator/ | 2025-01-23
+- [^5^] LangChain 官方文档：Human-in-the-loop（approve/edit/reject/respond 四类决策，按工具粒度配置） | https://docs.langchain.com/oss/python/langchain/human-in-the-loop | 2026-09（访问）
+- [^6^] tldraw 官方文档：Focus（多编辑器手动管理 focus/blur，blur 自动 complete()） | https://tldraw.dev/sdk-features/focus | 2026（检索快照）
+- [^7^] tldraw 官方性能文档（getEfficientZoomLevel 防抖、屏幕像素尺寸 LOD 阈值、空间索引裁剪、选中/编辑不裁剪、图片分辨率分级） | https://tldraw.dev/sdk-features/performance | 2026-01-31
+- [^8^] GEOMAR 硕士论文：Semantic Zoom With Immersive Detail View for ExplorViz（Semantic Zoom Manager 离散档位统一调度） | https://oceanrep.geomar.de/61118/1/MSc-Bamberg.pdf | 未标注（检索快照）
+- [^9^] React Flow 官方示例：Contextual Zoom（按 zoom 切换内容/占位视图） | https://reactflow.dev/examples/interaction/contextual-zoom | 2026-08-31（页面快照）
+- [^10^] VisualFlow 工程博客：Architecting for Massive Scale in React Flow（zoom<0.5 换轻量占位节点；全局视图绕过虚拟化） | https://www.visualflow.dev/blogs/scale-studio-pro | 2026-05-24
+- [^11^] yFiles 官方 demo：Level of Detail Style（detail/intermediate/overview 三级；按 zoom 切换 WebGL/SVG） | https://www.yfiles.com/demos/style/level-of-detail-style/ | 2026-01-23
+- [^12^] ComfyUI 官方设置文档：LiteGraph Canvas Settings（低质量渲染 zoom 阈值默认 0.6，0.1–1.0 可调） | https://docs.comfy.org/interface/settings/lite-graph | 2026-09-02
+- [^13^] Grafloria demo gallery（high→medium→sketch→low 四级语义缩放；reduced-motion 静态降级） | https://grafloria.com/demos/index.html | 2026-05-06（检索）
+- [^14^] workflowbuilder.io：Live Workflow Execution Visualization（一瞥三问；90 秒 LLM 调用与挂起节点外观相同） | https://www.workflowbuilder.io/blog/live-workflow-execution-visualization | 2026-06-19
+- [^15^] Dify 官方博客：Dify 1.5.0 Real-Time Workflow Debugging（Last Run = 每节点 flight recorder） | https://dify.ai/blog/dify-1-5-0-real-time-workflow-debugging-that-actually-works | 2025-06-25
+- [^16^] Medium（raw-fun-gaming）：Keeping iframes Running When Hidden（display:none/opacity/clip-path 均被冻结；遮罩法保活） | https://medium.com/raw-fun-gaming/keeping-iframes-running-when-hidden-a-journey-through-browser-optimizations-18f83ac0a334 | 2025-06-20
+- [^17^] Svelte Flow API Reference（onlyRenderVisibleElements 视口裁剪，与 React Flow 同 xyflow 代码库） | https://svelteflow.dev/api-reference/svelte-flow | 2026-08-24
+- [^18^] GitHub Comfy-Org/ComfyUI_frontend issue #14599（GPU 合成器竞争 ~47%、实时预览流 ~23%、DOM 更新 ~30%） | https://github.com/Comfy-Org/ComfyUI_frontend/issues/14599 | 2026-08-03
+- [^19^] GitHub Comfy-Org/ComfyUI_frontend issue #10831（Nodes 2.0 DOM 化后 60+→<5 FPS） | https://github.com/Comfy-Org/ComfyUI_frontend/issues/10831 | 2026-04-02
+- [^20^] GitHub puppeteer issue #478（Page.startScreencast 实测约 5fps，headless 1fps） | https://github.com/puppeteer/puppeteer/issues/478 | 2022-03-11
+- [^21^] GitHub adobe/react-spectrum issue #10506（"Move the DOM node; do not re-target the React portal. Otherwise: remount, iframe reload, focus loss."） | https://github.com/adobe/react-spectrum/issues/10506 | 2026-08-24
+- [^22^] WebKit Bugzilla #133801（CSS scale 放大含 fixed 定位内容的 iframe 导致整体模糊） | https://bugs.webkit.org/show_bug.cgi?id=133801 | 2014-06-12（2019 仍有活动）
+- [^23^] React Flow 官方文档：Common Errors（CSS transform 缩放下 DOM 尺寸不变，坐标需乘 1/zoom 校正） | https://reactflow.dev/learn/troubleshooting/common-errors | 2026-08-31（页面快照）
+- [^24^] tldraw 官方示例：Focus Mode（isFocusMode 隐藏全部 UI 的无干扰模式） | https://tldraw.dev/examples/focus-mode | 2026-03-01（页面快照）
+- [^25^] GitHub n8n-io/n8n issue #27961（2.14.x 画布执行高亮回归 bug） | https://github.com/n8n-io/n8n/issues/27961 | 2026-04-02
+- [^26^] altaitools：n8n 排错指南（13 例求助中约 6 例根因为错误标识图标太小被忽略） | https://altaitools.com/n8n-workflow-has-issues-and-cannot-be-executed/ | 2026-09-02
+- [^27^] ComfyUI Cloud 节点文档：Fill Example Progress Bar（"40 秒无反馈像死机"；后端 ProgressBar 驱动 UI 百分比） | https://comfy.icu/node/FLExampleProgressBar | 2026-08-25

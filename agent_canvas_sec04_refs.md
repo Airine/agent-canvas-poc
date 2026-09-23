@@ -1,0 +1,33 @@
+# 第 4 章 操作可视化节点 · 来源映射
+
+- [^1^] Anthropic computer-use-demo 官方 README（anthropic-quickstarts） | https://github.com/anthropics/anthropic-quickstarts/blob/main/computer-use-demo/README.md | 2024-08-29
+- [^2^] E2B Desktop SDK（PyPI e2b-desktop / 官方 docs computer-use） | https://pypi.org/project/e2b-desktop/ | 2025-07-26
+- [^3^] docker-selenium 官方镜像文档（best-of-web 镜像） | https://best-of-web.builder.io/library/SeleniumHQ/docker-selenium | 2024-06-10
+- [^4^] Browser Use WebUI（GitHub） | https://github.com/browser-use/webui | 检索 2026
+- [^5^] KasmVNC 官方 README（GitHub kasmtech/KasmVNC） | https://github.com/kasmtech/KasmVNC | 2020-09-13 起持续更新
+- [^6^] mediamtx 官网 | https://mediamtx.net/ | 2026-07-31
+- [^7^] MDPI Computers：Low-Latency Hybrid RTSP-WebRTC Architecture 实测 | https://www.mdpi.com/2073-431X/15/1/62 | 2026-01-16
+- [^8^] Puppeteer GitHub issue #478（CDP screencast 帧率实测） | https://github.com/puppeteer/puppeteer/issues/478 | 2022-03-11
+- [^9^] dev.to：Streaming Browser Execution Video Feeds（1080p RGBA 帧体积） | https://dev.to/programmingcentral/streaming-browser-execution-video-feeds-to-frontend-react-components-the-ultimate-guide-to-3613 | 2026-08-06
+- [^10^] Browserbase 官方文档 Session Live View / Session Replay 博客 | https://docs.browserbase.com/features/session-live-view ；https://www.browserbase.com/blog/session-replay | 2026-05-14 / 2026-09-18
+- [^11^] Steel 官方文档 Human-in-the-Loop | https://docs.steel.dev/overview/sessions-api/human-in-the-loop | 2026-06-12
+- [^12^] ego-browser skill 文档（Tessl registry） | https://tessl.io/registry/skills/github/citrolabs/ego-lite/ego-browser | 2026-08-16
+- [^13^] OpenAI Introducing Operator / ChatGPT agent 帮助中心 | https://openai.com/index/introducing-operator/ ；https://help.openai.com/en/articles/11752874-chatgpt-agent | 2025-01-23 / 2026-09-22
+- [^14^] Scrapfly 工程博客：Human-in-the-Loop Cloud Browsers | https://scrapfly.io/blog/posts/human-in-the-loop-cloud-browsers | 2026-07-24
+- [^15^] browser-use 官方文档 sensitive_data | https://docs.browser-use.com/customize/sensitive-data | 检索 2026（经 dim08/交叉验证条目 10）
+- [^16^] ttyd 项目主页 | https://tsl0922.github.io/ttyd/ | 持续维护至 2025
+- [^17^] VS Code 官方博客：Integrated Terminal Performance Improvements | https://code.visualstudio.com/blogs/2017/10/03/terminal-renderer | 2017-10-03
+- [^18^] asciinema 官方文档 asciicast v2 格式规范 | https://docs.asciinema.org/manual/asciicast/v2/ | 2018-02-18（v2 发布）
+- [^19^] X-CMD asciinema 中文推荐页 / dev.to asciinema 对比文 | https://cn.x-cmd.com/install/asciinema/ ；https://dev.to/anderson_leite/asciinema-the-secret-weapon-for-better-documentation-training-and-handovers-1m9i | 2026-08-14 / 2025-11-19
+- [^20^] asciinema 官方博客（player 内建终端模拟器） | https://blog.asciinema.org/post/ | 2016-01-06 起
+- [^21^] rrweb 官网 glossary / Bright Coding rrweb 深度文 | https://rrweb.com/glossary/session-replay ；https://www.blog.brightcoding.dev/2025/09/01/record-and-replay-user-sessions-on-the-web-a-deep-dive-with-rrweb | 2026-09-20
+- [^22^] asciinema 官方博客 3.0 发布文 / CLI quick-start（`asciinema session -o demo.cast -r -l` 原文出处）/ streaming 文档 | https://blog.asciinema.org/post/three-point-o/ ；https://docs.asciinema.org/manual/cli/quick-start/ ；https://docs.asciinema.org/manual/server/streaming/ | 2025-09-15
+- [^23^] Playwright 官方文档 Trace Viewer / Videos | https://playwright.dev/docs/trace-viewer ；https://playwright.dev/docs/videos | 检索 2026-07
+- [^24^] qaskills.sh Playwright Trace Viewer 完整指南 | https://qaskills.sh/blog/playwright-trace-viewer-complete-guide-2026 | 2026-05-22
+- [^25^] OpenHands trajectory-visualizer（GitHub） | https://github.com/OpenHands/trajectory-visualizer | 2025-02-27
+- [^26^] SWE-agent 官方文档 Trajectory Inspector | https://swe-agent.com/latest/usage/inspector/ | 2025（v1.x 现行）
+- [^27^] LangChain 官方文档 LangGraph Time Travel | https://docs.langchain.com/oss/python/langgraph/use-time-travel | 2026-06-11
+- [^28^] Crab 论文（arXiv 2604.28138，环境 checkpoint 分级） | https://arxiv.org/html/2604.28138v1 | 2026-04-30
+- [^29^] ACM TOMM 论文（Huang et al.）：On the Performance Comparisons of Native and Clientless Real-Time Screen-Sharing Technologies（受控网络实测 noVNC 端到端延迟约 54 ms、RDP 51 ms） | https://dl.acm.org/doi/10.1145/3437881 | 2021（ACM TOMM 17 卷）
+- [^30^] Taylor & Taylor：Improving Video Performance in VNC Under Latency（CTS 2010；VNC 拉取式协议帧率上限 ≈1/RTT，150 ms 网络延迟下客户端更新率降约 10 倍） | https://www.cs.oberlin.edu/~ctaylor/pubs/cbtaylor_cts10.pdf | 2010
+- [^31^] TurboVNC 官方介绍（5 Mbps 宽带可传 10–12 百万像素/秒降质画面；感知无损画质需 100 Mbps 级局域网） | https://turbovnc.org/About/Introduction | 2024-07-26（页面更新）
