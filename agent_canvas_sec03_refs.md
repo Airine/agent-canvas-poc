@@ -1,0 +1,38 @@
+# 第 3 章来源映射（产物实时可视化节点）
+
+- [^1^] Aider GitHub issue #625（全量重写 vs diff 实证讨论） | https://github.com/Aider-AI/aider/issues/625 | 2024-05-29
+- [^2^] Anish Gandhi 技术分析 "Why AI coding tools rewrite full files instead of using diffs"（400 行分界；Morph fast-apply 1000 行 1.3s vs Sonnet 10–12s） | https://anishgandhi.com/why-ai-tools-dont-use-diffs/ | 2026-01-16
+- [^3^] OpenReview 论文（MT-SECCODEPLT 基准，多轮场景 whole-code 更稳）；modern-ai-guide《coding agents》文档（unified diff 可审计、失败响亮） | https://openreview.net/pdf/0a3bc2ca1a28fe7de0cdc2b00b66116b8f68d99e.pdf ; https://github.com/tonyx1998/modern-ai-guide/blob/main/docs/10-patterns/coding-agents.md | 2025/2026；2026-05-24
+- [^4^] Cursor 官方博客 "Editing Files at 1000 Tokens per Second"（原文已下线，经 getbind 转载） | https://cursor.com/blog/instant-apply ; https://blog.getbind.co/how-cursor-ai-implemented-instant-apply-file-editing-at-1000-tokens-per-second/ | 2024-05-14（原发）；2024-10-02（转载）
+- [^5^] OpenAI 官方公告 "Introducing canvas"（targeted edit vs rewrite；back button 恢复旧版；+18%） | https://openai.com/index/introducing-canvas/ | 2024-10-03
+- [^6^] 掘金实战文《AI 对话流式输出：实现"逐字丝滑、不闪烁、不卡顿"的打字机效果》 | https://juejin.cn/post/7628156673577926694 | 2026-04-14
+- [^7^] Vercel 官方 changelog "Introducing Streamdown" | https://vercel.com/changelog/introducing-streamdown | 2025-08-21
+- [^8^] Shiki 官方文档 @shikijs/stream | https://shiki.style/packages/stream | 无日期（持续更新）
+- [^9^] 飞书 CardKit 官方 API 文档 card-element/content（经 GitHub issue m1heng/clawdbot-feishu#446 根因分析引用） | https://open.feishu.cn/document/cardkit-v1/card-element/content ; https://github.com/m1heng/clawdbot-feishu/issues/446 | 2026-06-04（issue）
+- [^10^] Vercel AI SDK 官方文档 "Generating Structured Data"（streamObject/useObject）；LangChain 论坛（withStructuredOutput 不流式） | https://ai-sdk.dev/docs/ai-sdk-core/generating-structured-data ; https://forum.langchain.com/t/how-to-stream-a-json-by-using-a-chat-provider/1638 | 无日期；2025-09-25
+- [^11^] Flowith 架构分析 "Gamma App 2026"（大纲优先 + 并行 narrative graph，30–60s 出 deck） | https://flowith.io/blog/gamma-app-2026-one-sentence-prompt-polished-deck-60-seconds/ | 2026（无具体日期）
+- [^12^] Thesys 官方博客 "Claude in PowerPoint"（逐 slide 实时渲染） | https://www.thesys.dev/blogs/claude-in-powerpoint | 2026-02-09
+- [^13^] Lovable 官方文档 "Preview and test your app"（Live preview 开关） | https://docs.lovable.dev/features/projects/preview | 2026-09-10（抓取时间）
+- [^14^] The Pragmatic Engineer "How Anthropic built Artifacts"（iframe sandbox + 全站进程隔离 + 严格 CSP） | https://newsletter.pragmaticengineer.com/p/how-anthropic-built-artifacts | 2024-08-27
+- [^15^] v0 官方文档 "Accessing Previews"；Vercel 官方博客 "Introducing the new v0 API" | https://v0.app/docs/api/v2/guides/accessing-previews ; https://vercel.com/blog/introducing-the-new-v0-api | 无日期；2026-08-05
+- [^16^] Sandpack 官方文档 Architecture / Client | https://sandpack.codesandbox.io/docs/architecture/overview | 无日期（持续更新）
+- [^17^] StackBlitz 官方博客 WebContainers；Bolt.new teardown（openaitoolshub） | https://blog.stackblitz.com/tags/webcontainers/ ; https://www.openaitoolshub.org/ai-product-research/bolt-new | 2021-05（首篇）；2026-05-15
+- [^18^] Unqork 官方文档 Embedded UI Iframe Mode Reference（Shadow DOM vs iframe）；Invicti / WorkOS iframe 安全最佳实践 | https://docs.unqork.io/docs/embedded-ui-iframe-mode-reference ; https://www.invicti.com/blog/web-security/iframe-security-best-practices ; https://workos.com/blog/security-risks-of-iframes | 2026-07-10；2026-07-27；2025-04-10
+- [^19^] GitHub Security Advisory GHSA-m64q-4jqh-f72f / NVD CVE-2024-32472（Excalidraw web embed 存储型 XSS，CVSS 6.1，修复于 0.17.6/0.16.4） | https://github.com/excalidraw/excalidraw/security/advisories/GHSA-m64q-4jqh-f72f ; https://nvd.nist.gov/vuln/detail/CVE-2024-32472 | 2024-04-17
+- [^20^] Anthropic 官方帮助中心 "What are Artifacts and how do I use them?"（版本选择器）；hostsmith.net 实操指南（旧版本编辑 fork 时间线） | https://support.anthropic.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them_ ; https://hostsmith.net/blog/publish-claude-artifact/ | 无日期；2026
+- [^21^] Figma 官方帮助 "View a file's version history"（30 分钟自动 checkpoint + 命名版本 + 只读预览 Restore） | https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history | 无日期（现行文档）
+- [^22^] Notion Page History（notionchina.co / sparxno 转述官方 Help：10 分钟自动快照 + 整版恢复/部分复制） | https://notionchina.co/guide/editing-pages/version-history ; https://www.sparxno.com/blog/notion-page-version-history | 2026-07-24
+- [^23^] livepeer/storyboard 开源项目 remaining-improvements.md（创作分支树，以 Figma 版本历史为心智模型）；coursiv.io Claude Artifacts 解读（消息编辑产生分支） | https://github.com/livepeer/storyboard/blob/main/remaining-improvements.md ; https://coursiv.io/blog/claude-artifacts | 2026-05-25；2026-09-10
+- [^24^] Allo.io 帮助文档 "Use Version History"（恢复前默认保存当前版本） | https://allo.io/help/en/canvas/version-history | 2026-07-08
+- [^25^] Cloud Security Alliance 对 Google Docs Suggestions API 的实测（三种只读预览模式）；Deckoholic Google Docs track-changes 教程 | https://github.com/CloudSecurityAlliance/csa-google-workspace/blob/main/experiments/docs-suggestions/RESULTS.md ; https://www.deckoholic.ai/tutorials/google-docs/track-changes | 2025-05-27；2026-01-12
+- [^26^] GitHub 官方博客 "Introducing split diffs"（经 StackOverflow 引用）；matklad 博客 "Unified vs Split Diff" | https://stackoverflow.com/questions/15048958/ ; https://matklad.github.io/2023/10/23/unified-vs-split-diff.html | 2014-09-03；2023-10-23
+- [^27^] Sentry 官方文档 "Reviewing Snapshots"（split/wipe/onion 三视图 + diff overlay）；getautonoma 视觉回归工具对比（噪声问题与组件级隔离） | https://docs.sentry.io/product/snapshots/reviewing-snapshots/ ; https://getautonoma.com/blog/visual-regression-testing-tools | 无日期；2026-04-25
+- [^28^] v0 官方文档 "Design mode"（Cmd+I inspect，选中元素回写代码） | https://v0.app/docs/design-mode | 无日期
+- [^29^] Lovable 官方文档 "Edit from the preview / Preview Toolbar"（元素 chip 引用、"Point first, then describe"、draw annotation、tag Lovable 转指令） | https://docs.lovable.dev/features/preview-toolbar | 2026-09-17
+- [^30^] navikt/aksel-arcade GitHub Issue #314（Agentation annotation envelope：selector/bbox/样式快照/intent/severity/status） | https://github.com/navikt/aksel-arcade/issues/314 | 2026-06-28
+- [^31^] GeeksforGeeks "Advanced Collaboration Features in Figma"；Medium "Annotations vs Comments in Figma"（Comments 临时可 resolve vs Annotations 永久规格） | https://www.geeksforgeeks.org/advanced-collaboration-features-in-figma-comments-annotations-and-more/ ; https://medium.com/@designerlifestyle/annotations-vs-comments-in-figma-whats-the-difference-and-how-to-use-them-properly-afa415f12a3b | 2025-07-23；2026-02-27
+- [^32^] Ruslan Sinkevich 博客 "Inline diff & snapshots"（Skycode：per-message 快照 + pending 标记不落盘） | https://ruslansinkevich.ru/en/blog/inline-diff-snapshots | 无日期
+- [^33^] pi-diff 开源项目（edit-guard：oldText 过期即阻止写入） | https://github.com/buddingnewinsights/pi-diff/ | 2026-03-30
+- [^34^] WPS 365 官方内容《协同编辑怎么减少冲突？企业级 OT 算法与 CRDT 技术》（段落级锁定 + 冲突高亮一键选用） | https://365.wps.cn/content/137f715766ca425681d2ad5bda63a938.html | 2026-08-16
+- [^35^] Naresh Rokkam "AI Is Not Autopilot: Designing Copilot Interfaces"（diff not overwrite / 临时态视觉 / 一键 undo） | https://www.nr7.in/AI-is-not-autopilot | 2026-08-24
+- [^36^] Cursor 官方文档 Checkpoints（经 note.com 日文指南与知乎教程转述："Checkpoints are not version control"，只跟踪 agent 改动） | https://note.com/light_quoll2409/n/nd56cef1ac84c3 ; https://zhuanlan.zhihu.com/p/1930324407856894708 | 2026-07-29；2025-07-23
