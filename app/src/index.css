@@ -1,0 +1,250 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ============ Agent Canvas 设计令牌 (design.md §1) ============ */
+    /* 1.1.1 基础色板 */
+    --canvas-bg: #0B0D12;
+    --canvas-grid: #1A1E28;
+    --surface-1: #12151D;
+    --surface-2: #181C26;
+    --surface-3: #1F2430;
+    --surface-overlay: rgba(11, 13, 18, 0.72);
+    --border-subtle: #262C3A;
+    --border-strong: #38415a;
+    --text-primary: #E8EAF0;
+    --text-secondary: #9BA3B4;
+    --text-tertiary: #5C6478;
+    --accent: #7C6BF5;
+    --accent-soft: rgba(124, 107, 245, 0.16);
+
+    /* 1.1.2 节点六态色 */
+    --st-queued: #8A93A6;
+    --st-running: #4D9FFF;
+    --st-waiting: #F5A524;
+    --st-completed: #3DC97E;
+    --st-failed: #F2555A;
+    --st-skipped: #5C6478;
+
+    /* 1.1.3 节点类型色（身份色） */
+    --nt-coord: #7C6BF5;
+    --nt-artifact: #2DD4BF;
+    --nt-operation: #F5A524;
+    --nt-chat: #4D9FFF;
+
+    /* 1.1.4 边色 */
+    --edge-strong: #8E84C9;
+    --edge-weak: #4A5165;
+    --edge-error: #F2555A;
+
+    /* 1.2 字体排印（字号令牌经 tailwind fontSize 映射，此处存原始值备查） */
+    --fs-node-title: 13px;
+    --fs-node-meta: 11px;
+    --fs-body: 13px;
+    --fs-small: 11px;
+    --fs-mono: 12px;
+    --fs-focus-title: 16px;
+    --fs-hero: 40px;
+    --fs-h2: 22px;
+
+    /* 1.3 圆角 */
+    --r-node: 10px;
+    --r-inner: 6px;
+    --r-pill: 999px;
+
+    /* 1.3 阴影 */
+    --shadow-node: 0 1px 2px rgba(0, 0, 0, .4), 0 0 0 1px var(--border-subtle);
+    --shadow-node-selected: 0 0 0 2px var(--accent), 0 4px 16px rgba(0, 0, 0, .5);
+    --shadow-overlay: 0 16px 48px rgba(0, 0, 0, .6);
+    --shadow-failed: 0 0 0 2px var(--st-failed);
+
+    /* 1.3 z-index 阶梯 */
+    --z-canvas: 0;
+    --z-edge: 1;
+    --z-node: 10;
+    --z-node-selected: 20;
+    --z-node-dragging: 30;
+    --z-legend: 40;
+    --z-toast: 50;
+    --z-focus-overlay: 60;
+    --z-approval: 70;
+
+    /* 1.4 动效令牌 */
+    --dur-fast: 120ms;
+    --dur-med: 220ms;
+    --dur-focus: 280ms;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur-pulse: 1600ms;
+    --dur-breathe: 2400ms;
+    --dur-particle: 1400ms;
+
+    /* ============ shadcn/ui 变量（映射到深色设计令牌） ============ */
+    --background: 223 24% 6%;        /* --canvas-bg #0B0D12 */
+    --foreground: 225 21% 93%;       /* --text-primary #E8EAF0 */
+    --card: 224 23% 9%;              /* --surface-1 #12151D */
+    --card-foreground: 225 21% 93%;
+    --popover: 222 22% 15%;          /* --surface-3 #1F2430 */
+    --popover-foreground: 225 21% 93%;
+    --primary: 247 87% 69%;          /* --accent #7C6BF5 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 223 23% 12%;        /* --surface-2 #181C26 */
+    --secondary-foreground: 225 21% 93%;
+    --muted: 223 23% 12%;
+    --muted-foreground: 221 14% 66%; /* --text-secondary #9BA3B4 */
+    --accent: 247 87% 69%;           /* 品牌紫 */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 358 86% 64%;      /* --st-failed #F2555A */
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 21% 19%;           /* --border-subtle #262C3A */
+    --input: 222 21% 19%;
+    --ring: 247 87% 69%;
+    --radius: 0.625rem;
+    --sidebar-background: 224 23% 9%;
+    --sidebar-foreground: 225 21% 93%;
+    --sidebar-primary: 247 87% 69%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 223 23% 12%;
+    --sidebar-accent-foreground: 225 21% 93%;
+    --sidebar-border: 222 21% 19%;
+    --sidebar-ring: 247 87% 69%;
+  }
+
+  .dark {
+    /* dark-first 设计：.dark 与 :root 一致 */
+    --background: 223 24% 6%;
+    --foreground: 225 21% 93%;
+    --card: 224 23% 9%;
+    --card-foreground: 225 21% 93%;
+    --popover: 222 22% 15%;
+    --popover-foreground: 225 21% 93%;
+    --primary: 247 87% 69%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 223 23% 12%;
+    --secondary-foreground: 225 21% 93%;
+    --muted: 223 23% 12%;
+    --muted-foreground: 221 14% 66%;
+    --accent: 247 87% 69%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 358 86% 64%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 21% 19%;
+    --input: 222 21% 19%;
+    --ring: 247 87% 69%;
+    --sidebar-background: 224 23% 9%;
+    --sidebar-foreground: 225 21% 93%;
+    --sidebar-primary: 247 87% 69%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 223 23% 12%;
+    --sidebar-accent-foreground: 225 21% 93%;
+    --sidebar-border: 222 21% 19%;
+    --sidebar-ring: 247 87% 69%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  /* 数字一律等宽 + tabular-nums，防止刷新横向跳动 (§1.2) */
+  .tnum {
+    font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* skipped 卡片：60% 透明 + 45° 斜纹（间距 8px，--surface-2 与 transparent）§1.1.2/§3.1 */
+  .node-skipped {
+    opacity: 0.6;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--surface-2) 0px,
+      var(--surface-2) 5px,
+      transparent 5px,
+      transparent 8px
+    );
+  }
+  /* 画布点阵网格：点径 1.5px、间距 24px（§2.1） */
+  .canvas-dots {
+    background-color: var(--canvas-bg);
+    background-image: radial-gradient(circle, var(--canvas-grid) 0.75px, transparent 0.75px);
+    background-size: 24px 24px;
+  }
+  /* 终端底色（§3.3.2） */
+  .terminal-bg {
+    background-color: #0A0C10;
+  }
+}
+
+@layer utilities {
+  /* running 徽章脉冲 1.6s：scale 1→1.15 透明度 1→0.4（A2） */
+  .animate-badge-pulse {
+    animation: badge-pulse var(--dur-pulse) var(--ease-out) infinite;
+  }
+  /* waiting 呼吸闪烁 2.4s（§1.1.2） */
+  .animate-breathe {
+    animation: breathe var(--dur-breathe) ease-in-out infinite;
+  }
+  /* 产物光标块呼吸（§3.3.1） */
+  .animate-cursor-breathe {
+    animation: cursor-breathe 1.2s ease-in-out infinite;
+  }
+  /* 增量块 220ms 淡入（§3.3.1 / A7） */
+  .animate-delta-in {
+    animation: delta-in var(--dur-med) var(--ease-out) both;
+  }
+  /* 终端逐行 60ms 淡入（§3.3.2） */
+  .animate-line-in {
+    animation: delta-in 60ms ease-out both;
+  }
+}
+
+@keyframes badge-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+@keyframes cursor-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes delta-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ 全局降级（§1.4 / A10） ============ */
+/* 系统 prefers-reduced-motion，或手动动画开关（<html data-motion="off">）：
+   关闭全部脉冲/粒子/呼吸动画，替换为静态可供性 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html[data-motion='off'] *,
+html[data-motion='off'] *::before,
+html[data-motion='off'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
