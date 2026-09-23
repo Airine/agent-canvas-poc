@@ -1,0 +1,80 @@
+/**
+ * `/canvas` 适配层工具：耗时格式化 / 状态徽章后缀 / ansi 剥离 / 状态色 hex。
+ * 数据源是契约 CanvasNode（WS 补丁），不是 mock 引擎快照。
+ */
+import { useEffect, useState } from 'react';
+import type { CanvasNode, EdgeKind, NodeStatus } from './live-store';
+
+/** 耗时：`42s` / `3m12s`，等宽数字（§1.2） */
+export function fmtElapsed(ms: number): string {
+  const s = Math.max(0, Math.round(ms / 1000));
+  if (s < 60) return `${s}s`;
+  return `${Math.floor(s / 60)}m${String(s % 60).padStart(2, '0')}s`;
+}
+
+/** 状态徽章后缀（§3.1）：running=elapsed / waiting=reason / done=duration / failed=一行摘要 */
+export function statusDetailFor(node: CanvasNode, nowMs: number): string | undefined {
+  switch (node.status) {
+    case 'running':
+      return fmtElapsed(nowMs - (node.startedAt ?? nowMs));
+    case 'waiting':
+      return node.statusReason;
+    case 'completed':
+      return (
+        node.statusReason ??
+        (node.startedAt !== undefined && node.endedAt !== undefined
+          ? fmtElapsed(node.endedAt - node.startedAt)
+          : undefined)
+      );
+    case 'failed':
+      return node.statusReason;
+    default:
+      return undefined;
+  }
+}
+
+/** running 节点的每秒时钟（徽章耗时每秒刷新，等宽数字防跳动） */
+export function useSecondClock(active: boolean): number {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!active) return;
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, [active]);
+  return now;
+}
+
+/** 剥离 ansi 转义序列（L0 静态快照 / 未订阅节点的静态末屏用） */
+export function stripAnsi(s: string): string {
+  // eslint-disable-next-line no-control-regex
+  return s.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '').replace(/\r/g, '');
+}
+
+/** ansi 全量快照 → 末 N 行纯文本 */
+export function ansiTail(ansi: string | undefined, n: number): string {
+  if (!ansi) return '';
+  const lines = stripAnsi(ansi).split('\n').filter((l) => l.trim().length > 0);
+  return lines.slice(-n).join('\n');
+}
+
+/** 边 hover 语义标签（§4：消解实线/虚线惯例分裂） */
+export const EDGE_KIND_SEMANTIC: Record<EdgeKind, string> = {
+  strong: '强依赖 · 事务',
+  weak: '弱链接 · 通信',
+  error: '错误路由',
+};
+
+/** 节点 DOM 宽（§3.2：默认态固定 400px；Coordinator 320px，§3.3.4） */
+export function nodeWidth(node: CanvasNode): number {
+  return node.type === 'coordinator' ? 320 : 400;
+}
+
+/** minimap 节点色块（SVG fill attribute 不支持 var()，用与令牌一致的 hex） */
+export const STATUS_HEX: Record<NodeStatus, string> = {
+  queued: '#8A93A6',
+  running: '#4D9FFF',
+  waiting: '#F5A524',
+  completed: '#3DC97E',
+  failed: '#F2555A',
+  skipped: '#5C6478',
+};

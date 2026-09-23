@@ -1,0 +1,31 @@
+{
+  "id": "ws-research",
+  "title": "竞品调研 · 双 Agent 并行",
+  "path": "C:/projects/agent-canvas",
+  "description": "与 Demo 同项目的第二个 workspace：双 Agent 并行调研 → 对比分析 → 产出简报。",
+  "graph": {
+    "zones": [
+      { "id": "z-research", "title": "调研" },
+      { "id": "z-analysis", "title": "分析" },
+      { "id": "z-output", "title": "产出" }
+    ],
+    "nodes": [
+      { "id": "n-lead", "type": "coordinator", "title": "调研协调", "status": "queued", "harness": "canvas-orchestrator", "env": "herdr-local", "agentId": "ag-lead-01", "x": 80, "y": 64, "zoneId": "z-research" },
+      { "id": "n-search", "type": "operation", "title": "公开资料检索", "status": "queued", "harness": "claude-code", "env": "herdr-local", "agentId": "ag-search-01", "x": 80, "y": 224, "zoneId": "z-research", "command": "bash scripts/agents/seed-research.sh n-search" },
+      { "id": "n-scrape", "type": "operation", "title": "竞品站点抓取", "status": "queued", "harness": "claude-code", "env": "herdr-local", "agentId": "ag-scrape-01", "x": 80, "y": 384, "zoneId": "z-research", "command": "bash scripts/agents/seed-research.sh n-scrape" },
+      { "id": "n-compare", "type": "operation", "title": "功能对比分析", "status": "queued", "harness": "claude-code", "env": "herdr-local", "agentId": "ag-compare-01", "x": 500, "y": 224, "zoneId": "z-analysis", "command": "bash scripts/agents/seed-research.sh n-compare" },
+      { "id": "n-summary", "type": "operation", "title": "调研纪要", "status": "queued", "harness": "claude-code", "env": "herdr-local", "agentId": "ag-summary-01", "x": 920, "y": 64, "zoneId": "z-output", "command": "bash scripts/agents/seed-research.sh n-summary" },
+      { "id": "n-brief", "type": "chat", "title": "简报问答", "status": "queued", "harness": "claude-code", "env": "herdr-local", "agentId": "ag-brief-01", "x": 920, "y": 224, "zoneId": "z-output", "command": "bash scripts/agents/seed-research.sh n-brief" }
+    ],
+    "edges": [
+      { "id": "e-lead-search", "source": "n-lead", "target": "n-search", "kind": "strong" },
+      { "id": "e-lead-scrape", "source": "n-lead", "target": "n-scrape", "kind": "strong" },
+      { "id": "e-search-compare", "source": "n-search", "target": "n-compare", "kind": "strong" },
+      { "id": "e-scrape-compare", "source": "n-scrape", "target": "n-compare", "kind": "strong" },
+      { "id": "e-compare-summary", "source": "n-compare", "target": "n-summary", "kind": "strong" },
+      { "id": "e-search-brief", "source": "n-search", "target": "n-brief", "kind": "weak", "label": "0 msg/min" },
+      { "id": "e-summary-brief", "source": "n-summary", "target": "n-brief", "kind": "weak", "label": "0 msg/min" }
+    ],
+    "runState": "idle"
+  }
+}

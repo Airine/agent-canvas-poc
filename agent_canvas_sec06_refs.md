@@ -1,0 +1,28 @@
+# 第 6 章 来源映射
+
+- [^1^] BPMN 消息流深度解析（xuexivp） | https://www.xuexivp.com/gallery/deep-dive-bpmn-message-flows-lane-communication/ | 2026-08-26
+- [^2^] UML Dependency（uml-diagrams.org） | https://www.uml-diagrams.org/dependency.html | 检索于 2026
+- [^3^] 极客时间 TurboFan/Sea of Nodes 课程 | https://time.geekbang.org/column/article/598258 | 2022-10-29
+- [^4^] MATLAB System Composer Concepts 官方文档 | https://es.mathworks.com/help/systemcomposer/gs/system-composer-concepts.html | 检索于 2026
+- [^5^] TensorFlow 数据流图中文笔记（转述官方文档） | https://www.zybuluo.com/songying/note/1359822 | 2018-12-11
+- [^6^] ComfyUI 中文教程（腾讯云开发者社区） | https://cloud.tencent.com/developer/article/2689527 | 2026-06-15
+- [^7^] n8n AI 节点教程：ai_tool 虚线连接语义（Flowagenz） | https://flowagenz.com/blog/n8n-ai-node-automate-decisions-with-llms | 2026-07-21
+- [^8^] Unreal Engine Blueprint Visual Scripting 官方文档 | https://dev.epicgames.com/documentation/en-us/unreal-engine/basic-scripting?application_version=4.27 | 检索于 2026
+- [^9^] Blender 官方设计文：New Socket Shapes | https://code.blender.org/2025/08/new-socket-shapes/ | 2025-08-08
+- [^10^] Liam ERD 工程博客：Tuning Edge Animations in React Flow | https://liambx.com/blog/tuning-edge-animations-reactflow-optimal-performance | 2025-01-28
+- [^11^] UE 论坛：Gridline Blueprints 插件帖 | https://forums.unrealengine.com/t/helixthehare-gridline-blueprints/2702839 | 2026-02-28
+- [^12^] Grafloria 图引擎 demo 文档 | https://grafloria.com/demos/index.html | 检索于 2026
+- [^13^] n8n GitHub issue #27961（执行可视化回归） | https://github.com/n8n-io/n8n/issues/27961 | 2026-04-02
+- [^14^] altaitools n8n 排错指南（小红点不可见根因分析） | https://altaitools.com/n8n-workflow-has-issues-and-cannot-be-executed/ | 2026-09-02
+- [^15^] Stork.ai 评测：n8n 2.0's Quiet Killer Feature | https://www.stork.ai/blog/de/n8n-20s-quiet-killer-feature | 2025-12-07
+- [^16^] ComfyUI AnimatedLinks 扩展（comfy.icu） | https://comfy.icu/extension/Bob-Bar-B-Que__ComfyUI-AnimatedLinks | 检索于 2026
+- [^17^] A2A Trace 项目页（harrykp.vercel.app） | https://harrykp.vercel.app/ | 2025
+- [^18^] Langfuse Discussions #16924（泳道共享时间轴需求） | https://github.com/orgs/langfuse/discussions/16924 | 2026-09-02
+- [^19^] Factorio 官方 Wiki：Production statistics | https://wiki.factorio.com/Production_statistics | 2026-01-29
+- [^20^] Theseus 论文：Factorio 用于生产/库存控制教学（引 Boardman & Krejci 2021） | https://www.theseus.fi/bitstream/handle/10024/886834/Feodorof_Cristian.pdf | 未注明（引 2021 研究）
+- [^21^] HN 讨论：Factorio and Software Engineering | https://news.ycombinator.com/item?id=24181783 | 2020-08-16
+- [^22^] Comfy 官方博客：Subgraphs are coming to ComfyUI | https://blog.comfy.org/p/subgraphs-are-coming-to-comfyui | 2025-06-05
+- [^23^] LangGraph 官方文档：Use Subgraphs | https://docs.langchain.com/oss/python/langgraph/use-subgraphs | 检索于 2026
+- [^24^] Dify 官方文档：If-Else 节点页（含循环/迭代容器节点） | https://docs.dify.ai/zh/cloud/use-dify/nodes/ifelse | 2026-06-22
+- [^25^] CrewAI 官方文档：Flows | https://docs.crewai.com/en/concepts/flows | 检索于 2026
+- [^26^] Apatero：ComfyUI reroute/UE 节点整理指南 | https://apatero.com/blog/fix-messy-comfyui-workflows-reroute-nodes-organization-guide-2025/ | 2025-09-15

@@ -1,0 +1,23 @@
+# 第 5 章来源映射
+
+- [^1^] The Agent UX Patterns Catalog Vol.13（kagan.ai） | https://kagan.ai/catalog/vol-13/ | 未标注（检索于 2026）
+- [^2^] aiuxplayground Perplexity Citations teardown | https://aiuxplayground.com/teardowns/perplexity/citations | 2026-06-15
+- [^3^] OpenHands GitHub issue #12102 | https://github.com/OpenHands/OpenHands/issues/12102 | 2025-12-19
+- [^4^] anthropics/claude-code issues #27577 / #25776 / #12589 | https://github.com/anthropics/claude-code/issues/27577 | 2026-02-21 / 2026-02-14 / 2025-11-27
+- [^5^] Cursor Community Forum（官方工程师 deanrie 回复） | https://forum.cursor.com/t/transcripts-no-longer-exported-in-full/150214 | 2026-05-24
+- [^6^] OpenAI 官方公告 Introducing deep research | https://openai.com/index/introducing-deep-research/ | 2025-02-02
+- [^7^] The Annotated Coding Agent；how-claude-code-works 社区逆向分析 | https://nimasadri11.github.io/random/annotated-agent/ ; https://github.com/Windy3f3f3f3f/how-claude-code-works/blob/main/docs/12-user-experience.md | 2026-04-10 / 未标注
+- [^8^] Aider best practices；aidermacs 配置文档 | https://terminalskills.io/skills/aider ; https://gitee.com/mirrors/Aidermacs?skip_mobile=true | 2026-05-13 / 2026-08-30
+- [^9^] anthropics/claude-code issue #8723 | https://github.com/anthropics/claude-code/issues/8723 | 2025-10-01
+- [^10^] arXiv 2509.14528 Why Johnny Can't Use Agents（CMU 用户研究，Manus 界面实测描述） | https://arxiv.org/html/2509.14528 | 2025-09-11
+- [^11^] Claude Code Agent SDK 官方文档 Track todos | https://code.claude.com/docs/en/agent-sdk/todo-tracking | 2026-09-10
+- [^12^] gordonbeeming.com 自定义状态栏教程；ccusage statusline 文档 | https://gordonbeeming.com/blog/2026-03-22/building-a-custom-claude-code-status-line ; https://ccusage.com/guide/statusline | 2026-03-21 / 2026-09-21
+- [^13^] anthropics/claude-code issues #35374 / #66021 | https://github.com/anthropics/claude-code/issues/35374 ; https://github.com/anthropics/claude-code/issues/66021 | 2026-03-17 / 2026-06-07
+- [^14^] Claude Code 官方文档 costs | https://code.claude.com/docs/en/costs | 2026-09-15
+- [^15^] Claude Code 官方文档 Interactive mode；aq.dev 跨 CLI 对比 | https://code.claude.com/docs/en/interactive-mode ; https://aq.dev/guides/steer-coding-agents-mid-run/ | 2026-09-17 / 2026-08-31
+- [^16^] arXiv 2509.14528（N=31 用户研究；暂停键诉求与沟通过载） | https://arxiv.org/html/2509.14528 | 2025-09-11
+- [^17^] Claude Code 官方文档 sub-agents / tools-reference | https://code.claude.com/docs/en/sub-agents ; https://code.claude.com/docs/en/tools-reference | 2026-09-22 / 2026-09-18
+- [^18^] anthropics/claude-code issue #5974（Subagent Execution Transparency mockup） | https://github.com/anthropics/claude-code/issues/5974 | 2025-08-17
+- [^19^] buildfastwithai Devin 评测 | https://www.buildfastwithai.com/ai-tools/devin | 未标注（2026 版评测）
+- [^20^] Microsoft Research 官方博客 Magentic-UI | https://www.microsoft.com/en-us/research/blog/magentic-ui-an-experimental-human-centered-web-agent/ | 2025-05-19
+- [^21^] Siyu's Newsletter（Thoughtworks）AI Agent 产品交互设计：设计模式与案例分析 | https://siyujia.net/posts/ai-agent-hci | 2025-06-07
