@@ -3,6 +3,7 @@ import { Check, Copy, Pencil, X } from 'lucide-react';
 import type { SessionView } from '../../../api/e/contracts';
 import { useLiveStore, type CanvasNode, type LiveStore } from './live-store';
 import { useSession } from './session-store';
+import { QueueReceipts } from './chat/QueueReceipts';
 import { CollaborationStatus } from './chat/CollaborationStatus';
 import { sessionIndicator } from './chat/presentation-state';
 import { ChatPopover } from './chat/ChatPopover';
@@ -99,6 +100,7 @@ export function SessionStatus({ store, node }: { store: LiveStore; node: CanvasN
   </>}>
    <p className="chat-status-label">{indicator.label}</p>{state.reason&&<p className="chat-muted">{state.reason}</p>}{state.warning&&<p className="chat-warning">{state.warning}</p>}
    {usage?<><p className="chat-context-value">{percent}</p><p className="chat-muted">{usage.tokens?.toLocaleString()} / {usage.contextWindow.toLocaleString()} tokens</p><p className="chat-muted">Pi contextUsage · 采集于 <time dateTime={indicator.confirmedAt}>{indicator.confirmedAt}</time></p></>:<p className="chat-muted">{indicator.tone==='danger'?'异常状态优先显示；请查看会话诊断或执行配置核实。':state.pending.length?'请先处理待审批请求。':view?.lifecycle==='ready'?'尚无有效上下文数据，不使用累计 token 估算。':'会话就绪并取得真实用量后显示上下文。'}</p>}
+   <QueueReceipts view={view}/>
    <CollaborationStatus view={view} online={store.connState==='online'}/>
   </ChatPopover>
   <span id={tooltipId} role="tooltip" className="session-status-tooltip chat-control-tooltip is-below">{indicator.label}{usage?` · 上下文 ${percent}`:''} · 点击查看详情</span>

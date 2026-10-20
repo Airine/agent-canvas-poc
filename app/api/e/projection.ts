@@ -14,6 +14,8 @@ export function projectSession(view: SessionView, prior?: CanvasNode, index = 0)
     x: prior?.x ?? 80 + index % 3 * 520, y: prior?.y ?? 80 + Math.floor(index / 3) * 420,
     ...(prior?.zoneId ? { zoneId: prior.zoneId } : {}),
     sessionRef: view.ref, sessionState: view.lifecycle, sessionStatus: snapshot?.status,
+    // Explicitly clear the marker when GraphStore merges a restored projection.
+    archivedAt: view.archivedAt,
     statusReason: view.error ? '运行时发生错误，展开对话查看详情' : undefined, summary,
   };
 }

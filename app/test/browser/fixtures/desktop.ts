@@ -11,10 +11,15 @@ export async function setup(page:Page,active=false,custom?:SessionView){
  let ws:WebSocketRoute,seq=0,generation=0,receipt='dispatched',configFailure=false,queueConflict=false;
  const calls:Array<{operation:string;body:Record<string,unknown>}>=[];
  const publish=()=>{s.version++;ws.send(JSON.stringify({type:'session',workspaceId:'desktop',generation:String(generation),sequence:++seq,session:s}));};
+ const publishLifecycle=(view:SessionView)=>{
+  ws.send(JSON.stringify({type:'node',workspaceId:'desktop',generation:String(generation),sequence:++seq,node:{id:'a',type:'chat',title:view.title,backend:'e',status:'waiting',harness:'pi',env:'e',agentId:view.ref.agentSessionId,sessionRef:view.ref,x:0,y:0,archivedAt:view.archivedAt}}));
+  ws.send(JSON.stringify({type:'session',workspaceId:'desktop',generation:String(generation),sequence:++seq,session:view}));
+ };
  await page.route('**/api/**',async route=>{
   const operation=new URL(route.request().url()).pathname.split('/').at(-1)!;
   const body=route.request().postDataJSON()??{};
   if(['messages','queue','configuration','abort','stop'].includes(operation))calls.push({operation,body});
+  if(new URL(route.request().url()).pathname==='/api/runtime/status')return route.fulfill({json:{available:true,models:[],...(s.sessionLifecycleVersion?{sessionLifecycleVersion:s.sessionLifecycleVersion}:{})}});
   if(operation==='messages')return route.fulfill({status:202,json:{action:{state:receipt,reason:receipt==='dispatched'?undefined:'fixture receipt'}}});
   if(operation==='configuration'){
    if(configFailure){configFailure=false;return route.fulfill({status:409,json:{error:'配置未确认：fixture readback failed'}});}
@@ -29,7 +34,7 @@ export async function setup(page:Page,active=false,custom?:SessionView){
  });
  await page.routeWebSocket('**/ws',socket=>{ws=socket;generation++;seq=0;socket.onMessage(raw=>{if(JSON.parse(String(raw)).type!=='hello')return;socket.send(JSON.stringify({type:'graph',workspaceId:'desktop',generation:String(generation),sequence:++seq,backend:'e',source:'live',graph:{nodes:[{id:'a',type:'chat',title:s.title,backend:'e',status:'waiting',harness:'pi',env:'e',agentId:s.ref.agentSessionId,sessionRef:s.ref,x:0,y:0}],edges:[],zones:[],runState:'idle'}}));publish();});});
  await page.goto('/canvas/desktop');await focus(page);
- return {s,calls,publish,receipt:(value:string)=>{receipt=value;},failConfig:()=>{configFailure=true;},conflict:()=>{queueConflict=true;}};
+ return {s,calls,publish,publishLifecycle,receipt:(value:string)=>{receipt=value;},failConfig:()=>{configFailure=true;},conflict:()=>{queueConflict=true;}};
 }
 export async function focus(page:Page){await page.getByRole('button',{name:'复位到 100%'}).click();const card=page.locator('.react-flow__node[data-id="a"]');await setCardView(page,card,'detail');await card.getByRole('button',{name:'进入专注'}).click();}
 export const input=(page:Page)=>page.getByLabel('发送给真实 Agent 的消息');

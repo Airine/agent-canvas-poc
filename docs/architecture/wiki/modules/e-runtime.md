@@ -3,10 +3,10 @@ title: e 会话运行时
 description: 会话从持久化记录启动独立工作进程，经 e-core 与 Pi 执行，再把可核验快照送回画布。
 sources:
   - app/api/e-adapter.ts e4029903d0d7 eSessions SessionManager
-  - app/api/e/config.ts f41967b22889 runtimeConfig runtimeStatus MAX_SESSIONS
-  - app/api/e/session-manager.ts 4ae0c14e0652 SessionManager eSessions
+  - app/api/e/config.ts 9cf2024e1ea2 runtimeConfig runtimeStatus MAX_SESSIONS
+  - app/api/e/session-manager.ts 01240a44eb90 SessionManager eSessions
   - app/api/e/message-queue.ts 035004c14654 mutateQueue reconcileQueue queueReady
-  - app/api/e/projection.ts b9672126cfbc projectSession
+  - app/api/e/projection.ts 2effa5473b3b projectSession
   - app/scripts/e-runtime-worker.mts 640693a1eb1f control publish init
   - app/scripts/e-configuration.mjs 7ae7bdbb1b77 readConfiguration assertIdle changeConfiguration
   - app/scripts/e-control.mjs ed63498cbe6f controlSession
@@ -24,22 +24,22 @@ covers:
 
 ## 职责
 
-这一层管理真实会话的创建、停止和恢复。每个运行中的会话都有独立工作进程；工作进程连接外部 ADE 检出目录里的 e-core，再启动 Pi。仓库负责进程编排、消息发送和状态投影，模型执行与核心事件归约由外部运行时承担。
+这一层管理真实会话的创建、停止、恢复、归档和删除。归档会停止 worker 并从画布隐藏；删除只接受已归档会话，并删除本地会话目录。每个运行中的会话都有独立工作进程；工作进程连接外部 ADE 检出目录里的 e-core，再启动 Pi。仓库负责进程编排、消息发送和状态投影，模型执行与核心事件归约由外部运行时承担。
 
 会话记录保存在本地。API 重启后会保留历史状态，但不会自动重启模型进程，也不会自动重发结果未知的消息。待发队列需要用户明确恢复，自动审批授权也会清空。实现依据是 `app/api/e/session-manager.ts` 的加载、持久化和启动路径。
 
 ## 对外接口
 
 - `app/api/e-adapter.ts` 是兼容导出层，公开 `eSessions`、`SessionManager`、`runtimeStatus` 和 `projectSession`。
-- `SessionManager` 提供 `create`、`list`、`get`、`rename`、`stop`、`resume`、`control`、`queue`、`configuration` 与 `close`；状态变更通过 `changed` 事件发布完整 `SessionView` 副本。
+- `SessionManager` 提供 `create`、`list`、`get`、`rename`、`stop`、`resume`、`archive`、`deleteArchived`、`control`、`queue`、`configuration` 与 `close`；状态变更通过 `changed` 事件发布完整 `SessionView` 副本。
 - `control` 接受 `messages`、`abort` 或 `approval`，使用 `intentId` 保存请求签名与结果。同一标识不能用于不同请求；超时记为结果未知，不自动重试。
 - `mutateQueue` 处理待发消息的增加、修改、删除、移动和暂停恢复。`reconcileQueue` 用运行时动作记录确认消费，`queueReady` 决定是否可以继续派发。
-- `runtimeConfig` 读取 `ADE_ROOT`、`PI_BIN` 和项目目录。`runtimeStatus` 检查外部模块接口、Pi 版本与模型目录，结果缓存 15 秒。并发会话默认上限为 4，可由 `CANVAS_MAX_SESSIONS` 调整至 1–8。
+- `runtimeConfig` 读取 `ADE_ROOT`、`PI_BIN` 和项目目录。`runtimeStatus` 检查外部模块接口、Pi 版本与模型目录，结果缓存 15 秒。并发会话默认上限为 4，可由 `CANVAS_MAX_SESSIONS` 调整至 1–8。上限只约束正在运行/启动的 worker，归档或停止后的记录不占额度；`sessionLifecycleVersion=2` 让前端识别当前 API 是否支持归档/删除入口。
 - 工作进程只接收父进程 IPC。`init` 启动运行时，`control` 处理消息和控制请求，`publish` 发出快照；这不是供浏览器直接调用的公共服务。
 
 ## 数据怎么流
 
-创建会话先分配原生会话标识并写下记录，再检查运行环境和并发额度。随后父进程启动工作进程，把项目目录、数据目录和模型选择交给它。工作进程建立本地连接，将有限权限通过继承的文件描述符交给核心进程和 Pi。只有两边确认同一个原生会话、消息发送能力已就绪，父进程才把会话标为可用。
+创建会话先分配原生会话标识并写下记录，再检查运行环境和并发额度。归档先暂停队列并停止 worker，保留记录；恢复会清除归档标记并重新启动同一 native session，恢复失败会把失败状态带回画布。删除要求已归档、无 worker，并校验目录仍在数据根下后才移除。随后父进程启动工作进程，把项目目录、数据目录和模型选择交给它。工作进程建立本地连接，将有限权限通过继承的文件描述符交给核心进程和 Pi。只有两边确认同一个原生会话、消息发送能力已就绪，父进程才把会话标为可用。
 
 发送消息先在父进程校验正文和附件，再持久化发送意图。工作进程重新读取模型状态，普通下一轮消息还要确认运行器空闲；图片会额外检查是否能原样交给 Pi。控制适配层读取最新能力与版本后提交动作。核心事件经订阅桥汇成快照，父进程更新记录、发布状态，再尝试消费下一条待发消息。附件规则见[共享内容合同](message-content.md)，审批分支见[审批与权限](e-approvals.md)。
 

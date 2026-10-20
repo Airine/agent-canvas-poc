@@ -18,7 +18,7 @@ import { APPROVAL_POLICY_VERSION } from './approval-rules.js';
 import type { ApprovalMode } from './contracts.js';
 import type { ReviewerConfig } from './approval-reviewer.js';
 import { bindApproval } from './approval-binding.js';
-import type { SessionView, SessionSnapshot, SessionRef, ControlOperation, ControlPayload } from './contracts.js';
+import { SESSION_LIFECYCLE_VERSION, type SessionView, type SessionSnapshot, type SessionRef, type ControlOperation, type ControlPayload } from './contracts.js';
 import { APP_ROOT, DATA_ROOT, MAX_SESSIONS, runtimeConfig, runtimeStatus } from './config.js';
 
 interface WorkerMessage { request?: CollaborationRequest; collaboration?: CollaborationStatus; type: string; id?: string; error?: string; snapshot?: SessionSnapshot; ref?: SessionRef; result?: unknown; configuration?: RuntimeConfiguration; origins?: Record<string, MessageOrigin> }
@@ -73,6 +73,7 @@ export class SessionManager extends EventEmitter {
         record.queueMutations=Object.assign(Object.create(null),record.queueMutations);
         record.view.sessionApprovalGrantCount = 0;
         record.view.approvalPolicyVersion = APPROVAL_POLICY_VERSION;
+        record.view.sessionLifecycleVersion = SESSION_LIFECYCLE_VERSION;
         record.view.approvalMode = 'manual';
         delete record.view.approvalModeError;delete record.view.approvalReviewer;
         record.view.version++;record.view.updatedAt = new Date().toISOString();
@@ -90,6 +91,7 @@ export class SessionManager extends EventEmitter {
   }
   private changed(record: RecordData) {
     record.view.approvalPolicyVersion = APPROVAL_POLICY_VERSION;
+    record.view.sessionLifecycleVersion = SESSION_LIFECYCLE_VERSION;
     record.view.queue ??= emptyQueue();
     if(record.view.lifecycle!=='ready'&&!record.view.queue.paused)pauseQueue(record.view.queue,'会话不可用，需明确恢复待发');
     if(record.view.snapshot){
@@ -337,7 +339,30 @@ export class SessionManager extends EventEmitter {
     if(running){running.stopping=true;if(running.child.connected)running.child.send({type:'stop'});else running.child.kill('SIGTERM');await this.waitExit(running);}
     record.view.lifecycle='stopped';delete record.view.error;this.changed(record);return structuredClone(record.view);
   }
-  async resume(wid:string,nid:string):Promise<SessionView>{const record=this.record(wid,nid);return this.launch(record,record.started);}
+  /** Archive is reversible: stop and hide the card, retain the local session directory. */
+  async archive(wid:string,nid:string):Promise<SessionView>{
+    const record=this.record(wid,nid),key=this.key(wid,nid);
+    if(record.view.archivedAt)return structuredClone(record.view);
+    const priorLifecycle=record.view.lifecycle,priorError=record.view.error;
+    if(this.workers.has(key)||this.launching.has(key))await this.stop(wid,nid);
+    else {record.view.queue??=emptyQueue();pauseQueue(record.view.queue,'会话停止或归档，需明确恢复待发',true);this.engine(record).reset();record.view.approvalMode='manual';delete record.view.approvalReviewer;}
+    record.view.archivedAt=new Date().toISOString();
+    if(priorLifecycle==='failed'){record.view.lifecycle='failed';record.view.error=priorError;}
+    else record.view.lifecycle='stopped';
+    this.changed(record);return structuredClone(record.view);
+  }
+  /** Delete is destructive and deliberately requires archive first. */
+  deleteArchived(wid:string,nid:string):void{
+    const record=this.record(wid,nid),key=this.key(wid,nid);
+    if(!record.view.archivedAt)throw new Error('会话须先归档，才能删除');
+    if(this.workers.has(key)||this.launching.has(key))throw new Error('会话仍在运行或启动中');
+    const dir=this.directory(record),root=path.resolve(this.dataDir),resolved=path.resolve(dir);
+    if(path.basename(resolved)!==nid||!resolved.startsWith(root+path.sep))throw new Error('invalid session directory');
+    fs.rmSync(resolved,{recursive:true,force:true});
+    this.records.delete(key);this.approvalEngines.delete(key);
+    this.emit('removed',{workspaceId:wid,nodeId:nid});
+  }
+  async resume(wid:string,nid:string):Promise<SessionView>{const record=this.record(wid,nid);if(record.view.archivedAt){delete record.view.archivedAt;this.changed(record);}return this.launch(record,record.started);}
   async control(wid:string,nid:string,operation:ControlOperation,payload:ControlPayload,policy=false):Promise<unknown>{
     const record=this.record(wid,nid),key=this.key(wid,nid),jobKey=`${key}/${payload.intentId}`,signature=JSON.stringify([operation,payload]);
     if(operation==='approval'&&!policy&&payload.approvalId)this.engine(record).manual(payload.approvalId);

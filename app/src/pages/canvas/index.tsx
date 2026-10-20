@@ -39,6 +39,7 @@ import {
 import type { LiveTier, NodeStatus } from '@/shared';
 import { LiveEdge, EdgeMarkerDefs, type LiveFlowEdge } from './LiveEdge';
 import { LiveNode, type LiveFlowNode } from './LiveNode';
+import { ArchivedSessionsControl } from './ArchivedSessionsControl';
 import { GlobalCardViewControl } from './GlobalCardViewControl';
 import { ZoneNode, ZONE_HEADER_H, ZONE_PADDING, type ZoneFlowNode } from './ZoneNode';
 import { TracePanel } from './TracePanel';
@@ -113,7 +114,7 @@ function computeTiers(
   promoted: string[],
 ): { tiers: Record<string, LiveTier>; liveCount: number } {
   const windowIds = [...store.nodes.values()]
-    .filter((n) => n.type !== 'coordinator')
+    .filter((n) => n.type !== 'coordinator'&&!n.archivedAt)
     .map((n) => n.id);
   const rank = (id: string): number => {
     const s = store.nodes.get(id)?.status ?? 'queued';
@@ -252,7 +253,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
   useEffect(() => {
     setNodes((prev) => {
       const prevById = new Map(prev.map((n) => [n.id, n]));
-      return [...store.nodes.values()].map((n) => {
+      return [...store.nodes.values()].filter(n=>!n.archivedAt).map((n) => {
         const old = prevById.get(n.id);
         return {
           id: n.id,
@@ -264,7 +265,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
         };
       });
     });
-     
+
   }, [store, storeVersion]);
   const onNodesChange = useCallback((changes: NodeChange<CanvasFlowNode>[]) => {
     for (const c of changes) {
@@ -289,7 +290,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
   const [traceEdgeId, setTraceEdgeId] = useState<string | null>(null);
   const edges = useMemo<LiveFlowEdge[]>(
     () =>
-      [...store.edges.values()].map((e: CanvasEdge) => {
+      [...store.edges.values()].filter(e=>!store.nodes.get(e.source)?.archivedAt&&!store.nodes.get(e.target)?.archivedAt).map((e: CanvasEdge) => {
         const src = store.nodes.get(e.source);
         const srcStatus: NodeStatus = src?.status ?? 'queued';
         const channels = [...store.edges.values()].filter(other => other.kind === 'communication' &&
@@ -378,7 +379,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
       }
       prevStatus.current[n.id] = n.status;
     }
-     
+
   }, [store, storeVersion]);
 
   /* ---- 键盘（§7）：+/- 缩放、F 适应、Esc 关面板、Enter 专注 ---- */
@@ -436,7 +437,8 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
   };
 
   const traceEdge = traceEdgeId ? store.edges.get(traceEdgeId) : undefined;
-  const windowTotal = [...store.nodes.values()].filter((n) => n.type !== 'coordinator').length;
+  const windowTotal = [...store.nodes.values()].filter((n) => n.type !== 'coordinator'&&!n.archivedAt).length;
+  useEffect(()=>{if(focusedNodeId){const node=store.nodes.get(focusedNodeId);if(!node||node.archivedAt)manager.exitFocus();}},[focusedNodeId,manager,store,storeVersion]);
 
   return (
     <CanvasCtx.Provider value={ctxValue}>
@@ -519,7 +521,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
           >
             活窗 {liveCount}/{windowTotal}
           </span>
-          {store.backendKind === 'e' ? <div className="flex items-center gap-2 rounded bg-surface-2 p-2 text-small"><span>{store.connState}</span><button disabled={store.connState !== 'online'} onClick={()=>void store.addSession().catch(e=>toast.error(String(e)))}>添加 Pi 会话</button></div> : <RunBar
+          {store.backendKind === 'e' ? <div className="flex items-center gap-2 rounded bg-surface-2 p-2 text-small"><span>{store.connState}</span><button disabled={store.connState !== 'online'} onClick={()=>void store.addSession().catch(e=>toast.error(String(e)))}>添加 Pi 会话</button><ArchivedSessionsControl store={store}/></div> : <RunBar
             runState={store.runState}
             connState={store.connState}
             onRun={() => store.run()}

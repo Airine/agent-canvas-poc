@@ -3,13 +3,13 @@ title: 本地控制面
 description: HTTP、WebSocket 与工作区持久化的共同边界。
 sources:
   - app/api/index.ts fb665635c747
-  - app/api/routes.ts a121973dd5ba wireBroadcasts wsHandlers api
+  - app/api/routes.ts 8727ff4c9a19 wireBroadcasts wsHandlers api
   - app/api/registry.ts 4ccc91d72dac registry
-  - app/api/graph.ts 24b684dadec4 GraphStore onAnyPatch
-  - app/api/layout.ts 40f95704ade7 computeLayout
+  - app/api/graph.ts 112b00eb033d GraphStore onAnyPatch
+  - app/api/layout.ts 4db5586b7967 computeLayout
   - app/api/local-access.ts 160bda3f88d5 localRequestAllowed
   - app/api/runtime-router.ts 16802d8055c1 requireHerdr runtimeRouter
-  - app/api/types.ts 62074d04c1e9 CanvasNode ServerMessage ClientMessage
+  - app/api/types.ts 76c3fb554487 CanvasNode ServerMessage ClientMessage
   - app/api/workspace-paths.ts d251249d59c7 PROJECT_ROOT migrateLegacySeedPath
 covers:
   - app/api/index.ts
@@ -38,7 +38,7 @@ covers:
 - `app/api/routes.ts` 的 `api` 提供工作区创建、查询、重命名、归档、布局及后端控制。`/api/e/*` 已退役，返回 410。旧 `/api/graph` 与 `/api/nodes/:id/*` 仍按活动工作区解释，新调用应使用 `/api/workspaces/:wid/...`。
 - `wsHandlers` 接收 `hello`、`term.subscribe`、`term.unsubscribe`。`hello` 切换工作区时清理旧终端订阅，并重置 `generation` 与 `sequence`。发送内容包括完整图、节点或边补丁、会话、事件和终端快照；消息契约见 `app/api/types.ts`。
 - `app/api/registry.ts` 的 `registry` 管理工作区，默认写入 `app/api/data/workspaces.json`，可通过 `CANVAS_DATA_DIR` 改位置。写入采用临时文件后重命名。首次无有效记录时从 `app/api/graphs/` 的 JSON 示例初始化。
-- `app/api/graph.ts` 的 `GraphStore` 管理单个工作区的图；`onAnyPatch` 供广播订阅。`app/api/layout.ts` 的 `computeLayout` 使用最长路径分层和重心排序，不调用 dagre。所有边（含真实通信边）都参与布局，Zone 不决定列。
+- `app/api/graph.ts` 的 `GraphStore` 管理单个工作区的图；`onAnyPatch` 供广播订阅。`app/api/layout.ts` 的 `computeLayout` 使用最长路径分层和重心排序，不调用 dagre。所有可见边（含真实通信边）都参与布局，归档节点被排除，Zone 不决定列。
 - `localRequestAllowed` 限制本机 Host 与允许端口；`runtimeRouter` 与 `requireHerdr` 拒绝对真实会话工作区执行旧版图运行和终端输入。实现分别在 `app/api/local-access.ts`、`app/api/runtime-router.ts`。
 
 ## 数据怎么流

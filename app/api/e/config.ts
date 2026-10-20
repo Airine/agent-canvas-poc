@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawn } from 'node:child_process';
-import type { RuntimeStatus } from './contracts.js';
+import { SESSION_LIFECYCLE_VERSION, type RuntimeStatus } from './contracts.js';
 import { PROJECT_ROOT } from '../workspace-paths.js';
 
 export const APP_ROOT = fileURLToPath(new URL('../../', import.meta.url));
@@ -41,7 +41,7 @@ export function runtimeStatus(): Promise<RuntimeStatus> {
   return inFlight;
 }
 async function check(): Promise<RuntimeStatus> {
-  const base = { projectRoot: PROJECT_ROOT, maxSessions: MAX_SESSIONS, models: [] };
+  const base = { projectRoot: PROJECT_ROOT, maxSessions: MAX_SESSIONS, models: [], sessionLifecycleVersion: SESSION_LIFECYCLE_VERSION };
   try {
     const cfg = runtimeConfig();
     if (Number(process.versions.node.split('.')[0]) < 22) throw new Error('Node >=22.13 required');

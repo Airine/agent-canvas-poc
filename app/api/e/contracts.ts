@@ -18,12 +18,15 @@ export interface SessionSnapshot {
 export interface SessionRef {
   agentSessionId: string; nativeSessionId: string; cwd: string; provider?: string; model?: string;
 }
+export const SESSION_LIFECYCLE_VERSION = 2;
 export interface SessionView {
   workspaceId: string; nodeId: string; title: string; lifecycle: Lifecycle; ref: SessionRef;
   snapshot?: SessionSnapshot; error?: string; updatedAt: string; version: number;
   configuration?: RuntimeConfiguration; configurationPending?: boolean; configurationError?: string;
   queue?: MessageQueue;
   collaborationAvailable?: boolean;
+  archivedAt?: string;
+  sessionLifecycleVersion?: number;
   collaboration?: import('../../shared/collaboration-protocol.mjs').CollaborationStatus;
   approvalPolicyVersion?: number; approvalMode?: ApprovalMode; approvalModeError?: string; sessionApprovalGrantCount?: number;
   approvalReviewer?: {provider:string;model:string}; approvalAudit?: ApprovalAudit[];
@@ -31,6 +34,7 @@ export interface SessionView {
 export type ControlOperation = 'messages' | 'abort' | 'approval';
 export interface ControlPayload { intentId: string; content?: string; attachments?: Attachment[]; deliverAs?: DeliverAs; targetRunId?: string; approvalId?: string; decision?: 'approved' | 'rejected' | 'cancelled'; response?: unknown; expectedApprovalDigest?: string }
 export interface RuntimeStatus {
+  sessionLifecycleVersion?: number;
   available: boolean; projectRoot: string; reason?: string; piVersion?: string;
   models: Array<{ provider: string; id: string; name?: string }>; maxSessions: number;
 }

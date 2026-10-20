@@ -1,5 +1,6 @@
 import type { DeliverAs, SessionView, SessionRef } from '../../../../api/e/contracts';
 import { allPendingReviewing } from './approval-presentation';
+import { errorStatusTitle } from './error-presentation';
 import { capabilityAvailable } from '../session-store';
 export const approvalLabel:Record<string,string>={approved:'已批准',rejected:'已拒绝',cancelled:'已取消',pending:'等待批准','outcome-unknown':'结果未证实'};
 /** No cause is inferred from interrupted alone: it is also used when loading history. */
@@ -37,9 +38,12 @@ export function presentation(view: SessionView|undefined, online: boolean, mode:
  }
  const unknown=s?.pendingActions?.filter(a=>a.state==='outcome-unknown'&&a.kind!=='model').length??0;
  const latest=[...(s?.messages??[])].filter(m=>m.role==='assistant').sort((a,b)=>(b.createdAt??'').localeCompare(a.createdAt??'')||b.order-a.order)[0];
- if(online&&!readOnly&&view?.lifecycle==='ready'&&!fault&&!active&&!pending.length){if(latest?.state==='cancelled'||latest?.stopReason==='aborted')label='已中断 · 可继续对话';else if(latest?.error||latest?.stopReason==='error')label='上次回复失败 · 可继续对话';}
+ const showLastResult=online&&!readOnly&&view?.lifecycle==='ready'&&!fault&&!active&&!pending.length;
+ const cancelled=latest?.state==='cancelled'||latest?.stopReason==='aborted';
+ const lastReplyFailed=showLastResult&&!cancelled&&!!(latest?.error||latest?.stopReason==='error');
+ if(showLastResult){if(cancelled)label='已中断 · 可继续对话';else if(lastReplyFailed)label=`${errorStatusTitle(latest?.error)} · 可继续对话`;}
  const errors=active?s?.messages.filter(m=>(m.error||m.stopReason==='error')&&s.runs.some(r=>r.id===m.runId&&r.state==='running')).length??0:0;
- const danger=label==='会话故障'||label==='运行器异常'||label.startsWith('上次回复失败');
+ const danger=label==='会话故障'||label==='运行器异常'||lastReplyFailed;
  const tone=danger?'danger':unknown?'warning':online&&view?.lifecycle==='ready'&&pending.length?'approval':active?'active':online&&view?.lifecycle==='ready'&&!readOnly?'ready':'muted';
  return {label,reason,tone,recovery,canEdit:!readOnly,canSend:!readOnly&&online&&!fault&&s?.status!=='exited'&&s?.status!=='degraded'&&!s?.degradedReasons?.length&&capabilityAvailable(view,capability,now)&&!(mode==='nextTurn'&&active),pending,active,warning:unknown?`${unknown} 个操作结果未确认，不会自动重发；请查看会话诊断`:errors?'本轮曾出现请求错误；当前仍在执行':undefined};
 }

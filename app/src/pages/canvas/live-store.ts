@@ -13,7 +13,7 @@
 import { useSyncExternalStore } from 'react';
 import { MockBackend, mockWorkspaceSummaries } from './mock-server';
 import { SessionStore } from './session-store';
-import type { ControlPayload } from '../../../api/e/contracts';
+import type { ControlPayload, SessionView } from '../../../api/e/contracts';
 import type { BackendApi, CanvasNode, CanvasEdge, CanvasZone, RunState, NodeEvent, ConnState, ClientMessage, ServerMessage, WorkspaceSummary } from './contracts';
 export type * from './contracts';
 
@@ -225,6 +225,13 @@ export class LiveStore {
   }
 
   /** 契约 §3 server→client 消息统一入口（WS 与 mock 共用） */
+  applySessionView(view: SessionView): void {
+    this.sessions.apply(view);
+    const current=this.sessions.get(view.nodeId)!;
+    const node=this.nodes.get(view.nodeId);
+    if(node&&node.backend==='e'&&node.archivedAt!==current.archivedAt){if(current.archivedAt)node.archivedAt=current.archivedAt;else delete node.archivedAt;this.emit();}
+  }
+
   private dispatch(msg: ServerMessage): void {
     switch (msg.type) {
       case 'graph': {
@@ -238,14 +245,14 @@ export class LiveStore {
         break;
       }
       case 'session': {
-        this.sessions.apply(msg.session);
+        this.applySessionView(msg.session);
         break;
       }
       case 'error': { this.error = msg.error;this.setConnState('reconnecting');this.emit();break; }
       case 'node': {
         const prior = this.nodes.get(msg.node.id);
         this.nodes.set(msg.node.id, msg.node);
-        const layoutChanged = !prior || prior.x !== msg.node.x || prior.y !== msg.node.y || prior.zoneId !== msg.node.zoneId || prior.type !== msg.node.type;
+        const layoutChanged = !prior || prior.x !== msg.node.x || prior.y !== msg.node.y || prior.zoneId !== msg.node.zoneId || prior.type !== msg.node.type || prior.archivedAt !== msg.node.archivedAt;
         if (msg.node.backend === 'e' && !layoutChanged) { for (const fn of this.nodeListeners.get(msg.node.id) ?? []) fn(); }
         else this.emit();
         break;

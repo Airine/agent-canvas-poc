@@ -3,10 +3,10 @@ title: 数据流
 description: 沿浏览器、HTTP、WebSocket、IPC 和工具脚本追踪真实调用。
 sources:
   - app/src/App.tsx 10682b846ed7 App
-  - app/src/pages/canvas/live-store.ts c4225c7c282e LiveStore
+  - app/src/pages/canvas/live-store.ts 30cd63eddcb7 LiveStore
   - app/api/index.ts fb665635c747 wireBroadcasts
-  - app/api/routes.ts a121973dd5ba wsHandlers applySession
-  - app/api/e/session-manager.ts 4ae0c14e0652 SessionManager
+  - app/api/routes.ts 8727ff4c9a19 wsHandlers applySession
+  - app/api/e/session-manager.ts 01240a44eb90 SessionManager
   - app/scripts/e-runtime-worker.mts 640693a1eb1f
   - app/scripts/dev-e.mjs 82c22e9d56a3
   - app/api/coordinator.ts 2f2630aa80fe
@@ -151,7 +151,7 @@ flows:
 
 `app/api/index.ts` 接受 HTTP 后先校验本机 Host 与 Origin，再挂载 `routes.ts` 的 `/api`。创建工作区经 Zod 校验后写入注册表，保存为数据目录下的 `workspaces.json`，写入使用临时文件后重命名。读取接口返回图、工作区或会话视图；旧 `/api/graph` 使用活动工作区，新功能应明确带工作区 ID。
 
-布局拖动提交 `PATCH /api/workspaces/:wid/layout {positions:[{id,x,y}]}`，校验全部节点后更新图并保存。自动布局调用同一工作区的 `POST .../layout`，经 `computeLayout` 计算坐标再广播。归档先保存只读状态，再停止该工作区的会话。图的持久化与会话记录是不同文件，不能拿前者恢复完整对话。
+布局拖动提交 `PATCH /api/workspaces/:wid/layout {positions:[{id,x,y}]}`，校验全部节点后更新图并保存。自动布局调用同一工作区的 `POST .../layout`，经 `computeLayout` 计算可见节点坐标再广播。工作区归档先保存只读状态，再停止该工作区的会话；会话级归档只隐藏该卡片并保留本地记录，删除仅接受已归档会话。图的持久化与会话记录是不同文件，不能拿前者恢复完整对话。
 
 ## 会话进程
 

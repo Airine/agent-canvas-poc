@@ -49,6 +49,7 @@ export interface CanvasNode {
   paneId?: string;
   approval?: ApprovalInfo;
   progress?: number;
+  archivedAt?: string;
 }
 
 export interface CanvasEdge {

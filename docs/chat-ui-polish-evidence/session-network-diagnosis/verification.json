@@ -1,0 +1,82 @@
+{
+  "checkedAt": "2026-10-20T14:37:50.771353+00:00",
+  "workspace": "ws-43b9d166",
+  "scope": "read-only session diagnosis plus accurate network-error labelling",
+  "diagnosis": {
+    "frontend": "page online; REST and WebSocket reachable; no browser network errors",
+    "fetchFailed": "model response errors on historical openai-codex/gpt-6-astra turns, not page fetch failures",
+    "endpointReachability": {
+      "chatgptBackend": "direct timed out; proxy reached authentication layer",
+      "deepseek": "direct/proxy reached authentication layer",
+      "kimi": "endpoint reachable; separate OAuth refresh unauthorized recorded"
+    },
+    "currentSessions": {
+      "ready": 4,
+      "failed": 1,
+      "mainCurrentModel": "deepseek/deepseek-flash",
+      "latestConfigReadback": "succeeded"
+    },
+    "separateIssues": [
+      "one queue has outcome-unknown plus pending and remains paused by design",
+      "one new session failed because the live session limit (4) is reached"
+    ]
+  },
+  "fix": {
+    "errorTitle": "fetch failed / timeout-class errors now say 模型网络请求失败",
+    "sessionStatus": "status says 上次模型网络请求失败 · 可继续对话 and remains danger",
+    "rawDiagnosis": "still available behind 查看脱敏详情"
+  },
+  "checks": {
+    "unit": {
+      "passed": 187,
+      "failed": 0
+    },
+    "browserFocused": {
+      "passed": 19,
+      "failed": 0
+    },
+    "uiBuild": "passed",
+    "lintIncludingArchitecture": "passed",
+    "docs": {
+      "tests": 12,
+      "typecheck": "passed",
+      "build": "passed"
+    },
+    "architecture": {
+      "wikiPages": 25,
+      "digest": "f51a1bf4d847"
+    }
+  },
+  "safety": {
+    "serviceRestarted": false,
+    "messagesSent": false,
+    "queueChanged": false,
+    "approvalChanged": false,
+    "modelChanged": false,
+    "credentialsReadOnlyScrubbed": true,
+    "committedOrPushed": false
+  },
+  "remainingBlockers": [
+    "gpt-6-astra needs provider/auth/proxy recovery before its next use",
+    "queue outcome-unknown requires explicit user review before resume",
+    "fifth session needs an existing live session stopped or a deliberate higher session limit"
+  ],
+  "sourceSha256": {
+    "app/src/pages/canvas/chat/error-presentation.ts": "afe7428166bbbfa9223b966cc1fd34bfeed816d47dc84be28cfa674b92ba5d78",
+    "app/src/pages/canvas/chat/presentation-state.ts": "4c374c7186854269b41c924c5e1f0c61b9060afdd436593ac50ada3e3e5f7f3b",
+    "app/test/unit/chat-errors.test.mjs": "0fa55f7993d899e95c074c47821561efa04afa84575a35d97cb1c93b79cee123",
+    "app/test/unit/recovery-presentation.test.mjs": "2d04a80cd4cd76438e0246552db09ad6dea8e894c3d3b8084794d4177f24edd0",
+    "app/test/browser/recovery-ui.spec.ts": "2622775c1468f720024ee8e6e64f179fa0ef58b40b138cdb2a772ec4959881aa"
+  },
+  "liveHotUpdateCheck": {
+    "pageOnline": true,
+    "statusLabels": [
+      "上次模型网络请求失败 · 可继续对话",
+      "可继续对话",
+      "派发未确认 · 对应待发已冻结",
+      "可继续对话",
+      "会话故障"
+    ],
+    "genericOldLabelPresent": false
+  }
+}

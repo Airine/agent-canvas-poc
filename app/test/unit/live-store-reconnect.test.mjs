@@ -46,3 +46,38 @@ test('terminal subscriptions survive reconnect and hello resync without remounti
   assert.equal(socket.sent.length, before, 'e sessions never replay herdr subscriptions');
   off();
 });
+
+test('archive node broadcasts notify canvas and stale HTTP views cannot roll back lifecycle',t=>{
+ let socket;
+ class Socket {
+  static OPEN=1;readyState=1;
+  constructor(){socket=this;}
+  send(){}
+  close(){this.readyState=3;}
+  receive(message){this.onmessage({data:JSON.stringify({workspaceId:'w',...message})});}
+ }
+ const priorWS=globalThis.WebSocket,priorLocation=globalThis.location;
+ globalThis.WebSocket=Socket;globalThis.location={protocol:'http:',host:'fixture',search:''};
+ t.after(()=>{globalThis.WebSocket=priorWS;if(priorLocation===undefined)delete globalThis.location;else globalThis.location=priorLocation;});
+ const store=new LiveStore('w');t.after(()=>store.dispose());socket.onopen();
+ const node={id:'n',backend:'e',x:0,y:0};
+ const graph={nodes:[node],edges:[],zones:[],runState:'idle'};
+ socket.receive({type:'graph',backend:'e',graph});
+ const live={workspaceId:'w',nodeId:'n',version:1,lifecycle:'ready'};
+ store.applySessionView(live);
+ let notifications=0;store.subscribe(()=>notifications++);
+ const archived={...live,version:2,lifecycle:'stopped',archivedAt:'2026-01-01'};
+ socket.receive({type:'node',node:{...node,archivedAt:archived.archivedAt}});
+ assert.equal(notifications,1,'node arrives before session and must notify the canvas');
+ socket.receive({type:'session',session:archived});
+ store.applySessionView(live);
+ assert.equal(store.nodes.get('n').archivedAt,archived.archivedAt,'late pre-archive HTTP ignored');
+ socket.receive({type:'node',node});
+ assert.equal(notifications,2,'restoration must also notify the canvas');
+ socket.receive({type:'session',session:{...live,version:3}});
+ store.applySessionView(archived);
+ assert.equal(store.nodes.get('n').archivedAt,undefined,'late archive HTTP ignored');
+ assert.equal(store.sessions.get('n').version,3);
+ socket.receive({type:'graph',backend:'e',graph});
+ assert.equal(store.nodes.get('n').archivedAt,undefined,'reconnect stays restored');
+});

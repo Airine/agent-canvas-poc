@@ -27,6 +27,7 @@ export interface CanvasNode {
   command?: string;
   approval?: { prompt: string };
   progress?: number;
+  archivedAt?: string;
 }
 
 export interface CanvasEdge {

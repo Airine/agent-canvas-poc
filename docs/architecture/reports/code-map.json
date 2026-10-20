@@ -196,7 +196,7 @@
       "packages": []
     },
     "app/api/e/contracts.ts": {
-      "loc": 68,
+      "loc": 72,
       "exports": [
         "Lifecycle",
         "DeliverAs",
@@ -208,6 +208,7 @@
         "SessionAction",
         "SessionSnapshot",
         "SessionRef",
+        "SESSION_LIFECYCLE_VERSION",
         "SessionView",
         "ControlOperation",
         "ControlPayload",
@@ -256,7 +257,7 @@
       "packages": []
     },
     "app/api/e/projection.ts": {
-      "loc": 20,
+      "loc": 22,
       "exports": [
         "projectSession"
       ],
@@ -267,7 +268,7 @@
       "packages": []
     },
     "app/api/e/session-manager.ts": {
-      "loc": 366,
+      "loc": 391,
       "exports": [
         "SessionManager",
         "eSessions"
@@ -301,7 +302,7 @@
       "packages": []
     },
     "app/api/graph.ts": {
-      "loc": 148,
+      "loc": 155,
       "exports": [
         "normalizeGraph",
         "PatchMessage",
@@ -403,7 +404,7 @@
       "packages": []
     },
     "app/api/routes.ts": {
-      "loc": 521,
+      "loc": 544,
       "exports": [
         "WSContext",
         "wireBroadcasts",
@@ -451,7 +452,7 @@
       "packages": []
     },
     "app/api/types.ts": {
-      "loc": 112,
+      "loc": 113,
       "exports": [
         "NodeStatus",
         "NodeType",
@@ -925,6 +926,22 @@
         "react"
       ]
     },
+    "app/src/pages/canvas/ArchivedSessionsControl.tsx": {
+      "loc": 59,
+      "exports": [
+        "ArchivedSessionsControl"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
     "app/src/pages/canvas/CardViewControl.tsx": {
       "loc": 11,
       "exports": [
@@ -1103,7 +1120,7 @@
       ]
     },
     "app/src/pages/canvas/SessionHeaderActions.tsx": {
-      "loc": 34,
+      "loc": 47,
       "exports": [
         "SessionHeaderActions"
       ],
@@ -1113,6 +1130,7 @@
         "app/src/pages/canvas/chat/ChatPopover.tsx",
         "app/src/pages/canvas/chat/chat-overlay-context.ts",
         "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/chat/error-presentation.ts",
         "app/src/pages/canvas/chat/presentation-state.ts",
         "app/src/pages/canvas/live-store.ts",
         "app/src/pages/canvas/session-store.ts",
@@ -1124,7 +1142,7 @@
       ]
     },
     "app/src/pages/canvas/SessionIdentity.tsx": {
-      "loc": 107,
+      "loc": 109,
       "exports": [
         "SessionIdentity",
         "SessionStatus"
@@ -1133,6 +1151,7 @@
         "app/api/e/contracts.ts",
         "app/src/pages/canvas/chat/ChatPopover.tsx",
         "app/src/pages/canvas/chat/CollaborationStatus.tsx",
+        "app/src/pages/canvas/chat/QueueReceipts.tsx",
         "app/src/pages/canvas/chat/presentation-state.ts",
         "app/src/pages/canvas/live-store.ts",
         "app/src/pages/canvas/session-store.ts",
@@ -1373,6 +1392,16 @@
         "react"
       ]
     },
+    "app/src/pages/canvas/chat/QueueReceipts.tsx": {
+      "loc": 18,
+      "exports": [
+        "QueueReceipts"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
     "app/src/pages/canvas/chat/RuntimeConfigControl.tsx": {
       "loc": 83,
       "exports": [
@@ -1510,11 +1539,12 @@
       "packages": []
     },
     "app/src/pages/canvas/chat/error-presentation.ts": {
-      "loc": 21,
+      "loc": 28,
       "exports": [
         "redact",
         "errorTitle",
-        "safeLink"
+        "safeLink",
+        "errorStatusTitle"
       ],
       "imports": [],
       "packages": []
@@ -1570,7 +1600,7 @@
       "packages": []
     },
     "app/src/pages/canvas/chat/presentation-state.ts": {
-      "loc": 86,
+      "loc": 90,
       "exports": [
         "approvalLabel",
         "needsSessionRecovery",
@@ -1583,6 +1613,7 @@
       "imports": [
         "app/api/e/contracts.ts",
         "app/src/pages/canvas/chat/approval-presentation.ts",
+        "app/src/pages/canvas/chat/error-presentation.ts",
         "app/src/pages/canvas/session-store.ts"
       ],
       "packages": []
@@ -1659,7 +1690,7 @@
       ]
     },
     "app/src/pages/canvas/contracts.ts": {
-      "loc": 107,
+      "loc": 108,
       "exports": [
         "NodeStatus",
         "NodeType",
@@ -1682,13 +1713,14 @@
       "packages": []
     },
     "app/src/pages/canvas/index.tsx": {
-      "loc": 610,
+      "loc": 612,
       "exports": [
         "default",
         "CanvasRedirect"
       ],
       "imports": [
         "app/src/components/ui/sonner.tsx",
+        "app/src/pages/canvas/ArchivedSessionsControl.tsx",
         "app/src/pages/canvas/GlobalCardViewControl.tsx",
         "app/src/pages/canvas/LiveEdge.tsx",
         "app/src/pages/canvas/LiveNode.tsx",
@@ -1710,7 +1742,7 @@
       ]
     },
     "app/src/pages/canvas/live-store.ts": {
-      "loc": 463,
+      "loc": 470,
       "exports": [
         "default",
         "LiveStore",
@@ -2582,7 +2614,7 @@
       ]
     },
     "app/test/browser/desktop-composer.spec.ts": {
-      "loc": 48,
+      "loc": 76,
       "exports": [],
       "imports": [
         "app/test/browser/fixtures/desktop.ts",
@@ -2603,7 +2635,7 @@
       ]
     },
     "app/test/browser/fixtures/desktop.ts": {
-      "loc": 36,
+      "loc": 41,
       "exports": [
         "session",
         "setup",
@@ -2679,7 +2711,7 @@
       ]
     },
     "app/test/browser/recovery-ui.spec.ts": {
-      "loc": 24,
+      "loc": 63,
       "exports": [],
       "imports": [
         "app/test/browser/fixtures/desktop.ts"
@@ -2926,16 +2958,17 @@
       "packages": []
     },
     "app/test/unit/e-projection.test.mjs": {
-      "loc": 24,
+      "loc": 35,
       "exports": [],
       "imports": [
         "app/api/e/contracts.ts",
-        "app/api/e/projection.ts"
+        "app/api/e/projection.ts",
+        "app/api/layout.ts"
       ],
       "packages": []
     },
     "app/test/unit/e-routes.test.mjs": {
-      "loc": 109,
+      "loc": 121,
       "exports": [],
       "imports": [
         "app/api/e-adapter.ts",
@@ -2948,7 +2981,7 @@
       "packages": []
     },
     "app/test/unit/e-session-manager.test.mjs": {
-      "loc": 20,
+      "loc": 52,
       "exports": [],
       "imports": [
         "app/api/e/session-manager.ts"
@@ -3005,7 +3038,7 @@
       "packages": []
     },
     "app/test/unit/live-store-reconnect.test.mjs": {
-      "loc": 49,
+      "loc": 84,
       "exports": [],
       "imports": [
         "app/src/pages/canvas/live-store.ts"
@@ -3037,7 +3070,7 @@
       "packages": []
     },
     "app/test/unit/recovery-presentation.test.mjs": {
-      "loc": 9,
+      "loc": 18,
       "exports": [],
       "imports": [
         "app/src/pages/canvas/chat/presentation-state.ts"

@@ -2,7 +2,7 @@
 title: 共享内容合同
 description: 浏览器、API 和工作进程共用消息校验，保持附件内容、模型能力与会话线协议一致。
 sources:
-  - app/api/e/contracts.ts bdd5d6332b3f SessionView SessionSnapshot Attachment capabilityAvailable
+  - app/api/e/contracts.ts fcd0017d416d SessionView SessionSnapshot Attachment capabilityAvailable
   - app/api/e/attachments.ts 91fc1060693b
   - app/shared/message-content.mjs 854c2cb3c439 ATTACHMENT_LIMITS validateMessage messageBlocks
   - app/shared/message-content.d.mts ba4a912c7298 validateMessage messageBlocks

@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {setup,focus,input} from './fixtures/desktop';
+import {setup,focus,input,session} from './fixtures/desktop';
 import {stopSession,openModelList,runtimeModelOption,chooseRuntimeModel} from './ui-actions';
 const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jhmcAAAAASUVORK5CYII=','base64');
 
@@ -45,3 +45,31 @@ test('client rejects invalid UTF8, executable types, mismatched signatures, unsu
 });
 
 test('permission disclosure consumes Escape once, then full to floating to canvas',async({page})=>{await setup(page);const dialog=page.getByRole('dialog',{name:/专注模式/});await dialog.getByRole('button',{name:'铺满视口'}).click();await dialog.getByRole('button',{name:'权限设置',exact:true}).click();await page.getByRole('dialog',{name:'权限设置',exact:true}).getByRole('button',{name:/手动审批/}).focus();await page.keyboard.press('Escape');await expect(page.getByRole('dialog',{name:'权限设置',exact:true})).toHaveCount(0);await expect(dialog).toHaveAttribute('data-window-mode','full');await page.keyboard.press('Escape');await expect(dialog).toHaveAttribute('data-window-mode','floating');await page.keyboard.press('Escape');await expect(dialog).toHaveCount(0);});
+
+
+test('consumed queue receipts move to session status details instead of occupying composer',async({page},info)=>{
+ const s=session();s.queue={revision:1,paused:false,items:[
+  {id:'consumed-a',intentId:'queue:a',content:'第一条已消费消息',attachments:[],state:'consumed',createdAt:'2026-01-01T00:00:00Z',consumedAt:'2026-01-01T00:01:00Z'},
+  {id:'consumed-b',intentId:'queue:b',content:'第二条已消费消息',attachments:[],state:'consumed',createdAt:'2026-01-01T00:02:00Z',consumedAt:'2026-01-01T00:03:00Z',origin:{kind:'agent',label:'同伴 Agent',channel:'canvas-collaboration',authenticated:true}},
+ ]};
+ const h=await setup(page,false,s);await input(page).fill('移动回执时保留草稿');const original=await input(page).elementHandle();
+ await expect(page.locator('.chat-queue')).toHaveCount(0);await expect(page.locator('.chat-queue-archive')).toHaveCount(0);await expect(page.locator('.chat-input-dock')).not.toContainText('第一条已消费消息');
+ await page.locator('[data-focus-overlay] [data-session-status="a"]').click();const popover=page.getByRole('dialog',{name:'会话状态与上下文'});const receipts=popover.locator('.chat-queue-receipts');
+ await expect(receipts).toContainText('队列回执 · 已确认消费 2');await expect(receipts.locator('[data-queue-receipt="consumed-a"]')).toBeHidden();await receipts.locator('summary').click();await expect(receipts.locator('[data-queue-receipt="consumed-a"]')).toBeVisible();await expect(receipts).toContainText('第一条已消费消息');await expect(receipts).toContainText('第二条已消费消息');await expect(receipts).toContainText('来自 同伴 Agent');await page.screenshot({path:info.outputPath('queue-receipts-status.png')});
+ await page.keyboard.press('Escape');await expect(input(page)).toHaveValue('移动回执时保留草稿');expect(await original!.evaluate(el=>el===document.querySelector('[data-focus-overlay] textarea'))).toBe(true);expect(h.calls).toEqual([]);
+ s.queue!.items.push({id:'pending',intentId:'queue:p',content:'仍需处理',attachments:[],state:'pending',createdAt:'2026-01-01T00:04:00Z'});h.publish();
+ await expect(page.getByRole('region',{name:'Canvas 待发队列'})).toContainText('待发 1');await expect(page.getByRole('region',{name:'Canvas 待发队列'})).not.toContainText('第一条已消费消息');await expect(page.getByRole('region',{name:'Canvas 待发队列'}).getByRole('button',{name:'展开待发列表'})).toBeVisible();
+});
+
+test('receipt details select the latest confirmations rather than queue positions',async({page})=>{
+ const s=session();s.queue={revision:1,paused:false,items:Array.from({length:6},(_,i)=>({
+  id:`receipt-${i}`,intentId:`receipt:${i}`,content:`回执 ${i}`,attachments:[],state:'consumed',
+  createdAt:'2026-01-01T00:00:00Z',consumedAt:`2026-01-01T00:0${i===0?6:i}:00Z`,
+ }))};
+ await setup(page,false,s);await page.locator('[data-focus-overlay] [data-session-status="a"]').click();
+ const receipts=page.getByRole('dialog',{name:'会话状态与上下文'}).locator('.chat-queue-receipts');
+ await receipts.locator('summary').click();
+ await expect(receipts.locator('[data-queue-receipt]')).toHaveCount(5);
+ await expect(receipts.locator('[data-queue-receipt="receipt-0"]')).toBeVisible();
+ await expect(receipts.locator('[data-queue-receipt="receipt-1"]')).toHaveCount(0);
+});

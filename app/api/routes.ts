@@ -224,6 +224,13 @@ const controlSchema = z.object({
   approvalId: z.string().max(256).optional(), decision: z.enum(['approved', 'rejected', 'cancelled']).optional(), response: z.unknown().optional(),
 }).strict();
 
+api.get('/workspaces/:wid/sessions', c => {
+  const wid=c.req.param('wid');
+  if(!registry.has(wid))return c.json({error:'workspace not found'},404);
+  if(registry.backend(wid)!=='e')return c.json({error:'not an e workspace'},409);
+  if(c.req.query('view')!=='archived')return c.json({error:'view=archived required'},400);
+  return c.json({sessions:eSessions.list(wid).filter(session=>session.archivedAt)});
+});
 api.post('/workspaces/:wid/sessions', async c => {
   const wid = c.req.param('wid');
   if (!registry.has(wid)) return c.json({ error: 'workspace not found' }, 404);
@@ -315,6 +322,22 @@ for (const operation of ['messages', 'abort', 'approval'] as const) {
     return c.json({ action }, 202);
   });
 }
+api.post('/workspaces/:wid/nodes/:nid/archive', async c => {
+  const wid=c.req.param('wid'),nid=c.req.param('nid');
+  if(registry.backend(wid)!=='e'||!eSessions.get(wid,nid))return c.json({error:'session not found'},404);
+  registry.assertWritable(wid);
+  const session=await eSessions.archive(wid,nid);registry.persist();return c.json({session});
+});
+api.delete('/workspaces/:wid/nodes/:nid/session', async c => {
+  const wid=c.req.param('wid'),nid=c.req.param('nid');
+  if(registry.backend(wid)!=='e'||!eSessions.get(wid,nid))return c.json({error:'session not found'},404);
+  registry.assertWritable(wid);
+  const parsed=z.object({confirmDelete:z.literal(true)}).strict().safeParse(await c.req.json().catch(()=>null));
+  if(!parsed.success)return c.json({error:'删除已归档会话需要明确确认'},400);
+  eSessions.deleteArchived(wid,nid);
+  getGraphStore(wid)?.removeNode(nid);registry.persist();broadcast(graphMessage(wid));
+  return c.json({ok:true});
+});
 for (const operation of ['stop', 'resume'] as const) {
   api.post(`/workspaces/:wid/nodes/:nid/${operation}`, async c => {
     const wid = c.req.param('wid'), nid = c.req.param('nid');

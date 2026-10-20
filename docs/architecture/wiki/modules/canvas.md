@@ -5,16 +5,18 @@ sources:
   - app/src/pages/canvas/GlobalCardViewControl.tsx 5eeacac098c7 GlobalCardViewControl
   - app/src/pages/canvas/CardViewControl.tsx 2a0b6806cfd0 CardViewControl
   - app/src/pages/canvas/ApprovalModeControl.tsx 600aaa3b12e7 ApprovalModeControl
-  - app/src/pages/canvas/SessionHeaderActions.tsx ee6d5ea0e0ef SessionHeaderActions
-  - app/src/pages/canvas/contracts.ts 572415b9994f
-  - app/src/pages/canvas/index.tsx 0c93d9ab6b59 CanvasPage CanvasRedirect computeTiers
-  - app/src/pages/canvas/live-store.ts c4225c7c282e LiveStore fetchWorkspaces sessionAction subscribeTerm
+  - app/src/pages/canvas/ArchivedSessionsControl.tsx 7e4c4517c1ba ArchivedSessionsControl
+  - app/src/pages/canvas/SessionHeaderActions.tsx 36820f437092 SessionHeaderActions
+  - app/src/pages/canvas/contracts.ts e0b86ed4908f
+  - app/src/pages/canvas/index.tsx 9e21ff626ae2 CanvasPage CanvasRedirect computeTiers
+  - app/src/pages/canvas/live-store.ts 30cd63eddcb7 LiveStore fetchWorkspaces sessionAction subscribeTerm
   - app/src/pages/canvas/session-store.ts a1af822c02ec SessionStore capabilityAvailable
   - app/src/pages/canvas/LiveNode.tsx 4465d81b5bb1 LiveNode LiveNodeComponent
   - app/src/pages/canvas/LiveTerminal.tsx c93871702251 LiveTerminal EventReplay
-  - app/src/pages/canvas/SessionIdentity.tsx ce0ed7d1b0ab SessionIdentity SessionStatus
+  - app/src/pages/canvas/SessionIdentity.tsx 51d05a98dec9 SessionIdentity SessionStatus
   - app/src/pages/canvas/RunBar.tsx d2020529a6d3 RunBar
 covers:
+  - app/src/pages/canvas/ArchivedSessionsControl.tsx
   - app/src/pages/canvas/GlobalCardViewControl.tsx
   - app/src/pages/canvas/global-card-view.css
   - app/src/pages/canvas/SessionHeaderActions.tsx
@@ -57,7 +59,8 @@ covers:
 | `SessionStore`、`capabilityAvailable` | `app/src/pages/canvas/session-store.ts` | 按节点订阅 `SessionView`；同工作区只接收更高版本，能力还须满足 ready、authoritative、available 与未过期。 |
 | `LiveNode` | `app/src/pages/canvas/LiveNode.tsx` | 根据节点后端选择对话或终端内容，接入共享专注窗口。 |
 | `LiveTerminal` | `app/src/pages/canvas/LiveTerminal.tsx` | 订阅 ANSI 全量快照；输入走工作区限定的节点端点。 |
-| `SessionIdentity`、`SessionStatus` | `app/src/pages/canvas/SessionIdentity.tsx` | 展示身份与会话状态；昵称更新提交 `title` 和 `expectedVersion`。 |
+| `SessionIdentity`、`SessionStatus` | `app/src/pages/canvas/SessionIdentity.tsx` | 展示身份与会话状态；状态详情同时承载队列回执，昵称更新提交 `title` 和 `expectedVersion`。 |
+| `ArchivedSessionsControl` | `app/src/pages/canvas/ArchivedSessionsControl.tsx` | 顶部“已归档”列表提供恢复与删除；只有运行 API 报告 `sessionLifecycleVersion:2` 才显示入口。 |
 
 `LiveStore.sessionAction` 接受 `messages`、`abort`、`approval`、`stop`、`resume`、`configuration`、`queue`。请求落在 `/api/workspaces/:wid/nodes/:nid/:operation`；没有工作区标识时使用旧节点路径。e 操作要求连接在线，响应中的会话快照回写 `SessionStore`。
 
@@ -67,7 +70,7 @@ covers:
 
 打开工作区后，浏览器建立同源 WebSocket，先声明要查看的工作区。收到全量图后建立节点、边和分区，再按增量更新局部状态。消息带有工作区、代次和序号时，客户端过滤错工作区和旧帧；发现序号缺口就重新请求全量图。连接失败会退避重连，保留最后快照。
 
-真实会话的消息历史通过独立的会话快照更新，不必每次重建整张图。终端快照按节点分发；前三个活窗实时更新，第四个按半秒抽帧，其余显示最后快照，专注窗口提升为实时显示。终端键入内容提交给后端，屏幕回显仍以后端快照为准。
+归档会话仍保留在本地记录中，但画布节点和关联连线会隐藏；恢复时同一记录重新投影为卡片，删除才会从图中移除。归档节点不参与活窗配额或自动布局。真实会话的消息历史通过独立的会话快照更新，不必每次重建整张图。终端快照按节点分发；前三个活窗实时更新，第四个按半秒抽帧，其余显示最后快照，专注窗口提升为实时显示。终端键入内容提交给后端，屏幕回显仍以后端快照为准。
 
 标题中的状态与上下文共用一个圆形入口：正常且数据有效时显示真实用量环与百分比，悬停或焦点只提示当前状态和查看详情的动作，完整用量、时间和原因在点击弹层中说明；异常时同一位置切换为红色状态，不并列旧百分比。等待审批仍有明确提示，不从“中断”等字样猜测故障。没有错误证据的待恢复记录用中性色，真实运行器失败或降级保留告警。详细节点与专注标题栏只保留身份、状态和操作入口；普通待恢复或已停止会话直接在标题栏提供恢复，不重复占据正文通知块。卡片视图选择与诊断放在会话菜单，历史模型在输入台与会话详情中明确标为上次使用。缩略卡没有输入台，仍保留模型摘要。
 

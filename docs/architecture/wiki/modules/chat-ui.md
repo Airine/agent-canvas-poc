@@ -2,6 +2,8 @@
 title: 会话交互
 description: 真实 e 会话的消息呈现、草稿、待发队列和审批操作。
 sources:
+  - app/src/pages/canvas/chat/QueuePanel.tsx 14344a53ad03 QueuePanel
+  - app/src/pages/canvas/chat/QueueReceipts.tsx da27f4a2800d QueueReceipts
   - app/src/pages/canvas/chat/ExecutionGroup.tsx 948d362fbbb0 ExecutionGroup
   - app/src/pages/canvas/chat/execution-presentation.ts d331f2a51450 groupExecutionTurns isExecutionOnly executionSummary
   - app/src/pages/canvas/chat/approval-presentation.ts 39f8b243c17b approvalAuditLabel approvalProgress allPendingReviewing
@@ -14,9 +16,9 @@ sources:
   - app/src/pages/canvas/chat/project-transcript.ts cf3e836071a7 TranscriptProjector
   - app/src/pages/canvas/chat/ConversationView.tsx c44472e6df67 ConversationView
   - app/src/pages/canvas/chat/ApprovalRequest.tsx f7b8d4c8ace0 ApprovalRequest
-  - app/src/pages/canvas/chat/presentation-state.ts b69274e2c807 presentation sessionNotices
+  - app/src/pages/canvas/chat/presentation-state.ts dd9866b3c526 presentation sessionNotices
   - app/src/pages/canvas/chat/attachments.ts 6bc4fc390f29 readAttachment pastedAttachment
-  - app/src/pages/canvas/chat/error-presentation.ts 9bf76cd37b66 redact safeLink
+  - app/src/pages/canvas/chat/error-presentation.ts c29909dfeee8 redact safeLink errorStatusTitle
   - app/src/pages/canvas/chat/RuntimeConfigControl.tsx 18eac6869cc9 RuntimeConfigControl
 covers:
   - app/src/pages/canvas/chat/
@@ -35,6 +37,7 @@ covers:
 - `ExecutionGroup`（`ExecutionGroup.tsx`）提供执行摘要 → 工具列表 → 单工具输入/输出的三级展开；`executionSummary` 只从真实工具状态和审批生成摘要。首次展开只挂载最近 20 个步骤，可按 20 个加载更早项；打开后固定阅读窗口，新增步骤通过独立入口查看。
 - `ChatUIStore`、`getChatUI`（`chat-ui-store.ts`）管理草稿、附件、发送意图、展开状态和阅读位置。`chatUIKey` 包含工作区、节点与原生会话标识，避免串会话草稿。
 - `presentation`、`sessionNotices`（`presentation-state.ts`）由会话事实、连接状态、只读状态和能力有效期计算可操作状态。`needsSessionRecovery` 区分无故障证据的待恢复记录；`sessionModelPresentation` 为会话详情和输入台统一提供当前或历史模型标签；`sessionIndicator` 为统一状态球选择真实上下文或优先显示的异常状态。
+- `QueueReceipts`（`QueueReceipts.tsx`）把已确认消费的队列回执放在“会话状态与上下文”详情中；`QueuePanel` 只保留待发、未确认或需要操作的条目。全部消费后不在输入框上方常驻归档。
 - `ApprovalRequest`（`ApprovalRequest.tsx`）提交带 `intentId`、`approvalId`、`decision` 的审批；`RuntimeConfigControl`（`RuntimeConfigControl.tsx`）提供同一弹层中的推理主面板与模型列表，提交带 `expectedRevision` 的执行配置变更，或请求重新回读配置。`runtime-config-presentation.ts` 提供真实档位名称、配置基准、模型分组和可写条件。
 - `readAttachment`、`pastedAttachment`（`attachments.ts`）形成契约中的 base64 附件；约束检查复用 `app/shared/message-content.mjs`，会话类型来自 `app/api/e/contracts.ts`。
 
@@ -44,13 +47,13 @@ covers:
 
 用户输入保存在当前会话的浏览器会话存储中，有效期为 24 小时。附件二进制只保留在内存，刷新后恢复附件名称并阻止发送，直到用户重新选择附件或明确移除缺失标记。超过 2000 字符的粘贴文本转成文本附件。
 
-发送时重新读取最新会话状态，并创建稳定的意图标识。普通输入在当前轮执行中、等待审批、已有待发项或会话停止、中断时进入 Canvas 待发队列；空闲且具备能力时作为新消息直接发送。不存在隐藏的手动 Steer/Follow-up 选择。待发摘要直接提供首项编辑和立即发送；运行中立即发送必须确认 Steer，不自动中断。队列修改附带修订号，消息发送附带投递方式。失败时保留草稿，不自动重发；成功后只有草稿修订未改变才清空，避免删掉提交期间的新输入。
+发送时重新读取最新会话状态，并创建稳定的意图标识。普通输入在当前轮执行中、等待审批、已有待发项或会话停止、中断时进入 Canvas 待发队列；队列区只承担待发、未确认、暂停和错误处理，已消费回执移到状态详情，避免与正文/输入框争抢阅读空间；空闲且具备能力时作为新消息直接发送。不存在隐藏的手动 Steer/Follow-up 选择。待发摘要直接提供首项编辑和立即发送；运行中立即发送必须确认 Steer，不自动中断。队列修改附带修订号，消息发送附带投递方式。失败时保留草稿，不自动重发；成功后只有草稿修订未改变才清空，避免删掉提交期间的新输入。
 
 尚未恢复且没有运行器错误或降级证据的记录在标题栏使用中性状态与显式恢复按钮，正文不再重复普通恢复通知，不能仅凭中断生命周期宣称运行器故障，也不推测中断原因。旧快照中的执行中轮次不表示当前仍在运行；独立的审批和未知动作仍需保留。恢复前的普通消息只保存到暂停队列，不授权执行；只有明确恢复会话并恢复待发后才继续。
 
 模型记录与已确认配置都不能在会话未就绪、离线或配置未确认时冒充当前回读。此时入口明确显示上次使用的模型。上下文从输入台移到标题状态球，只有同 native 的就绪会话、有效容量与真实用量才显示环形百分比；无数据不估算。异常、配置未确认、未知派发、离线和暂停状态不显示过时百分比；点击状态球可看状态和真实采样时间。
 
-审批按钮只有在连接在线、工作区可写、能力有效且请求仍待审批时可用。`approval-presentation.ts` 区分规则未调用 AI、实际审查和等待 e 确认；仅全部 pending 都在辅助模式审查中时，汇总提示才改为“AI 审查中”，混合请求仍保留人工入口。权限详情用实际 `approvalPolicyVersion` 区分旧 API，不以热更新宣称后端已生效。配置切换也等待运行器回读确认；切换提供方前显示确认框，当前轮执行中不能修改配置。推理滑条按运行器返回的离散档位排列，拖动先预览，松开或键盘 Enter 后提交一次；输入台摘要在回读前保持已确认值。预览绑定 native、模型、revision 和档位集合，过期预览拒绝提交。选模型后重新读取实际档位，运行器发生调整会说明，不默认最高档。只有一个或没有可调档位时不显示无效滑条。错误和工具输出显示前做脱敏，原始会话证据不被界面改写。
+审批按钮只有在连接在线、工作区可写、能力有效且请求仍待审批时可用。`approval-presentation.ts` 区分规则未调用 AI、实际审查和等待 e 确认；仅全部 pending 都在辅助模式审查中时，汇总提示才改为“AI 审查中”，混合请求仍保留人工入口。权限详情用实际 `approvalPolicyVersion` 区分旧 API，不以热更新宣称后端已生效。配置切换也等待运行器回读确认；切换提供方前显示确认框，当前轮执行中不能修改配置。推理滑条按运行器返回的离散档位排列，拖动先预览，松开或键盘 Enter 后提交一次；输入台摘要在回读前保持已确认值。预览绑定 native、模型、revision 和档位集合，过期预览拒绝提交。选模型后重新读取实际档位，运行器发生调整会说明，不默认最高档。只有一个或没有可调档位时不显示无效滑条。错误和工具输出显示前做脱敏，原始会话证据不被界面改写。`errorTitle` 将 `fetch failed`/超时类错误标为“模型网络请求失败”，`errorStatusTitle` 为状态栏生成“上次…”文案；不明确原因的失败不编造成账号或配额问题。
 
 正文消息尾部保留复制、时间与详情入口；纯执行段不显示正文页脚与重复时间戳。连续工具/思考片段默认收在一行执行摘要中，混合消息开头的思考和末尾的工具也参与邻接合并；只有纯思考时称“思考过程”。摘要保留工具数，并提供由真实工具名与有限参数生成的短句（如读取/修改文件名、搜索词、常见测试命令）；失败、拒绝、等待批准等保留独立状态。工具类型/思考段数进入展开层。运行中也不强制展开；失败、拒绝和未知状态在摘要标明，pending 审批卡始终独立展示。工具历史审批与请求时间进入单工具详情，运行/内部轮次及消息模型仍保存在执行详情和原始元数据中。执行配置由输入台承担，不能把历史回复的模型替换成当前选择。
 

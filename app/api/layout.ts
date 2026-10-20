@@ -118,7 +118,7 @@ function prioritizeErrorBranches(columns: Map<number, CanvasNode[]>, graph: Grap
 
 /** 计算一键最优布局，输出 React Flow 使用的左上角坐标。 */
 export function computeLayout(graph: Graph): LayoutResult {
-  const nodes = graph.nodes;
+  const nodes = graph.nodes.filter(node=>!node.archivedAt);
   if (nodes.length === 0) return { positions: [] };
 
   const edges = layoutEdges(graph, new Set(nodes.map((n) => n.id)));

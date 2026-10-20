@@ -3,17 +3,22 @@ title: 代码审查
 description: 当前工作区的高置信问题、触发条件和修复顺序。
 sources:
   - app/test/unit/health-regressions.test.mjs 4ce16fe1aaa5
-  - app/test/unit/live-store-reconnect.test.mjs ec879ce1f0e9
+  - app/test/unit/live-store-reconnect.test.mjs 0f76b07a6e4c
   - app/test/unit/coordinator-failure.test.mjs 7e6aeeacbf12
-  - app/test/unit/e-routes.test.mjs a1d8431a9269
+  - app/test/unit/e-routes.test.mjs 866f95173379
+  - app/test/unit/e-session-manager.test.mjs 88f8298a86b3
+  - app/test/unit/e-projection.test.mjs 9a4262e89208
+  - app/test/unit/recovery-presentation.test.mjs 08dae2d21338
+  - app/test/browser/recovery-ui.spec.ts 3e222113f189
+  - app/test/browser/desktop-composer.spec.ts 48fb860d3e9b
   - app/test/browser/e-canvas.spec.ts 6dbdbfa1d93d
   - app/api/e/approval-rules.ts f4596999d61c approvalRule
   - app/api/e/message-queue.ts 035004c14654 mutateQueue
-  - app/src/pages/canvas/live-store.ts c4225c7c282e LiveStore
+  - app/src/pages/canvas/live-store.ts 30cd63eddcb7 LiveStore
   - app/src/pages/canvas/LiveTerminal.tsx c93871702251 LiveTerminal
-  - app/src/pages/canvas/index.tsx 0c93d9ab6b59
+  - app/src/pages/canvas/index.tsx 9e21ff626ae2
   - app/src/pages/canvas/chat/attachments.ts 6bc4fc390f29 readAttachment
-  - app/api/routes.ts a121973dd5ba wsHandlers
+  - app/api/routes.ts 8727ff4c9a19 wsHandlers
   - app/api/eventbus.ts 47b4e6ed936c
   - app/api/coordinator.ts 2f2630aa80fe
 ---
@@ -40,10 +45,26 @@ sources:
 
 前端消息类型移到 `app/src/pages/canvas/contracts.ts`，真实 store 与 mock 依赖同一合同，消除原来的类型循环。旧 store 类型转导出仍可用。已删除没有入口引用的旧画布占位页。
 
-单元测试不再混在 API 目录。研究资料、阶段计划、运行指南和历史工具按职责归档，完整位置见[目录约定](repository-layout.md)。随后对 59 个未使用候选逐项复核：删除 34 个干净文件，保护 18 个未提交文件及其 7 个依赖。证据见[未使用文件复核](unused-files.md)，剩余候选仍如实列在[代码体检](health.md)。
+单元测试不再混在 API 目录。研究资料、阶段计划、运行指南和历史工具按职责归档，完整位置见[目录约定](repository-layout.md)。对 59 个未使用候选的首次复核删除了 34 个干净文件，暂时保护 18 个未提交文件及其 7 个依赖；后续保存基线后已清理剩余 25 个文件，并处理 36 个未使用导出。逐项证据见[未使用文件复核](unused-files.md)和[未使用导出复核](unused-exports.md)，当前扫描结果见[代码体检](health.md)。
+
+## 2026-10-21 队列与会话生命周期复核
+
+本轮以 `c428a53` 为基线审查未提交改动，修复以下七处问题：
+
+| 问题 | 修复与回归 |
+| --- | --- |
+| 先收到节点、再收到会话的真实广播顺序未触发画布隐藏 | 归档标记变化通知整张画布；`live-store-reconnect.test.mjs` 和 `recovery-ui.spec.ts` 覆盖节点 → 会话 → HTTP 的顺序。 |
+| 恢复投影未清除旧图节点的归档标记 | 投影显式清除标记；`e-projection.test.mjs` 验证合并旧节点和 JSON 序列化。 |
+| 过期 HTTP 响应回退归档状态 | 图节点只采用会话存储当前接受的版本；`live-store-reconnect.test.mjs` 覆盖两个方向的乱序响应。 |
+| 文件删除失败后内存记录已丢失 | 目录删除成功后才移除内存记录；`e-session-manager.test.mjs` 注入文件系统拒绝并验证可重试。 |
+| 恢复失败提示被列表刷新清空 | 刷新后保留操作错误；`recovery-ui.spec.ts` 覆盖容量错误和列表仍可操作。 |
+| 限流、认证错误因文案不含“失败”被显示为正常 | 从回复错误事实决定状态等级；`recovery-presentation.test.mjs` 覆盖 401、403、429 和网络错误。 |
+| 最近五条回执误按队列位置选择 | 按确认时间排序，不修改原队列；`desktop-composer.spec.ts` 覆盖乱序消费。 |
+
+此轮测试使用临时目录和 HTTP/WS fixture，没有归档、恢复或删除真实会话。既有证据目录中的日期、哈希与测试数字是各轮历史快照，不代表本轮重新验证。
 
 ## 验证边界
 
 单元测试使用临时目录、假 WebSocket 和归一化生命周期事件；浏览器布局用例使用明确的协议 fixture。本轮没有启动真实 Pi 会话或 herdr 进程，没有重置用户工作区，也没有运行历史自动审批脚本。
 
-审批预检不能替代外部工具执行时的文件系统隔离；不宣称消除了任意并发文件替换风险。大文件热点和其他未使用导出继续保留在体检中，不为降低计数做无证据删除。
+审批预检不能替代外部工具执行时的文件系统隔离；不宣称消除了任意并发文件替换风险。大文件热点继续保留在体检中；未使用文件和导出数量以确定性扫描为准，不为降低计数做无证据删除。

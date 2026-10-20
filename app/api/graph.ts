@@ -89,6 +89,13 @@ export class GraphStore {
     this.emitNode(prior ?? node);
   }
 
+  removeNode(id: string): boolean {
+    const had=this.getNode(id);if(!had)return false;
+    this.graph.nodes=this.graph.nodes.filter(n=>n.id!==id);
+    this.graph.edges=this.graph.edges.filter(e=>e.source!==id&&e.target!==id);
+    return true;
+  }
+
   patchNode(id: string, patch: Partial<CanvasNode>): CanvasNode | undefined {
     const node = this.getNode(id);
     if (!node) return undefined;

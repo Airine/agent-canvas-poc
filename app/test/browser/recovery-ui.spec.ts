@@ -21,3 +21,42 @@ test('ready readback replaces historical summary without losing draft, paused qu
  const s=recoveredHistory();const h=await setup(page,false,s);await input(page).fill('恢复期间保留的草稿');const el=await input(page).elementHandle();await page.getByRole('button',{name:'铺满视口'}).click();await page.setViewportSize({width:390,height:844});await expect(page.locator('.chat-history-prefix')).toBeVisible();await expect(input(page)).toHaveValue('恢复期间保留的草稿');expect(await page.locator('.chat-composer').evaluate(el=>el.scrollWidth-el.clientWidth)).toBeLessThanOrEqual(1);
  s.lifecycle='starting';h.publish();await expect(page.locator('[data-notice=starting]')).toBeVisible();await expect(page.getByRole('button',{name:'发送',exact:true})).toBeDisabled();s.lifecycle='ready';s.configuration=session().configuration;h.publish();await expect(page.locator('[data-notice=recovery]')).toHaveCount(0);await expect(page.getByRole('button',{name:'执行配置',exact:true})).toContainText('vision');await expect(page.locator('.chat-history-prefix')).toHaveCount(0);await expect(page.getByRole('button',{name:'发送',exact:true})).toBeEnabled();await expect(input(page)).toHaveValue('恢复期间保留的草稿');expect(await el!.evaluate(el=>el===document.querySelector('[data-focus-overlay] textarea'))).toBe(true);expect(s.queue!.paused).toBe(true);expect(h.calls).toEqual([]);
 });
+
+
+test('model fetch failure is labelled as network failure without hiding raw diagnosis',async({page})=>{
+ const s=session();s.snapshot!.messages.push({id:'network-error',role:'assistant',state:'completed',order:3,error:'TypeError: fetch failed',blocks:[]});const h=await setup(page,false,s);
+ await expect(page.locator('[data-focus-overlay] [data-session-status]')).toHaveAttribute('aria-label',/上次模型网络请求失败/);await expect(page.locator('[data-focus-overlay] .session-status')).toHaveAttribute('data-tone','danger');const notice=page.locator('.chat-error').last();await expect(notice).toContainText('模型网络请求失败');await notice.getByRole('button',{name:'查看脱敏详情'}).click();await expect(notice).toContainText('fetch failed');expect(h.calls).toEqual([]);
+});
+
+
+test('session archive hides the card, restores from toolbar and delete requires confirmation',async({page},info)=>{
+ const s=session();s.sessionLifecycleVersion=2;const archived=structuredClone(s);archived.lifecycle='stopped';archived.archivedAt='2026-01-02T00:00:00Z';archived.queue={...s.queue!,paused:true,reason:'会话停止或归档，需明确恢复待发'};let archivedItems=[];let deleteCalls=0;
+ const h=await setup(page,false,s);
+ await page.route('**/api/workspaces/desktop/nodes/a/archive',route=>{archived.version=++s.version;archivedItems=[archived];h.publishLifecycle(archived);return route.fulfill({json:{session:archived}});});
+ await page.route('**/api/workspaces/desktop/sessions?view=archived',route=>route.fulfill({json:{sessions:archivedItems}}));
+ await page.route('**/api/workspaces/desktop/nodes/a/resume',route=>{s.version++;archivedItems=[];h.publishLifecycle(s);return route.fulfill({json:{session:s}});});
+ await page.route('**/api/workspaces/desktop/nodes/a/session',route=>{if(route.request().method()==='DELETE'){deleteCalls++;archivedItems=[];return route.fulfill({json:{ok:true}});}return route.fallback();});
+ const card=page.locator('.react-flow__node[data-id="a"]');await page.getByRole('dialog',{name:/专注模式/}).getByRole('button',{name:'会话操作',exact:true}).click();await page.getByRole('button',{name:'归档会话',exact:true}).click();await page.getByRole('button',{name:'确认归档',exact:true}).click();await expect(card).toHaveCount(0);
+ await page.getByRole('button',{name:'已归档会话',exact:true}).click();let popover=page.getByRole('dialog',{name:'已归档会话',exact:true});await expect(popover.locator('[data-archived-session="a"]')).toContainText('验收 Agent');await page.screenshot({path:info.outputPath('archived-sessions.png')});await popover.getByRole('button',{name:'恢复',exact:true}).click();await expect(card).toHaveCount(1);await expect(popover).toContainText('没有已归档会话');
+ await card.getByRole('button',{name:'会话操作',exact:true}).click();await page.getByRole('button',{name:'归档会话',exact:true}).click();await page.getByRole('button',{name:'确认归档',exact:true}).click();await expect(card).toHaveCount(0);
+ await page.getByRole('button',{name:'已归档会话',exact:true}).click();popover=page.getByRole('dialog',{name:'已归档会话',exact:true});await popover.getByRole('button',{name:'删除',exact:true}).click();await page.getByRole('button',{name:'取消',exact:true}).click();expect(deleteCalls).toBe(0);await expect(popover.locator('[data-archived-session="a"]')).toBeVisible();
+ await popover.getByRole('button',{name:'删除',exact:true}).click();await page.getByRole('button',{name:'确认删除',exact:true}).click();await expect(popover).toContainText('没有已归档会话');expect(deleteCalls).toBe(1);await expect(card).toHaveCount(0);expect(h.calls).toEqual([]);
+});
+
+test('archive controls stay hidden until the running API reports lifecycle actions v2',async({page})=>{
+ const s=session();const h=await setup(page,false,s);await expect(page.getByRole('button',{name:'已归档会话',exact:true})).toHaveCount(0);await page.getByRole('dialog',{name:/专注模式/}).getByRole('button',{name:'会话操作',exact:true}).click();await expect(page.getByRole('button',{name:'归档会话',exact:true})).toHaveCount(0);expect(h.calls).toEqual([]);
+});
+
+test('failed archived restore retains its error after refreshing the list',async({page})=>{
+ const s=session();s.sessionLifecycleVersion=2;await setup(page,false,s);
+ const archived={...s,nodeId:'archived',lifecycle:'stopped',archivedAt:'2026-01-02'};
+ await page.route('**/api/workspaces/desktop/sessions?view=archived',route=>route.fulfill({json:{sessions:[archived]}}));
+ await page.route('**/api/workspaces/desktop/nodes/archived/resume',route=>route.fulfill({status:503,json:{error:'live session limit reached'}}));
+ await page.keyboard.press('Escape');
+ await page.getByRole('button',{name:'已归档会话',exact:true}).click();
+ const popover=page.getByRole('dialog',{name:'已归档会话',exact:true});
+ await popover.getByRole('button',{name:'恢复',exact:true}).click();
+ await expect(popover.getByRole('alert')).toHaveText('live session limit reached');
+ await expect(popover.locator('[data-archived-session="archived"]')).toBeVisible();
+ await expect(popover.getByRole('button',{name:'恢复',exact:true})).toBeEnabled();
+});

@@ -106,3 +106,15 @@ test('event history, broadcasts and rates isolate equal node IDs by workspace', 
   assert.deepEqual(receivedB.filter(m=>m.type==='event').map(m=>m.event.text),['only B']);
  } finally { wsHandlers.onClose(null,wa);wsHandlers.onClose(null,wb); }
 });
+
+test('session archive list is separate and delete requires archived confirmation plus graph removal',async t=>{
+ const w=await make(),store=getGraphStore(w.id);store.upsertNode({id:'n-old',title:'Old session',type:'chat',status:'waiting',harness:'pi',env:'e',agentId:'as:old',x:0,y:0});store.upsertEdge({id:'e-old',source:'n-old',target:'other',kind:'communication'});
+ const archived={workspaceId:w.id,nodeId:'n-old',title:'Old session',lifecycle:'stopped',archivedAt:'2026-01-01T00:00:00Z',version:1,updatedAt:'2026-01-01T00:00:00Z',ref:{agentSessionId:'as:old',nativeSessionId:'native:old',cwd:'/fixture'}};
+ t.mock.method(eSessions,'get',(wid,nid)=>wid===w.id&&nid==='n-old'?archived:undefined);t.mock.method(eSessions,'list',wid=>wid===w.id?[archived]:[]);
+ const archive=t.mock.method(eSessions,'archive',async()=>archived),remove=t.mock.method(eSessions,'deleteArchived',()=>{});
+ assert.equal((await request(`/workspaces/${w.id}/sessions`)).status,400);
+ const listed=await (await request(`/workspaces/${w.id}/sessions?view=archived`)).json();assert.equal(listed.sessions.length,1);assert.equal(listed.sessions[0].nodeId,'n-old');
+ assert.equal((await request(`/workspaces/${w.id}/nodes/n-old/archive`,'POST')).status,200);assert.equal(archive.mock.calls.length,1);
+ assert.equal((await request(`/workspaces/${w.id}/nodes/n-old/session`,'DELETE')).status,400);assert.equal(remove.mock.calls.length,0);
+ assert.equal((await request(`/workspaces/${w.id}/nodes/n-old/session`,'DELETE',{confirmDelete:true})).status,200);assert.equal(remove.mock.calls.length,1);assert.equal(store.getNode('n-old'),undefined);assert.equal(store.graph.edges.some(e=>e.source==='n-old'||e.target==='n-old'),false);
+});

@@ -59,16 +59,18 @@ API_PORT=3301 CANVAS_UI_PORT=5174 npm run dev:e
 - submitted/dispatched 不等于 applied。无法确认的动作展示 outcome-unknown，不自动重放。
 - “abort 当前 run”“停止整个会话”“整理布局”是不同操作。
 - 页签关闭只退订视图。点击停止或退出 API 才关闭本服务持有的子进程。
+- 会话可归档：停止并从画布隐藏，保留历史，可在顶部“已归档”恢复。已归档会话可删除；删除需要确认，会移除本地会话记录和原生历史，不可恢复。
 
 ## 刷新、重连与恢复
 
 - 浏览器刷新/WS 断线：保留最后会话快照，标注离线并禁用写操作；重连同步图和会话，不切换 mock。
 - API 重启：从持久化数据加载历史，显示 stopped/interrupted；用户明确恢复后才重启相同受管 native session。
-- 恢复不会重发历史消息，不会在找不到原会话时悄悄创建新空会话。
+- 恢复不会重发历史消息，不会在找不到原会话时悄悄创建新空会话。恢复归档会话失败会把失败原因带回画布，不会伪装成功。
 - 会话日志、Pi session、canonical 快照与控制 journal 保留。Ctrl+C 只清理当前启动器管理的进程。
 
 ## API 与隔离
 
+- 并发会话默认上限为 4，可由 `CANVAS_MAX_SESSIONS` 调整至 1–8；它只限制正在运行/启动的会话，归档或停止的记录不占额度。
 - `GET /api/runtime/status`
 - `POST /api/workspaces`，指定 `backend: "e"` 创建空画布
 - `POST /api/workspaces/:wid/sessions`
@@ -195,3 +197,11 @@ node test/browser/real-multi.mjs
 原 ADE 保持只读；Canvas 在自有 generation 中生成仅扩展审批工具名单的过渡适配器副本。结构不匹配、旧 API 无 manifest 或握手失败时停用协作，普通聊天回退原适配器，不绕过审批。停止目标只暂停入队，恢复会话与恢复队列分开。范围、容量、可信来源和可复验脚本见 [Canvas 协作](../canvas-collaboration.md)。现有 API/Pi 不热注入工具，日常服务需在安全时显式重载。
 
 API 编译设置 `noEmitOnError:true`，编译和 lint 排除 `api/data/**`、`dist-api/**`，防止运行时生成文件被当作源码。不要删除会话数据来解决构建错误。
+## 会话归档与删除（2026-10-20）
+
+- 会话菜单提供“归档会话”：停止 worker、暂停待发、从画布隐藏，保留本地记录。
+- 顶部“已归档”列出可恢复会话；恢复沿用同一 native session。缺少原生历史时恢复会失败并显示原因，不创建空替代会话。
+- 删除只在归档列表中出现，需明确确认；它删除本地会话目录和画布卡片，不能撤销，也不从协作账本重建会话。
+- 文件系统拒绝删除时保留内存记录，显示错误并允许重试；不会将删除失败显示成成功。
+- 前端根据运行中 API 的 `sessionLifecycleVersion` 显示入口；旧 API 未重启时不会出现不可用按钮。
+- 当前日常 API 仍需安全重载后才有这些路由；本次实现没有归档或删除任何真实会话。
