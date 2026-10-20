@@ -6,7 +6,7 @@ import type { EngineState, NodeState, NodeStatus } from '@/shared';
 import { MOCK_EVENTS } from '@/shared';
 
 /** 耗时：`42s` / `3m12s`，等宽数字（§1.2） */
-export function fmtElapsed(ms: number): string {
+function fmtElapsed(ms: number): string {
   const s = Math.max(0, Math.round(ms / 1000));
   if (s < 60) return `${s}s`;
   return `${Math.floor(s / 60)}m${String(s % 60).padStart(2, '0')}s`;

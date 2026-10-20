@@ -1,6 +1,6 @@
 export const ATTACHMENT_LIMITS = { count: 4, image: 2 * 1024 * 1024, text: 100 * 1024, request: 12 * 1024 * 1024 };
 const encoder = new TextEncoder();
-export function decodeAttachment(data) {
+function decodeAttachment(data) {
     if (typeof data !== 'string' || data.length > 3 * 1024 * 1024 || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(data))
         throw new Error('附件不是有效的 base64 内容');
     const raw = atob(data);

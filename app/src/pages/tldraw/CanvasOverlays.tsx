@@ -21,7 +21,7 @@ import { QUOTA_TOTAL, useCanvasServices } from './context';
  * 等效于 editor.getEfficientZoomLevel() 的机制：上报真实 getZoomLevel()，
  * 由 manager 在相机运动停止 120ms 后统一重算档位（§3.2 阈值按像素宽，非绝对 zoom）。
  */
-export function ZoomBridge() {
+function ZoomBridge() {
   const editor = useEditor();
   const { manager } = useCanvasServices();
   const zoom = useValue('zoom-bridge', () => editor.getZoomLevel(), [editor]);

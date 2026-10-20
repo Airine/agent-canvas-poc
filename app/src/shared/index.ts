@@ -3,18 +3,14 @@
  * 与画布引擎无关：两个路由（React Flow / tldraw）只允许各自写画布适配层。
  */
 export * from './types';
-export { MOCK_EDGES, MOCK_EVENTS, MOCK_NODES, MOCK_TOTAL } from './mock/events';
-export { EventEngine, buildSnapshot } from './mock/engine';
+export { MOCK_EDGES, MOCK_EVENTS, MOCK_NODES } from './mock/events';
+export { EventEngine } from './mock/engine';
 export type { EngineState, PlaybackSpeed } from './mock/engine';
 export {
   ViewModeManager,
-  modeForScreenWidth,
   useAnimationsEnabled,
   useFocusedNodeId,
   useViewMode,
-  L0_MAX_PX,
-  L1_MAX_PX,
-  ZOOM_DEBOUNCE_MS,
 } from './ViewModeManager';
 export { NODE_KIND_META, STATUS_COLORS } from './meta';
 export { NodeShell } from './NodeShell';

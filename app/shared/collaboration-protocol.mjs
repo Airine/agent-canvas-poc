@@ -3,7 +3,7 @@ export const COLLABORATION_PROTOCOL_VERSION = 2;
 export const COLLABORATION_EXTENSION_VERSION = 2;
 export const COLLABORATION_SKILL = Object.freeze({ id: 'canvas-collaboration', version: 2 });
 export const COLLABORATION_LIMITS = Object.freeze({ textCharacters: 12000, textBytes: 16384, targetCharacters: 600, sendsPerRun: 8, sendsPerMinute: 10, chainHops: 4, chainMessages: 16, artifactsPerAgent: 100, artifacts: 1000, records: 5000, receipts: 10000, spawnDepth: 2, spawnChildren: 3, spawnPerRun: 2, spawnSessions: 8 });
-export const COLLABORATION_ERROR_CODES = Object.freeze(['INVALID_ARGUMENT', 'UNSUPPORTED_TOOL', 'PROTOCOL_MISMATCH', 'NOT_READY', 'EVIDENCE_PENDING', 'FORBIDDEN', 'NOT_FOUND', 'CONFLICT', 'LIMIT_EXCEEDED', 'OUTCOME_UNKNOWN', 'INVALID_RESULT', 'INTERNAL']);
+const COLLABORATION_ERROR_CODES = Object.freeze(['INVALID_ARGUMENT', 'UNSUPPORTED_TOOL', 'PROTOCOL_MISMATCH', 'NOT_READY', 'EVIDENCE_PENDING', 'FORBIDDEN', 'NOT_FOUND', 'CONFLICT', 'LIMIT_EXCEEDED', 'OUTCOME_UNKNOWN', 'INVALID_RESULT', 'INTERNAL']);
 const string = (maxLength = 1000, extra = {}) => ({ type: 'string', maxLength, ...extra });
 const number = (extra = {}) => ({ type: 'number', ...extra });
 const object = (properties, required = Object.keys(properties)) => ({ type: 'object', properties, required, additionalProperties: false });
@@ -64,7 +64,7 @@ function validate(schema, value, at) {
   }
   return value;
 }
-export function collaborationTool(name) {
+function collaborationTool(name) {
   const tool = COLLABORATION_TOOLS.find(tool => tool.name === name);
   if (!tool) throw new CollaborationError('UNSUPPORTED_TOOL', 'unsupported Canvas tool');
   return tool;

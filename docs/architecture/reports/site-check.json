@@ -41,6 +41,10 @@
       "status": 200
     },
     {
+      "path": "/docs/unused-exports",
+      "status": 200
+    },
+    {
       "path": "/docs/unused-files",
       "status": 200
     },
@@ -50,6 +54,10 @@
     },
     {
       "path": "/docs/modules/chat-ui",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/collaboration",
       "status": 200
     },
     {
@@ -102,5 +110,5 @@
     }
   ],
   "missingStatus": 404,
-  "chineseSearchResults": 51
+  "chineseSearchResults": 60
 }

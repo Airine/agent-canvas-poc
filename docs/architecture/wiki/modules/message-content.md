@@ -4,8 +4,8 @@ description: 浏览器、API 和工作进程共用消息校验，保持附件内
 sources:
   - app/api/e/contracts.ts bdd5d6332b3f SessionView SessionSnapshot Attachment capabilityAvailable
   - app/api/e/attachments.ts 91fc1060693b
-  - app/shared/message-content.mjs e247686807e8 ATTACHMENT_LIMITS validateMessage messageBlocks
-  - app/shared/message-content.d.mts 8077661a5895 validateMessage messageBlocks
+  - app/shared/message-content.mjs 854c2cb3c439 ATTACHMENT_LIMITS validateMessage messageBlocks
+  - app/shared/message-content.d.mts ba4a912c7298 validateMessage messageBlocks
   - app/scripts/e-message-preflight.mjs 74c4cb0f8959 loadPiImageProcessor assertImagesUnchanged
   - app/scripts/e-runtime-worker.mts 640693a1eb1f control
 covers:

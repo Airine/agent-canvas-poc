@@ -22,7 +22,7 @@ for (const file of files) {
   mkdirSync(path.dirname(dest), { recursive: true });
   writeFileSync(dest, stringifyWiki(body, data));
 }
-writeFileSync(path.join(target, 'meta.json'), JSON.stringify({ title: '开发者文档', pages: ['index', 'getting-started', 'repository-layout', 'system', 'data-flow', 'modules', 'review', 'unused-files', 'health', 'maintenance', 'entrypoints'] }, null, 2));
+writeFileSync(path.join(target, 'meta.json'), JSON.stringify({ title: '开发者文档', pages: ['index', 'getting-started', 'repository-layout', 'system', 'data-flow', 'modules', 'review', 'unused-files', 'unused-exports', 'health', 'maintenance', 'entrypoints'] }, null, 2));
 writeFileSync(path.join(target, 'modules/meta.json'), JSON.stringify({ title: '模块指南', pages: ['frontend-shell', 'canvas', 'chat-ui', 'control-plane', 'e-runtime', 'e-approvals', 'message-content', 'herdr', 'prototypes', 'ui-primitives', 'development', 'documentation', 'research'] }, null, 2));
 mkdirSync(path.join(site, 'public'), { recursive: true });
 cpSync(path.join(architecture, 'architecture.html'), path.join(site, 'public/architecture.html'));

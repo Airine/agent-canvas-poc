@@ -17,11 +17,11 @@ import type { ViewMode } from './types';
 import {globalCardViewPreferences,isCardView,type GlobalCardViewPreferences,type CardViewPreference,type CardViewSetting} from './card-view-preferences';
 export type {CardViewPreference,CardViewSetting} from './card-view-preferences';
 
-export const L0_MAX_PX = 240;
-export const L1_MAX_PX = 640;
-export const ZOOM_DEBOUNCE_MS = 120;
+const L0_MAX_PX = 240;
+const L1_MAX_PX = 640;
+const ZOOM_DEBOUNCE_MS = 120;
 
-export function modeForScreenWidth(screenWidth: number): ViewMode {
+function modeForScreenWidth(screenWidth: number): ViewMode {
   if (screenWidth < L0_MAX_PX) return 'L0';
   if (screenWidth < L1_MAX_PX) return 'L1';
   return 'L1s';

@@ -1,0 +1,187 @@
+{
+  "reviewedAt": "2026-10-20",
+  "baseline": "e122d9b",
+  "scope": "Knip files,exports plus repository-wide symbol and import review; internal consumers keep implementations.",
+  "records": [
+    {
+      "file": "app/shared/collaboration-protocol.mjs",
+      "symbol": "COLLABORATION_ERROR_CODES",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/shared/collaboration-protocol.mjs",
+      "symbol": "collaborationTool",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/api/herdr-adapter.ts",
+      "symbol": "HERDR_BIN",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/api/herdr-adapter.ts",
+      "symbol": "HERDR_SOCKET_PATH",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/api/herdr-adapter.ts",
+      "symbol": "HerdrError",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/api/herdr-adapter.ts",
+      "symbol": "call",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/api/herdr-adapter.ts",
+      "symbol": "cli",
+      "decision": "remove-unused-implementation"
+    },
+    {
+      "file": "app/api/herdr-adapter.ts",
+      "symbol": "tabClose",
+      "decision": "remove-unused-implementation"
+    },
+    {
+      "file": "app/api/e/approval-reviewer.ts",
+      "symbol": "proposeApprovalGrant",
+      "decision": "remove-unused-implementation"
+    },
+    {
+      "file": "app/src/pages/canvas/chat/attachments.ts",
+      "symbol": "base64",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/src/shared/ViewModeManager.ts",
+      "symbol": "L0_MAX_PX",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/src/shared/ViewModeManager.ts",
+      "symbol": "L1_MAX_PX",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/src/shared/ViewModeManager.ts",
+      "symbol": "ZOOM_DEBOUNCE_MS",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/src/shared/ViewModeManager.ts",
+      "symbol": "modeForScreenWidth",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/api/graph.ts",
+      "symbol": "initialGraph",
+      "decision": "remove-unused-implementation"
+    },
+    {
+      "file": "app/api/graph.ts",
+      "symbol": "removeGraphStore",
+      "decision": "remove-unused-implementation"
+    },
+    {
+      "file": "app/api/graph.ts",
+      "symbol": "listGraphStores",
+      "decision": "remove-unused-implementation"
+    },
+    {
+      "file": "app/scripts/e-configuration.mjs",
+      "symbol": "cleanModel",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/src/pages/canvas/live-store.ts",
+      "symbol": "useLiveNode",
+      "decision": "remove-unused-implementation"
+    },
+    {
+      "file": "app/scripts/demo-quant-canvas/lib/market.mjs",
+      "symbol": "UNIVERSE",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/scripts/demo-quant-canvas/lib/market.mjs",
+      "symbol": "mulberry32",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/scripts/demo-quant-canvas/lib/market.mjs",
+      "symbol": "round",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/scripts/demo-quant-canvas/lib/strategy.mjs",
+      "symbol": "selectWeights",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/shared/message-content.mjs",
+      "symbol": "decodeAttachment",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/src/shared/mock/engine.ts",
+      "symbol": "buildSnapshot",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/src/shared/mock/events.ts",
+      "symbol": "MOCK_TOTAL",
+      "decision": "remove-unused-implementation"
+    },
+    {
+      "file": "app/src/shared/index.ts",
+      "symbol": "MOCK_TOTAL",
+      "decision": "remove-reexport"
+    },
+    {
+      "file": "app/src/shared/index.ts",
+      "symbol": "buildSnapshot",
+      "decision": "remove-reexport"
+    },
+    {
+      "file": "app/src/shared/index.ts",
+      "symbol": "modeForScreenWidth",
+      "decision": "remove-reexport"
+    },
+    {
+      "file": "app/src/shared/index.ts",
+      "symbol": "L0_MAX_PX",
+      "decision": "remove-reexport"
+    },
+    {
+      "file": "app/src/shared/index.ts",
+      "symbol": "L1_MAX_PX",
+      "decision": "remove-reexport"
+    },
+    {
+      "file": "app/src/shared/index.ts",
+      "symbol": "ZOOM_DEBOUNCE_MS",
+      "decision": "remove-reexport"
+    },
+    {
+      "file": "app/src/pages/canvas/utils.ts",
+      "symbol": "fmtElapsed",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/src/pages/canvas/utils.ts",
+      "symbol": "stripAnsi",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/src/pages/reactflow/utils.ts",
+      "symbol": "fmtElapsed",
+      "decision": "make-private"
+    },
+    {
+      "file": "app/src/pages/tldraw/CanvasOverlays.tsx",
+      "symbol": "ZoomBridge",
+      "decision": "make-private"
+    }
+  ]
+}

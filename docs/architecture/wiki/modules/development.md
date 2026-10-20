@@ -2,7 +2,7 @@
 title: 启动与验证
 description: 本地启动器、编译检查和分层测试的维护入口。
 sources:
-  - app/knip.jsonc ef83524bab2d
+  - app/knip.jsonc 536d92549483
   - app/package.json 73c4e294f2ea
   - app/scripts/dev-e.mjs 82c22e9d56a3
   - app/scripts/e-control.mjs ed63498cbe6f controlSession

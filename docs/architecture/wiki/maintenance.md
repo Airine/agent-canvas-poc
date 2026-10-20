@@ -5,8 +5,8 @@ sources:
   - docs-site/scripts/unused-review.mjs 1d72f1c3bafd reconcileUnusedReview
   - app/package.json 73c4e294f2ea
   - docs/architecture/verify.mjs f2b8209fece8
-  - docs-site/scripts/analyze.mjs 202ce7549c4a
-  - docs-site/scripts/prepare-content.mjs b3f5e68f66dc
+  - docs-site/scripts/analyze.mjs bf0a9a5255ad
+  - docs-site/scripts/prepare-content.mjs f35becafc0e5
 ---
 
 # 文档维护
@@ -50,6 +50,8 @@ npm --prefix docs-site run build
 Knip 的动态入口、声明文件豁免和别名集中在 `app/knip.jsonc`，配置依据见 [Knip 配置文档](https://knip.dev/reference/configuration)。不要用全目录入口隐藏未使用组件。文件搬迁后，扫描与认领检查以实际存在的工作区文件为准，不要求先暂存 Git 改动。
 
 人工文件裁决保存在 `docs/architecture/unused-file-review.json`，不是 Knip 豁免名单。分析脚本复核保留项的 SHA-256 和当前候选集合；文件改动、删除或恢复后会提示重新复核。按职责阅读[逐项结论](unused-files.md)，不要把保护未提交工作误写成已有产品入口。
+
+未使用导出的历史裁决见[导出复核](unused-exports.md)及 `docs/architecture/unused-export-review.json`。模块内有调用的实现只收回导出，无调用的实现才删除；转导出也要检查。历史记录不参与 Knip 豁免。新增的 `model-recovery.d.mts` 由 TypeScript 为运行时 worker 的 `.mjs` 导入解析，保留原因有解析回归测试，而不是靠同名字符串猜测动态引用。
 
 ## 检查入口
 

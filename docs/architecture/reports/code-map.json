@@ -82,15 +82,13 @@
       "packages": []
     },
     "app/api/e/approval-reviewer.ts": {
-      "loc": 53,
+      "loc": 49,
       "exports": [
         "ReviewerConfig",
         "ReviewRequest",
         "ReviewResult",
         "parseReview",
-        "reviewApproval",
-        "GrantProposal",
-        "proposeApprovalGrant"
+        "reviewApproval"
       ],
       "imports": [
         "app/api/e/approval-binding.ts"
@@ -303,17 +301,14 @@
       "packages": []
     },
     "app/api/graph.ts": {
-      "loc": 200,
+      "loc": 148,
       "exports": [
-        "initialGraph",
         "normalizeGraph",
         "PatchMessage",
         "onAnyPatch",
         "GraphStore",
         "registerGraphStore",
-        "getGraphStore",
-        "removeGraphStore",
-        "listGraphStores"
+        "getGraphStore"
       ],
       "imports": [
         "app/api/eventbus.ts",
@@ -322,14 +317,9 @@
       "packages": []
     },
     "app/api/herdr-adapter.ts": {
-      "loc": 421,
+      "loc": 409,
       "exports": [
-        "HERDR_BIN",
-        "HERDR_SOCKET_PATH",
         "HerdrResponse",
-        "HerdrError",
-        "call",
-        "cli",
         "ensureServer",
         "WorkspaceInfo",
         "TabInfo",
@@ -339,7 +329,6 @@
         "workspaceList",
         "workspaceClose",
         "tabCreate",
-        "tabClose",
         "paneSplit",
         "paneClose",
         "paneSendInput",
@@ -581,10 +570,7 @@
     "app/scripts/demo-quant-canvas/lib/market.mjs": {
       "loc": 131,
       "exports": [
-        "UNIVERSE",
-        "mulberry32",
         "createMarket",
-        "round",
         "logReturns",
         "stdev",
         "sma",
@@ -598,7 +584,6 @@
       "exports": [
         "prepareSeries",
         "factorSnapshot",
-        "selectWeights",
         "backtest",
         "buildExecutionPlan"
       ],
@@ -626,7 +611,6 @@
     "app/scripts/e-configuration.mjs": {
       "loc": 41,
       "exports": [
-        "cleanModel",
         "readConfiguration",
         "assertIdle",
         "changeConfiguration"
@@ -654,7 +638,7 @@
       "packages": []
     },
     "app/scripts/e-runtime-worker.mts": {
-      "loc": 205,
+      "loc": 208,
       "exports": [],
       "imports": [
         "app/api/e/attachments.ts",
@@ -664,7 +648,8 @@
         "app/scripts/e-control.mjs",
         "app/scripts/e-message-preflight.mjs",
         "app/shared/collaboration-package.mjs",
-        "app/shared/collaboration-protocol.mjs"
+        "app/shared/collaboration-protocol.mjs",
+        "app/shared/model-recovery.mjs"
       ],
       "packages": []
     },
@@ -711,7 +696,7 @@
       "packages": []
     },
     "app/shared/collaboration-protocol.d.mts": {
-      "loc": 27,
+      "loc": 25,
       "exports": [
         "COLLABORATION_PROTOCOL_VERSION",
         "COLLABORATION_EXTENSION_VERSION",
@@ -719,7 +704,6 @@
         "COLLABORATION_TOOL_NAMES",
         "CanvasTool",
         "CollaborationErrorCode",
-        "COLLABORATION_ERROR_CODES",
         "COLLABORATION_LIMITS",
         "CollaborationToolDefinition",
         "COLLABORATION_TOOLS",
@@ -731,7 +715,6 @@
         "CollaborationResponse",
         "CollaborationError",
         "collaborationError",
-        "collaborationTool",
         "validateCollaborationArgs",
         "validateCollaborationResult",
         "piCollaborationTools",
@@ -750,13 +733,11 @@
         "COLLABORATION_EXTENSION_VERSION",
         "COLLABORATION_SKILL",
         "COLLABORATION_LIMITS",
-        "COLLABORATION_ERROR_CODES",
         "COLLABORATION_TOOLS",
         "COLLABORATION_TOOL_NAMES",
         "COLLABORATION_CONTRACT",
         "CollaborationError",
         "collaborationError",
-        "collaborationTool",
         "validateCollaborationArgs",
         "validateCollaborationResult",
         "piCollaborationTools",
@@ -769,10 +750,9 @@
       "packages": []
     },
     "app/shared/message-content.d.mts": {
-      "loc": 7,
+      "loc": 6,
       "exports": [
         "ATTACHMENT_LIMITS",
-        "decodeAttachment",
         "attachmentText",
         "validateMessage",
         "messageBlocks"
@@ -786,10 +766,26 @@
       "loc": 66,
       "exports": [
         "ATTACHMENT_LIMITS",
-        "decodeAttachment",
         "attachmentText",
         "validateMessage",
         "messageBlocks"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/shared/model-recovery.d.mts": {
+      "loc": 3,
+      "exports": [
+        "ModelRecovery",
+        "recoveryEvent"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/shared/model-recovery.mjs": {
+      "loc": 20,
+      "exports": [
+        "recoveryEvent"
       ],
       "imports": [],
       "packages": []
@@ -1468,7 +1464,6 @@
     "app/src/pages/canvas/chat/attachments.ts": {
       "loc": 31,
       "exports": [
-        "base64",
         "pastedAttachment",
         "clipboardImages",
         "readAttachment"
@@ -1715,15 +1710,14 @@
       ]
     },
     "app/src/pages/canvas/live-store.ts": {
-      "loc": 469,
+      "loc": 463,
       "exports": [
         "default",
         "LiveStore",
         "WorkspaceListResult",
         "fetchWorkspaces",
         "pickActiveWorkspace",
-        "useLiveStore",
-        "useLiveNode"
+        "useLiveStore"
       ],
       "imports": [
         "app/api/e/contracts.ts",
@@ -1789,10 +1783,8 @@
     "app/src/pages/canvas/utils.ts": {
       "loc": 94,
       "exports": [
-        "fmtElapsed",
         "statusDetailFor",
         "useSecondClock",
-        "stripAnsi",
         "ansiTail",
         "EDGE_KIND_SEMANTIC",
         "nodeWidth",
@@ -1958,7 +1950,6 @@
     "app/src/pages/reactflow/utils.ts": {
       "loc": 142,
       "exports": [
-        "fmtElapsed",
         "statusDetailFor",
         "nodeProgress",
         "useEngineClock",
@@ -2007,7 +1998,6 @@
     "app/src/pages/tldraw/CanvasOverlays.tsx": {
       "loc": 154,
       "exports": [
-        "ZoomBridge",
         "CanvasOverlays"
       ],
       "imports": [
@@ -2307,10 +2297,6 @@
       "exports": [
         "CardViewPreference",
         "CardViewSetting",
-        "L0_MAX_PX",
-        "L1_MAX_PX",
-        "ZOOM_DEBOUNCE_MS",
-        "modeForScreenWidth",
         "ViewModeManager",
         "useViewMode",
         "useAnimationsEnabled",
@@ -2354,25 +2340,19 @@
       "packages": []
     },
     "app/src/shared/index.ts": {
-      "loc": 40,
+      "loc": 36,
       "exports": [
         "default",
         "MOCK_EDGES",
         "MOCK_EVENTS",
         "MOCK_NODES",
-        "MOCK_TOTAL",
         "EventEngine",
-        "buildSnapshot",
         "EngineState",
         "PlaybackSpeed",
         "ViewModeManager",
-        "modeForScreenWidth",
         "useAnimationsEnabled",
         "useFocusedNodeId",
         "useViewMode",
-        "L0_MAX_PX",
-        "L1_MAX_PX",
-        "ZOOM_DEBOUNCE_MS",
         "NODE_KIND_META",
         "STATUS_COLORS",
         "NodeShell",
@@ -2435,7 +2415,6 @@
       "exports": [
         "PlaybackSpeed",
         "EngineState",
-        "buildSnapshot",
         "EventEngine"
       ],
       "imports": [
@@ -2445,12 +2424,11 @@
       "packages": []
     },
     "app/src/shared/mock/events.ts": {
-      "loc": 315,
+      "loc": 313,
       "exports": [
         "MOCK_NODES",
         "MOCK_EDGES",
-        "MOCK_EVENTS",
-        "MOCK_TOTAL"
+        "MOCK_EVENTS"
       ],
       "imports": [
         "app/src/shared/types.ts"
@@ -2538,7 +2516,7 @@
       ]
     },
     "app/test/browser/chat-experience.spec.ts": {
-      "loc": 152,
+      "loc": 158,
       "exports": [],
       "imports": [
         "app/api/e/contracts.ts",
@@ -2732,7 +2710,7 @@
       ]
     },
     "app/test/browser/ui-actions.ts": {
-      "loc": 12,
+      "loc": 13,
       "exports": [
         "openSessionMenu",
         "openDiagnostics",
@@ -2831,7 +2809,7 @@
       "packages": []
     },
     "app/test/unit/chat-projection.test.mjs": {
-      "loc": 28,
+      "loc": 37,
       "exports": [],
       "imports": [
         "app/src/pages/canvas/chat/project-transcript.ts"

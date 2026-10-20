@@ -1,7 +1,7 @@
 ---
 title: 文档导航
 description: 从本地启动到代码边界，找到 Agent Canvas 的实现依据。
-baseline: 119cbf315d3888de69a064d915272826debf93e1
+baseline: e122d9b971a064ce0d101a6fb79970b1f2600270
 sources:
   - app/src/App.tsx 10682b846ed7 App
   - app/api/index.ts fb665635c747 wireBroadcasts
@@ -53,6 +53,7 @@ Agent Canvas 是本地多 Agent 会话工作台。当前主线使用 e / Pi 运�
 - [调研与实验材料](modules/research.md)
 - [目录约定与迁移对照](repository-layout.md)
 - [未使用文件逐项复核](unused-files.md)
+- [未使用导出逐项复核](unused-exports.md)
 
 ## 这份文档的基线
 

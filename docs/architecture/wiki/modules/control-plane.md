@@ -5,7 +5,7 @@ sources:
   - app/api/index.ts fb665635c747
   - app/api/routes.ts a121973dd5ba wireBroadcasts wsHandlers api
   - app/api/registry.ts 4ccc91d72dac registry
-  - app/api/graph.ts a974124ec7cf GraphStore onAnyPatch
+  - app/api/graph.ts 24b684dadec4 GraphStore onAnyPatch
   - app/api/layout.ts 40f95704ade7 computeLayout
   - app/api/local-access.ts 160bda3f88d5 localRequestAllowed
   - app/api/runtime-router.ts 16802d8055c1 requireHerdr runtimeRouter

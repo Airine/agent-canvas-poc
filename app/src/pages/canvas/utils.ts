@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import type { CanvasNode, EdgeKind, NodeStatus } from './live-store';
 
 /** 耗时：`42s` / `3m12s`，等宽数字（§1.2） */
-export function fmtElapsed(ms: number): string {
+function fmtElapsed(ms: number): string {
   const s = Math.max(0, Math.round(ms / 1000));
   if (s < 60) return `${s}s`;
   return `${Math.floor(s / 60)}m${String(s % 60).padStart(2, '0')}s`;
@@ -56,7 +56,7 @@ export function useSecondClock(active: boolean): number {
 }
 
 /** 剥离 ansi 转义序列（L0 静态快照 / 未订阅节点的静态末屏用） */
-export function stripAnsi(s: string): string {
+function stripAnsi(s: string): string {
   // eslint-disable-next-line no-control-regex
   return s.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '').replace(/\r/g, '');
 }

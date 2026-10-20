@@ -2,7 +2,7 @@
 // The series is shaped so a 12% vol-target strategy breaches a 10% vol mandate,
 // which gives the Risk agent something real to reject.
 
-export const UNIVERSE = [
+const UNIVERSE = [
   { id: 'AAA', name: '合成资产 AAA', drift: 0.00035, beta: 1.15, idio: 0.008, adv: 9.0e7 },
   { id: 'BBB', name: '合成资产 BBB', drift: 0.00018, beta: 0.9, idio: 0.010, adv: 6.0e7 },
   { id: 'CCC', name: '合成资产 CCC', drift: 0.00045, beta: 1.3, idio: 0.014, adv: 4.0e7 },
@@ -21,7 +21,7 @@ const REGIMES = [
   { mu: 0.0009, sigma: 0.010, len: 210 },
 ];
 
-export function mulberry32(seed) {
+function mulberry32(seed) {
   let a = seed >>> 0;
   return function random() {
     a = (a + 0x6d2b79f5) >>> 0;
@@ -95,7 +95,7 @@ export function createMarket({ days = 760, seed = 20240628 } = {}) {
   return { days, seed, dates, symbols, regimeOfDay };
 }
 
-export function round(value, digits = 4) {
+function round(value, digits = 4) {
   const factor = 10 ** digits;
   return Math.round(value * factor) / factor;
 }

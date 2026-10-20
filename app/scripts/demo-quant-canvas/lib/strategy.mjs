@@ -41,7 +41,7 @@ export function factorSnapshot(market, series, asOf) {
   return { asOf, date: market.dates[asOf], rows };
 }
 
-export function selectWeights(snapshot, series, params) {
+function selectWeights(snapshot, series, params) {
   const { topK, nameCap, volTarget, excludeStale } = params;
   const eligible = snapshot.rows
     .filter((row) => row.tradable && (!excludeStale || row.staleDays === 0))

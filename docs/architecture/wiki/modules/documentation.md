@@ -5,7 +5,7 @@ sources:
   - docs-site/package.json 74b39960b4a2
   - docs-site/app/page.tsx 36679c3b44c5
   - docs-site/source.config.ts 3a15674e4ae4
-  - docs-site/scripts/prepare-content.mjs b3f5e68f66dc
+  - docs-site/scripts/prepare-content.mjs f35becafc0e5
   - docs-site/scripts/render-architecture.mjs b08e9cda3907
 covers:
   - docs-site/

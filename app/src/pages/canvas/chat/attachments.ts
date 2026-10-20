@@ -1,6 +1,6 @@
 import type { Attachment } from '../../../../api/e/contracts';
 import { ATTACHMENT_LIMITS } from '../../../../shared/message-content.mjs';
-export function base64(bytes:Uint8Array):string {
+function base64(bytes:Uint8Array):string {
  let value='';for(let i=0;i<bytes.length;i+=8192)value+=String.fromCharCode(...bytes.subarray(i,i+8192));return btoa(value);
 }
 export function pastedAttachment(text:string,name='粘贴内容.txt'):Attachment {return {id:crypto.randomUUID(),name,mimeType:'text/plain',data:base64(new TextEncoder().encode(text))};}

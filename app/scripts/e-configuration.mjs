@@ -1,5 +1,5 @@
 // Deliberately narrow private worker configuration API. No arbitrary RPC passthrough.
-export function cleanModel(model) {
+function cleanModel(model) {
   if(!model||typeof model.provider!=='string'||typeof model.id!=='string')return undefined;
   return {provider:model.provider,id:model.id,...(typeof model.name==='string'?{name:model.name}:{}),input:Array.isArray(model.input)?model.input.filter(v=>v==='text'||v==='image'):[],...(Number.isFinite(model.contextWindow)&&model.contextWindow>0?{contextWindow:model.contextWindow}:{})};
 }

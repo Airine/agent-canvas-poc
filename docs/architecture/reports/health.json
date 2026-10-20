@@ -311,13 +311,19 @@
       "status": "removed"
     }
   ],
-  "head": "119cbf315d3888de69a064d915272826debf93e1",
-  "files": 228,
+  "head": "e122d9b971a064ce0d101a6fb79970b1f2600270",
+  "files": 230,
   "dead": [],
   "suspects": [],
-  "deadExports": 36,
+  "deadExports": 0,
   "cycles": [],
   "hotspots": [
+    {
+      "file": "app/api/routes.ts",
+      "changes": 3,
+      "lines": 521,
+      "score": 1563
+    },
     {
       "file": "app/src/pages/canvas/mock-server.ts",
       "changes": 2,
@@ -337,12 +343,6 @@
       "score": 1220
     },
     {
-      "file": "app/api/routes.ts",
-      "changes": 2,
-      "lines": 521,
-      "score": 1042
-    },
-    {
       "file": "app/src/pages/reactflow/index.tsx",
       "changes": 2,
       "lines": 475,
@@ -351,14 +351,14 @@
     {
       "file": "app/src/pages/canvas/live-store.ts",
       "changes": 2,
-      "lines": 469,
-      "score": 938
+      "lines": 463,
+      "score": 926
     },
     {
       "file": "app/api/herdr-adapter.ts",
       "changes": 2,
-      "lines": 421,
-      "score": 842
+      "lines": 409,
+      "score": 818
     },
     {
       "file": "app/scripts/demo-quant-canvas/run.mjs",
@@ -367,16 +367,16 @@
       "score": 763
     },
     {
-      "file": "app/src/pages/canvas/LiveTerminal.tsx",
+      "file": "app/api/e/session-manager.ts",
       "changes": 2,
-      "lines": 325,
-      "score": 650
+      "lines": 366,
+      "score": 732
     },
     {
-      "file": "app/src/pages/tldraw/TldrawPage.tsx",
-      "changes": 2,
-      "lines": 285,
-      "score": 570
+      "file": "app/src/pages/canvas/LiveEdge.tsx",
+      "changes": 3,
+      "lines": 235,
+      "score": 705
     }
   ],
   "breaks": [],
@@ -431,6 +431,10 @@
     },
     {
       "file": "app/shared/message-content.d.mts",
+      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
+    },
+    {
+      "file": "app/shared/model-recovery.d.mts",
       "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
     },
     {

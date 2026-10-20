@@ -15,7 +15,7 @@ sources:
   - app/src/pages/canvas/chat/ConversationView.tsx c44472e6df67 ConversationView
   - app/src/pages/canvas/chat/ApprovalRequest.tsx f7b8d4c8ace0 ApprovalRequest
   - app/src/pages/canvas/chat/presentation-state.ts b69274e2c807 presentation sessionNotices
-  - app/src/pages/canvas/chat/attachments.ts 012a8ffa699f readAttachment pastedAttachment
+  - app/src/pages/canvas/chat/attachments.ts 6bc4fc390f29 readAttachment pastedAttachment
   - app/src/pages/canvas/chat/error-presentation.ts 9bf76cd37b66 redact safeLink
   - app/src/pages/canvas/chat/RuntimeConfigControl.tsx 18eac6869cc9 RuntimeConfigControl
 covers:

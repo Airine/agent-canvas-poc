@@ -8,7 +8,7 @@ sources:
   - app/api/e/approval-binding.ts 130196b90918 bindApproval exactOperationKey
   - app/api/e/approval-engine.ts 40bf6ecd5a6d ApprovalEngine
   - app/api/e/approval-rules.ts f4596999d61c approvalRule
-  - app/api/e/approval-reviewer.ts bfa5a9936768 reviewApproval parseReview proposeApprovalGrant
+  - app/api/e/approval-reviewer.ts 518389128357 reviewApproval parseReview
   - app/api/e/session-manager.ts 4ae0c14e0652 setApprovalMode grantExactApproval
   - app/scripts/e-control.mjs ed63498cbe6f controlSession
 covers:
@@ -35,7 +35,7 @@ covers:
 - `ApprovalEngine` 在 `app/api/e/approval-engine.ts` 中提供 `set`、`reset`、`manual`、`grantExact` 和 `observe`。模式有 `manual`、`assisted`、`full`。
 - `approvalRule` 在 `app/api/e/approval-rules.ts` 中返回 `allow`、`review` 或 `manual`。精确命中的只读命令可直接通过，支持的可见命令链、静态只读 Node、小范围文件改动和契约有效的受管 Canvas 工具交独立模型审查；高风险、动态或未知效果留给人工。
 - `reviewApproval` 启动无工具的独立 Pi 审查进程。`parseReview` 用严格 schema 解析结果，只接受明确的低风险批准；并发最多 2 个，45 秒超时。
-- `proposeApprovalGrant` 只生成正则建议和风险说明，没有授权能力。当前 `grantExact` 使用工具与完整参数精确匹配，不能把建议正则当成已启用的规则。
+- `grantExact` 使用工具与完整参数精确匹配。未接入的正则建议生成器已经删除，不存在正则授权入口。
 - 会话管理层通过 `setApprovalMode` 与 `grantExactApproval` 接入；最终决定仍由 `controlSession` 发送给核心运行时。
 
 ## 数据怎么流

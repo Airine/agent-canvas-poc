@@ -8,7 +8,7 @@ sources:
   - app/api/e/message-queue.ts 035004c14654 mutateQueue reconcileQueue queueReady
   - app/api/e/projection.ts b9672126cfbc projectSession
   - app/scripts/e-runtime-worker.mts 640693a1eb1f control publish init
-  - app/scripts/e-configuration.mjs 6014fd127d51 readConfiguration assertIdle changeConfiguration
+  - app/scripts/e-configuration.mjs 7ae7bdbb1b77 readConfiguration assertIdle changeConfiguration
   - app/scripts/e-control.mjs ed63498cbe6f controlSession
 covers:
   - app/api/e-adapter.ts

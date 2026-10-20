@@ -2,7 +2,7 @@
 title: Canvas 协作
 description: 同画布 Agent 引用、受管工具、文本产物、消息队列与可核验通信边。
 sources:
-  - app/shared/collaboration-protocol.mjs 813a7bac1493 COLLABORATION_CONTRACT collaborationReady validateCollaborationArgs validateCollaborationResult
+  - app/shared/collaboration-protocol.mjs cd81752324a7 COLLABORATION_CONTRACT collaborationReady validateCollaborationArgs validateCollaborationResult
   - app/shared/collaboration-package.mjs bbcc71c2fceb readCollaborationPackage
   - app/scripts/canvas-channel.mjs 423b626ff829
   - skills/canvas-collaboration/SKILL.md 22ab9d615eca

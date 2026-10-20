@@ -460,9 +460,3 @@ export function pickActiveWorkspace(list: WorkspaceSummary[]): WorkspaceSummary 
 export function useLiveStore(store: LiveStore): number {
   return useSyncExternalStore(store.subscribe, store.getVersion);
 }
-
-/** 单节点实时状态（WS node 补丁驱动） */
-export function useLiveNode(store: LiveStore, nodeId: string): CanvasNode | undefined {
-  useSyncExternalStore((fn) => store.subscribeNode(nodeId, fn), () => store.nodes.get(nodeId));
-  return store.nodes.get(nodeId);
-}

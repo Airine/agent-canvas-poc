@@ -6,8 +6,8 @@ sources:
   - app/src/shared/NodeShell.tsx 27c6bff70573 NodeShell compactHeader headerActions
   - app/src/pages/reactflow/index.tsx ff659ad06608 ReactFlowPage EventEngine
   - app/src/pages/tldraw/TldrawPage.tsx 82667d254c67 TldrawPage EventEngine
-  - app/src/shared/mock/engine.ts b0b754204342 EventEngine buildSnapshot
-  - app/src/shared/ViewModeManager.ts 7298339d7c1d ViewModeManager modeForScreenWidth
+  - app/src/shared/mock/engine.ts 2069eba7941f EventEngine buildSnapshot
+  - app/src/shared/ViewModeManager.ts 0ae2b785db35 ViewModeManager modeForScreenWidth
   - app/src/shared/FocusOverlay.tsx a60114c77b42 FocusOverlay
   - app/src/pages/PocLanding.tsx 11a61d8c9b07 Home
 covers:
@@ -26,8 +26,8 @@ covers:
 ## 对外接口
 
 - `ReactFlowPage`（`app/src/pages/reactflow/index.tsx`）与 `TldrawPage`（`app/src/pages/tldraw/TldrawPage.tsx`）分别承接 `/react-flow`、`/tldraw`，共享本地 `EventEngine`。
-- `EventEngine`、`buildSnapshot`（`app/src/shared/mock/engine.ts`）提供播放、暂停、跳转、重置和 1/2/4 倍速；快照由预设节点、边与指定下标之前的事件折叠而成。
-- `ViewModeManager`、`modeForScreenWidth`（`app/src/shared/ViewModeManager.ts`）管理 L0/L1/L1s 显示档位、用户显式进入的 L2 专注，以及动画开关。按节点屏幕宽度划档，阈值是 240px、640px，缩放停止 120ms 后重算。
+- `EventEngine`（`app/src/shared/mock/engine.ts`）提供播放、暂停、跳转、重置和 1/2/4 倍速；模块内部的 `buildSnapshot` 将预设节点、边与指定下标之前的事件折叠成快照，不再单独导出。
+- `ViewModeManager`（`app/src/shared/ViewModeManager.ts`）管理 L0/L1/L1s 显示档位、用户显式进入的 L2 专注，以及动画开关。内部的 `modeForScreenWidth` 按节点屏幕宽度划档，阈值是 240px、640px，缩放停止 120ms 后重算；函数与阈值不再对外导出。
 - `FocusOverlay`（`app/src/shared/FocusOverlay.tsx`）把同一个内容容器移到浮窗或视口窗口，使用稳定 portal 容器保留子组件状态。
 - `Home`（`app/src/pages/PocLanding.tsx`，路由侧以 `PocLanding` 名称导入）提供原型入口。旧画布占位页已在本次体检修复中删除；实际原型路由仍保留。
 

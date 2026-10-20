@@ -310,5 +310,3 @@ const withTerminal: Raw[] = [
 
 /** append-only 事件流：id 即下标，序号单调递增 */
 export const MOCK_EVENTS: AgentEvent[] = withTerminal.map((e, i) => ({ ...e, id: i }));
-
-export const MOCK_TOTAL = MOCK_EVENTS.length;

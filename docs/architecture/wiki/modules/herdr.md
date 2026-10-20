@@ -4,7 +4,7 @@ description: herdr 兼容后端的依赖调度、标记协议和终端快照。
 sources:
   - app/api/shell.ts 1c56b4a897b0
   - app/api/coordinator.ts 2f2630aa80fe coordinator
-  - app/api/herdr-adapter.ts 49bde9f8697c call ensureServer subscribeEvents paneRead
+  - app/api/herdr-adapter.ts cfcb570a9820 call ensureServer subscribeEvents paneRead
   - app/api/pump.ts 576243a1e843 pump wirePumpToGraph
   - app/api/eventbus.ts 47b4e6ed936c eventbus
 covers:
@@ -26,7 +26,7 @@ covers:
 ## 对外接口
 
 - `app/api/coordinator.ts` 导出 `coordinator`。`run`、`reset`、`sendInput`、`approve` 分别负责运行、清场、输入和旧版审批；由[本地控制面](control-plane.md)调用。
-- `app/api/herdr-adapter.ts` 的 `call` 每次建立一个 Unix socket 连接，交换一行 NDJSON 请求和响应。`ensureServer` 先探活，再尝试启动本地二进制；`HERDR_BIN` 与 `HERDR_SOCKET_PATH` 可覆盖自动发现结果。
+- `app/api/herdr-adapter.ts` 对外提供 `ensureServer` 等具体操作，内部的 `call` 每次建立一个 Unix socket 连接，交换一行 NDJSON 请求和响应。`ensureServer` 先探活，再尝试启动本地二进制；环境变量 `HERDR_BIN` 与 `HERDR_SOCKET_PATH` 可覆盖自动发现结果。底层调用器、错误类和解析后的常量不再导出，环境变量配置不受影响。
 - 同文件的 `subscribeEvents` 保持长连接，断开后等待一秒重连。调用方使用归一化后的点分事件名；普通终端输出不经过事件订阅，而由 `paneRead` 读取。
 - `app/api/pump.ts` 的 `pump` 按工作区和节点维护订阅，500 毫秒轮询一次可见 ANSI 内容。`wirePumpToGraph` 在节点进入终态后触发末次读取并停止定时器。
 - `app/api/eventbus.ts` 的 `eventbus` 保留内存事件，尽力追加到 `CANVAS_EVENTS_LOG`，默认 `/tmp/canvas-events.jsonl`。事件形状是 `{ id, ts, workspaceId, nodeId?, kind, text }`，工作区字段由生产者显式传入，也不在重启时重放文件。

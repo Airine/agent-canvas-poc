@@ -11,7 +11,7 @@
  *  - No streaming output subscription exists; use pane.read polling (pump.ts).
  */
 import net from 'node:net';
-import { spawn, spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -37,8 +37,8 @@ function resolveHerdrBin(): string {
   }
   return 'herdr'; // rely on PATH
 }
-export const HERDR_BIN = resolveHerdrBin();
-export const HERDR_SOCKET_PATH =
+const HERDR_BIN = resolveHerdrBin();
+const HERDR_SOCKET_PATH =
   process.env.HERDR_SOCKET_PATH ||
   path.join(os.homedir(), '.config', 'herdr', 'herdr.sock');
 
@@ -55,7 +55,7 @@ export interface HerdrResponse {
   [k: string]: unknown;
 }
 
-export class HerdrError extends Error {
+class HerdrError extends Error {
   code: string;
   constructor(code: string, message: string) {
     super(`${code}: ${message}`);
@@ -64,7 +64,7 @@ export class HerdrError extends Error {
 }
 
 /** One-shot NDJSON call: new connection per request, closed after response. */
-export function call(
+function call(
   method: string,
   params: Record<string, unknown> = {},
   timeoutMs = 10_000,
@@ -124,14 +124,6 @@ export function call(
       if (!settled) fail(new HerdrError('closed', `${method}: socket closed before response`));
     });
   });
-}
-
-/** CLI fallback (used only when the socket path cannot express an operation). */
-export function cli(args: string[], timeoutMs = 15_000): string {
-  const r = spawnSync(HERDR_BIN, args, { timeout: timeoutMs, encoding: 'utf8' });
-  if (r.error) throw r.error;
-  if (r.status !== 0) throw new HerdrError('cli_error', (r.stderr || r.stdout || '').trim());
-  return r.stdout;
 }
 
 /** Spawn `bin/herdr server` headless if the control socket is not answering. */
@@ -271,10 +263,6 @@ export async function tabCreate(workspaceId: string, title?: string): Promise<Ta
     workspace_id: workspaceId,
     rootPaneId: r.root_pane?.pane_id as string | undefined,
   };
-}
-
-export async function tabClose(tabId: string): Promise<void> {
-  await call('tab.close', { tab_id: tabId }).catch(() => {});
 }
 
 export async function paneSplit(

@@ -8,7 +8,7 @@ sources:
   - app/src/pages/canvas/SessionHeaderActions.tsx ee6d5ea0e0ef SessionHeaderActions
   - app/src/pages/canvas/contracts.ts 572415b9994f
   - app/src/pages/canvas/index.tsx 0c93d9ab6b59 CanvasPage CanvasRedirect computeTiers
-  - app/src/pages/canvas/live-store.ts 056a5d79638a LiveStore fetchWorkspaces sessionAction subscribeTerm
+  - app/src/pages/canvas/live-store.ts c4225c7c282e LiveStore fetchWorkspaces sessionAction subscribeTerm
   - app/src/pages/canvas/session-store.ts a1af822c02ec SessionStore capabilityAvailable
   - app/src/pages/canvas/LiveNode.tsx 4465d81b5bb1 LiveNode LiveNodeComponent
   - app/src/pages/canvas/LiveTerminal.tsx c93871702251 LiveTerminal EventReplay

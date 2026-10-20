@@ -3,7 +3,7 @@ title: 数据流
 description: 沿浏览器、HTTP、WebSocket、IPC 和工具脚本追踪真实调用。
 sources:
   - app/src/App.tsx 10682b846ed7 App
-  - app/src/pages/canvas/live-store.ts 056a5d79638a LiveStore
+  - app/src/pages/canvas/live-store.ts c4225c7c282e LiveStore
   - app/api/index.ts fb665635c747 wireBroadcasts
   - app/api/routes.ts a121973dd5ba wsHandlers applySession
   - app/api/e/session-manager.ts 4ae0c14e0652 SessionManager
