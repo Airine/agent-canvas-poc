@@ -12,12 +12,18 @@ import { fileURLToPath } from 'node:url';
 import { api, wsHandlers, wireBroadcasts } from './routes.js';
 import { wirePumpToGraph } from './pump.js';
 import { ensureServer } from './herdr-adapter.js';
+import { eSessions } from './e-adapter.js';
+import { localRequestAllowed } from './local-access.js';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = Number(process.env.PORT || 3000);
 
 const app = new Hono();
 
+app.use('*', async (c, next) => {
+  if (!localRequestAllowed(c.req.header('host'), c.req.header('origin'))) return c.json({ error: 'local origin/host required' }, 403);
+  await next();
+});
 app.route('/api', api);
 
 // static frontend (dist/) with SPA fallback
@@ -37,14 +43,14 @@ app.get('*', (c) => {
 wireBroadcasts();
 wirePumpToGraph();
 
-const server = serve({ fetch: app.fetch, port: PORT }, (info) => {
+const server = serve({ fetch: app.fetch, port: PORT, hostname: '127.0.0.1' }, (info) => {
   console.log(`[api] Agent Canvas control plane on http://localhost:${info.port}`);
 });
 
 // /ws WebSocket endpoint
-const wss = new WebSocketServer({ noServer: true });
+const wss = new WebSocketServer({ noServer: true, maxPayload: 1024 * 1024 });
 server.on('upgrade', (req, socket, head) => {
-  if (!req.url || !req.url.startsWith('/ws')) {
+  if (req.url?.split('?')[0] !== '/ws' || !localRequestAllowed(req.headers.host, req.headers.origin)) {
     socket.destroy();
     return;
   }
@@ -57,10 +63,20 @@ server.on('upgrade', (req, socket, head) => {
 });
 
 // best-effort: bring up herdr at boot so the first /run is instant
-ensureServer()
+if (process.env.CANVAS_BACKEND !== 'e') void ensureServer()
   .then(() => console.log('[api] herdr server ready'))
   .catch((e) => console.warn(`[api] herdr not ready yet: ${e} (will retry on /api/graph/run)`));
 
-process.on('SIGINT', () => process.exit(0));
-process.on('SIGTERM', () => process.exit(0));
+let closing = false;
+async function shutdown() {
+  if (closing) return;
+  closing = true;
+  for (const client of wss.clients) client.close(1001, 'API shutting down');
+  wss.close(); server.close();
+  const deadline = setTimeout(() => process.exit(1), 15_000); deadline.unref();
+  await eSessions.close();
+  process.exit(0);
+}
+process.on('SIGINT', () => { void shutdown(); });
+process.on('SIGTERM', () => { void shutdown(); });
 void WebSocket;

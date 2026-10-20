@@ -1,0 +1,3389 @@
+{
+  "files": {
+    "app/api/coordinator.ts": {
+      "loc": 617,
+      "exports": [
+        "coordinator"
+      ],
+      "imports": [
+        "app/api/eventbus.ts",
+        "app/api/graph.ts",
+        "app/api/herdr-adapter.ts",
+        "app/api/pump.ts",
+        "app/api/registry.ts",
+        "app/api/shell.ts",
+        "app/api/types.ts"
+      ],
+      "packages": []
+    },
+    "app/api/e-adapter.ts": {
+      "loc": 6,
+      "exports": [
+        "eSessions",
+        "SessionManager",
+        "runtimeStatus",
+        "projectSession",
+        "SessionView",
+        "SessionSnapshot",
+        "SessionRef"
+      ],
+      "imports": [
+        "app/api/e/config.ts",
+        "app/api/e/contracts.ts",
+        "app/api/e/projection.ts",
+        "app/api/e/session-manager.ts"
+      ],
+      "packages": []
+    },
+    "app/api/e/approval-binding.ts": {
+      "loc": 22,
+      "exports": [
+        "ApprovalInput",
+        "exactOperationKey",
+        "bindApproval"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/api/e/approval-engine.ts": {
+      "loc": 82,
+      "exports": [
+        "ApprovalEngine"
+      ],
+      "imports": [
+        "app/api/e/approval-binding.ts",
+        "app/api/e/approval-reviewer.ts",
+        "app/api/e/approval-rules.ts",
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/api/e/approval-reviewer.ts": {
+      "loc": 53,
+      "exports": [
+        "ReviewerConfig",
+        "ReviewRequest",
+        "ReviewResult",
+        "parseReview",
+        "reviewApproval",
+        "GrantProposal",
+        "proposeApprovalGrant"
+      ],
+      "imports": [
+        "app/api/e/approval-binding.ts"
+      ],
+      "packages": [
+        "zod"
+      ]
+    },
+    "app/api/e/approval-rules.ts": {
+      "loc": 62,
+      "exports": [
+        "RuleDecision",
+        "approvalRule"
+      ],
+      "imports": [
+        "app/api/e/approval-binding.ts"
+      ],
+      "packages": []
+    },
+    "app/api/e/attachments.ts": {
+      "loc": 3,
+      "exports": [
+        "default"
+      ],
+      "imports": [
+        "app/shared/message-content.mjs"
+      ],
+      "packages": []
+    },
+    "app/api/e/collaboration-authorization.ts": {
+      "loc": 15,
+      "exports": [
+        "authorizeCollaboration"
+      ],
+      "imports": [
+        "app/api/e/approval-binding.ts",
+        "app/api/e/collaboration-contracts.ts",
+        "app/api/e/contracts.ts",
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/api/e/collaboration-contracts.ts": {
+      "loc": 13,
+      "exports": [
+        "CanvasTool",
+        "CollaborationRequest",
+        "CollaborationStatus",
+        "CollaborationManifest",
+        "AgentArtifact",
+        "CommunicationState",
+        "CommunicationRecord",
+        "CommunicationSummary"
+      ],
+      "imports": [
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/api/e/collaboration.ts": {
+      "loc": 154,
+      "exports": [
+        "CollaborationStore"
+      ],
+      "imports": [
+        "app/api/e/approval-binding.ts",
+        "app/api/e/collaboration-contracts.ts",
+        "app/api/e/contracts.ts",
+        "app/api/e/message-origins.ts",
+        "app/api/types.ts",
+        "app/shared/agent-reference.mjs",
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/api/e/config.ts": {
+      "loc": 62,
+      "exports": [
+        "APP_ROOT",
+        "DATA_ROOT",
+        "MAX_SESSIONS",
+        "runtimeConfig",
+        "runtimeStatus"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/api/workspace-paths.ts"
+      ],
+      "packages": []
+    },
+    "app/api/e/contracts.ts": {
+      "loc": 68,
+      "exports": [
+        "Lifecycle",
+        "DeliverAs",
+        "Capability",
+        "ContentBlock",
+        "SessionMessage",
+        "SessionTool",
+        "SessionApproval",
+        "SessionAction",
+        "SessionSnapshot",
+        "SessionRef",
+        "SessionView",
+        "ControlOperation",
+        "ControlPayload",
+        "RuntimeStatus",
+        "capabilityAvailable",
+        "ApprovalMode",
+        "ApprovalAudit",
+        "Attachment",
+        "RuntimeModel",
+        "RuntimeConfiguration",
+        "ConfigurationChange",
+        "QueueItem",
+        "MessageQueue",
+        "QueueMutation",
+        "MessageOrigin"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/api/e/message-origins.ts": {
+      "loc": 24,
+      "exports": [
+        "OriginBinding",
+        "orderedMessages",
+        "associateMessageOrigins"
+      ],
+      "imports": [
+        "app/api/e/approval-binding.ts",
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/api/e/message-queue.ts": {
+      "loc": 55,
+      "exports": [
+        "emptyQueue",
+        "pauseQueue",
+        "mutateQueue",
+        "reconcileQueue",
+        "queueReady"
+      ],
+      "imports": [
+        "app/api/e/attachments.ts",
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/api/e/projection.ts": {
+      "loc": 20,
+      "exports": [
+        "projectSession"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/api/types.ts"
+      ],
+      "packages": []
+    },
+    "app/api/e/session-manager.ts": {
+      "loc": 345,
+      "exports": [
+        "SessionManager",
+        "eSessions"
+      ],
+      "imports": [
+        "app/api/e/approval-binding.ts",
+        "app/api/e/approval-engine.ts",
+        "app/api/e/approval-reviewer.ts",
+        "app/api/e/attachments.ts",
+        "app/api/e/collaboration-authorization.ts",
+        "app/api/e/collaboration-contracts.ts",
+        "app/api/e/collaboration.ts",
+        "app/api/e/config.ts",
+        "app/api/e/contracts.ts",
+        "app/api/e/message-origins.ts",
+        "app/api/e/message-queue.ts",
+        "app/shared/collaboration-package.mjs",
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/api/eventbus.ts": {
+      "loc": 63,
+      "exports": [
+        "eventbus"
+      ],
+      "imports": [
+        "app/api/types.ts"
+      ],
+      "packages": []
+    },
+    "app/api/graph.ts": {
+      "loc": 200,
+      "exports": [
+        "initialGraph",
+        "normalizeGraph",
+        "PatchMessage",
+        "onAnyPatch",
+        "GraphStore",
+        "registerGraphStore",
+        "getGraphStore",
+        "removeGraphStore",
+        "listGraphStores"
+      ],
+      "imports": [
+        "app/api/eventbus.ts",
+        "app/api/types.ts"
+      ],
+      "packages": []
+    },
+    "app/api/herdr-adapter.ts": {
+      "loc": 421,
+      "exports": [
+        "HERDR_BIN",
+        "HERDR_SOCKET_PATH",
+        "HerdrResponse",
+        "HerdrError",
+        "call",
+        "cli",
+        "ensureServer",
+        "WorkspaceInfo",
+        "TabInfo",
+        "PaneInfo",
+        "PaneReadResult",
+        "workspaceCreate",
+        "workspaceList",
+        "workspaceClose",
+        "tabCreate",
+        "tabClose",
+        "paneSplit",
+        "paneClose",
+        "paneSendInput",
+        "paneRead",
+        "PaneAgentState",
+        "paneReportAgent",
+        "HerdrEvent",
+        "subscribeEvents"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/api/index.ts": {
+      "loc": 83,
+      "exports": [],
+      "imports": [
+        "app/api/e-adapter.ts",
+        "app/api/herdr-adapter.ts",
+        "app/api/local-access.ts",
+        "app/api/pump.ts",
+        "app/api/routes.ts"
+      ],
+      "packages": [
+        "@hono/node-server",
+        "hono",
+        "ws"
+      ]
+    },
+    "app/api/layout.ts": {
+      "loc": 150,
+      "exports": [
+        "LayoutResult",
+        "computeLayout"
+      ],
+      "imports": [
+        "app/api/types.ts"
+      ],
+      "packages": []
+    },
+    "app/api/local-access.ts": {
+      "loc": 15,
+      "exports": [
+        "localRequestAllowed"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/api/pump.ts": {
+      "loc": 135,
+      "exports": [
+        "TermClient",
+        "pump",
+        "wirePumpToGraph"
+      ],
+      "imports": [
+        "app/api/graph.ts",
+        "app/api/herdr-adapter.ts",
+        "app/api/types.ts"
+      ],
+      "packages": []
+    },
+    "app/api/registry.ts": {
+      "loc": 264,
+      "exports": [
+        "registry"
+      ],
+      "imports": [
+        "app/api/graph.ts",
+        "app/api/types.ts",
+        "app/api/workspace-paths.ts"
+      ],
+      "packages": []
+    },
+    "app/api/routes.ts": {
+      "loc": 507,
+      "exports": [
+        "WSContext",
+        "wireBroadcasts",
+        "wsHandlers",
+        "api"
+      ],
+      "imports": [
+        "app/api/coordinator.ts",
+        "app/api/e-adapter.ts",
+        "app/api/e/approval-binding.ts",
+        "app/api/e/contracts.ts",
+        "app/api/eventbus.ts",
+        "app/api/graph.ts",
+        "app/api/layout.ts",
+        "app/api/pump.ts",
+        "app/api/registry.ts",
+        "app/api/runtime-router.ts",
+        "app/api/types.ts",
+        "app/api/workspace-paths.ts"
+      ],
+      "packages": [
+        "hono",
+        "zod"
+      ]
+    },
+    "app/api/runtime-router.ts": {
+      "loc": 13,
+      "exports": [
+        "requireHerdr",
+        "runtimeRouter"
+      ],
+      "imports": [
+        "app/api/coordinator.ts",
+        "app/api/registry.ts"
+      ],
+      "packages": []
+    },
+    "app/api/shell.ts": {
+      "loc": 9,
+      "exports": [
+        "shellQuote",
+        "exitWrapper"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/api/types.ts": {
+      "loc": 112,
+      "exports": [
+        "NodeStatus",
+        "NodeType",
+        "EdgeKind",
+        "CanvasZone",
+        "ApprovalInfo",
+        "CanvasNode",
+        "CanvasEdge",
+        "Graph",
+        "WorkspaceStatus",
+        "WorkspaceSummary",
+        "CanvasEvent",
+        "ServerMessage",
+        "ClientMessage"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/api/workspace-paths.ts": {
+      "loc": 31,
+      "exports": [
+        "PROJECT_ROOT",
+        "resolveSeedPath",
+        "migrateLegacySeedPath"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/eslint.config.js": {
+      "loc": 24,
+      "exports": [
+        "default"
+      ],
+      "imports": [],
+      "packages": [
+        "@eslint/js",
+        "eslint",
+        "eslint-plugin-react-hooks",
+        "eslint-plugin-react-refresh",
+        "globals",
+        "typescript-eslint"
+      ]
+    },
+    "app/playwright.config.ts": {
+      "loc": 15,
+      "exports": [
+        "default"
+      ],
+      "imports": [],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/postcss.config.js": {
+      "loc": 7,
+      "exports": [
+        "default"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/scripts/canvas-adapter.mjs": {
+      "loc": 21,
+      "exports": [
+        "prepareCanvasAdapter"
+      ],
+      "imports": [
+        "app/shared/collaboration-package.mjs",
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/scripts/canvas-channel.mjs": {
+      "loc": 56,
+      "exports": [
+        "createCanvasChannel"
+      ],
+      "imports": [
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/scripts/canvas-tools.mjs": {
+      "loc": 82,
+      "exports": [
+        "default"
+      ],
+      "imports": [
+        "app/shared/collaboration-package.mjs",
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": [
+        "@earendil-works/pi-ai"
+      ]
+    },
+    "app/scripts/collaboration-inspect.mjs": {
+      "loc": 7,
+      "exports": [],
+      "imports": [
+        "app/shared/collaboration-package.mjs",
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/scripts/demo-quant-canvas/lib/canvas.mjs": {
+      "loc": 218,
+      "exports": [
+        "CanvasError",
+        "Canvas"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/scripts/demo-quant-canvas/lib/market.mjs": {
+      "loc": 131,
+      "exports": [
+        "UNIVERSE",
+        "mulberry32",
+        "createMarket",
+        "round",
+        "logReturns",
+        "stdev",
+        "sma",
+        "quantile"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/scripts/demo-quant-canvas/lib/strategy.mjs": {
+      "loc": 247,
+      "exports": [
+        "prepareSeries",
+        "factorSnapshot",
+        "selectWeights",
+        "backtest",
+        "buildExecutionPlan"
+      ],
+      "imports": [
+        "app/scripts/demo-quant-canvas/lib/market.mjs"
+      ],
+      "packages": []
+    },
+    "app/scripts/demo-quant-canvas/run.mjs": {
+      "loc": 763,
+      "exports": [],
+      "imports": [
+        "app/scripts/demo-quant-canvas/lib/canvas.mjs",
+        "app/scripts/demo-quant-canvas/lib/market.mjs",
+        "app/scripts/demo-quant-canvas/lib/strategy.mjs"
+      ],
+      "packages": []
+    },
+    "app/scripts/dev-e.mjs": {
+      "loc": 50,
+      "exports": [],
+      "imports": [],
+      "packages": []
+    },
+    "app/scripts/e-configuration.mjs": {
+      "loc": 41,
+      "exports": [
+        "cleanModel",
+        "readConfiguration",
+        "assertIdle",
+        "changeConfiguration"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/scripts/e-control.mjs": {
+      "loc": 22,
+      "exports": [
+        "controlSession"
+      ],
+      "imports": [
+        "app/api/e/approval-binding.ts"
+      ],
+      "packages": []
+    },
+    "app/scripts/e-message-preflight.mjs": {
+      "loc": 26,
+      "exports": [
+        "loadPiImageProcessor",
+        "assertImagesUnchanged"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/scripts/e-runtime-worker.mts": {
+      "loc": 205,
+      "exports": [],
+      "imports": [
+        "app/api/e/attachments.ts",
+        "app/scripts/canvas-adapter.mjs",
+        "app/scripts/canvas-channel.mjs",
+        "app/scripts/e-configuration.mjs",
+        "app/scripts/e-control.mjs",
+        "app/scripts/e-message-preflight.mjs",
+        "app/shared/collaboration-package.mjs",
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/shared/agent-reference.d.mts": {
+      "loc": 6,
+      "exports": [
+        "IdentitySource",
+        "DisplayIdentity",
+        "identityHash",
+        "sessionIdentities",
+        "resolveAgentReference"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/shared/agent-reference.mjs": {
+      "loc": 32,
+      "exports": [
+        "identityHash",
+        "sessionIdentities",
+        "resolveAgentReference"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/shared/collaboration-package.d.mts": {
+      "loc": 3,
+      "exports": [
+        "readCollaborationPackage"
+      ],
+      "imports": [
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/shared/collaboration-package.mjs": {
+      "loc": 19,
+      "exports": [
+        "readCollaborationPackage"
+      ],
+      "imports": [
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/shared/collaboration-protocol.d.mts": {
+      "loc": 27,
+      "exports": [
+        "COLLABORATION_PROTOCOL_VERSION",
+        "COLLABORATION_EXTENSION_VERSION",
+        "COLLABORATION_SKILL",
+        "COLLABORATION_TOOL_NAMES",
+        "CanvasTool",
+        "CollaborationErrorCode",
+        "COLLABORATION_ERROR_CODES",
+        "COLLABORATION_LIMITS",
+        "CollaborationToolDefinition",
+        "COLLABORATION_TOOLS",
+        "COLLABORATION_CONTRACT",
+        "CollaborationManifest",
+        "CollaborationStatus",
+        "CollaborationRequest",
+        "CollaborationFailure",
+        "CollaborationResponse",
+        "CollaborationError",
+        "collaborationError",
+        "collaborationTool",
+        "validateCollaborationArgs",
+        "validateCollaborationResult",
+        "piCollaborationTools",
+        "manifestsMatch",
+        "validateCollaborationHello",
+        "validateCollaborationRequest",
+        "collaborationReady"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/shared/collaboration-protocol.mjs": {
+      "loc": 106,
+      "exports": [
+        "COLLABORATION_PROTOCOL_VERSION",
+        "COLLABORATION_EXTENSION_VERSION",
+        "COLLABORATION_SKILL",
+        "COLLABORATION_LIMITS",
+        "COLLABORATION_ERROR_CODES",
+        "COLLABORATION_TOOLS",
+        "COLLABORATION_TOOL_NAMES",
+        "COLLABORATION_CONTRACT",
+        "CollaborationError",
+        "collaborationError",
+        "collaborationTool",
+        "validateCollaborationArgs",
+        "validateCollaborationResult",
+        "piCollaborationTools",
+        "manifestsMatch",
+        "validateCollaborationHello",
+        "validateCollaborationRequest",
+        "collaborationReady"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/shared/message-content.d.mts": {
+      "loc": 7,
+      "exports": [
+        "ATTACHMENT_LIMITS",
+        "decodeAttachment",
+        "attachmentText",
+        "validateMessage",
+        "messageBlocks"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/shared/message-content.mjs": {
+      "loc": 66,
+      "exports": [
+        "ATTACHMENT_LIMITS",
+        "decodeAttachment",
+        "attachmentText",
+        "validateMessage",
+        "messageBlocks"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/src/App.tsx": {
+      "loc": 28,
+      "exports": [
+        "default"
+      ],
+      "imports": [
+        "app/src/pages/PocLanding.tsx",
+        "app/src/pages/canvas/index.tsx",
+        "app/src/pages/home/index.tsx",
+        "app/src/pages/reactflow/index.tsx",
+        "app/src/pages/tldraw/TldrawPage.tsx",
+        "app/src/theme/ThemeSwitcher.tsx"
+      ],
+      "packages": [
+        "react-router"
+      ]
+    },
+    "app/src/components/ui/alert-dialog.tsx": {
+      "loc": 156,
+      "exports": [
+        "AlertDialog",
+        "AlertDialogPortal",
+        "AlertDialogOverlay",
+        "AlertDialogTrigger",
+        "AlertDialogContent",
+        "AlertDialogHeader",
+        "AlertDialogFooter",
+        "AlertDialogTitle",
+        "AlertDialogDescription",
+        "AlertDialogAction",
+        "AlertDialogCancel"
+      ],
+      "imports": [
+        "app/src/components/ui/button-variants.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-alert-dialog",
+        "react"
+      ]
+    },
+    "app/src/components/ui/badge-variants.ts": {
+      "loc": 23,
+      "exports": [
+        "badgeVariants"
+      ],
+      "imports": [],
+      "packages": [
+        "class-variance-authority"
+      ]
+    },
+    "app/src/components/ui/badge.tsx": {
+      "loc": 28,
+      "exports": [
+        "Badge"
+      ],
+      "imports": [
+        "app/src/components/ui/badge-variants.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "react"
+      ]
+    },
+    "app/src/components/ui/button-group-variants.ts": {
+      "loc": 19,
+      "exports": [
+        "buttonGroupVariants"
+      ],
+      "imports": [],
+      "packages": [
+        "class-variance-authority"
+      ]
+    },
+    "app/src/components/ui/button-group.tsx": {
+      "loc": 68,
+      "exports": [
+        "ButtonGroup",
+        "ButtonGroupSeparator",
+        "ButtonGroupText"
+      ],
+      "imports": [
+        "app/src/components/ui/button-group-variants.ts",
+        "app/src/components/ui/separator.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ]
+    },
+    "app/src/components/ui/button-variants.ts": {
+      "loc": 34,
+      "exports": [
+        "buttonVariants"
+      ],
+      "imports": [],
+      "packages": [
+        "class-variance-authority"
+      ]
+    },
+    "app/src/components/ui/button.tsx": {
+      "loc": 33,
+      "exports": [
+        "Button"
+      ],
+      "imports": [
+        "app/src/components/ui/button-variants.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "react"
+      ]
+    },
+    "app/src/components/ui/calendar.tsx": {
+      "loc": 222,
+      "exports": [
+        "Calendar",
+        "CalendarDayButton"
+      ],
+      "imports": [
+        "app/src/components/ui/button-variants.ts",
+        "app/src/components/ui/button.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react",
+        "react-day-picker"
+      ]
+    },
+    "app/src/components/ui/form-context.ts": {
+      "loc": 45,
+      "exports": [
+        "FormFieldContext",
+        "useFormField",
+        "FormItemContext"
+      ],
+      "imports": [],
+      "packages": [
+        "react",
+        "react-hook-form"
+      ]
+    },
+    "app/src/components/ui/form.tsx": {
+      "loc": 125,
+      "exports": [
+        "Form",
+        "FormItem",
+        "FormLabel",
+        "FormControl",
+        "FormDescription",
+        "FormMessage",
+        "FormField"
+      ],
+      "imports": [
+        "app/src/components/ui/form-context.ts",
+        "app/src/components/ui/label.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-label",
+        "@radix-ui/react-slot",
+        "react",
+        "react-hook-form"
+      ]
+    },
+    "app/src/components/ui/input.tsx": {
+      "loc": 22,
+      "exports": [
+        "Input"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/components/ui/label.tsx": {
+      "loc": 25,
+      "exports": [
+        "Label"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-label",
+        "react"
+      ]
+    },
+    "app/src/components/ui/navigation-menu-variants.ts": {
+      "loc": 6,
+      "exports": [
+        "navigationMenuTriggerStyle"
+      ],
+      "imports": [],
+      "packages": [
+        "class-variance-authority"
+      ]
+    },
+    "app/src/components/ui/navigation-menu.tsx": {
+      "loc": 165,
+      "exports": [
+        "NavigationMenu",
+        "NavigationMenuList",
+        "NavigationMenuItem",
+        "NavigationMenuContent",
+        "NavigationMenuTrigger",
+        "NavigationMenuLink",
+        "NavigationMenuIndicator",
+        "NavigationMenuViewport"
+      ],
+      "imports": [
+        "app/src/components/ui/navigation-menu-variants.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-navigation-menu",
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/components/ui/pagination.tsx": {
+      "loc": 129,
+      "exports": [
+        "Pagination",
+        "PaginationContent",
+        "PaginationLink",
+        "PaginationItem",
+        "PaginationPrevious",
+        "PaginationNext",
+        "PaginationEllipsis"
+      ],
+      "imports": [
+        "app/src/components/ui/button-variants.ts",
+        "app/src/components/ui/button.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/components/ui/separator.tsx": {
+      "loc": 29,
+      "exports": [
+        "Separator"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-separator",
+        "react"
+      ]
+    },
+    "app/src/components/ui/sheet.tsx": {
+      "loc": 138,
+      "exports": [
+        "Sheet",
+        "SheetTrigger",
+        "SheetClose",
+        "SheetContent",
+        "SheetHeader",
+        "SheetFooter",
+        "SheetTitle",
+        "SheetDescription"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-dialog",
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/components/ui/sidebar-context.ts": {
+      "loc": 23,
+      "exports": [
+        "SidebarContextProps",
+        "SidebarContext",
+        "useSidebar"
+      ],
+      "imports": [],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/components/ui/sidebar.tsx": {
+      "loc": 705,
+      "exports": [
+        "Sidebar",
+        "SidebarContent",
+        "SidebarFooter",
+        "SidebarGroup",
+        "SidebarGroupAction",
+        "SidebarGroupContent",
+        "SidebarGroupLabel",
+        "SidebarHeader",
+        "SidebarInput",
+        "SidebarInset",
+        "SidebarMenu",
+        "SidebarMenuAction",
+        "SidebarMenuBadge",
+        "SidebarMenuButton",
+        "SidebarMenuItem",
+        "SidebarMenuSkeleton",
+        "SidebarMenuSub",
+        "SidebarMenuSubButton",
+        "SidebarMenuSubItem",
+        "SidebarProvider",
+        "SidebarRail",
+        "SidebarSeparator",
+        "SidebarTrigger"
+      ],
+      "imports": [
+        "app/src/components/ui/button.tsx",
+        "app/src/components/ui/input.tsx",
+        "app/src/components/ui/separator.tsx",
+        "app/src/components/ui/sheet.tsx",
+        "app/src/components/ui/sidebar-context.ts",
+        "app/src/components/ui/skeleton.tsx",
+        "app/src/components/ui/tooltip.tsx",
+        "app/src/hooks/use-mobile.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/components/ui/skeleton.tsx": {
+      "loc": 14,
+      "exports": [
+        "Skeleton"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "packages": []
+    },
+    "app/src/components/ui/sonner.tsx": {
+      "loc": 39,
+      "exports": [
+        "Toaster"
+      ],
+      "imports": [],
+      "packages": [
+        "lucide-react",
+        "next-themes",
+        "sonner"
+      ]
+    },
+    "app/src/components/ui/switch.tsx": {
+      "loc": 32,
+      "exports": [
+        "Switch"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-switch",
+        "react"
+      ]
+    },
+    "app/src/components/ui/toggle-group.tsx": {
+      "loc": 82,
+      "exports": [
+        "ToggleGroup",
+        "ToggleGroupItem"
+      ],
+      "imports": [
+        "app/src/components/ui/toggle-variants.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-toggle-group",
+        "class-variance-authority",
+        "react"
+      ]
+    },
+    "app/src/components/ui/toggle-variants.ts": {
+      "loc": 24,
+      "exports": [
+        "toggleVariants"
+      ],
+      "imports": [],
+      "packages": [
+        "class-variance-authority"
+      ]
+    },
+    "app/src/components/ui/toggle.tsx": {
+      "loc": 26,
+      "exports": [
+        "Toggle"
+      ],
+      "imports": [
+        "app/src/components/ui/toggle-variants.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-toggle",
+        "class-variance-authority",
+        "react"
+      ]
+    },
+    "app/src/components/ui/tooltip.tsx": {
+      "loc": 62,
+      "exports": [
+        "Tooltip",
+        "TooltipTrigger",
+        "TooltipContent",
+        "TooltipProvider"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-tooltip",
+        "react"
+      ]
+    },
+    "app/src/hooks/use-mobile.ts": {
+      "loc": 20,
+      "exports": [
+        "useIsMobile"
+      ],
+      "imports": [],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/lib/utils.ts": {
+      "loc": 7,
+      "exports": [
+        "cn"
+      ],
+      "imports": [],
+      "packages": [
+        "clsx",
+        "tailwind-merge"
+      ]
+    },
+    "app/src/main.tsx": {
+      "loc": 12,
+      "exports": [],
+      "imports": [
+        "app/src/App.tsx",
+        "app/src/index.css",
+        "app/src/theme/ThemeProvider.tsx"
+      ],
+      "packages": [
+        "react-dom",
+        "react-router"
+      ]
+    },
+    "app/src/pages/PocLanding.tsx": {
+      "loc": 238,
+      "exports": [
+        "default"
+      ],
+      "imports": [
+        "app/src/components/ui/button.tsx"
+      ],
+      "packages": [
+        "lucide-react",
+        "react-router"
+      ]
+    },
+    "app/src/pages/canvas/ApprovalCard.tsx": {
+      "loc": 75,
+      "exports": [
+        "ApprovalCardProps",
+        "ApprovalCard"
+      ],
+      "imports": [
+        "app/src/components/ui/button.tsx"
+      ],
+      "packages": [
+        "react",
+        "sonner"
+      ]
+    },
+    "app/src/pages/canvas/ApprovalModeControl.tsx": {
+      "loc": 42,
+      "exports": [
+        "ApprovalModeControl"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/CardViewControl.tsx": {
+      "loc": 11,
+      "exports": [
+        "CardViewControl"
+      ],
+      "imports": [
+        "app/src/shared/ViewModeManager.ts",
+        "app/src/shared/card-view-preferences.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/CommunicationTrace.tsx": {
+      "loc": 21,
+      "exports": [
+        "CommunicationTrace"
+      ],
+      "imports": [
+        "app/api/e/collaboration-contracts.ts",
+        "app/src/pages/canvas/contracts.ts"
+      ],
+      "packages": [
+        "lucide-react"
+      ]
+    },
+    "app/src/pages/canvas/EApprovalCard.tsx": {
+      "loc": 6,
+      "exports": [
+        "EApprovalCard"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/ApprovalRequest.tsx",
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/GlobalCardViewControl.tsx": {
+      "loc": 26,
+      "exports": [
+        "GlobalCardViewControl"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/global-card-view.css",
+        "app/src/shared/ViewModeManager.ts",
+        "app/src/shared/card-view-preferences.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react",
+        "react-dom"
+      ]
+    },
+    "app/src/pages/canvas/L0Summary.tsx": {
+      "loc": 105,
+      "exports": [
+        "L0SummaryCardProps",
+        "L0SummaryCard"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/pages/canvas/SessionIdentity.tsx",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/utils.ts",
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "@xyflow/react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/LiveChat.tsx": {
+      "loc": 23,
+      "exports": [
+        "LiveChat"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "app/src/pages/canvas/chat/ConversationView.tsx",
+        "app/src/pages/canvas/chat/Diagnostics.tsx",
+        "app/src/pages/canvas/chat/SessionNotice.tsx",
+        "app/src/pages/canvas/chat/chat-ui-store.ts",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/session-store.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/LiveEdge.tsx": {
+      "loc": 234,
+      "exports": [
+        "LiveEdgeData",
+        "LiveFlowEdge",
+        "EdgeMarkerDefs",
+        "LiveEdge"
+      ],
+      "imports": [
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": [
+        "@xyflow/react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/LiveNode.tsx": {
+      "loc": 221,
+      "exports": [
+        "LiveFlowNode",
+        "LiveNode"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/pages/canvas/ApprovalCard.tsx",
+        "app/src/pages/canvas/CardViewControl.tsx",
+        "app/src/pages/canvas/L0Summary.tsx",
+        "app/src/pages/canvas/LiveChat.tsx",
+        "app/src/pages/canvas/LiveTerminal.tsx",
+        "app/src/pages/canvas/SessionHeaderActions.tsx",
+        "app/src/pages/canvas/SessionIdentity.tsx",
+        "app/src/pages/canvas/canvas-context.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/session-store.ts",
+        "app/src/pages/canvas/utils.ts",
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "@xyflow/react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/LiveTerminal.tsx": {
+      "loc": 325,
+      "exports": [
+        "LiveTerminalProps",
+        "LiveTerminal"
+      ],
+      "imports": [
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/utils.ts",
+        "app/src/shared/index.ts",
+        "app/src/theme/terminal-theme.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react",
+        "sonner",
+        "xterm",
+        "xterm-addon-fit"
+      ]
+    },
+    "app/src/pages/canvas/RunBar.tsx": {
+      "loc": 140,
+      "exports": [
+        "RunBarProps",
+        "RunBar"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react",
+        "sonner"
+      ]
+    },
+    "app/src/pages/canvas/SessionControls.tsx": {
+      "loc": 19,
+      "exports": [
+        "SessionControls"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/session-store.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/SessionHeaderActions.tsx": {
+      "loc": 34,
+      "exports": [
+        "SessionHeaderActions"
+      ],
+      "imports": [
+        "app/src/pages/canvas/CardViewControl.tsx",
+        "app/src/pages/canvas/SessionControls.tsx",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/chat-overlay-context.ts",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/session-store.ts",
+        "app/src/shared/ViewModeManager.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/SessionIdentity.tsx": {
+      "loc": 107,
+      "exports": [
+        "SessionIdentity",
+        "SessionStatus"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/CollaborationStatus.tsx",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/session-store.ts",
+        "app/src/pages/canvas/use-agent-identities.ts",
+        "app/src/pages/canvas/utils.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/TracePanel.tsx": {
+      "loc": 87,
+      "exports": [
+        "TracePanelProps",
+        "TracePanel"
+      ],
+      "imports": [
+        "app/src/pages/canvas/CommunicationTrace.tsx",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/utils.ts"
+      ],
+      "packages": [
+        "lucide-react"
+      ]
+    },
+    "app/src/pages/canvas/ZoneNode.tsx": {
+      "loc": 35,
+      "exports": [
+        "ZoneFlowNode",
+        "ZONE_HEADER_H",
+        "ZONE_PADDING",
+        "ZoneNode"
+      ],
+      "imports": [],
+      "packages": [
+        "@xyflow/react"
+      ]
+    },
+    "app/src/pages/canvas/canvas-context.ts": {
+      "loc": 33,
+      "exports": [
+        "CanvasCtxValue",
+        "CanvasCtx",
+        "useCanvasCtx"
+      ],
+      "imports": [
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/ApprovalRequest.tsx": {
+      "loc": 39,
+      "exports": [
+        "ApprovalRequest"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/chat-ui-store.ts",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/chat/primitives.tsx",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/session-store.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/AttachmentTray.tsx": {
+      "loc": 15,
+      "exports": [
+        "AttachmentTray"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/shared/message-content.mjs",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/attachments.ts"
+      ],
+      "packages": [
+        "lucide-react"
+      ]
+    },
+    "app/src/pages/canvas/chat/ChatPopover.tsx": {
+      "loc": 39,
+      "exports": [
+        "ChatOverlayScope",
+        "ChatPopover",
+        "ChatConfirm"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/chat-overlay-context.ts"
+      ],
+      "packages": [
+        "@radix-ui/react-alert-dialog",
+        "@radix-ui/react-popover",
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/CodeBlock.tsx": {
+      "loc": 21,
+      "exports": [
+        "CodeBlock"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/primitives.tsx"
+      ],
+      "packages": [
+        "next-themes",
+        "react",
+        "shiki"
+      ]
+    },
+    "app/src/pages/canvas/chat/CollaborationStatus.tsx": {
+      "loc": 18,
+      "exports": [
+        "CollaborationStatus"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/collaboration-presentation.ts",
+        "app/src/pages/canvas/chat/error-presentation.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/Composer.tsx": {
+      "loc": 57,
+      "exports": [
+        "Composer"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/shared/message-content.mjs",
+        "app/src/pages/canvas/ApprovalModeControl.tsx",
+        "app/src/pages/canvas/SessionControls.tsx",
+        "app/src/pages/canvas/chat/AttachmentTray.tsx",
+        "app/src/pages/canvas/chat/QueuePanel.tsx",
+        "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
+        "app/src/pages/canvas/chat/attachments.ts",
+        "app/src/pages/canvas/chat/chat-ui-store.ts",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/chat/use-agent-mentions.tsx",
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/ConversationView.tsx": {
+      "loc": 28,
+      "exports": [
+        "ConversationView"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/ApprovalRequest.tsx",
+        "app/src/pages/canvas/chat/TurnView.tsx",
+        "app/src/pages/canvas/chat/chat-ui-store.ts",
+        "app/src/pages/canvas/chat/project-transcript.ts",
+        "app/src/pages/canvas/chat/useConversationScroll.ts",
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/Diagnostics.tsx": {
+      "loc": 20,
+      "exports": [
+        "Diagnostics"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/chat/primitives.tsx"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/MarkdownContent.tsx": {
+      "loc": 15,
+      "exports": [
+        "MarkdownContent"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/CodeBlock.tsx",
+        "app/src/pages/canvas/chat/error-presentation.ts"
+      ],
+      "packages": [
+        "react",
+        "react-markdown",
+        "remark-gfm"
+      ]
+    },
+    "app/src/pages/canvas/chat/QueuePanel.tsx": {
+      "loc": 36,
+      "exports": [
+        "QueuePanel"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/AttachmentTray.tsx",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/RuntimeConfigControl.tsx": {
+      "loc": 83,
+      "exports": [
+        "RuntimeConfigControl"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/chat-overlay-context.ts",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/chat/runtime-config-presentation.ts",
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/SessionNotice.tsx": {
+      "loc": 15,
+      "exports": [
+        "SessionNotice"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/SessionControls.tsx",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/ToolActivity.tsx": {
+      "loc": 19,
+      "exports": [
+        "ToolActivity"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/chat-ui-store.ts",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/chat/model.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/chat/primitives.tsx"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/TurnView.tsx": {
+      "loc": 28,
+      "exports": [
+        "TurnView"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/MarkdownContent.tsx",
+        "app/src/pages/canvas/chat/ToolActivity.tsx",
+        "app/src/pages/canvas/chat/chat-ui-store.ts",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/chat/message-metadata.ts",
+        "app/src/pages/canvas/chat/model.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/chat/primitives.tsx"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/agent-mentions.ts": {
+      "loc": 12,
+      "exports": [
+        "mentionQuery",
+        "insertMention"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/attachments.ts": {
+      "loc": 15,
+      "exports": [
+        "base64",
+        "pastedAttachment",
+        "readAttachment"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/shared/message-content.mjs"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/chat-overlay-context.ts": {
+      "loc": 3,
+      "exports": [
+        "ChatOverlayContext"
+      ],
+      "imports": [],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/chat-ui-store.ts": {
+      "loc": 41,
+      "exports": [
+        "Reading",
+        "ChatUIState",
+        "ChatUIStore",
+        "chatUIKey",
+        "getChatUI"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/collaboration-presentation.ts": {
+      "loc": 12,
+      "exports": [
+        "collaborationPresentation"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/error-presentation.ts": {
+      "loc": 21,
+      "exports": [
+        "redact",
+        "errorTitle",
+        "safeLink"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/message-metadata.ts": {
+      "loc": 22,
+      "exports": [
+        "sourceLabel",
+        "modelLabel",
+        "toolDuration"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/model.ts": {
+      "loc": 5,
+      "exports": [
+        "ToolDisplay",
+        "TurnPart",
+        "TranscriptTurn"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/presentation-state.ts": {
+      "loc": 85,
+      "exports": [
+        "approvalLabel",
+        "needsSessionRecovery",
+        "sessionModelPresentation",
+        "presentation",
+        "sessionNotices",
+        "automaticDelivery",
+        "sessionIndicator"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/session-store.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/primitives.tsx": {
+      "loc": 12,
+      "exports": [
+        "CopyButton",
+        "Disclosure",
+        "Output"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/chat-ui-store.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/project-transcript.ts": {
+      "loc": 71,
+      "exports": [
+        "TranscriptProjector"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/model.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/runtime-config-presentation.ts": {
+      "loc": 23,
+      "exports": [
+        "thinkingName",
+        "modelName",
+        "thinkingLevels",
+        "configurationBasis",
+        "configurationBlockReason",
+        "modelGroups"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/use-agent-mentions.tsx": {
+      "loc": 70,
+      "exports": [
+        "useAgentMentions"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/agent-mentions.ts",
+        "app/src/pages/canvas/chat/chat-overlay-context.ts",
+        "app/src/pages/canvas/collaboration.css",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/use-agent-identities.ts"
+      ],
+      "packages": [
+        "react",
+        "react-dom"
+      ]
+    },
+    "app/src/pages/canvas/chat/useConversationScroll.ts": {
+      "loc": 37,
+      "exports": [
+        "useConversationScroll"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/chat-ui-store.ts"
+      ],
+      "packages": [
+        "react",
+        "use-stick-to-bottom"
+      ]
+    },
+    "app/src/pages/canvas/collaboration-demo/model.ts": {
+      "loc": 93,
+      "exports": [
+        "AgentId",
+        "DemoStatus",
+        "DemoPhase",
+        "DemoEvent",
+        "DemoStep",
+        "agents",
+        "steps",
+        "DemoState",
+        "DemoAction",
+        "initialDemoState",
+        "demoReducer",
+        "outputAt"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/src/pages/canvas/contracts.ts": {
+      "loc": 107,
+      "exports": [
+        "NodeStatus",
+        "NodeType",
+        "EdgeKind",
+        "CanvasNode",
+        "CanvasEdge",
+        "RunState",
+        "CanvasZone",
+        "Graph",
+        "WorkspaceSummary",
+        "NodeEvent",
+        "ClientMessage",
+        "ServerMessage",
+        "BackendApi",
+        "ConnState"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/index.tsx": {
+      "loc": 610,
+      "exports": [
+        "default",
+        "CanvasRedirect"
+      ],
+      "imports": [
+        "app/src/components/ui/sonner.tsx",
+        "app/src/pages/canvas/GlobalCardViewControl.tsx",
+        "app/src/pages/canvas/LiveEdge.tsx",
+        "app/src/pages/canvas/LiveNode.tsx",
+        "app/src/pages/canvas/RunBar.tsx",
+        "app/src/pages/canvas/TracePanel.tsx",
+        "app/src/pages/canvas/ZoneNode.tsx",
+        "app/src/pages/canvas/canvas-context.ts",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/utils.ts",
+        "app/src/pages/reactflow/reactflow.css",
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "@xyflow/react",
+        "lucide-react",
+        "react",
+        "react-router",
+        "sonner"
+      ]
+    },
+    "app/src/pages/canvas/live-store.ts": {
+      "loc": 469,
+      "exports": [
+        "default",
+        "LiveStore",
+        "WorkspaceListResult",
+        "fetchWorkspaces",
+        "pickActiveWorkspace",
+        "useLiveStore",
+        "useLiveNode"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/contracts.ts",
+        "app/src/pages/canvas/mock-server.ts",
+        "app/src/pages/canvas/session-store.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/mock-server.ts": {
+      "loc": 640,
+      "exports": [
+        "MockBackend",
+        "mockWorkspaceSummaries"
+      ],
+      "imports": [
+        "app/src/pages/canvas/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/session-identity.ts": {
+      "loc": 3,
+      "exports": [
+        "identityHash",
+        "sessionIdentities",
+        "IdentitySource",
+        "DisplayIdentity"
+      ],
+      "imports": [
+        "app/shared/agent-reference.mjs"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/session-store.ts": {
+      "loc": 18,
+      "exports": [
+        "SessionStore",
+        "useSession",
+        "capabilityAvailable"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/use-agent-identities.ts": {
+      "loc": 26,
+      "exports": [
+        "useAgentIdentities"
+      ],
+      "imports": [
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/session-identity.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/utils.ts": {
+      "loc": 93,
+      "exports": [
+        "fmtElapsed",
+        "statusDetailFor",
+        "useSecondClock",
+        "stripAnsi",
+        "ansiTail",
+        "EDGE_KIND_SEMANTIC",
+        "nodeWidth",
+        "STATUS_HEX"
+      ],
+      "imports": [
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/home/CreateSessionForm.tsx": {
+      "loc": 24,
+      "exports": [
+        "CreateSessionForm"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": [
+        "react",
+        "react-router"
+      ]
+    },
+    "app/src/pages/home/GraphPreview.tsx": {
+      "loc": 133,
+      "exports": [
+        "GraphPreview"
+      ],
+      "imports": [
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/utils.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/home/index.tsx": {
+      "loc": 237,
+      "exports": [
+        "default"
+      ],
+      "imports": [
+        "app/src/components/ui/button.tsx",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/home/CreateSessionForm.tsx",
+        "app/src/pages/home/GraphPreview.tsx"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/reactflow/AgentEdge.tsx": {
+      "loc": 232,
+      "exports": [
+        "AgentEdgeData",
+        "AgentFlowEdge",
+        "EdgeMarkerDefs",
+        "AgentEdge"
+      ],
+      "imports": [
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "@xyflow/react",
+        "react"
+      ]
+    },
+    "app/src/pages/reactflow/AgentNode.tsx": {
+      "loc": 221,
+      "exports": [
+        "AgentFlowNode",
+        "AgentNode"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/pages/reactflow/FpsGate.tsx",
+        "app/src/pages/reactflow/L0Summary.tsx",
+        "app/src/pages/reactflow/canvas-context.ts",
+        "app/src/pages/reactflow/utils.ts",
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "@xyflow/react",
+        "react"
+      ]
+    },
+    "app/src/pages/reactflow/FpsGate.tsx": {
+      "loc": 21,
+      "exports": [
+        "FpsGate"
+      ],
+      "imports": [],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/reactflow/L0Summary.tsx": {
+      "loc": 76,
+      "exports": [
+        "L0SummaryCardProps",
+        "L0SummaryCard"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/pages/reactflow/utils.ts",
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "@xyflow/react"
+      ]
+    },
+    "app/src/pages/reactflow/TracePanel.tsx": {
+      "loc": 108,
+      "exports": [
+        "TracePanelProps",
+        "TracePanel"
+      ],
+      "imports": [
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "lucide-react"
+      ]
+    },
+    "app/src/pages/reactflow/canvas-context.ts": {
+      "loc": 45,
+      "exports": [
+        "CanvasCtxValue",
+        "CanvasCtx",
+        "useCanvasCtx"
+      ],
+      "imports": [
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/reactflow/index.tsx": {
+      "loc": 475,
+      "exports": [
+        "default"
+      ],
+      "imports": [
+        "app/src/components/ui/sonner.tsx",
+        "app/src/pages/reactflow/AgentEdge.tsx",
+        "app/src/pages/reactflow/AgentNode.tsx",
+        "app/src/pages/reactflow/TracePanel.tsx",
+        "app/src/pages/reactflow/canvas-context.ts",
+        "app/src/pages/reactflow/reactflow.css",
+        "app/src/pages/reactflow/utils.ts",
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "@xyflow/react",
+        "lucide-react",
+        "react",
+        "react-router",
+        "sonner"
+      ]
+    },
+    "app/src/pages/reactflow/utils.ts": {
+      "loc": 142,
+      "exports": [
+        "fmtElapsed",
+        "statusDetailFor",
+        "nodeProgress",
+        "useEngineClock",
+        "lastEventSummary",
+        "l0SnapshotText",
+        "terminalKeyIndices",
+        "MSG_RATE",
+        "STATUS_HEX"
+      ],
+      "imports": [
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/tldraw/AgentNodeContent.tsx": {
+      "loc": 306,
+      "exports": [
+        "AgentNodeComponent"
+      ],
+      "imports": [
+        "app/src/pages/tldraw/L0SummaryCard.tsx",
+        "app/src/pages/tldraw/context.ts",
+        "app/src/pages/tldraw/model.ts",
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "react",
+        "tldraw"
+      ]
+    },
+    "app/src/pages/tldraw/AgentNodeShape.tsx": {
+      "loc": 55,
+      "exports": [
+        "AgentNodeShapeUtil"
+      ],
+      "imports": [
+        "app/src/pages/tldraw/AgentNodeContent.tsx",
+        "app/src/pages/tldraw/model.ts"
+      ],
+      "packages": [
+        "tldraw"
+      ]
+    },
+    "app/src/pages/tldraw/CanvasOverlays.tsx": {
+      "loc": 154,
+      "exports": [
+        "ZoomBridge",
+        "CanvasOverlays"
+      ],
+      "imports": [
+        "app/src/pages/tldraw/Minimap.tsx",
+        "app/src/pages/tldraw/context.ts",
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react",
+        "react-router",
+        "tldraw"
+      ]
+    },
+    "app/src/pages/tldraw/DotGrid.tsx": {
+      "loc": 35,
+      "exports": [
+        "DotGrid"
+      ],
+      "imports": [],
+      "packages": [
+        "react",
+        "tldraw"
+      ]
+    },
+    "app/src/pages/tldraw/EdgesLayer.tsx": {
+      "loc": 385,
+      "exports": [
+        "EdgesLayer"
+      ],
+      "imports": [
+        "app/src/pages/tldraw/context.ts",
+        "app/src/pages/tldraw/model.ts",
+        "app/src/shared/index.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "react",
+        "tldraw"
+      ]
+    },
+    "app/src/pages/tldraw/L0SummaryCard.tsx": {
+      "loc": 130,
+      "exports": [
+        "L0SummaryCardProps",
+        "L0SummaryCard"
+      ],
+      "imports": [
+        "app/src/shared/StatusBadge.tsx",
+        "app/src/shared/meta.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/tldraw/Minimap.tsx": {
+      "loc": 134,
+      "exports": [
+        "Minimap"
+      ],
+      "imports": [
+        "app/src/pages/tldraw/context.ts",
+        "app/src/pages/tldraw/model.ts",
+        "app/src/shared/index.ts"
+      ],
+      "packages": [
+        "react",
+        "tldraw"
+      ]
+    },
+    "app/src/pages/tldraw/TldrawPage.tsx": {
+      "loc": 285,
+      "exports": [
+        "default"
+      ],
+      "imports": [
+        "app/src/components/ui/sonner.tsx",
+        "app/src/pages/tldraw/AgentNodeShape.tsx",
+        "app/src/pages/tldraw/CanvasOverlays.tsx",
+        "app/src/pages/tldraw/DotGrid.tsx",
+        "app/src/pages/tldraw/EdgesLayer.tsx",
+        "app/src/pages/tldraw/TracePanel.tsx",
+        "app/src/pages/tldraw/context.ts",
+        "app/src/pages/tldraw/model.ts",
+        "app/src/pages/tldraw/tldraw-overrides.css",
+        "app/src/shared/WindowFrame.tsx",
+        "app/src/shared/index.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "next-themes",
+        "react",
+        "sonner",
+        "tldraw"
+      ]
+    },
+    "app/src/pages/tldraw/TracePanel.tsx": {
+      "loc": 115,
+      "exports": [
+        "TracePanel"
+      ],
+      "imports": [
+        "app/src/pages/tldraw/model.ts",
+        "app/src/shared/index.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/pages/tldraw/context.ts": {
+      "loc": 99,
+      "exports": [
+        "LIVE_QUOTA",
+        "FPS2_QUOTA",
+        "QUOTA_TOTAL",
+        "CanvasServices",
+        "CanvasServicesContext",
+        "useCanvasServices",
+        "useTieredNodeState",
+        "nodeProgress"
+      ],
+      "imports": [
+        "app/src/shared/ViewModeManager.ts",
+        "app/src/shared/WindowFrame.tsx",
+        "app/src/shared/mock/engine.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/tldraw/model.ts": {
+      "loc": 38,
+      "exports": [
+        "AGENT_NODE_TYPE",
+        "AgentNodeShape",
+        "NODE_DEFS",
+        "shapeIdForNode",
+        "DELEGATION_IDS",
+        "setAgentNodeDoubleClickHandler",
+        "fireAgentNodeDoubleClick"
+      ],
+      "imports": [
+        "app/src/shared/index.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "tldraw"
+      ]
+    },
+    "app/src/shared/ArtifactView.tsx": {
+      "loc": 172,
+      "exports": [
+        "ArtifactViewProps",
+        "ArtifactView"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/shared/WindowFrame.tsx",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/shared/ChatView.tsx": {
+      "loc": 290,
+      "exports": [
+        "ChatViewProps",
+        "ChatView"
+      ],
+      "imports": [
+        "app/src/components/ui/button.tsx",
+        "app/src/lib/utils.ts",
+        "app/src/shared/WindowFrame.tsx",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/shared/CoordinatorView.tsx": {
+      "loc": 71,
+      "exports": [
+        "CoordinatorViewProps",
+        "CoordinatorView"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/shared/StatusBadge.tsx",
+        "app/src/shared/meta.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": []
+    },
+    "app/src/shared/EdgeLegend.tsx": {
+      "loc": 102,
+      "exports": [
+        "EdgeLegendProps",
+        "EdgeLegend"
+      ],
+      "imports": [
+        "app/src/components/ui/switch.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/shared/FocusOverlay.tsx": {
+      "loc": 143,
+      "exports": [
+        "FocusOverlayProps",
+        "FocusOverlay"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/pages/canvas/identity-window.css",
+        "app/src/shared/StatusBadge.tsx",
+        "app/src/shared/meta.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react",
+        "react-dom"
+      ]
+    },
+    "app/src/shared/NodeShell.tsx": {
+      "loc": 150,
+      "exports": [
+        "NodeShellProps",
+        "NodeShell"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/shared/StatusBadge.tsx",
+        "app/src/shared/meta.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/shared/PlaybackBar.tsx": {
+      "loc": 96,
+      "exports": [
+        "PlaybackBarProps",
+        "PlaybackBar"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/shared/mock/engine.ts"
+      ],
+      "packages": [
+        "lucide-react"
+      ]
+    },
+    "app/src/shared/StatusBadge.tsx": {
+      "loc": 102,
+      "exports": [
+        "StatusBadgeProps",
+        "StatusBadge"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/shared/TerminalView.tsx": {
+      "loc": 184,
+      "exports": [
+        "TerminalViewProps",
+        "TerminalView"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts",
+        "app/src/shared/WindowFrame.tsx",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/shared/ViewModeManager.ts": {
+      "loc": 253,
+      "exports": [
+        "CardViewPreference",
+        "CardViewSetting",
+        "L0_MAX_PX",
+        "L1_MAX_PX",
+        "ZOOM_DEBOUNCE_MS",
+        "modeForScreenWidth",
+        "ViewModeManager",
+        "useViewMode",
+        "useAnimationsEnabled",
+        "useFocusedNodeId"
+      ],
+      "imports": [
+        "app/src/shared/card-view-preferences.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/shared/WindowFrame.tsx": {
+      "loc": 92,
+      "exports": [
+        "LiveTier",
+        "WindowFrameProps",
+        "WindowFrame"
+      ],
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/shared/card-view-preferences.ts": {
+      "loc": 22,
+      "exports": [
+        "CardViewPreference",
+        "CardViewSetting",
+        "GLOBAL_CARD_VIEW_KEY",
+        "CARD_VIEW_LABELS",
+        "isCardView",
+        "GlobalCardViewPreferences",
+        "globalCardViewPreferences"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/src/shared/index.ts": {
+      "loc": 40,
+      "exports": [
+        "default",
+        "MOCK_EDGES",
+        "MOCK_EVENTS",
+        "MOCK_NODES",
+        "MOCK_TOTAL",
+        "EventEngine",
+        "buildSnapshot",
+        "EngineState",
+        "PlaybackSpeed",
+        "ViewModeManager",
+        "modeForScreenWidth",
+        "useAnimationsEnabled",
+        "useFocusedNodeId",
+        "useViewMode",
+        "L0_MAX_PX",
+        "L1_MAX_PX",
+        "ZOOM_DEBOUNCE_MS",
+        "NODE_KIND_META",
+        "STATUS_COLORS",
+        "NodeShell",
+        "NodeShellProps",
+        "StatusBadge",
+        "StatusBadgeProps",
+        "WindowFrame",
+        "LiveTier",
+        "WindowFrameProps",
+        "ArtifactView",
+        "ArtifactViewProps",
+        "TerminalView",
+        "TerminalViewProps",
+        "ChatView",
+        "ChatViewProps",
+        "CoordinatorView",
+        "CoordinatorViewProps",
+        "EdgeLegend",
+        "EdgeLegendProps",
+        "PlaybackBar",
+        "PlaybackBarProps",
+        "FocusOverlay",
+        "FocusOverlayProps"
+      ],
+      "imports": [
+        "app/src/shared/ArtifactView.tsx",
+        "app/src/shared/ChatView.tsx",
+        "app/src/shared/CoordinatorView.tsx",
+        "app/src/shared/EdgeLegend.tsx",
+        "app/src/shared/FocusOverlay.tsx",
+        "app/src/shared/NodeShell.tsx",
+        "app/src/shared/PlaybackBar.tsx",
+        "app/src/shared/StatusBadge.tsx",
+        "app/src/shared/TerminalView.tsx",
+        "app/src/shared/ViewModeManager.ts",
+        "app/src/shared/WindowFrame.tsx",
+        "app/src/shared/meta.ts",
+        "app/src/shared/mock/engine.ts",
+        "app/src/shared/mock/events.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": []
+    },
+    "app/src/shared/meta.ts": {
+      "loc": 28,
+      "exports": [
+        "NODE_KIND_META",
+        "STATUS_COLORS"
+      ],
+      "imports": [
+        "app/src/shared/types.ts"
+      ],
+      "packages": [
+        "lucide-react",
+        "react"
+      ]
+    },
+    "app/src/shared/mock/engine.ts": {
+      "loc": 238,
+      "exports": [
+        "PlaybackSpeed",
+        "EngineState",
+        "buildSnapshot",
+        "EventEngine"
+      ],
+      "imports": [
+        "app/src/shared/mock/events.ts",
+        "app/src/shared/types.ts"
+      ],
+      "packages": []
+    },
+    "app/src/shared/mock/events.ts": {
+      "loc": 315,
+      "exports": [
+        "MOCK_NODES",
+        "MOCK_EDGES",
+        "MOCK_EVENTS",
+        "MOCK_TOTAL"
+      ],
+      "imports": [
+        "app/src/shared/types.ts"
+      ],
+      "packages": []
+    },
+    "app/src/shared/types.ts": {
+      "loc": 198,
+      "exports": [
+        "NodeStatus",
+        "NodeKind",
+        "EdgeKind",
+        "ViewMode",
+        "NodeIdentity",
+        "CanvasNodeDef",
+        "CanvasEdgeDef",
+        "TerminalLineKind",
+        "TerminalLine",
+        "ArtifactVersion",
+        "TodoStatus",
+        "TodoItem",
+        "ToolCallStatus",
+        "ToolCall",
+        "ChatMessage",
+        "ChatItem",
+        "ApprovalDecision",
+        "ApprovalState",
+        "DelegationItem",
+        "AgentEvent",
+        "ArtifactNodeState",
+        "ChatNodeState",
+        "NodeState",
+        "EdgeState",
+        "CanvasSnapshot",
+        "createEmptyNodeState"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/src/theme/ThemeProvider.tsx": {
+      "loc": 6,
+      "exports": [
+        "ThemeProvider"
+      ],
+      "imports": [],
+      "packages": [
+        "next-themes",
+        "react"
+      ]
+    },
+    "app/src/theme/ThemeSwitcher.tsx": {
+      "loc": 6,
+      "exports": [
+        "ThemeSwitcher"
+      ],
+      "imports": [],
+      "packages": [
+        "next-themes"
+      ]
+    },
+    "app/src/theme/terminal-theme.ts": {
+      "loc": 13,
+      "exports": [
+        "terminalTheme"
+      ],
+      "imports": [],
+      "packages": [
+        "xterm"
+      ]
+    },
+    "app/tailwind.config.js": {
+      "loc": 160,
+      "exports": [],
+      "imports": [],
+      "packages": []
+    },
+    "app/test/browser/card-approval-modes.spec.ts": {
+      "loc": 28,
+      "exports": [],
+      "imports": [
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/chat-experience.spec.ts": {
+      "loc": 129,
+      "exports": [],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/chat-header.spec.ts": {
+      "loc": 23,
+      "exports": [],
+      "imports": [
+        "app/test/browser/fixtures/desktop.ts",
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/chat-polish.spec.ts": {
+      "loc": 70,
+      "exports": [],
+      "imports": [
+        "app/test/browser/fixtures/desktop.ts",
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/collaboration-package.spec.ts": {
+      "loc": 20,
+      "exports": [],
+      "imports": [
+        "app/shared/collaboration-package.mjs",
+        "app/test/browser/fixtures/desktop.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/collaboration.spec.ts": {
+      "loc": 44,
+      "exports": [],
+      "imports": [
+        "app/shared/agent-reference.mjs",
+        "app/src/pages/canvas/contracts.ts",
+        "app/test/browser/fixtures/desktop.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/composer-auto.spec.ts": {
+      "loc": 36,
+      "exports": [],
+      "imports": [
+        "app/test/browser/fixtures/desktop.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/desktop-composer.spec.ts": {
+      "loc": 48,
+      "exports": [],
+      "imports": [
+        "app/test/browser/fixtures/desktop.ts",
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/e-canvas.spec.ts": {
+      "loc": 116,
+      "exports": [],
+      "imports": [
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/fixtures/desktop.ts": {
+      "loc": 36,
+      "exports": [
+        "session",
+        "setup",
+        "focus",
+        "input"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/api/e/message-queue.ts",
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/global-card-view.spec.ts": {
+      "loc": 46,
+      "exports": [],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/identity-window.spec.ts": {
+      "loc": 181,
+      "exports": [],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/real-e.spec.ts": {
+      "loc": 35,
+      "exports": [],
+      "imports": [
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/real-multi.mjs": {
+      "loc": 33,
+      "exports": [],
+      "imports": [],
+      "packages": [
+        "playwright"
+      ]
+    },
+    "app/test/browser/real-tools.mjs": {
+      "loc": 31,
+      "exports": [],
+      "imports": [],
+      "packages": [
+        "playwright"
+      ]
+    },
+    "app/test/browser/reasoning-picker.spec.ts": {
+      "loc": 40,
+      "exports": [],
+      "imports": [
+        "app/test/browser/fixtures/desktop.ts",
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/recovery-ui.spec.ts": {
+      "loc": 24,
+      "exports": [],
+      "imports": [
+        "app/test/browser/fixtures/desktop.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/theme.spec.ts": {
+      "loc": 74,
+      "exports": [],
+      "imports": [
+        "app/test/browser/ui-actions.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/browser/ui-actions.ts": {
+      "loc": 12,
+      "exports": [
+        "openSessionMenu",
+        "openDiagnostics",
+        "stopSession",
+        "setCardView",
+        "expectCardView",
+        "openModelList",
+        "runtimeModelOption",
+        "chooseRuntimeModel"
+      ],
+      "imports": [],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
+    "app/test/manual/real-collaboration.mjs": {
+      "loc": 38,
+      "exports": [],
+      "imports": [],
+      "packages": []
+    },
+    "app/test/manual/ws-smoke.mjs": {
+      "loc": 30,
+      "exports": [],
+      "imports": [],
+      "packages": [
+        "ws"
+      ]
+    },
+    "app/test/unit/approval-policy.test.mjs": {
+      "loc": 34,
+      "exports": [],
+      "imports": [
+        "app/api/e/approval-binding.ts",
+        "app/api/e/approval-engine.ts",
+        "app/api/e/approval-reviewer.ts",
+        "app/api/e/approval-rules.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/approval-reviewer.test.mjs": {
+      "loc": 15,
+      "exports": [],
+      "imports": [
+        "app/api/e/approval-reviewer.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/card-view.test.mjs": {
+      "loc": 4,
+      "exports": [],
+      "imports": [
+        "app/src/shared/ViewModeManager.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/chat-errors.test.mjs": {
+      "loc": 5,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/error-presentation.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/chat-polish.test.mjs": {
+      "loc": 7,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/presentation-state.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/chat-presentation-state.test.mjs": {
+      "loc": 8,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/presentation-state.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/chat-projection.test.mjs": {
+      "loc": 28,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/project-transcript.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/chat-ui-store.test.mjs": {
+      "loc": 11,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/chat-ui-store.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/collaboration-package.test.mjs": {
+      "loc": 55,
+      "exports": [],
+      "imports": [
+        "app/api/e/collaboration-authorization.ts",
+        "app/scripts/canvas-channel.mjs",
+        "app/shared/collaboration-package.mjs",
+        "app/shared/collaboration-protocol.mjs",
+        "app/src/pages/canvas/chat/collaboration-presentation.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/collaboration.test.mjs": {
+      "loc": 29,
+      "exports": [],
+      "imports": [
+        "app/api/e/collaboration-authorization.ts",
+        "app/api/e/collaboration.ts",
+        "app/api/e/message-queue.ts",
+        "app/scripts/canvas-adapter.mjs",
+        "app/shared/agent-reference.mjs",
+        "app/shared/collaboration-package.mjs",
+        "app/src/pages/canvas/chat/agent-mentions.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/composer-auto.test.mjs": {
+      "loc": 11,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/chat-ui-store.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/coordinator-failure.test.mjs": {
+      "loc": 29,
+      "exports": [],
+      "imports": [
+        "app/api/coordinator.ts",
+        "app/api/graph.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/desktop-configuration.test.mjs": {
+      "loc": 9,
+      "exports": [],
+      "imports": [
+        "app/scripts/e-configuration.mjs"
+      ],
+      "packages": []
+    },
+    "app/test/unit/desktop-image-preflight.test.mjs": {
+      "loc": 11,
+      "exports": [],
+      "imports": [
+        "app/api/e/attachments.ts",
+        "app/scripts/e-message-preflight.mjs"
+      ],
+      "packages": []
+    },
+    "app/test/unit/desktop-manager.test.mjs": {
+      "loc": 10,
+      "exports": [],
+      "imports": [
+        "app/api/e/session-manager.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/desktop-message.test.mjs": {
+      "loc": 44,
+      "exports": [],
+      "imports": [
+        "app/api/e/attachments.ts",
+        "app/api/e/message-queue.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/desktop-metadata.test.mjs": {
+      "loc": 7,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/message-metadata.ts",
+        "app/src/pages/canvas/chat/project-transcript.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/e-adapter.test.mjs": {
+      "loc": 8,
+      "exports": [],
+      "imports": [],
+      "packages": []
+    },
+    "app/test/unit/e-control.test.mjs": {
+      "loc": 10,
+      "exports": [],
+      "imports": [
+        "app/scripts/e-control.mjs"
+      ],
+      "packages": []
+    },
+    "app/test/unit/e-projection.test.mjs": {
+      "loc": 24,
+      "exports": [],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/api/e/projection.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/e-routes.test.mjs": {
+      "loc": 109,
+      "exports": [],
+      "imports": [
+        "app/api/e-adapter.ts",
+        "app/api/eventbus.ts",
+        "app/api/graph.ts",
+        "app/api/local-access.ts",
+        "app/api/registry.ts",
+        "app/api/routes.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/e-session-manager.test.mjs": {
+      "loc": 14,
+      "exports": [],
+      "imports": [
+        "app/api/e/session-manager.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/fixtures/desktop-worker.mjs": {
+      "loc": 19,
+      "exports": [],
+      "imports": [],
+      "packages": []
+    },
+    "app/test/unit/fixtures/session-worker.mjs": {
+      "loc": 19,
+      "exports": [],
+      "imports": [],
+      "packages": []
+    },
+    "app/test/unit/global-card-view.test.mjs": {
+      "loc": 11,
+      "exports": [],
+      "imports": [
+        "app/src/shared/ViewModeManager.ts",
+        "app/src/shared/card-view-preferences.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/health-regressions.test.mjs": {
+      "loc": 77,
+      "exports": [],
+      "imports": [
+        "app/api/e/approval-rules.ts",
+        "app/api/e/message-queue.ts",
+        "app/api/shell.ts",
+        "app/src/pages/canvas/chat/attachments.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/live-store-reconnect.test.mjs": {
+      "loc": 49,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/message-origins.test.mjs": {
+      "loc": 8,
+      "exports": [],
+      "imports": [
+        "app/api/e/message-origins.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/production-assets.test.mjs": {
+      "loc": 14,
+      "exports": [],
+      "imports": [],
+      "packages": []
+    },
+    "app/test/unit/quant-canvas-demo.test.mjs": {
+      "loc": 117,
+      "exports": [],
+      "imports": [
+        "app/scripts/demo-quant-canvas/lib/canvas.mjs",
+        "app/scripts/demo-quant-canvas/lib/market.mjs",
+        "app/scripts/demo-quant-canvas/lib/strategy.mjs"
+      ],
+      "packages": []
+    },
+    "app/test/unit/recovery-presentation.test.mjs": {
+      "loc": 9,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/presentation-state.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/runtime-config-presentation.test.mjs": {
+      "loc": 9,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/runtime-config-presentation.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/session-identity.test.mjs": {
+      "loc": 60,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/session-identity.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/session-store.test.mjs": {
+      "loc": 4,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/session-store.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/theme-tokens.test.mjs": {
+      "loc": 16,
+      "exports": [],
+      "imports": [],
+      "packages": []
+    },
+    "app/test/unit/workspace-paths.test.mjs": {
+      "loc": 53,
+      "exports": [],
+      "imports": [
+        "app/api/workspace-paths.ts"
+      ],
+      "packages": []
+    },
+    "app/vite.config.ts": {
+      "loc": 32,
+      "exports": [
+        "default"
+      ],
+      "imports": [],
+      "packages": [
+        "@vitejs/plugin-react",
+        "path",
+        "plugin-inspect-react-code",
+        "vite"
+      ]
+    },
+    "tools/legacy/render-preview/ws-term-test.mjs": {
+      "loc": 58,
+      "exports": [],
+      "imports": [],
+      "packages": [
+        "ws"
+      ]
+    }
+  }
+}

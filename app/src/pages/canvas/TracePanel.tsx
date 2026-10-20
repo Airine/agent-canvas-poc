@@ -5,6 +5,7 @@
  * 数据源 = WS event 追加日志（契约 §3），过滤该通道两端节点；实时追加，只读。
  * Esc 关闭（页面级键盘处理）。
  */
+import { CommunicationTrace } from './CommunicationTrace';
 import { X } from 'lucide-react';
 import type { CanvasEdge, LiveStore } from './live-store';
 import { useLiveStore } from './live-store';
@@ -18,6 +19,7 @@ export interface TracePanelProps {
 
 export function TracePanel({ store, edge, onClose }: TracePanelProps) {
   useLiveStore(store); // event 消息实时追加
+  if (edge.kind === 'communication') return <CommunicationTrace edge={edge} onClose={onClose}/>;
   const messages = store.events.filter(
     (ev) => ev.nodeId === edge.source || ev.nodeId === edge.target,
   );

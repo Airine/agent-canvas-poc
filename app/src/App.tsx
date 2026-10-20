@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router'
+import { ThemeSwitcher } from './theme/ThemeSwitcher'
 import PocLanding from './pages/PocLanding'
 import HomePage from './pages/home'
 import ReactFlowPage from './pages/reactflow'
@@ -7,6 +8,8 @@ import CanvasPage, { CanvasRedirect } from './pages/canvas'
 
 export default function App() {
   return (
+    <>
+    <div className="theme-switcher-global"><ThemeSwitcher /><div data-global-card-view-slot /></div>
     <Routes>
       {/* 主页：workspace 总览（按 path 分组，卡片新标签页打开 /canvas/:id） */}
       <Route path="/" element={<HomePage />} />
@@ -19,5 +22,6 @@ export default function App() {
       <Route path="/canvas" element={<CanvasRedirect />} />
       <Route path="/canvas/:workspaceId" element={<CanvasPage />} />
     </Routes>
+    </>
   )
 }

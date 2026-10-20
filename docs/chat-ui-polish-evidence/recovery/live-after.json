@@ -1,0 +1,13 @@
+{
+  "phase": "after",
+  "mutations": [],
+  "errors": [],
+  "geometry": {
+    "noticeHeight": 55.796875,
+    "composerHeight": 124,
+    "status": "待恢复 · 会话尚未恢复，历史和草稿已保留；不会自动执行待发消息",
+    "tone": "muted",
+    "notice": "会话尚未恢复历史已保留，恢复后继续原对话。恢复会话",
+    "model": "上次gpt-6.1-sol"
+  }
+}

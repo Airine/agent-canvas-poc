@@ -1,0 +1,393 @@
+[
+  {
+    "check": "real nickname",
+    "evidence": {
+      "title": "桌面验收 Agent",
+      "ref": {
+        "nativeSessionId": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "agentSessionId": "as:469d81cdf1cf1454ce1cba690b3ca498",
+        "cwd": "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/desktop-chat/real-project",
+        "provider": "openai-codex",
+        "model": "gpt-6-astra"
+      }
+    },
+    "at": "2026-10-19T04:11:52.615Z"
+  },
+  {
+    "check": "real reply",
+    "evidence": {
+      "expected": "EXT_1792383112565",
+      "messages": [
+        {
+          "id": "message:67cd41d395071e7836a4ecd34f6483a1",
+          "text": "EXT_1792383112565"
+        }
+      ],
+      "action": {
+        "id": "97c015b6-af05-42e6-b867-9505c9972e2c",
+        "kind": "send",
+        "state": "applied",
+        "idempotencyKey": "1593ca10-2d3d-4dcd-8977-bf981409779b",
+        "idempotencyScope": "[\"as:469d81cdf1cf1454ce1cba690b3ca498\",\"canvas-ui\",\"send\",\"1593ca10-2d3d-4dcd-8977-bf981409779b\"]",
+        "actor": "canvas-ui",
+        "principalId": "canvas-ui",
+        "adapter": "e-pi-adapter",
+        "adapterPrincipalId": "pi:f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "agentSessionId": "as:469d81cdf1cf1454ce1cba690b3ca498",
+        "nativeSessionId": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "adapterGeneration": "47ea0017-3dfa-40bb-bcfc-ec5a89b19ef0",
+        "requestDigest": "ed40c9d1d36a7fcda486029fac8aa44f",
+        "requestId": "770e804c-530a-40ea-b34f-743aa5274779",
+        "expectedRevision": 47,
+        "duplicateOrdinal": 0,
+        "createdAt": "2026-10-19T04:11:52.634Z",
+        "deadlineAt": "2026-10-19T04:12:22.634Z",
+        "deadlinePolicy": "outcome-unknown",
+        "content": "不要调用工具。只回复附件中的 EXT_ 开头标记。\n附件 · synthetic.txt\n合成 UTF-8 附件 EXT_1792383112565 文本内容。",
+        "contentDigest": "a0d6a1d8dfa87b52190b77bb8a9b285f",
+        "deliverAs": "nextTurn",
+        "correlationId": "97c015b6-af05-42e6-b867-9505c9972e2c",
+        "reason": "observed exact public user-message tuple",
+        "settledAt": "2026-10-19T04:11:52.659Z"
+      }
+    },
+    "at": "2026-10-19T04:12:00.070Z"
+  },
+  {
+    "check": "real reply",
+    "evidence": {
+      "expected": "IMAGE_RECEIVED_EXT_1792383112565",
+      "messages": [
+        {
+          "id": "message:03825c7b24fd2d1f1b8a31c7e4f5468c",
+          "text": "图片主要是浅粉色。IMAGE_RECEIVED_EXT_1792383112565"
+        }
+      ],
+      "action": {
+        "id": "71154801-4828-4594-85c5-3ad3922d46c2",
+        "kind": "send",
+        "state": "applied",
+        "idempotencyKey": "ef382369-8306-4070-a680-00dbb068bf2e",
+        "idempotencyScope": "[\"as:469d81cdf1cf1454ce1cba690b3ca498\",\"canvas-ui\",\"send\",\"ef382369-8306-4070-a680-00dbb068bf2e\"]",
+        "actor": "canvas-ui",
+        "principalId": "canvas-ui",
+        "adapter": "e-pi-adapter",
+        "adapterPrincipalId": "pi:f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "agentSessionId": "as:469d81cdf1cf1454ce1cba690b3ca498",
+        "nativeSessionId": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "adapterGeneration": "47ea0017-3dfa-40bb-bcfc-ec5a89b19ef0",
+        "requestDigest": "8a3c63756e5cf7e3df909f00bb1b7966",
+        "requestId": "10f702cd-5395-4693-ac53-7b54f1d9573b",
+        "expectedRevision": 66,
+        "duplicateOrdinal": 0,
+        "createdAt": "2026-10-19T04:12:00.208Z",
+        "deadlineAt": "2026-10-19T04:12:30.208Z",
+        "deadlinePolicy": "outcome-unknown",
+        "content": [
+          {
+            "type": "text",
+            "text": "不要调用工具。描述图片的主要颜色，并附上标记 IMAGE_RECEIVED_EXT_1792383112565。"
+          },
+          {
+            "type": "image",
+            "mimeType": "image/png",
+            "data": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAF0lEQVR4nGP4z8BAEiJN9aiGUQ1DSgMAkPn/Afnh+ngAAAAASUVORK5CYII="
+          }
+        ],
+        "contentDigest": "3434171966cad0130ae381684f788726",
+        "deliverAs": "nextTurn",
+        "correlationId": "71154801-4828-4594-85c5-3ad3922d46c2",
+        "reason": "observed exact public user-message tuple",
+        "settledAt": "2026-10-19T04:12:00.295Z"
+      }
+    },
+    "at": "2026-10-19T04:12:02.507Z"
+  },
+  {
+    "check": "real image block",
+    "evidence": {
+      "action": "applied",
+      "messageId": "message:1cd1499058c44d32d1925a1c6152ceff",
+      "blockTypes": [
+        "text",
+        "image"
+      ],
+      "origin": {
+        "kind": "unknown",
+        "label": "Canvas 本地输入",
+        "channel": "canvas-api",
+        "authenticated": false,
+        "intentId": "ef382369-8306-4070-a680-00dbb068bf2e"
+      }
+    },
+    "at": "2026-10-19T04:12:02.508Z"
+  },
+  {
+    "check": "real reply",
+    "evidence": {
+      "expected": "EXT_1792383112565_APPROVED",
+      "messages": [
+        {
+          "id": "message:cd56a03e23fd6768b5808fba8d6fdf19",
+          "text": ""
+        },
+        {
+          "id": "message:fa09ae473e1aa6a0b08cd16c4b349268",
+          "text": "EXT_1792383112565_APPROVED"
+        }
+      ],
+      "action": {
+        "id": "be07774a-4575-4bee-8241-b8dc314dc36a",
+        "kind": "send",
+        "state": "applied",
+        "idempotencyKey": "70f5c504-b6f6-4429-8677-82b4633ffa90",
+        "idempotencyScope": "[\"as:469d81cdf1cf1454ce1cba690b3ca498\",\"canvas-ui\",\"send\",\"70f5c504-b6f6-4429-8677-82b4633ffa90\"]",
+        "actor": "canvas-ui",
+        "principalId": "canvas-ui",
+        "adapter": "e-pi-adapter",
+        "adapterPrincipalId": "pi:f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "agentSessionId": "as:469d81cdf1cf1454ce1cba690b3ca498",
+        "nativeSessionId": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "adapterGeneration": "47ea0017-3dfa-40bb-bcfc-ec5a89b19ef0",
+        "requestDigest": "eb9d1592e8a7b05835ae482b76fe1296",
+        "requestId": "1b2867b1-0a45-4b53-95fb-e56f71c11593",
+        "expectedRevision": 90,
+        "duplicateOrdinal": 0,
+        "createdAt": "2026-10-19T04:12:02.514Z",
+        "deadlineAt": "2026-10-19T04:12:32.514Z",
+        "deadlinePolicy": "outcome-unknown",
+        "content": "请只调用一次 bash 工具执行以下精确命令：printf 'EXT_1792383112565_APPROVED\\n'。等待人工批准。不要读写文件，不要调用其他工具，完成后复述实际输出。",
+        "contentDigest": "d463385d9974794ff8d3cdf9aedac8d9",
+        "deliverAs": "nextTurn",
+        "correlationId": "be07774a-4575-4bee-8241-b8dc314dc36a",
+        "reason": "observed exact public user-message tuple",
+        "settledAt": "2026-10-19T04:12:02.532Z"
+      }
+    },
+    "at": "2026-10-19T04:12:07.587Z"
+  },
+  {
+    "check": "real tool approved",
+    "evidence": {
+      "approvalId": "approval:call_ecd95279eda64838af850079973a1eb8|fc_0591db6fdcccf592016ad598945c388191a0116cc12cf207d8",
+      "toolId": "call_ecd95279eda64838af850079973a1eb8|fc_0591db6fdcccf592016ad598945c388191a0116cc12cf207d8"
+    },
+    "at": "2026-10-19T04:12:07.587Z"
+  },
+  {
+    "check": "real reply",
+    "evidence": {
+      "expected": "DENIAL_CONFIRMED_EXT_1792383112565",
+      "messages": [
+        {
+          "id": "message:aa6c13c0d7790a4e4edeeea523af9fe2",
+          "text": ""
+        },
+        {
+          "id": "message:07e7c231c0019565a399e808bc0d3161",
+          "text": "DENIAL_CONFIRMED_EXT_1792383112565"
+        }
+      ],
+      "action": {
+        "id": "3f86f837-b33c-4d0b-83ff-e3736836ca9d",
+        "kind": "send",
+        "state": "applied",
+        "idempotencyKey": "9c95c997-ba5a-4dd3-a4a7-c53e0bff46b8",
+        "idempotencyScope": "[\"as:469d81cdf1cf1454ce1cba690b3ca498\",\"canvas-ui\",\"send\",\"9c95c997-ba5a-4dd3-a4a7-c53e0bff46b8\"]",
+        "actor": "canvas-ui",
+        "principalId": "canvas-ui",
+        "adapter": "e-pi-adapter",
+        "adapterPrincipalId": "pi:f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "agentSessionId": "as:469d81cdf1cf1454ce1cba690b3ca498",
+        "nativeSessionId": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "adapterGeneration": "47ea0017-3dfa-40bb-bcfc-ec5a89b19ef0",
+        "requestDigest": "35ab9c8c6b6bcf47b19882d821080f6b",
+        "requestId": "a0377a4c-d238-4d56-aa95-9c7b8410a0bd",
+        "expectedRevision": 134,
+        "duplicateOrdinal": 0,
+        "createdAt": "2026-10-19T04:12:07.592Z",
+        "deadlineAt": "2026-10-19T04:12:37.592Z",
+        "deadlinePolicy": "outcome-unknown",
+        "content": "请只调用一次 bash 执行精确命令：printf 'EXT_1792383112565_REJECTED\\n'。等待人工审批。如果被拒绝，不重试、不更换工具，只回复 DENIAL_CONFIRMED_EXT_1792383112565。不要读写文件。",
+        "contentDigest": "d8315cd3a63d8eb8f64f5ada17af396f",
+        "deliverAs": "nextTurn",
+        "correlationId": "3f86f837-b33c-4d0b-83ff-e3736836ca9d",
+        "reason": "observed exact public user-message tuple",
+        "settledAt": "2026-10-19T04:12:07.608Z"
+      }
+    },
+    "at": "2026-10-19T04:12:11.415Z"
+  },
+  {
+    "check": "real tool rejected",
+    "evidence": {
+      "approvalId": "approval:call_eff76c63717b4af09ccd25b7f6d08e86|fc_0591db6fdcccf592016ad5989984148191b21d728d3776f320",
+      "toolId": "call_eff76c63717b4af09ccd25b7f6d08e86|fc_0591db6fdcccf592016ad5989984148191b21d728d3776f320"
+    },
+    "at": "2026-10-19T04:12:11.416Z"
+  },
+  {
+    "check": "real explicit steer/follow-up",
+    "evidence": {
+      "actions": [
+        {
+          "id": "40c41c03-ca8a-4346-8980-7c4da4d6184a",
+          "kind": "send",
+          "state": "applied",
+          "idempotencyKey": "0d73cae1-76af-49d1-89e6-9c1c184a856c",
+          "idempotencyScope": "[\"as:469d81cdf1cf1454ce1cba690b3ca498\",\"canvas-ui\",\"send\",\"0d73cae1-76af-49d1-89e6-9c1c184a856c\"]",
+          "actor": "canvas-ui",
+          "principalId": "canvas-ui",
+          "adapter": "e-pi-adapter",
+          "adapterPrincipalId": "pi:f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+          "agentSessionId": "as:469d81cdf1cf1454ce1cba690b3ca498",
+          "nativeSessionId": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+          "adapterGeneration": "47ea0017-3dfa-40bb-bcfc-ec5a89b19ef0",
+          "requestDigest": "a18dec3df0210d2cb9948e3864e35c16",
+          "requestId": "63529178-9f45-4cc4-997d-97683029f8e4",
+          "expectedRevision": 202,
+          "duplicateOrdinal": 0,
+          "createdAt": "2026-10-19T04:12:13.390Z",
+          "deadlineAt": "2026-10-19T04:12:43.390Z",
+          "deadlinePolicy": "outcome-unknown",
+          "content": "这是明确的 Steer。结束时回复 STEER_ACK_EXT_1792383112565，不调用其他工具。",
+          "contentDigest": "e4cc15d822f2f0a06bb94548ac6e48fc",
+          "deliverAs": "steer",
+          "correlationId": "40c41c03-ca8a-4346-8980-7c4da4d6184a",
+          "reason": "observed exact public user-message tuple",
+          "settledAt": "2026-10-19T04:12:33.172Z"
+        },
+        {
+          "id": "59bb5811-544e-42d7-8c86-772b15bd405a",
+          "kind": "send",
+          "state": "applied",
+          "idempotencyKey": "7283164f-5295-4d66-96ce-1d58479a8d91",
+          "idempotencyScope": "[\"as:469d81cdf1cf1454ce1cba690b3ca498\",\"canvas-ui\",\"send\",\"7283164f-5295-4d66-96ce-1d58479a8d91\"]",
+          "actor": "canvas-ui",
+          "principalId": "canvas-ui",
+          "adapter": "e-pi-adapter",
+          "adapterPrincipalId": "pi:f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+          "agentSessionId": "as:469d81cdf1cf1454ce1cba690b3ca498",
+          "nativeSessionId": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+          "adapterGeneration": "47ea0017-3dfa-40bb-bcfc-ec5a89b19ef0",
+          "requestDigest": "e66c43e4abd5f73fa0f8a6230f9d0280",
+          "requestId": "1e6ae1ab-94b9-4700-8421-fceddd576db8",
+          "expectedRevision": 205,
+          "duplicateOrdinal": 0,
+          "createdAt": "2026-10-19T04:12:13.427Z",
+          "deadlineAt": "2026-10-19T04:12:43.427Z",
+          "deadlinePolicy": "outcome-unknown",
+          "content": "这是明确的 Follow-up。请只回复 FOLLOW_ACK_EXT_1792383112565，不调用任何工具。",
+          "contentDigest": "536255114b200c115ff7959505ea774c",
+          "deliverAs": "followUp",
+          "correlationId": "59bb5811-544e-42d7-8c86-772b15bd405a",
+          "reason": "observed exact public user-message tuple",
+          "settledAt": "2026-10-19T04:12:34.822Z"
+        }
+      ],
+      "messages": [
+        {
+          "id": "message:5173da4559108238bbeba1e0fe0e220f",
+          "text": ""
+        },
+        {
+          "id": "message:b24a98037403c642a68f2400305aeea0",
+          "text": "STEER_ACK_EXT_1792383112565"
+        },
+        {
+          "id": "message:07c2b28fd4abf1a23a47ecfdf0241516",
+          "text": "FOLLOW_ACK_EXT_1792383112565"
+        }
+      ]
+    },
+    "at": "2026-10-19T04:12:36.925Z"
+  },
+  {
+    "check": "real abort",
+    "evidence": {
+      "action": {
+        "id": "cf557703-302c-40bb-bf9c-6ca2f78f0893",
+        "kind": "abort",
+        "state": "applied",
+        "idempotencyKey": "8bb8296c-cce7-457b-8610-279849187958",
+        "idempotencyScope": "[\"as:469d81cdf1cf1454ce1cba690b3ca498\",\"canvas-ui\",\"abort\",\"8bb8296c-cce7-457b-8610-279849187958\"]",
+        "actor": "canvas-ui",
+        "principalId": "canvas-ui",
+        "adapter": "e-pi-adapter",
+        "adapterPrincipalId": "pi:f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "agentSessionId": "as:469d81cdf1cf1454ce1cba690b3ca498",
+        "nativeSessionId": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "adapterGeneration": "47ea0017-3dfa-40bb-bcfc-ec5a89b19ef0",
+        "targetRunId": "run:9e5e64185f9dffdd922d9c6728f2a3b0",
+        "requestDigest": "24fc4ce2398662ce452cdbd0c2ccc9d7",
+        "requestId": "07a3d03b-39cb-4781-b09b-5938c19543b3",
+        "expectedRevision": 270,
+        "duplicateOrdinal": 0,
+        "createdAt": "2026-10-19T04:12:39.542Z",
+        "deadlineAt": "2026-10-19T04:13:09.542Z",
+        "deadlinePolicy": "outcome-unknown",
+        "correlationId": "cf557703-302c-40bb-bf9c-6ca2f78f0893",
+        "reason": "observed public run cancellation",
+        "settledAt": "2026-10-19T04:12:39.564Z"
+      },
+      "run": {
+        "id": "run:9e5e64185f9dffdd922d9c6728f2a3b0",
+        "state": "cancelled",
+        "revision": 2,
+        "turnIds": [
+          "turn:run:9e5e64185f9dffdd922d9c6728f2a3b0:0",
+          "turn:run:9e5e64185f9dffdd922d9c6728f2a3b0:1"
+        ],
+        "messageIds": [
+          "message:2f8a56f5cbddd4c598a7e9f83ec28ff2",
+          "message:44944453d4bfff75be312aa7cd2857ae",
+          "message:d48dbcd6f997aa71f7a3b727e7beb96b",
+          "message:6f9017f27e3cbfe0e02467ad0f91c4d4"
+        ],
+        "toolCallIds": [
+          "call_d6ce33a84bb04a7cb57d837a4f0864db|fc_0591db6fdcccf592016ad598b7222c81919482689abe7456d8"
+        ],
+        "startedAt": "2026-10-19T04:12:36.956Z",
+        "completedAt": "2026-10-19T04:12:39.564Z",
+        "provenance": {
+          "sourceEventIds": [
+            "1eb53491-0626-4394-aaea-d1f5d2a6985e",
+            "4db5ee7e-6b08-4bf0-82ce-2c825394c69d"
+          ],
+          "layer": "L1",
+          "adapter": "e-pi-adapter",
+          "authenticated": true,
+          "observationCount": 2
+        }
+      },
+      "lifecycle": "ready"
+    },
+    "at": "2026-10-19T04:12:39.626Z"
+  },
+  {
+    "check": "real same-native resume",
+    "evidence": {
+      "ref": {
+        "nativeSessionId": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+        "agentSessionId": "as:469d81cdf1cf1454ce1cba690b3ca498",
+        "cwd": "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/desktop-chat/real-project",
+        "provider": "openai-codex",
+        "model": "gpt-6-astra"
+      },
+      "title": "桌面验收 Agent",
+      "messages": 36,
+      "queuePaused": true,
+      "thinking": "medium"
+    },
+    "at": "2026-10-19T04:12:41.664Z"
+  },
+  {
+    "check": "prepared restart pending",
+    "evidence": {
+      "itemId": "b6f2f3ed-d3b2-44b7-bdbf-0c37f3968659",
+      "paused": true,
+      "state": "pending"
+    },
+    "at": "2026-10-19T04:12:41.672Z"
+  }
+]

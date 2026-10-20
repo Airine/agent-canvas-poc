@@ -1,0 +1,13 @@
+{
+  "phase": "before",
+  "mutations": [],
+  "errors": [],
+  "geometry": {
+    "noticeHeight": 89,
+    "composerHeight": 148,
+    "status": "会话中断 · 运行时尚不可用，草稿会保留",
+    "tone": "danger",
+    "notice": "运行器暂不可用可尝试恢复原会话；不会重发历史消息或未确认操作。恢复会话查看诊断",
+    "model": "配置未就绪"
+  }
+}

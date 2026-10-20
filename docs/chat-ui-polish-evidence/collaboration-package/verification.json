@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-20",
+  "unit": {
+    "passed": 154,
+    "failed": 0
+  },
+  "browser": {
+    "passed": 74,
+    "skipped": 1,
+    "failed": 0,
+    "kind": "HTTP/WS fixtures"
+  },
+  "apiBuild": "passed",
+  "uiBuild": "passed",
+  "eslint": "passed",
+  "realModel": {
+    "passed": true,
+    "source": "real-evidence.json",
+    "ownedSessionsStopped": true
+  },
+  "dailyServicesRestarted": false,
+  "architectureAndCleanup": "pending final documentation/cleanup checks"
+}

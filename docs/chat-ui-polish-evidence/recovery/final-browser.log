@@ -1,0 +1,52 @@
+
+> my-app@0.0.0 test:e2e
+> playwright test --output=/Users/aaron/.pi-desktop/scratch/***/recovery-ui/playwright-final
+
+
+Running 41 tests using 1 worker
+
+  ✓   1 test/browser/card-approval-modes.spec.ts:7:1 › each card independently pins compact/detail and persists after zoom and refresh (3.5s)
+  ✓   2 test/browser/card-approval-modes.spec.ts:19:1 › assisted needs explicit model and consent, full access needs separate consent; manual is immediate (3.3s)
+  ✓   3 test/browser/chat-experience.spec.ts:21:1 › one timeline, resolved approval compact, diagnostics redacted; safe Markdown (3.7s)
+  ✓   4 test/browser/chat-experience.spec.ts:36:1 › drafts survive streaming, offline, focus, L0 and refresh; IME + in-flight edit safe (6.4s)
+CHAT_PERFORMANCE {"nodes":4,"messagesPerNode":500,"initialMountedPerNode":30,"fixtureToInteractiveMs":2441}
+  ✓   5 test/browser/chat-experience.spec.ts:50:1 › 500 messages per node are windowed; stream in other node does not mutate focused history (3.3s)
+  ✓   6 test/browser/chat-experience.spec.ts:63:1 › pending approvals remain actionable but settled ones have no decision buttons (2.4s)
+  ✓   7 test/browser/chat-experience.spec.ts:74:1 › unclosed long code and tool output are bounded; scroll anchor survives focus resize (10.2s)
+  ✓   8 test/browser/chat-experience.spec.ts:93:1 › stream keeps focus and draft; duplicate frames and sequence gap resync without replay (2.3s)
+  ✓   9 test/browser/chat-experience.spec.ts:107:1 › legacy herdr terminal focus still mounts without chat-specific controls (2.3s)
+  ✓  10 test/browser/chat-experience.spec.ts:114:1 › session diagnostics opens from header without occupying transcript; Escape preserves focus mode (2.7s)
+  ✓  11 test/browser/chat-polish.spec.ts:9:1 › compact dock is 112–136px; popovers never move composer/transcript; aligned readable column (3.2s)
+  ✓  12 test/browser/chat-polish.spec.ts:20:1 › responsive focus retains DOM/draft through narrow and short windows, menus stay hit-testable (4.1s)
+  ✓  13 test/browser/chat-polish.spec.ts:29:1 › native-free provider confirmation is safe, nested Escape and IME preserve full viewport (2.5s)
+  ✓  14 test/browser/chat-polish.spec.ts:35:1 › delivery choices work with keyboard; auto-grow stays bounded; menu changes preserve draft (2.6s)
+  ✓  15 test/browser/chat-polish.spec.ts:41:1 › state matrix keeps actionable lifecycle errors, risks, missing attachments and unknown queue visible (4.2s)
+  ✓  16 test/browser/chat-polish.spec.ts:54:1 › node settings are not clipped; normal text contrast and 32px focus targets are retained (2.2s)
+  ✓  17 test/browser/chat-polish.spec.ts:61:1 › opening settings preserves the reading anchor and expanded tool state (3.1s)
+  ✓  18 test/browser/chat-polish.spec.ts:67:1 › touch viewport can open and dismiss settings without hover or losing the draft (2.4s)
+  ✓  19 test/browser/desktop-composer.spec.ts:6:1 › runtime catalog/readback only, context timestamp, failures retain confirmed selection, busy controls (2.5s)
+  ✓  20 test/browser/desktop-composer.spec.ts:16:1 › Enter, multiline paste, IME; explicit delivery, abort differs from stop; rejected/unknown keep draft and intent (3.4s)
+  ✓  21 test/browser/desktop-composer.spec.ts:26:1 › busy ordinary queue is editable/persistent/CAS guarded; send-now requires explicit Steer consent (4.2s)
+  ✓  22 test/browser/desktop-composer.spec.ts:36:1 › long paste cards edit/remove, validated attachment preview equals sent bytes; refresh requires reselection (3.5s)
+  ✓  23 test/browser/desktop-composer.spec.ts:45:1 › client rejects invalid UTF8, executable types, mismatched signatures, unsupported images and exact limits (2.3s)
+  ✓  24 test/browser/desktop-composer.spec.ts:51:1 › permission disclosure consumes Escape once, then full to floating to canvas (2.2s)
+  ✓  25 test/browser/e-canvas.spec.ts:13:1 › automatic layout fits the viewport after distant node patches (2.9s)
+  ✓  26 test/browser/e-canvas.spec.ts:45:1 › e canvas displays structured session, remains scoped and survives refresh without demo (2.1s)
+  ✓  27 test/browser/e-canvas.spec.ts:71:1 › missing API on home never invents a demo workspace (1.5s)
+  ✓  28 test/browser/e-canvas.spec.ts:79:1 › fixture controls, focus, layout, reconnect and stop/resume stay in canvas (4.9s)
+  ✓  29 test/browser/identity-window.spec.ts:56:1 › nickname saves from compact/detail/focus; sibling suffixes update; conflicts retain draft (3.8s)
+  ✓  30 test/browser/identity-window.spec.ts:92:1 › one accessible light, no duplicate focused shell or theme control; failure text stays (2.2s)
+  ✓  31 test/browser/identity-window.spec.ts:116:1 › floating/fullscreen reuse DOM, folds, draft and reading anchor; Escape unwinds layers and IME (4.9s)
+  -  32 test/browser/real-e.spec.ts:6:1 › real Pi responds inside the main canvas and resumes the same native session
+  ✓  33 test/browser/recovery-ui.spec.ts:5:1 › legacy interrupted history is neutral and compact, with explicit historical model and no auto action (2.4s)
+  ✓  34 test/browser/recovery-ui.spec.ts:12:1 › paused draft submission stores without authorizing, never sends or resumes even after reconnect (3.0s)
+  ✓  35 test/browser/recovery-ui.spec.ts:16:1 › real failures retain danger and diagnostics; historical running snapshot has no interrupt control (2.3s)
+  ✓  36 test/browser/recovery-ui.spec.ts:20:1 › ready readback replaces historical summary without losing draft, paused queue or full-window DOM (2.6s)
+  ✓  37 test/browser/theme.spec.ts:20:1 › three theme choices persist and system updates live without overriding explicit preference (3.3s)
+  ✓  38 test/browser/theme.spec.ts:32:1 › chat, code, focus and diagnosis change palette without losing draft or mounting a new conversation (3.3s)
+  ✓  39 test/browser/theme.spec.ts:50:1 › terminal theme repaints existing instance, keeps buffer and does not resubscribe (2.1s)
+  ✓  40 test/browser/theme.spec.ts:60:1 › public pages inherit light palette and secondary text stays readable (3.5s)
+  ✓  41 test/browser/theme.spec.ts:69:1 › blocked localStorage still permits in-memory theme switching (1.4s)
+
+  1 skipped
+  40 passed (2.2m)

@@ -23,10 +23,16 @@ import type { NodeIdentity, NodeKind, NodeStatus, ViewMode } from './types';
 export interface NodeShellProps {
   kind: NodeKind;
   title: string;
+  titleContent?: ReactNode;
+  statusContent?: ReactNode;
+  hideHeader?: boolean;
+  compactHeader?: boolean;
+  headerActions?: ReactNode;
   identity: NodeIdentity;
   status: NodeStatus;
   /** 状态徽章后缀：elapsed / waiting reason / failed 一行摘要 */
   statusDetail?: string;
+  sessionLabel?: string;
   mode: ViewMode;
   selected?: boolean;
   onFocus?: () => void;
@@ -34,20 +40,28 @@ export interface NodeShellProps {
   stats?: { contextPct?: number; cost?: string; elapsed?: string };
   className?: string;
   children?: ReactNode;
+  viewControl?: ReactNode;
 }
 
 export function NodeShell({
   kind,
   title,
+  titleContent,
+  statusContent,
+  hideHeader = false,
+  compactHeader = false,
+  headerActions,
   identity,
   status,
   statusDetail,
+  sessionLabel,
   mode,
   selected,
   onFocus,
   stats,
   className,
   children,
+  viewControl,
 }: NodeShellProps) {
   const meta = NODE_KIND_META[kind];
   const TypeIcon = meta.icon;
@@ -61,23 +75,23 @@ export function NodeShell({
       data-status={status}
       className={cn(
         'group relative flex flex-col overflow-visible rounded-node bg-surface-1 shadow-node transition-[box-shadow,border-color,opacity] duration-fast',
-        'hover:[box-shadow:0_1px_2px_rgba(0,0,0,.4),0_0_0_1px_var(--border-strong)]',
+        'hover:[box-shadow:var(--shadow-hover)]',
         failed && 'shadow-failed hover:shadow-failed',
         selected && 'shadow-node-selected hover:shadow-node-selected',
         skipped && 'node-skipped',
-        isCoord && '[box-shadow:0_1px_2px_rgba(0,0,0,.4),0_0_0_1.5px_var(--nt-coord)]',
+        isCoord && '[box-shadow:0_0_0_1.5px_var(--nt-coord)]',
         className,
       )}
     >
       {/* failed 位置通道：左上角 `!` 圆徽章 [R§2.4.1] */}
-      {failed && (
+      {failed && !hideHeader && !statusContent && (
         <span className="absolute -left-1.5 -top-1.5 z-10 flex size-4 items-center justify-center rounded-pill bg-st-failed text-[10px] font-bold leading-none text-white">
           !
         </span>
       )}
 
       {/* hover 浮现「进入专注 ⤢」（--surface-3 底） */}
-      {onFocus && (
+      {onFocus && !hideHeader && (
         <button
           type="button"
           onClick={(e) => {
@@ -92,7 +106,7 @@ export function NodeShell({
       )}
 
       {/* header */}
-      <div className="border-b border-border-subtle p-3 pb-2">
+      <div hidden={hideHeader} data-node-shell-header className={cn("border-b border-border-subtle p-3 pb-2",compactHeader&&"node-header-compact")}>
         <div className="flex items-center gap-2">
           {/* 类型图标徽章：类型色仅用于此与聚焦描边（§1.1.3）；Coordinator 28px（§3.3.4） */}
           <span
@@ -104,13 +118,15 @@ export function NodeShell({
           >
             <TypeIcon className={isCoord ? 'size-4' : 'size-3.5'} />
           </span>
-          <span className="min-w-0 flex-1 truncate text-node-title text-text-primary">{title}</span>
-          <StatusBadge status={status} detail={statusDetail} />
+          {titleContent ?? <span className="min-w-0 flex-1 truncate text-node-title text-text-primary">{title}</span>}
+          {statusContent ?? (sessionLabel ? <span className="text-small text-text-secondary">{sessionLabel}</span> : <StatusBadge status={status} detail={statusDetail} />)}
+          {headerActions}
         </div>
+        {viewControl && <div className="mt-1 flex justify-end">{viewControl}</div>}
         {/* 身份四元组第二行 */}
-        <div className="mt-1 truncate pl-7 text-node-meta text-text-secondary">
-          {identity.harness} · {identity.env} · {identity.agentId}
-        </div>
+        {!compactHeader&&<div className="mt-1 truncate pl-7 text-node-meta text-text-secondary">
+          {sessionLabel ? `${identity.harness} · ${identity.model}` : `${identity.harness} · ${identity.env} · ${identity.agentId}`}
+        </div>}
       </div>
 
       {/* 类型内容区 */}
@@ -121,9 +137,9 @@ export function NodeShell({
         <div className="flex items-center gap-2 border-t border-border-subtle px-3 py-1.5 text-small text-text-tertiary">
           <span>{identity.model}</span>
           <span aria-hidden>·</span>
-          <span className="tnum">{stats.contextPct ?? 0}% ctx</span>
+          <span className="tnum">{stats.contextPct === undefined ? '上下文 —' : `${stats.contextPct}% ctx`}</span>
           <span aria-hidden>·</span>
-          <span className="tnum">{stats.cost ?? '$0.00'}</span>
+          <span className="tnum">{stats.cost ?? '费用 —'}</span>
           <span aria-hidden>·</span>
           <span className="tnum">{stats.elapsed ?? '0s'}</span>
         </div>

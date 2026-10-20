@@ -55,6 +55,7 @@ import { eventbus } from './eventbus.js';
 import { pump } from './pump.js';
 import { registry } from './registry.js';
 import type { CanvasNode, Graph } from './types.js';
+import { exitWrapper, shellQuote } from './shell.js';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const RUN_ROOT = process.env.CANVAS_RUN_DIR || '/tmp/canvas-run';
@@ -161,7 +162,7 @@ class Coordinator {
 
     store.setRunState('running');
     if (coordId) store.setStatus(coordId, 'running', { statusReason: 'orchestrating' });
-    eventbus.append({ nodeId: coordId, kind: 'lifecycle', text: `run started (workspace ${wsId})` });
+    eventbus.append({ workspaceId: wsId, nodeId: coordId, kind: 'lifecycle', text: `run started (workspace ${wsId})` });
 
     try {
       await this.ensureHerdr(ctx);
@@ -169,6 +170,7 @@ class Coordinator {
       // Mock fallback: herdr down must not break graph data or the run state.
       ctx.mock = true;
       eventbus.append({
+        workspaceId: wsId,
         nodeId: coordId,
         kind: 'lifecycle',
         text: `herdr unavailable, running detached (mock): ${String(err).slice(0, 160)}`,
@@ -213,7 +215,7 @@ class Coordinator {
     ctx.mock = false;
     fs.rmSync(ctx.runDir, { recursive: true, force: true });
     store.reset();
-    eventbus.append({ kind: 'lifecycle', text: `graph reset (workspace ${wsId})` });
+    eventbus.append({ workspaceId: wsId, kind: 'lifecycle', text: `graph reset (workspace ${wsId})` });
     this.onGraphChange?.(wsId);
     registry.persist();
   }
@@ -222,7 +224,7 @@ class Coordinator {
     const node = this.store(wsId).getNode(nodeId);
     if (!node?.paneId) throw new Error(`node ${nodeId} has no pane`);
     await paneSendInput(node.paneId, text, ['Enter']);
-    eventbus.append({ nodeId, kind: 'input', text: `> ${text}` });
+    eventbus.append({ workspaceId: wsId, nodeId, kind: 'input', text: `> ${text}` });
   }
 
   async approve(wsId: string, nodeId: string, decision: 'approve' | 'reject', note?: string): Promise<void> {
@@ -232,7 +234,7 @@ class Coordinator {
     if (!node) throw new Error(`unknown node ${nodeId}`);
     if (node.status !== 'waiting') throw new Error(`node ${nodeId} is not waiting (status=${node.status})`);
     const prompt = node.approval?.prompt ?? node.statusReason ?? '';
-    eventbus.append({ nodeId, kind: 'approval', text: `approval ${decision}${note ? ` (${note})` : ''}: ${prompt}` });
+    eventbus.append({ workspaceId: wsId, nodeId, kind: 'approval', text: `approval ${decision}${note ? ` (${note})` : ''}: ${prompt}` });
     if (decision === 'approve') {
       store.setStatus(nodeId, 'running', { statusReason: 'approved, resuming' });
       if (node.paneId) {
@@ -259,7 +261,7 @@ class Coordinator {
     ctx.herdrWorkspaceId = ws.id;
     ctx.rootPaneId = ws.rootPaneId ?? null;
     if (!ctx.rootPaneId) throw new Error('workspace.create returned no root pane');
-    eventbus.append({ kind: 'lifecycle', text: `herdr workspace ${ws.id} created (root pane ${ctx.rootPaneId})` });
+    eventbus.append({ workspaceId: ctx.wsId, kind: 'lifecycle', text: `herdr workspace ${ws.id} created (root pane ${ctx.rootPaneId})` });
 
     const store = this.store(ctx.wsId);
     for (const zone of store.graph.zones) {
@@ -267,7 +269,7 @@ class Coordinator {
         const tab = await tabCreate(ws.id, zone.title);
         ctx.zoneTabs.set(zone.id, tab.id);
         if (tab.rootPaneId) ctx.zoneRootPanes.set(zone.id, tab.rootPaneId);
-        eventbus.append({ kind: 'lifecycle', text: `zone "${zone.title}" -> tab ${tab.id}` });
+        eventbus.append({ workspaceId: ctx.wsId, kind: 'lifecycle', text: `zone "${zone.title}" -> tab ${tab.id}` });
       } catch (err) {
         // tab API not available in this herdr build: fall back to root pane
         console.warn(`[coordinator] tab.create failed for zone ${zone.id}: ${err}`);
@@ -358,24 +360,24 @@ class Coordinator {
     let what: string;
     if (resolved.kind === 'script') {
       const script = path.join(REPO_ROOT, 'scripts', 'agents', resolved.script);
-      cmd = `CANVAS_RUN_DIR=${ctx.runDir} bash ${script} ${node.id}; printf '%s' $? > ${exitFile}`;
+      cmd = exitWrapper(`CANVAS_RUN_DIR=${shellQuote(ctx.runDir)} bash ${shellQuote(script)} ${shellQuote(node.id)}`, exitFile);
       what = resolved.script;
     } else if (resolved.kind === 'command') {
       // Materialize the command into a file: robust against any quoting the
       // command itself contains (single quotes would break `bash -c '...'`).
       const cmdFile = path.join(ctx.runDir, `${node.id}.cmd.sh`);
       fs.writeFileSync(cmdFile, `#!/usr/bin/env bash\n${resolved.command}\n`);
-      cmd = `CANVAS_RUN_DIR=${ctx.runDir} bash ${cmdFile}; printf '%s' $? > ${exitFile}`;
+      cmd = exitWrapper(`CANVAS_RUN_DIR=${shellQuote(ctx.runDir)} bash ${shellQuote(cmdFile)}`, exitFile);
       what = resolved.command.length > 80 ? `${resolved.command.slice(0, 77)}...` : resolved.command;
     } else {
       // Interactive fallback keeps any topology alive. No `exec`: when the
       // inner shell exits, the marker is written and the outer pane shell
       // stays open for output inspection. Long-lived shell = running, which
       // is the correct semantics (the user is working in it).
-      cmd = `bash --norc -i; printf '%s' $? > ${exitFile}`;
+      cmd = exitWrapper('bash --norc -i', exitFile);
       what = 'interactive bash';
     }
-    eventbus.append({ nodeId: node.id, kind: 'lifecycle', text: `pane ${paneId} spawned, running ${what}` });
+    eventbus.append({ workspaceId: ctx.wsId, nodeId: node.id, kind: 'lifecycle', text: `pane ${paneId} spawned, running ${what}` });
     await paneSendInput(paneId, cmd, ['Enter']);
   }
 
@@ -407,7 +409,7 @@ class Coordinator {
         if (node && node.status === 'running') {
           if (node.paneId) void paneReportAgent(node.paneId, node.agentId, 'blocked', prompt).catch(() => {});
           store.setStatus(nodeId, 'waiting', { statusReason: prompt, approval: { prompt } });
-          eventbus.append({ nodeId, kind: 'approval', text: `approval requested: ${prompt}` });
+          eventbus.append({ workspaceId: ctx.wsId, nodeId, kind: 'approval', text: `approval requested: ${prompt}` });
         }
       } else if (kind === 'exit' && !ctx.handled.has(key)) {
         ctx.handled.add(key);
@@ -444,7 +446,7 @@ class Coordinator {
       ctx.outboxOffsets.set(nodeId, size);
       for (const line of buf.toString('utf8').split('\n')) {
         const t = line.trim();
-        if (t) eventbus.append({ nodeId, kind: 'message', text: t });
+        if (t) eventbus.append({ workspaceId: ctx.wsId, nodeId, kind: 'message', text: t });
       }
     }
   }
@@ -455,11 +457,11 @@ class Coordinator {
     if (code === 0) {
       store.setStatus(nodeId, 'completed', { progress: 1, statusReason: undefined });
       if (node.paneId) await paneReportAgent(node.paneId, node.agentId, 'idle', 'done').catch(() => {});
-      eventbus.append({ nodeId, kind: 'lifecycle', text: `${nodeId} completed (exit 0)` });
+      eventbus.append({ workspaceId: ctx.wsId, nodeId, kind: 'lifecycle', text: `${nodeId} completed (exit 0)` });
     } else {
       store.setStatus(nodeId, 'failed', { statusReason: `exit ${code}` });
       if (node.paneId) await paneReportAgent(node.paneId, node.agentId, 'unknown', `exit ${code}`).catch(() => {});
-      eventbus.append({ nodeId, kind: 'lifecycle', text: `${nodeId} failed (exit ${code})` });
+      eventbus.append({ workspaceId: ctx.wsId, nodeId, kind: 'lifecycle', text: `${nodeId} failed (exit ${code})` });
       this.activateErrorRoutes(ctx, store, nodeId);
     }
     this.schedule(ctx, store);
@@ -474,7 +476,7 @@ class Coordinator {
   private activateErrorRoutes(ctx: RunContext, store: GraphStore, failedId: string): void {
     for (const edge of store.graph.edges.filter((e) => e.kind === 'error' && e.source === failedId)) {
       store.patchEdge(edge.id, { label: 'error routed' });
-      eventbus.append({ nodeId: failedId, kind: 'edge', text: `error route ${failedId} -> ${edge.target} activated` });
+      eventbus.append({ workspaceId: ctx.wsId, nodeId: failedId, kind: 'edge', text: `error route ${failedId} -> ${edge.target} activated` });
       const target = store.getNode(edge.target);
       if (!target || TERMINAL.includes(target.status) || target.status === 'running') continue;
       if (target.command || NODE_SCRIPTS[target.id]) {
@@ -515,7 +517,7 @@ class Coordinator {
         });
         if (doomed) {
           store.setStatus(node.id, 'skipped', { statusReason: 'upstream failed' });
-          eventbus.append({ nodeId: node.id, kind: 'lifecycle', text: `${node.id} skipped (upstream failed)` });
+          eventbus.append({ workspaceId: store.workspaceId, nodeId: node.id, kind: 'lifecycle', text: `${node.id} skipped (upstream failed)` });
           changed = true;
         }
       }
@@ -542,7 +544,7 @@ class Coordinator {
       store.setRunState('done');
       const coord = g.nodes.find((n) => n.type === 'coordinator');
       if (coord) store.setStatus(coord.id, 'completed', { statusReason: 'run finished', progress: 1 });
-      eventbus.append({ nodeId: coord?.id, kind: 'lifecycle', text: 'run done' });
+      eventbus.append({ workspaceId: ctx.wsId, nodeId: coord?.id, kind: 'lifecycle', text: 'run done' });
       this.stopTimers(ctx);
       this.onGraphChange?.(ctx.wsId);
       registry.persist();
@@ -556,7 +558,7 @@ class Coordinator {
     ctx.rateTimer = setInterval(() => {
       for (const edge of store.graph.edges) {
         if (edge.kind !== 'weak') continue;
-        const rate = eventbus.ratePerMinute([edge.source, edge.target]);
+        const rate = eventbus.ratePerMinute(ctx.wsId, [edge.source, edge.target]);
         const label = `${rate} msg/min`;
         if (edge.label !== label) store.patchEdge(edge.id, { label });
       }
@@ -567,35 +569,38 @@ class Coordinator {
 
   private subscribeHerdrEvents(ctx: RunContext, store: GraphStore): void {
     if (ctx.unsubEvents) return;
-    const sub = subscribeEvents((ev) => {
-      if (ev.event === 'pane.exited' || ev.event === 'pane.closed') {
-        const paneId = ev.data.pane_id as string | undefined;
-        const node = store.graph.nodes.find((n) => n.paneId === paneId);
-        if (node && !TERMINAL.includes(node.status)) {
-          // pane.exited carries no exit code, but the launch wrapper writes
-          // <node>.exit right after the command/shell returns — prefer that
-          // real code. Only a pane that died before the marker existed means
-          // genuine unexpected death (e.g. user killed the pane mid-work).
-          let code: number | null = null;
-          try {
-            const parsed = parseInt(fs.readFileSync(path.join(ctx.runDir, `${node.id}.exit`), 'utf8').trim(), 10);
-            if (!Number.isNaN(parsed)) code = parsed;
-          } catch {
-            /* no marker */
-          }
-          if (code !== null) {
-            ctx.handled.add(`${node.id}.exit`); // pollMarkers must not double-finish
-            void this.finishNode(ctx, store, node.id, code);
-          } else {
-            store.setStatus(node.id, 'failed', { statusReason: `pane ${ev.event === 'pane.exited' ? 'exited' : 'closed'} unexpectedly` });
-            eventbus.append({ nodeId: node.id, kind: 'lifecycle', text: `pane ${paneId} ${ev.event}` });
-            this.schedule(ctx, store);
-            this.checkDone(ctx, store);
-          }
+    const sub = subscribeEvents((ev) => this.handlePaneEvent(ctx, store, ev));
+    ctx.unsubEvents = sub.close;
+  }
+
+  private handlePaneEvent(ctx: RunContext, store: GraphStore, ev: import('./herdr-adapter.js').HerdrEvent): void {
+    if (ev.event === 'pane.exited' || ev.event === 'pane.closed') {
+      const paneId = ev.data.pane_id as string | undefined;
+      const node = store.graph.nodes.find((n) => n.paneId === paneId);
+      if (node && !TERMINAL.includes(node.status)) {
+        // pane.exited carries no exit code, but the launch wrapper writes
+        // <node>.exit right after the command/shell returns — prefer that
+        // real code. Only a pane that died before the marker existed means
+        // genuine unexpected death (e.g. user killed the pane mid-work).
+        let code: number | null = null;
+        try {
+          const parsed = parseInt(fs.readFileSync(path.join(ctx.runDir, `${node.id}.exit`), 'utf8').trim(), 10);
+          if (!Number.isNaN(parsed)) code = parsed;
+        } catch {
+          /* no marker */
+        }
+        if (code !== null) {
+          ctx.handled.add(`${node.id}.exit`); // pollMarkers must not double-finish
+          void this.finishNode(ctx, store, node.id, code);
+        } else {
+          store.setStatus(node.id, 'failed', { statusReason: `pane ${ev.event === 'pane.exited' ? 'exited' : 'closed'} unexpectedly` });
+          eventbus.append({ workspaceId: ctx.wsId, nodeId: node.id, kind: 'lifecycle', text: `pane ${paneId} ${ev.event}` });
+          this.activateErrorRoutes(ctx, store, node.id);
+          this.schedule(ctx, store);
+          this.checkDone(ctx, store);
         }
       }
-    });
-    ctx.unsubEvents = sub.close;
+    }
   }
 
   private stopTimers(ctx: RunContext): void {

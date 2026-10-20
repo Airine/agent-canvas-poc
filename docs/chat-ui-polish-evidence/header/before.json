@@ -1,0 +1,12 @@
+{
+  "phase": "before",
+  "writes": [],
+  "errors": [],
+  "geometry": {
+    "headerHeight": 91.99998474121094,
+    "transcriptOffset": 191.79685974121094,
+    "transcriptHeight": 176.203125,
+    "cardHeight": 522.0000610351562,
+    "noticeCount": 1
+  }
+}

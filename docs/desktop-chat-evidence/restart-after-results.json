@@ -1,0 +1,43 @@
+{
+  "phase": "after",
+  "before": {
+    "lifecycle": "ready",
+    "reason": "API 重启，需明确恢复待发",
+    "paused": true,
+    "item": {
+      "id": "b6f2f3ed-d3b2-44b7-bdbf-0c37f3968659",
+      "intentId": "queue:b6f2f3ed-d3b2-44b7-bdbf-0c37f3968659",
+      "state": "pending",
+      "createdAt": "2026-10-19T04:12:41.668Z",
+      "content": "不要调用工具，只回复 RESTART_PENDING_EXT_1792383112565",
+      "attachments": []
+    }
+  },
+  "after": {
+    "item": {
+      "id": "b6f2f3ed-d3b2-44b7-bdbf-0c37f3968659",
+      "intentId": "queue:b6f2f3ed-d3b2-44b7-bdbf-0c37f3968659",
+      "state": "consumed",
+      "createdAt": "2026-10-19T04:12:41.668Z",
+      "content": "不要调用工具，只回复 RESTART_PENDING_EXT_1792383112565",
+      "attachments": [],
+      "submittedAt": "2026-10-19T04:22:26.988Z",
+      "actionId": "0d59e3ea-ba3b-4ae6-a885-67827b6acb7a",
+      "consumedAt": "2026-10-19T04:22:27.034Z"
+    },
+    "replyId": "message:320496642cea317551980e534ec46023",
+    "reply": [
+      {
+        "type": "text",
+        "text": "RESTART_PENDING_EXT_1792383112565"
+      }
+    ],
+    "ref": {
+      "nativeSessionId": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+      "agentSessionId": "as:469d81cdf1cf1454ce1cba690b3ca498",
+      "cwd": "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/desktop-chat/real-project",
+      "provider": "openai-codex",
+      "model": "gpt-6-astra"
+    }
+  }
+}

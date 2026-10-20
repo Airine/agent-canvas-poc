@@ -1,0 +1,12 @@
+{
+  "phase": "after",
+  "writes": [],
+  "errors": [],
+  "geometry": {
+    "headerHeight": 53,
+    "transcriptOffset": 59,
+    "transcriptHeight": 270,
+    "cardHeight": 483,
+    "noticeCount": 0
+  }
+}

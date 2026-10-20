@@ -194,7 +194,7 @@ export default function Home() {
 
         {/* 产品版入口（/canvas）：同一 React Flow 蓝本接真实控制面，herdr 真实驱动 */}
         <section className="flex w-full justify-center pb-12">
-          <div className="flex w-full max-w-[480px] flex-col rounded-node border border-accent/40 bg-surface-1 p-5 [box-shadow:0_1px_2px_rgba(0,0,0,.4),0_0_0_1px_var(--accent-soft)]">
+          <div className="flex w-full max-w-[480px] flex-col rounded-node border border-accent/40 bg-surface-1 p-5 shadow-node">
             <div className="flex items-center justify-between">
               <span className="text-h2">产品版 /canvas</span>
               <span className="flex items-center gap-1.5 rounded-pill bg-accent-soft px-2 py-0.5 text-node-meta text-accent">

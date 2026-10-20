@@ -1,0 +1,32 @@
+{
+  "unitPassed": 105,
+  "browserPassed": 40,
+  "realModelSkipped": 1,
+  "readOnlyLiveBrowserChecked": true,
+  "sourceChangesOutsideAuthorizedWorktree": false,
+  "backendRuntimeChanged": [],
+  "originalChanged": [],
+  "concurrentChanges": [],
+  "liveSessionAfter": {
+    "lifecycle": "interrupted",
+    "error": null,
+    "activeRuns": 0,
+    "queueItems": 0,
+    "queuePaused": true,
+    "native": "8ceb4c8f-d744-4a4c-9275-54a86028523c"
+  },
+  "visualChecks": [
+    "light node at 100%",
+    "configuration popup",
+    "dark floating focus"
+  ],
+  "liveApiWriteRequestsDuringCapture": 0,
+  "nodeNoticePx": {
+    "before": 89,
+    "after": 55.796875
+  },
+  "nodeComposerPx": {
+    "before": 148,
+    "after": 124
+  }
+}

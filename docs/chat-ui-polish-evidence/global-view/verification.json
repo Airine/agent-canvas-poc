@@ -1,0 +1,22 @@
+{
+  "unitPassed": 120,
+  "browserPassed": 63,
+  "realModelSkipped": 1,
+  "newUnitTests": 5,
+  "newBrowserTests": 6,
+  "visualChecks": [
+    "live global control beside theme",
+    "live settings popup"
+  ],
+  "preferencePriority": [
+    "focused session",
+    "per-card override",
+    "browser-wide default",
+    "automatic zoom tier"
+  ],
+  "backendRuntimeChanged": [],
+  "concurrentChanges": [],
+  "originalBaselineFilesUnchanged": 246,
+  "realPreferencesChangedByAgent": false,
+  "agentTasksStartedOrInterrupted": false
+}

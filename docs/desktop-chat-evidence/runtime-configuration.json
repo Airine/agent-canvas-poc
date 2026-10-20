@@ -1,0 +1,207 @@
+{
+  "initial": {
+    "nativeSessionId": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+    "confirmedAt": "2026-10-19T03:37:22.420Z",
+    "model": {
+      "provider": "openai-codex",
+      "id": "gpt-6-astra",
+      "name": "GPT-6 Astra",
+      "input": [
+        "text",
+        "image"
+      ],
+      "contextWindow": 272000
+    },
+    "thinkingLevel": "medium",
+    "models": [
+      {
+        "provider": "deepseek",
+        "id": "deepseek-flash",
+        "name": "DeepSeek V4.1 Flash",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 1000000
+      },
+      {
+        "provider": "deepseek",
+        "id": "deepseek-v4-pro",
+        "name": "DeepSeek V4 Pro",
+        "input": [
+          "text"
+        ],
+        "contextWindow": 1000000
+      },
+      {
+        "provider": "kimi-coding",
+        "id": "k3",
+        "name": "Kimi K3",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 1048576
+      },
+      {
+        "provider": "kimi-coding",
+        "id": "k3-256k",
+        "name": "Kimi K3-256K",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 262144
+      },
+      {
+        "provider": "kimi-coding",
+        "id": "kimi-for-coding",
+        "name": "kimi-for-coding",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 1048576
+      },
+      {
+        "provider": "kimi-coding",
+        "id": "kimi-for-coding-highspeed",
+        "name": "Kimi For Coding HighSpeed",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 262144
+      },
+      {
+        "provider": "openai-codex",
+        "id": "gpt-5.3-codex-spark",
+        "name": "GPT-5.3 Codex Spark",
+        "input": [
+          "text"
+        ],
+        "contextWindow": 128000
+      },
+      {
+        "provider": "openai-codex",
+        "id": "gpt-5.5",
+        "name": "GPT-5.5",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 272000
+      },
+      {
+        "provider": "openai-codex",
+        "id": "gpt-5.6-luna",
+        "name": "GPT-5.6 Luna",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 272000
+      },
+      {
+        "provider": "openai-codex",
+        "id": "gpt-5.6-sol",
+        "name": "GPT-5.6 Sol",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 272000
+      },
+      {
+        "provider": "openai-codex",
+        "id": "gpt-5.6-terra",
+        "name": "GPT-5.6 Terra",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 272000
+      },
+      {
+        "provider": "openai-codex",
+        "id": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 272000
+      },
+      {
+        "provider": "openai-codex",
+        "id": "gpt-6-luna",
+        "name": "GPT-6 Luna",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 272000
+      },
+      {
+        "provider": "openai-codex",
+        "id": "gpt-6-sol",
+        "name": "GPT-6 Sol",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 272000
+      },
+      {
+        "provider": "openai-codex",
+        "id": "gpt-6.1-sol",
+        "name": "GPT-6.1 Sol",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 500000
+      }
+    ],
+    "thinkingLevels": [
+      "minimal",
+      "low",
+      "medium",
+      "high",
+      "xhigh",
+      "max"
+    ],
+    "contextUsage": {
+      "tokens": 0,
+      "contextWindow": 272000,
+      "percent": 0
+    },
+    "revision": 1
+  },
+  "changes": [
+    {
+      "check": "thinking readback",
+      "evidence": "low",
+      "at": "2026-10-19T03:37:22.572Z"
+    },
+    {
+      "check": "same-provider model readback",
+      "evidence": {
+        "provider": "openai-codex",
+        "id": "gpt-6.1-sol",
+        "name": "GPT-6.1 Sol",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 500000
+      },
+      "at": "2026-10-19T03:37:22.621Z"
+    },
+    {
+      "check": "original configuration restored",
+      "evidence": "gpt-6-astra/medium",
+      "at": "2026-10-19T03:37:22.664Z"
+    }
+  ]
+}

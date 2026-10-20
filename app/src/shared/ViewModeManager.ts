@@ -14,6 +14,8 @@
  */
 import { useSyncExternalStore } from 'react';
 import type { ViewMode } from './types';
+import {globalCardViewPreferences,isCardView,type GlobalCardViewPreferences,type CardViewPreference,type CardViewSetting} from './card-view-preferences';
+export type {CardViewPreference,CardViewSetting} from './card-view-preferences';
 
 export const L0_MAX_PX = 240;
 export const L1_MAX_PX = 640;
@@ -24,6 +26,7 @@ export function modeForScreenWidth(screenWidth: number): ViewMode {
   if (screenWidth < L1_MAX_PX) return 'L1';
   return 'L1s';
 }
+
 
 interface NodeReg {
   domWidth: number;
@@ -41,7 +44,18 @@ export class ViewModeManager {
   private systemReducedMotion = false;
   private version = 0;
 
-  constructor() {
+  private overrides = new Map<string, CardViewPreference>();
+  private storageKey?: string;
+  private legacyStorageKey?: string;
+  private stopPreferenceSync?:()=>void;
+  private preferences:GlobalCardViewPreferences;
+  constructor(namespace?: string,preferences:GlobalCardViewPreferences=globalCardViewPreferences) {
+    this.preferences=preferences;
+    if (namespace) {
+      this.storageKey = `canvas.card-views.v2:${namespace}`;
+      this.legacyStorageKey = `canvas.card-views.v1:${namespace}`;
+      this.loadOverrides();
+    }
     if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
       const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
       this.systemReducedMotion = mq.matches;
@@ -117,7 +131,48 @@ export class ViewModeManager {
 
   getMode(id: string): ViewMode {
     if (this.focusedId === id) return 'L2';
+    const override=this.getEffectiveCardView(id);
+    if(override==='compact')return 'L0';
+    if(override==='detail')return 'L1s';
     return this.nodes.get(id)?.mode ?? 'L1';
+  }
+
+  get supportsGlobalCardView():boolean{return !!this.storageKey;}
+  getGlobalCardView():CardViewPreference{return this.supportsGlobalCardView?this.preferences.getSnapshot():'auto';}
+  setGlobalCardView(value:CardViewPreference):void{if(this.supportsGlobalCardView)this.preferences.set(value);}
+  getCardView(id:string):CardViewSetting{return this.overrides.get(id)??(this.supportsGlobalCardView?'inherit':'auto');}
+  getEffectiveCardView(id:string):CardViewPreference{const setting=this.getCardView(id);return setting==='inherit'?this.getGlobalCardView():setting;}
+  getCardViewOverrideCount():number{return this.overrides.size;}
+  setCardView(id:string,value:CardViewSetting):void{
+    if(value!=='inherit'&&!isCardView(value))return;
+    if(value==='inherit'||!this.supportsGlobalCardView&&value==='auto')this.overrides.delete(id);else this.overrides.set(id,value);
+    this.persistOverrides();this.emit();
+  }
+  followGlobalForAllCards():void{if(!this.supportsGlobalCardView)return;this.overrides.clear();this.persistOverrides();this.emit();}
+  private persistOverrides(){try{if(this.storageKey)localStorage.setItem(this.storageKey,JSON.stringify(Object.fromEntries(this.overrides)));}catch{/* memory fallback */}}
+  private loadOverrides(){
+    try{
+      if(!this.storageKey)return;
+      const current=localStorage.getItem(this.storageKey),legacy=(current??null)===null;
+      const raw=JSON.parse(current??(this.legacyStorageKey?localStorage.getItem(this.legacyStorageKey):null)??'{}');
+      if(!raw||typeof raw!=='object'||Array.isArray(raw))return;
+      const next=new Map<string,CardViewPreference>();
+      for(const [id,value] of Object.entries(raw).slice(0,1000))if(isCardView(value)&&(!legacy||value!=='auto'))next.set(id,value);
+      this.overrides=next;
+    }catch{/* unavailable/malformed storage does not destroy current in-memory overrides */}
+  }
+  private startPreferenceSync(){
+    if(!this.supportsGlobalCardView||this.stopPreferenceSync)return;
+    const previous=this.preferences.getSnapshot();
+    const offGlobal=this.preferences.subscribe(()=>this.emit());
+    if(previous!==this.preferences.getSnapshot())this.emit();
+    const onStorage=(event:StorageEvent)=>{
+      if(event.key!==null&&event.key!==this.storageKey&&event.key!==this.legacyStorageKey)return;
+      try{if(event.storageArea&&event.storageArea!==localStorage)return;}catch{return;}
+      this.loadOverrides();this.emit();
+    };
+    if(typeof window!=='undefined')window.addEventListener('storage',onStorage);
+    this.stopPreferenceSync=()=>{offGlobal();if(typeof window!=='undefined')window.removeEventListener('storage',onStorage);this.stopPreferenceSync=undefined;};
   }
 
   getZoom(): number {
@@ -155,8 +210,9 @@ export class ViewModeManager {
   /* ---------------- 订阅 ---------------- */
 
   subscribe = (listener: () => void): (() => void) => {
+    this.startPreferenceSync();
     this.listeners.add(listener);
-    return () => this.listeners.delete(listener);
+    return () => {this.listeners.delete(listener);if(!this.listeners.size)this.stopPreferenceSync?.();};
   };
 
   /** useSyncExternalStore 快照：版本号（模式经 getMode 读取） */
@@ -168,6 +224,7 @@ export class ViewModeManager {
   }
 
   dispose(): void {
+    this.stopPreferenceSync?.();
     if (this.debounceTimer !== null) clearTimeout(this.debounceTimer);
     this.listeners.clear();
     this.nodes.clear();

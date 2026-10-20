@@ -1,0 +1,37 @@
+{
+  "phase": "before",
+  "base": "http://127.0.0.1:5208",
+  "measurements": [
+    {
+      "name": "floating",
+      "composer": {
+        "x": 251,
+        "y": 674.21875,
+        "width": 938,
+        "height": 192.78125
+      },
+      "bodyFont": "13px"
+    },
+    {
+      "name": "permissions-open",
+      "composer": {
+        "x": 251,
+        "y": 601.625,
+        "width": 938,
+        "height": 265.375
+      },
+      "bodyFont": "13px"
+    },
+    {
+      "name": "900x800",
+      "composer": {
+        "x": 49,
+        "y": 546.21875,
+        "width": 802,
+        "height": 192.78125
+      },
+      "bodyFont": "13px"
+    }
+  ],
+  "errors": []
+}

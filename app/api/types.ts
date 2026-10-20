@@ -3,9 +3,11 @@
  * Zero deviation: field names and enums are the contract.
  */
 
+import type { Lifecycle, SessionRef, SessionView } from './e/contracts.js';
+
 export type NodeStatus = 'queued' | 'running' | 'waiting' | 'completed' | 'failed' | 'skipped';
 export type NodeType = 'coordinator' | 'operation' | 'chat' | 'artifact';
-export type EdgeKind = 'strong' | 'weak' | 'error';
+export type EdgeKind = 'strong' | 'weak' | 'error' | 'communication';
 
 export interface CanvasZone {
   id: string;
@@ -17,6 +19,11 @@ export interface ApprovalInfo {
 }
 
 export interface CanvasNode {
+  backend?: 'e' | 'herdr';
+  sessionRef?: SessionRef;
+  sessionState?: Lifecycle;
+  sessionStatus?: string;
+  summary?: string;
   id: string;
   type: NodeType;
   title: string;
@@ -45,6 +52,7 @@ export interface CanvasNode {
 }
 
 export interface CanvasEdge {
+  communication?: import('./e/collaboration-contracts.js').CommunicationSummary;
   id: string;
   source: string;
   target: string;
@@ -62,6 +70,9 @@ export interface Graph {
 export type WorkspaceStatus = 'idle' | 'running' | 'done' | 'failed';
 
 export interface WorkspaceSummary {
+  archivedAt?: string;
+  backend: 'e' | 'herdr';
+  source: 'live' | 'demo';
   id: string;
   title: string;
   path: string;
@@ -74,6 +85,7 @@ export interface WorkspaceSummary {
 }
 
 export interface CanvasEvent {
+  workspaceId: string;
   id: number;
   ts: number;
   nodeId?: string;
@@ -84,7 +96,9 @@ export interface CanvasEvent {
 // WS server -> client messages.
 // graph/node/edge/term carry workspaceId so clients can multiplex canvases.
 export type ServerMessage =
-  | { type: 'graph'; graph: Graph; workspaceId?: string }
+  | { type: 'graph'; graph: Graph; workspaceId?: string; backend?: 'e' | 'herdr'; source?: 'live' | 'demo'; archivedAt?: string }
+  | { type: 'session'; session: SessionView; workspaceId: string }
+  | { type: 'error'; error: string; workspaceId?: string }
   | { type: 'node'; node: CanvasNode; workspaceId?: string }
   | { type: 'edge'; edge: CanvasEdge; workspaceId?: string }
   | { type: 'term'; nodeId: string; ansi: string; workspaceId?: string }

@@ -116,6 +116,7 @@ export class GraphStore {
     if (TERMINAL.includes(status)) node.endedAt = new Date().toISOString();
     if (prev !== status) {
       eventbus.append({
+        workspaceId: this.workspaceId,
         nodeId: id,
         kind: 'status',
         text: `${id}: ${prev} -> ${status}${node.statusReason ? ` (${node.statusReason})` : ''}`,
@@ -125,12 +126,27 @@ export class GraphStore {
     return node;
   }
 
+  upsertNode(node: CanvasNode): void {
+    const prior = this.getNode(node.id);
+    if (prior) Object.assign(prior, node);
+    else this.graph.nodes.push(node);
+    this.emitNode(prior ?? node);
+  }
+
   patchNode(id: string, patch: Partial<CanvasNode>): CanvasNode | undefined {
     const node = this.getNode(id);
     if (!node) return undefined;
     Object.assign(node, patch);
     this.emitNode(node);
     return node;
+  }
+
+  upsertEdge(edge: CanvasEdge): void {
+    const prior = this.graph.edges.find(e => e.id === edge.id);
+    if (prior) { this.patchEdge(edge.id, edge); return; }
+    this.graph.edges.push(edge);
+    for (const l of this.edgeListeners) l({ ...edge });
+    for (const l of anyPatchListeners) l(this.workspaceId, { type: 'edge', edge: { ...edge } });
   }
 
   patchEdge(id: string, patch: Partial<CanvasEdge>): CanvasEdge | undefined {

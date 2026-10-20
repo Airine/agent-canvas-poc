@@ -11,7 +11,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Tldraw, type Editor } from 'tldraw';
 import 'tldraw/tldraw.css';
 import './tldraw-overrides.css';
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
+import { Toaster } from '@/components/ui/sonner';
+import { useTheme } from 'next-themes';
 import { EventEngine, MOCK_NODES, ViewModeManager } from '@/shared';
 import type { ApprovalDecision, CanvasEdgeDef, CanvasSnapshot } from '@/shared/types';
 import type { LiveTier } from '@/shared/WindowFrame';
@@ -66,9 +68,11 @@ function computeTiers(
 }
 
 export default function TldrawPage() {
+  const { resolvedTheme } = useTheme();
   const [engine] = useState(() => new EventEngine());
   const [manager] = useState(() => new ViewModeManager());
   const [editor, setEditor] = useState<Editor | null>(null);
+  useEffect(() => { editor?.user.updateUserPreferences({ colorScheme: resolvedTheme === 'light' ? 'light' : 'dark' }); }, [editor,resolvedTheme]);
   const [tick, setTick] = useState(0);
   const [focusedId, setFocusedId] = useState<string | null>(null);
   const [flashId, setFlashId] = useState<string | null>(null);
@@ -208,7 +212,7 @@ export default function TldrawPage() {
 
   const handleMount = useCallback((ed: Editor) => {
     setEditor(ed);
-    ed.user.updateUserPreferences({ colorScheme: 'dark' });
+    ed.user.updateUserPreferences({ colorScheme: document.documentElement.classList.contains('light') ? 'light' : 'dark' });
     ed.updateInstanceState({ isGridMode: true });
     ed.createShapes(
       MOCK_NODES.map((def) => ({
@@ -273,7 +277,7 @@ export default function TldrawPage() {
           <CanvasOverlays />
           <TracePanel edge={traceEdge} onClose={() => setTraceEdge(null)} />
         </Tldraw>
-        <Toaster theme="dark" position="top-right" visibleToasts={3} />
+        <Toaster  position="top-right" visibleToasts={3} />
       </div>
     </CanvasServicesContext.Provider>
   );

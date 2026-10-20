@@ -12,13 +12,17 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import type { Graph, WorkspaceStatus, WorkspaceSummary } from './types.js';
 import { normalizeGraph, registerGraphStore, getGraphStore } from './graph.js';
+import { migrateLegacySeedPath, resolveSeedPath } from './workspace-paths.js';
 
-const API_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)));
-const DATA_DIR = path.join(API_ROOT, 'data');
+const API_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'api');
+const DATA_DIR = path.resolve(process.env.CANVAS_DATA_DIR || path.join(API_ROOT, 'data'));
 const DATA_FILE = path.join(DATA_DIR, 'workspaces.json');
 const SEEDS_DIR = path.join(API_ROOT, 'graphs');
 
 interface WorkspaceRecord {
+  archivedAt?: string;
+  backend?: 'e' | 'herdr';
+  source?: 'live' | 'demo';
   id: string;
   title: string;
   path: string;
@@ -71,9 +75,21 @@ class Registry {
     let loaded = false;
     try {
       const raw = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')) as { workspaces?: WorkspaceRecord[] };
+      // Migrate only obsolete shipped paths, before sanitizing live graph state.
+      // Persist the original payload so migration does not discard run history.
+      let pathsChanged = false;
+      for (const rec of raw.workspaces ?? []) {
+        const resolved = migrateLegacySeedPath(rec);
+        if (resolved !== rec.path) { rec.path = resolved; pathsChanged = true; }
+      }
+      if (pathsChanged) {
+        const tmp = `${DATA_FILE}.tmp`;
+        fs.writeFileSync(tmp, JSON.stringify(raw, null, 2));
+        fs.renameSync(tmp, DATA_FILE);
+      }
       for (const rec of raw.workspaces ?? []) {
         rec.graph = normalizeGraph(rec.graph);
-        sanitizeLoadedGraph(rec.graph);
+        if (rec.backend !== 'e') sanitizeLoadedGraph(rec.graph);
         this.records.set(rec.id, rec);
       }
       loaded = this.records.size > 0;
@@ -103,7 +119,9 @@ class Registry {
         this.records.set(id, {
           id,
           title: seed.title,
-          path: seed.path,
+          backend: 'herdr',
+          source: 'demo',
+          path: resolveSeedPath(seed.path),
           description: seed.description,
           createdAt: now,
           lastActiveAt: now,
@@ -145,6 +163,9 @@ class Registry {
   private summaryOf(rec: WorkspaceRecord): WorkspaceSummary {
     return {
       id: rec.id,
+      archivedAt: rec.archivedAt,
+      backend: rec.backend ?? 'herdr',
+      source: rec.source ?? 'demo',
       title: rec.title,
       path: rec.path,
       description: rec.description,
@@ -171,6 +192,24 @@ class Registry {
     if (!rec) return undefined;
     this.touch(id);
     return getGraphStore(id)?.graph ?? rec.graph;
+  }
+
+  backend(id: string): 'e' | 'herdr' | undefined {
+    const rec = this.records.get(id);
+    return rec ? rec.backend ?? 'herdr' : undefined;
+  }
+
+  update(id: string, input: { title?: string; archived?: boolean }): WorkspaceSummary {
+    const rec = this.records.get(id); if (!rec) throw new Error('workspace not found');
+    if (input.title !== undefined) rec.title = input.title;
+    if (input.archived === true) rec.archivedAt = new Date().toISOString();
+    if (input.archived === false) delete rec.archivedAt;
+    rec.lastActiveAt = new Date().toISOString();this.save();return this.summaryOf(rec);
+  }
+  assertWritable(id: string): void {
+    const rec = this.records.get(id);
+    if (!rec) throw new Error('workspace not found');
+    if (rec.archivedAt) throw new Error('workspace is archived; restore it before writing');
   }
 
   has(id: string): boolean {
@@ -200,11 +239,13 @@ class Registry {
     this.save();
   }
 
-  create(input: { title: string; path: string; description: string; graph: Graph }): WorkspaceSummary {
+  create(input: { title: string; path: string; description: string; graph: Graph; backend?: 'e' | 'herdr'; source?: 'live' | 'demo' }): WorkspaceSummary {
     const now = new Date().toISOString();
     const rec: WorkspaceRecord = {
       id: this.newId(),
       title: input.title,
+      backend: input.backend ?? 'herdr',
+      source: input.source ?? 'live',
       path: input.path,
       description: input.description,
       createdAt: now,

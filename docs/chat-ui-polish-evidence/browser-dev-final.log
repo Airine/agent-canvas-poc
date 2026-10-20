@@ -1,0 +1,45 @@
+
+> my-app@0.0.0 test:e2e
+> playwright test --output=/Users/aaron/.pi-desktop/scratch/***/ui-polish/playwright-dev-final
+
+
+Running 34 tests using 1 worker
+
+  ✓   1 test/browser/card-approval-modes.spec.ts:7:1 › each card independently pins compact/detail and persists after zoom and refresh (2.5s)
+  ✓   2 test/browser/card-approval-modes.spec.ts:19:1 › assisted needs explicit model and consent, full access needs separate consent; manual is immediate (2.0s)
+  ✓   3 test/browser/chat-experience.spec.ts:21:1 › one timeline, resolved approval compact, diagnostics redacted; safe Markdown (1.5s)
+  ✓   4 test/browser/chat-experience.spec.ts:36:1 › drafts survive streaming, offline, focus, L0 and refresh; IME + in-flight edit safe (5.3s)
+CHAT_PERFORMANCE {"nodes":4,"messagesPerNode":500,"initialMountedPerNode":30,"fixtureToInteractiveMs":1795}
+  ✓   5 test/browser/chat-experience.spec.ts:50:1 › 500 messages per node are windowed; stream in other node does not mutate focused history (1.9s)
+  ✓   6 test/browser/chat-experience.spec.ts:63:1 › pending approvals remain actionable but settled ones have no decision buttons (1.7s)
+  ✓   7 test/browser/chat-experience.spec.ts:74:1 › unclosed long code and tool output are bounded; scroll anchor survives focus resize (9.1s)
+  ✓   8 test/browser/chat-experience.spec.ts:93:1 › stream keeps focus and draft; duplicate frames and sequence gap resync without replay (1.2s)
+  ✓   9 test/browser/chat-experience.spec.ts:107:1 › legacy herdr terminal focus still mounts without chat-specific controls (1.2s)
+  ✓  10 test/browser/chat-experience.spec.ts:114:1 › session diagnostics opens from header without occupying transcript; Escape preserves focus mode (1.8s)
+  ✓  11 test/browser/chat-polish.spec.ts:9:1 › compact dock is 112–136px; popovers never move composer/transcript; aligned readable column (1.8s)
+  ✓  12 test/browser/chat-polish.spec.ts:20:1 › responsive focus retains DOM/draft through narrow and short windows, menus stay hit-testable (2.1s)
+  ✓  13 test/browser/chat-polish.spec.ts:29:1 › native-free provider confirmation is safe, nested Escape and IME preserve full viewport (1.4s)
+  ✓  14 test/browser/chat-polish.spec.ts:35:1 › delivery choices work with keyboard; auto-grow stays bounded; menu changes preserve draft (1.6s)
+  ✓  15 test/browser/chat-polish.spec.ts:41:1 › state matrix keeps actionable lifecycle errors, risks, missing attachments and unknown queue visible (5.1s)
+  ✓  16 test/browser/chat-polish.spec.ts:54:1 › node settings are not clipped; normal text contrast and 32px focus targets are retained (1.6s)
+  ✓  17 test/browser/desktop-composer.spec.ts:6:1 › runtime catalog/readback only, context timestamp, failures retain confirmed selection, busy controls (1.5s)
+  ✓  18 test/browser/desktop-composer.spec.ts:16:1 › Enter, multiline paste, IME; explicit delivery, abort differs from stop; rejected/unknown keep draft and intent (2.5s)
+  ✓  19 test/browser/desktop-composer.spec.ts:26:1 › busy ordinary queue is editable/persistent/CAS guarded; send-now requires explicit Steer consent (2.7s)
+  ✓  20 test/browser/desktop-composer.spec.ts:36:1 › long paste cards edit/remove, validated attachment preview equals sent bytes; refresh requires reselection (2.1s)
+  ✓  21 test/browser/desktop-composer.spec.ts:45:1 › client rejects invalid UTF8, executable types, mismatched signatures, unsupported images and exact limits (1.5s)
+  ✓  22 test/browser/desktop-composer.spec.ts:51:1 › permission disclosure consumes Escape once, then full to floating to canvas (1.3s)
+  ✓  23 test/browser/e-canvas.spec.ts:13:1 › e canvas displays structured session, remains scoped and survives refresh without demo (1.2s)
+  ✓  24 test/browser/e-canvas.spec.ts:39:1 › missing API on home never invents a demo workspace (621ms)
+  ✓  25 test/browser/e-canvas.spec.ts:47:1 › fixture controls, focus, layout, reconnect and stop/resume stay in canvas (3.2s)
+  ✓  26 test/browser/identity-window.spec.ts:56:1 › nickname saves from compact/detail/focus; sibling suffixes update; conflicts retain draft (2.8s)
+  ✓  27 test/browser/identity-window.spec.ts:92:1 › one accessible light, no duplicate focused shell or theme control; failure text stays (1.3s)
+  ✓  28 test/browser/identity-window.spec.ts:116:1 › floating/fullscreen reuse DOM, folds, draft and reading anchor; Escape unwinds layers and IME (3.6s)
+  -  29 test/browser/real-e.spec.ts:6:1 › real Pi responds inside the main canvas and resumes the same native session
+  ✓  30 test/browser/theme.spec.ts:20:1 › three theme choices persist and system updates live without overriding explicit preference (1.3s)
+  ✓  31 test/browser/theme.spec.ts:32:1 › chat, code, focus and diagnosis change palette without losing draft or mounting a new conversation (1.9s)
+  ✓  32 test/browser/theme.spec.ts:50:1 › terminal theme repaints existing instance, keeps buffer and does not resubscribe (1.3s)
+  ✓  33 test/browser/theme.spec.ts:60:1 › public pages inherit light palette and secondary text stays readable (2.3s)
+  ✓  34 test/browser/theme.spec.ts:69:1 › blocked localStorage still permits in-memory theme switching (862ms)
+
+  1 skipped
+  33 passed (1.3m)

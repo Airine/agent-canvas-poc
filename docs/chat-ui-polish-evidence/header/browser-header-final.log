@@ -1,0 +1,13 @@
+
+> my-app@0.0.0 test:e2e
+> playwright test chat-header.spec.ts --output=/Users/aaron/.pi-desktop/scratch/***/header-polish/playwright-header-final
+
+
+Running 4 tests using 1 worker
+
+  ✓  1 test/browser/chat-header.spec.ts:6:1 › one header row owns status recovery and menu; body starts early without duplicate model or notice (4.8s)
+  ✓  2 test/browser/chat-header.spec.ts:12:1 › header card view works from detail/compact/focus and persists independently of the draft (3.2s)
+  ✓  3 test/browser/chat-header.spec.ts:16:1 › header diagnostics returns focus; ordinary recovery remains explicit and live faults keep body alerts (2.3s)
+  ✓  4 test/browser/chat-header.spec.ts:20:1 › narrow focus header controls stay visible and draft remains mounted when resizing (1.8s)
+
+  4 passed (14.8s)

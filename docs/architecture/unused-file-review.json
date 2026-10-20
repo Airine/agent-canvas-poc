@@ -1,0 +1,1831 @@
+{
+  "reviewedAt": "2026-10-19",
+  "baseline": "bc3fe792b0fa1cc587067690e7494ab127bf01b2",
+  "scope": "59 Knip candidates; source reachability plus dynamic-reference and uncommitted-work review",
+  "records": [
+    {
+      "file": "app/src/components/ui/accordion.tsx",
+      "decision": "remove",
+      "sha256": "1e00288c7eee72380002164ea3ff7589df5d92f2f1b8c7aa5077596ef680acdb",
+      "gitStatus": "clean",
+      "lines": 64,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/tailwind.config.js"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/alert-dialog.tsx",
+      "decision": "retain-uncommitted",
+      "sha256": "68f23de1da58d6e0999fbf1d1ce85364a09f44cef899eb8778e84ec0285469b9",
+      "gitStatus": "M app/src/components/ui/alert-dialog.tsx",
+      "lines": 155,
+      "imports": [
+        "app/src/components/ui/button-variants.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/index.css",
+        "app/src/pages/canvas/chat/ChatPopover.tsx"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/alert.tsx",
+      "decision": "remove",
+      "sha256": "49d8311589b810b106aada8ef7b13f70b2b1f68cfce4e1458b7f31a191f420e9",
+      "gitStatus": "clean",
+      "lines": 66,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/components/ui/alert-dialog.tsx",
+        "app/src/components/ui/field.tsx",
+        "app/src/index.css",
+        "app/src/pages/canvas/ApprovalModeControl.tsx",
+        "app/src/pages/canvas/SessionControls.tsx",
+        "app/src/pages/canvas/SessionIdentity.tsx",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "app/src/pages/canvas/chat/QueuePanel.tsx",
+        "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
+        "app/src/pages/canvas/chat/SessionNotice.tsx",
+        "app/src/pages/canvas/index.tsx",
+        "app/src/pages/home/CreateSessionForm.tsx",
+        "app/src/pages/home/index.tsx",
+        "app/src/shared/FocusOverlay.tsx",
+        "app/test/browser/card-approval-modes.spec.ts",
+        "app/test/browser/chat-experience.spec.ts",
+        "app/test/browser/chat-polish.spec.ts",
+        "app/test/browser/desktop-composer.spec.ts",
+        "app/test/browser/identity-window.spec.ts",
+        "app/test/unit/chat-errors.test.mjs"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/aspect-ratio.tsx",
+      "decision": "remove",
+      "sha256": "6a75117416aa89200cf31e8d61643b428e812f479caea857c80004b26d893e79",
+      "gitStatus": "clean",
+      "lines": 11,
+      "imports": [],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/avatar.tsx",
+      "decision": "remove",
+      "sha256": "e637ab3522c01631eac2e456588ef301314e2bb7940ebf7cd96e698a868d47bc",
+      "gitStatus": "clean",
+      "lines": 51,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/badge-variants.ts",
+      "decision": "retain-uncommitted",
+      "sha256": "2d78d22236de90def1fb88f6bfad60093467bc92021329eecdaeb5f33dfcffd4",
+      "gitStatus": "?? app/src/components/ui/badge-variants.ts",
+      "lines": 23,
+      "imports": [],
+      "importedBy": [
+        "app/src/components/ui/badge.tsx"
+      ],
+      "stringReferences": [
+        "app/src/components/ui/badge.tsx"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/badge.tsx",
+      "decision": "retain-uncommitted",
+      "sha256": "0d987e7c704ac71af577e9a065810c93bcaa573b4bb35427b769d04ff81d38b6",
+      "gitStatus": "M app/src/components/ui/badge.tsx",
+      "lines": 27,
+      "imports": [
+        "app/src/components/ui/badge-variants.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/src/components/ui/badge-variants.ts",
+        "app/src/components/ui/sidebar.tsx",
+        "app/src/index.css",
+        "app/src/shared/EdgeLegend.tsx",
+        "app/src/shared/StatusBadge.tsx",
+        "docs/research/analysis/agent_canvas_dim11.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/breadcrumb.tsx",
+      "decision": "remove",
+      "sha256": "22f3f4c13ed1085c4131379bfccc6fb173a474f861636bc2736506820153aa08",
+      "gitStatus": "clean",
+      "lines": 109,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/button-group-variants.ts",
+      "decision": "retain-uncommitted",
+      "sha256": "10aee90f9be34919e374a65d060c5c2c23004fe95d5a50bef16845b8c31d9ba2",
+      "gitStatus": "?? app/src/components/ui/button-group-variants.ts",
+      "lines": 19,
+      "imports": [],
+      "importedBy": [
+        "app/src/components/ui/button-group.tsx"
+      ],
+      "stringReferences": [
+        "app/src/components/ui/button-group.tsx"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/button-group.tsx",
+      "decision": "retain-uncommitted",
+      "sha256": "8aefac3bc014859ea676665536eeb69fbd7010ac585e5c8c2eec3889b89a9e67",
+      "gitStatus": "M app/src/components/ui/button-group.tsx",
+      "lines": 67,
+      "imports": [
+        "app/src/components/ui/button-group-variants.ts",
+        "app/src/components/ui/separator.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/src/components/ui/button-group-variants.ts"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/calendar.tsx",
+      "decision": "retain-uncommitted",
+      "sha256": "3be6a4151ce03c284888459900ccb958d5c4a99f20c049689f152e423b3b538f",
+      "gitStatus": "M app/src/components/ui/calendar.tsx",
+      "lines": 221,
+      "imports": [
+        "app/src/components/ui/button-variants.ts",
+        "app/src/components/ui/button.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/card.tsx",
+      "decision": "remove",
+      "sha256": "2040cdff27cd1ed771e0ebbd15abcd73d31f2f1e4be6664bd6816fffd2a87476",
+      "gitStatus": "clean",
+      "lines": 92,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/api/registry.ts",
+        "app/info.md",
+        "app/package.json",
+        "app/src/components/ui/alert.tsx",
+        "app/src/components/ui/calendar.tsx",
+        "app/src/components/ui/hover-card.tsx",
+        "app/src/index.css",
+        "app/src/pages/PocLanding.tsx",
+        "app/src/pages/canvas/chat/ApprovalRequest.tsx",
+        "app/src/pages/tldraw/L0SummaryCard.tsx",
+        "app/src/shared/ViewModeManager.ts",
+        "app/tailwind.config.js",
+        "app/test/browser/card-approval-modes.spec.ts",
+        "app/test/browser/chat-experience.spec.ts",
+        "app/test/browser/desktop-composer.spec.ts",
+        "app/test/browser/fixtures/desktop.ts",
+        "app/test/browser/identity-window.spec.ts",
+        "app/test/browser/real-tools.mjs",
+        "app/test/unit/card-view.test.mjs",
+        "docs/README.md",
+        "docs/card-views-and-approvals.md",
+        "docs/chat-ui-polish-evidence/attachments-stability.log",
+        "docs/chat-ui-polish-evidence/browser-dev-final.log",
+        "docs/chat-ui-polish-evidence/browser-dev-full.log",
+        "docs/chat-ui-polish-evidence/browser-production-final.log",
+        "docs/chat-ui-polish-evidence/final-unit.log",
+        "docs/chat-ui-polish-evidence/integrity.json",
+        "docs/desktop-chat-evidence/final-browser-production.log",
+        "docs/desktop-chat-evidence/final-unit.log",
+        "docs/guides/E_BACKEND.md",
+        "docs/research/analysis/agent_canvas_dim04.md",
+        "docs/research/analysis/agent_canvas_dim05.md",
+        "docs/research/analysis/agent_canvas_dim08.md",
+        "docs/research/analysis/agent_canvas_dim10.md",
+        "docs/research/analysis/agent_canvas_dim12.md",
+        "docs/research/report/agent_canvas.agent.final.converted.md",
+        "docs/research/report/agent_canvas.agent.final.md",
+        "docs/research/report/agent_canvas.agent.outline.md",
+        "docs/research/report/agent_canvas.citation.jsonl",
+        "docs/research/report/agent_canvas_ref.md",
+        "docs/research/report/agent_canvas_sec03.md",
+        "docs/research/report/agent_canvas_sec03_refs.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/carousel.tsx",
+      "decision": "remove",
+      "sha256": "10c5388b66d98f0c555dad2e5b89b9bc846fbc1a3de101ee8b98abc305ec2c51",
+      "gitStatus": "clean",
+      "lines": 239,
+      "imports": [
+        "app/src/components/ui/button.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/chart.tsx",
+      "decision": "remove",
+      "sha256": "39a2fde544144e0ed0e3e7f76eb3f3988f570f849f30f62208c6f3e2fc4e3e4f",
+      "gitStatus": "clean",
+      "lines": 357,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/index.css",
+        "docs/research/analysis/agent_canvas_dim04.md",
+        "docs/themes.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/checkbox.tsx",
+      "decision": "remove",
+      "sha256": "a8292972a5b81eff164f621ac0bb66f4ed4419d1599e2d4901968e216574677f",
+      "gitStatus": "clean",
+      "lines": 32,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/components/ui/context-menu.tsx",
+        "app/src/components/ui/dropdown-menu.tsx",
+        "app/src/components/ui/field.tsx",
+        "app/src/components/ui/menubar.tsx",
+        "app/src/components/ui/table.tsx",
+        "docs/research/analysis/agent_canvas_dim02.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/collapsible.tsx",
+      "decision": "remove",
+      "sha256": "661444318605c90d19e47e4d21289a68b4c5f7f01782be70dafa80d3f7a4cd08",
+      "gitStatus": "clean",
+      "lines": 31,
+      "imports": [],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/components/ui/sidebar.tsx",
+        "docs/research/analysis/agent_canvas_dim09.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/command.tsx",
+      "decision": "remove",
+      "sha256": "416cdc19eb9e7301b51f9665b4f1a797534769a6bb58a563808979f460b0b8a2",
+      "gitStatus": "clean",
+      "lines": 182,
+      "imports": [
+        "app/src/components/ui/dialog.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/api/coordinator.ts",
+        "app/api/e/approval-reviewer.ts",
+        "app/api/e/approval-rules.ts",
+        "app/api/e/config.ts",
+        "app/api/graphs/etl-nightly.json",
+        "app/api/graphs/research-sprint.json",
+        "app/api/routes.ts",
+        "app/api/shell.ts",
+        "app/api/types.ts",
+        "app/info.md",
+        "app/playwright.config.ts",
+        "app/scripts/dev-e.mjs",
+        "app/scripts/e-runtime-worker.mts",
+        "app/src/pages/canvas/chat/ApprovalRequest.tsx",
+        "app/src/pages/canvas/chat/ToolActivity.tsx",
+        "app/src/pages/canvas/contracts.ts",
+        "app/src/pages/canvas/mock-server.ts",
+        "app/src/shared/ChatView.tsx",
+        "app/src/shared/mock/events.ts",
+        "app/src/shared/types.ts",
+        "app/test/browser/chat-experience.spec.ts",
+        "app/test/browser/real-tools.mjs",
+        "app/test/unit/approval-policy.test.mjs",
+        "app/test/unit/approval-reviewer.test.mjs",
+        "app/test/unit/chat-projection.test.mjs",
+        "docs/chat-ui-polish-evidence/final-unit.log",
+        "docs/desktop-chat-evidence/final-unit.log",
+        "docs/guides/RUNBOOK_WSL.md",
+        "docs/plans/canvas-optimization.md",
+        "docs/research/analysis/agent_canvas_dim02.md",
+        "docs/research/analysis/agent_canvas_dim07.md",
+        "docs/research/analysis/agent_canvas_dim08.md",
+        "docs/research/analysis/agent_canvas_dim09.md",
+        "docs/research/analysis/agent_canvas_dim12.md",
+        "docs/research/report/agent_canvas.agent.final.converted.md",
+        "docs/research/report/agent_canvas.agent.final.md",
+        "docs/research/report/agent_canvas.citation.jsonl",
+        "docs/research/report/agent_canvas_ref.md",
+        "docs/research/report/agent_canvas_sec07_refs.md",
+        "docs/research/report/agent_canvas_sec08_refs.md",
+        "tools/legacy/render-preview/parity-test.py",
+        "tools/legacy/spike/REPORT.md",
+        "tools/legacy/spike/herdr-api.schema.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/context-menu.tsx",
+      "decision": "remove",
+      "sha256": "70e547a9bececcc98adf2fbfb2cae05c99179707ab0edb1ddfb5d2de329dab42",
+      "gitStatus": "clean",
+      "lines": 252,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/dialog.tsx",
+      "decision": "remove",
+      "sha256": "6333f1124e85ff25bce5061ac9ab5981e5346782d5535c9dfeeb51b2d535a7cc",
+      "gitStatus": "clean",
+      "lines": 141,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [
+        "app/src/components/ui/command.tsx"
+      ],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/scripts/agents/chat-analysis.sh",
+        "app/src/components/ui/alert-dialog.tsx",
+        "app/src/components/ui/command.tsx",
+        "app/src/components/ui/sheet.tsx",
+        "app/src/index.css",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/Diagnostics.tsx",
+        "app/src/shared/FocusOverlay.tsx",
+        "app/test/browser/card-approval-modes.spec.ts",
+        "app/test/browser/chat-experience.spec.ts",
+        "app/test/browser/chat-polish.spec.ts",
+        "app/test/browser/desktop-composer.spec.ts",
+        "app/test/browser/e-canvas.spec.ts",
+        "app/test/browser/identity-window.spec.ts",
+        "app/test/browser/real-multi.mjs",
+        "app/test/browser/theme.spec.ts",
+        "app/test/browser/ui-actions.ts",
+        "docs/research/analysis/agent_canvas_dim08.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/drawer.tsx",
+      "decision": "remove",
+      "sha256": "0c9464ed4f95207ff6ec0b8f433f550388ea0fe57fecd36bbe100b084ee46a3e",
+      "gitStatus": "clean",
+      "lines": 135,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/dropdown-menu.tsx",
+      "decision": "remove",
+      "sha256": "ba022169876b487c849d046ac577654ab61a4cfba158305c8790c572b704ed9e",
+      "gitStatus": "clean",
+      "lines": 255,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/empty.tsx",
+      "decision": "remove",
+      "sha256": "584b491f9eb69f8041b3d3732a4d139f5af01de19a00b7a97656c7af7a78716a",
+      "gitStatus": "clean",
+      "lines": 104,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/api/e/message-queue.ts",
+        "app/api/e/session-manager.ts",
+        "app/info.md",
+        "app/scripts/e-runtime-worker.mts",
+        "app/src/components/ui/command.tsx",
+        "app/src/pages/canvas/chat/ConversationView.tsx",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/test/browser/fixtures/desktop.ts",
+        "app/test/unit/chat-projection.test.mjs",
+        "app/test/unit/desktop-image-preflight.test.mjs",
+        "app/test/unit/desktop-message.test.mjs",
+        "app/test/unit/e-routes.test.mjs",
+        "app/test/unit/health-regressions.test.mjs",
+        "docs/chat-ui-polish-evidence/diff-check.txt",
+        "docs/chat-ui-polish-evidence/final-unit.log",
+        "docs/desktop-chat-evidence/diff-check.txt",
+        "docs/desktop-chat-evidence/final-unit.log",
+        "docs/desktop-chat-experience.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/field.tsx",
+      "decision": "remove",
+      "sha256": "e9dcb51b16e5f235bdf23a0b4a092e55c05b2bad08a83126ac675b72aae5380d",
+      "gitStatus": "clean",
+      "lines": 246,
+      "imports": [
+        "app/src/components/ui/label.tsx",
+        "app/src/components/ui/separator.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/api/e/approval-rules.ts",
+        "app/api/herdr-adapter.ts",
+        "app/api/types.ts",
+        "app/info.md",
+        "app/src/components/ui/form-context.ts",
+        "app/src/components/ui/textarea.tsx",
+        "app/test/unit/chat-errors.test.mjs",
+        "docs/chat-ui-polish-evidence/final-unit.log",
+        "docs/desktop-chat-evidence/final-unit.log",
+        "docs/research/analysis/agent_canvas_dim10.md",
+        "docs/research/analysis/agent_canvas_dim11.md",
+        "docs/research/report/agent_canvas.agent.final.converted.md",
+        "docs/research/report/agent_canvas.agent.final.md",
+        "docs/research/report/agent_canvas_sec06.md",
+        "tools/legacy/spike/herdr-api.schema.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/form-context.ts",
+      "decision": "retain-uncommitted",
+      "sha256": "98280a27ef5ed8fc32a8bb58cdb5a05aaabb3464e12c563416d413c3d53e5cfd",
+      "gitStatus": "?? app/src/components/ui/form-context.ts",
+      "lines": 45,
+      "imports": [],
+      "importedBy": [
+        "app/src/components/ui/form.tsx"
+      ],
+      "stringReferences": [
+        "app/src/components/ui/form.tsx"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/form.tsx",
+      "decision": "retain-uncommitted",
+      "sha256": "600de1ce6efaf0d74f59db3dbac8cb88a78da301852b0d3ea12ef3b2ed1ef3a6",
+      "gitStatus": "M app/src/components/ui/form.tsx",
+      "lines": 124,
+      "imports": [
+        "app/src/components/ui/form-context.ts",
+        "app/src/components/ui/label.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/README.md",
+        "app/api/e/attachments.ts",
+        "app/api/e/session-manager.ts",
+        "app/api/eventbus.ts",
+        "app/api/graphs/etl-nightly.json",
+        "app/api/herdr-adapter.ts",
+        "app/api/pump.ts",
+        "app/info.md",
+        "app/package.json",
+        "app/scripts/agents/data-process.sh",
+        "app/scripts/agents/seed-etl.sh",
+        "app/scripts/e-control.mjs",
+        "app/src/components/ui/accordion.tsx",
+        "app/src/components/ui/calendar.tsx",
+        "app/src/components/ui/chart.tsx",
+        "app/src/components/ui/context-menu.tsx",
+        "app/src/components/ui/dropdown-menu.tsx",
+        "app/src/components/ui/form-context.ts",
+        "app/src/components/ui/hover-card.tsx",
+        "app/src/components/ui/menubar.tsx",
+        "app/src/components/ui/popover.tsx",
+        "app/src/components/ui/progress.tsx",
+        "app/src/components/ui/select.tsx",
+        "app/src/components/ui/sidebar.tsx",
+        "app/src/components/ui/switch.tsx",
+        "app/src/components/ui/tooltip.tsx",
+        "app/src/index.css",
+        "app/src/pages/PocLanding.tsx",
+        "app/src/pages/canvas/LiveEdge.tsx",
+        "app/src/pages/canvas/SessionIdentity.tsx",
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "app/src/pages/canvas/chat/MarkdownContent.tsx",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/identity-window.css",
+        "app/src/pages/reactflow/AgentEdge.tsx",
+        "app/src/pages/tldraw/EdgesLayer.tsx",
+        "app/src/pages/tldraw/Minimap.tsx",
+        "app/src/pages/tldraw/TracePanel.tsx",
+        "app/src/pages/tldraw/tldraw-overrides.css",
+        "app/src/shared/mock/events.ts",
+        "app/test/browser/chat-experience.spec.ts",
+        "app/test/unit/chat-projection.test.mjs",
+        "app/test/unit/desktop-image-preflight.test.mjs",
+        "docs/chat-ui-polish-evidence/final-ui-build.log",
+        "docs/chat-ui-polish-evidence/final-unit.log",
+        "docs/desktop-chat-evidence/final-ui-build.log",
+        "docs/desktop-chat-evidence/final-unit.log",
+        "docs/research/analysis/agent_canvas_cross_verification.md",
+        "docs/research/analysis/agent_canvas_dim01.md",
+        "docs/research/analysis/agent_canvas_dim02.md",
+        "docs/research/analysis/agent_canvas_dim03.md",
+        "docs/research/analysis/agent_canvas_dim04.md",
+        "docs/research/analysis/agent_canvas_dim05.md",
+        "docs/research/analysis/agent_canvas_dim06.md",
+        "docs/research/analysis/agent_canvas_dim07.md",
+        "docs/research/analysis/agent_canvas_dim08.md",
+        "docs/research/analysis/agent_canvas_dim09.md",
+        "docs/research/analysis/agent_canvas_dim10.md",
+        "docs/research/analysis/agent_canvas_dim11.md",
+        "docs/research/analysis/agent_canvas_dim12.md",
+        "docs/research/report/agent_canvas.agent.final.converted.md",
+        "docs/research/report/agent_canvas.agent.final.md",
+        "docs/research/report/agent_canvas.citation.jsonl",
+        "docs/research/report/agent_canvas_ref.md",
+        "docs/research/report/agent_canvas_sec00_refs.md",
+        "docs/research/report/agent_canvas_sec01_refs.md",
+        "docs/research/report/agent_canvas_sec02.md",
+        "docs/research/report/agent_canvas_sec02_refs.md",
+        "docs/research/report/agent_canvas_sec04_refs.md",
+        "docs/research/report/agent_canvas_sec06_refs.md",
+        "docs/research/report/agent_canvas_sec07.md",
+        "docs/research/report/agent_canvas_sec07_refs.md",
+        "docs/research/report/agent_canvas_sec08_refs.md",
+        "tools/legacy/render-preview/parity-test.py",
+        "tools/legacy/render-preview/ws-term-test.mjs",
+        "tools/legacy/spike/REPORT.md",
+        "tools/legacy/spike/events-sample.jsonl",
+        "tools/legacy/spike/herdr-api.schema.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/hover-card.tsx",
+      "decision": "remove",
+      "sha256": "031f6a309d87c8e42a2282fccc277dde75e373de8c93dad881582c9dc13e05d0",
+      "gitStatus": "clean",
+      "lines": 44,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/input-group.tsx",
+      "decision": "remove",
+      "sha256": "c0df02569e483db8ee86bd51b3b392a1ba62b276604d8c7ea90a9efc5faa9e25",
+      "gitStatus": "clean",
+      "lines": 170,
+      "imports": [
+        "app/src/components/ui/button.tsx",
+        "app/src/components/ui/input.tsx",
+        "app/src/components/ui/textarea.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/input-otp.tsx",
+      "decision": "remove",
+      "sha256": "7fd7ed5273f849cde558238148ee1bbae729aa1149407c7c732b6c65906933d2",
+      "gitStatus": "clean",
+      "lines": 75,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/input.tsx",
+      "decision": "retain-dependency",
+      "sha256": "56b7fd30208addbcc2468cfda4f5bc0a55342211deaab61ee35b1c352b1622f1",
+      "gitStatus": "clean",
+      "lines": 21,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [
+        "app/src/components/ui/input-group.tsx",
+        "app/src/components/ui/sidebar.tsx"
+      ],
+      "stringReferences": [
+        "app/api/coordinator.ts",
+        "app/api/e/approval-engine.ts",
+        "app/api/e/approval-reviewer.ts",
+        "app/api/e/approval-rules.ts",
+        "app/api/e/config.ts",
+        "app/api/e/contracts.ts",
+        "app/api/e/message-queue.ts",
+        "app/api/e/session-manager.ts",
+        "app/api/herdr-adapter.ts",
+        "app/api/registry.ts",
+        "app/api/routes.ts",
+        "app/api/runtime-router.ts",
+        "app/info.md",
+        "app/package.json",
+        "app/scripts/agents/data-process.sh",
+        "app/scripts/agents/seed-etl.sh",
+        "app/scripts/agents/seed-research.sh",
+        "app/scripts/e-configuration.mjs",
+        "app/scripts/e-control.mjs",
+        "app/scripts/e-message-preflight.mjs",
+        "app/scripts/e-runtime-worker.mts",
+        "app/src/components/ui/button-group-variants.ts",
+        "app/src/components/ui/button-group.tsx",
+        "app/src/components/ui/button-variants.ts",
+        "app/src/components/ui/calendar.tsx",
+        "app/src/components/ui/checkbox.tsx",
+        "app/src/components/ui/command.tsx",
+        "app/src/components/ui/input-group.tsx",
+        "app/src/components/ui/input-otp.tsx",
+        "app/src/components/ui/radio-group.tsx",
+        "app/src/components/ui/select.tsx",
+        "app/src/components/ui/sidebar.tsx",
+        "app/src/components/ui/switch.tsx",
+        "app/src/components/ui/tabs.tsx",
+        "app/src/components/ui/textarea.tsx",
+        "app/src/components/ui/toggle-variants.ts",
+        "app/src/index.css",
+        "app/src/lib/utils.ts",
+        "app/src/pages/canvas/LiveTerminal.tsx",
+        "app/src/pages/canvas/SessionIdentity.tsx",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "app/src/pages/canvas/chat/QueuePanel.tsx",
+        "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/chat/project-transcript.ts",
+        "app/src/pages/canvas/identity-window.css",
+        "app/src/pages/canvas/index.tsx",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/canvas/mock-server.ts",
+        "app/src/pages/home/CreateSessionForm.tsx",
+        "app/src/pages/reactflow/index.tsx",
+        "app/src/pages/tldraw/TldrawPage.tsx",
+        "app/src/shared/PlaybackBar.tsx",
+        "app/src/shared/TerminalView.tsx",
+        "app/tailwind.config.js",
+        "app/test/browser/chat-experience.spec.ts",
+        "app/test/browser/chat-polish.spec.ts",
+        "app/test/browser/desktop-composer.spec.ts",
+        "app/test/browser/fixtures/desktop.ts",
+        "app/test/browser/identity-window.spec.ts",
+        "app/test/browser/real-e.spec.ts",
+        "app/test/browser/real-multi.mjs",
+        "app/test/browser/theme.spec.ts",
+        "app/test/unit/approval-policy.test.mjs",
+        "app/test/unit/approval-reviewer.test.mjs",
+        "app/test/unit/chat-projection.test.mjs",
+        "app/test/unit/desktop-configuration.test.mjs",
+        "app/test/unit/desktop-image-preflight.test.mjs",
+        "app/test/unit/e-session-manager.test.mjs",
+        "app/test/unit/fixtures/desktop-worker.mjs",
+        "app/test/unit/health-regressions.test.mjs",
+        "app/test/unit/workspace-paths.test.mjs",
+        "docs/chat-ui-polish-evidence/final-unit.log",
+        "docs/chat-ui-polish-evidence/real-dev-results.json",
+        "docs/chat-ui-polish-evidence/real-production-results.json",
+        "docs/desktop-chat-evidence/final-unit.log",
+        "docs/desktop-chat-evidence/runtime-configuration.json",
+        "docs/guides/RUNBOOK_WSL.md",
+        "docs/plans/canvas-optimization.md",
+        "docs/research/analysis/agent_canvas_dim01.md",
+        "docs/research/analysis/agent_canvas_dim02.md",
+        "docs/research/analysis/agent_canvas_dim03.md",
+        "docs/research/analysis/agent_canvas_dim05.md",
+        "docs/research/analysis/agent_canvas_dim06.md",
+        "docs/research/analysis/agent_canvas_dim07.md",
+        "docs/research/analysis/agent_canvas_dim08.md",
+        "docs/research/analysis/agent_canvas_dim09.md",
+        "docs/research/analysis/agent_canvas_dim10.md",
+        "docs/research/analysis/agent_canvas_dim11.md",
+        "docs/research/report/agent_canvas.agent.final.converted.md",
+        "docs/research/report/agent_canvas.agent.final.md",
+        "docs/research/report/agent_canvas_sec04.md",
+        "tools/legacy/render-preview/parity-test.py",
+        "tools/legacy/spike/REPORT.md",
+        "tools/legacy/spike/backend-selftest.md",
+        "tools/legacy/spike/herdr-api.schema.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/item.tsx",
+      "decision": "remove",
+      "sha256": "6d64b756260749245b3a1f292e2aaf2774d7ec0b8bb99403eb8c1be31bd26900",
+      "gitStatus": "clean",
+      "lines": 193,
+      "imports": [
+        "app/src/components/ui/separator.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/api/e/contracts.ts",
+        "app/api/e/message-queue.ts",
+        "app/api/e/session-manager.ts",
+        "app/api/routes.ts",
+        "app/info.md",
+        "app/scripts/agents/seed-etl.sh",
+        "app/src/components/ui/accordion.tsx",
+        "app/src/components/ui/alert.tsx",
+        "app/src/components/ui/avatar.tsx",
+        "app/src/components/ui/badge-variants.ts",
+        "app/src/components/ui/breadcrumb.tsx",
+        "app/src/components/ui/button-group-variants.ts",
+        "app/src/components/ui/button-group.tsx",
+        "app/src/components/ui/button-variants.ts",
+        "app/src/components/ui/calendar.tsx",
+        "app/src/components/ui/card.tsx",
+        "app/src/components/ui/carousel.tsx",
+        "app/src/components/ui/chart.tsx",
+        "app/src/components/ui/command.tsx",
+        "app/src/components/ui/context-menu.tsx",
+        "app/src/components/ui/dropdown-menu.tsx",
+        "app/src/components/ui/empty.tsx",
+        "app/src/components/ui/field.tsx",
+        "app/src/components/ui/form-context.ts",
+        "app/src/components/ui/form.tsx",
+        "app/src/components/ui/input-group.tsx",
+        "app/src/components/ui/input-otp.tsx",
+        "app/src/components/ui/kbd.tsx",
+        "app/src/components/ui/label.tsx",
+        "app/src/components/ui/menubar.tsx",
+        "app/src/components/ui/navigation-menu-variants.ts",
+        "app/src/components/ui/navigation-menu.tsx",
+        "app/src/components/ui/pagination.tsx",
+        "app/src/components/ui/radio-group.tsx",
+        "app/src/components/ui/resizable.tsx",
+        "app/src/components/ui/select.tsx",
+        "app/src/components/ui/sidebar.tsx",
+        "app/src/components/ui/slider.tsx",
+        "app/src/components/ui/switch.tsx",
+        "app/src/components/ui/tabs.tsx",
+        "app/src/components/ui/toggle-group.tsx",
+        "app/src/components/ui/toggle-variants.ts",
+        "app/src/index.css",
+        "app/src/pages/PocLanding.tsx",
+        "app/src/pages/canvas/ApprovalCard.tsx",
+        "app/src/pages/canvas/CardViewControl.tsx",
+        "app/src/pages/canvas/L0Summary.tsx",
+        "app/src/pages/canvas/LiveEdge.tsx",
+        "app/src/pages/canvas/LiveNode.tsx",
+        "app/src/pages/canvas/LiveTerminal.tsx",
+        "app/src/pages/canvas/RunBar.tsx",
+        "app/src/pages/canvas/TracePanel.tsx",
+        "app/src/pages/canvas/ZoneNode.tsx",
+        "app/src/pages/canvas/chat/AttachmentTray.tsx",
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "app/src/pages/canvas/chat/QueuePanel.tsx",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/chat/project-transcript.ts",
+        "app/src/pages/canvas/identity-window.css",
+        "app/src/pages/canvas/index.tsx",
+        "app/src/pages/home/GraphPreview.tsx",
+        "app/src/pages/home/index.tsx",
+        "app/src/pages/reactflow/AgentEdge.tsx",
+        "app/src/pages/reactflow/AgentNode.tsx",
+        "app/src/pages/reactflow/L0Summary.tsx",
+        "app/src/pages/reactflow/TracePanel.tsx",
+        "app/src/pages/reactflow/index.tsx",
+        "app/src/pages/reactflow/utils.ts",
+        "app/src/pages/tldraw/AgentNodeContent.tsx",
+        "app/src/pages/tldraw/CanvasOverlays.tsx",
+        "app/src/pages/tldraw/EdgesLayer.tsx",
+        "app/src/pages/tldraw/L0SummaryCard.tsx",
+        "app/src/pages/tldraw/TracePanel.tsx",
+        "app/src/pages/tldraw/context.ts",
+        "app/src/shared/ArtifactView.tsx",
+        "app/src/shared/ChatView.tsx",
+        "app/src/shared/CoordinatorView.tsx",
+        "app/src/shared/EdgeLegend.tsx",
+        "app/src/shared/FocusOverlay.tsx",
+        "app/src/shared/NodeShell.tsx",
+        "app/src/shared/PlaybackBar.tsx",
+        "app/src/shared/StatusBadge.tsx",
+        "app/src/shared/TerminalView.tsx",
+        "app/src/shared/WindowFrame.tsx",
+        "app/src/shared/mock/engine.ts",
+        "app/src/shared/types.ts",
+        "app/test/browser/chat-polish.spec.ts",
+        "app/test/browser/desktop-composer.spec.ts",
+        "app/test/browser/fixtures/desktop.ts",
+        "app/test/unit/chat-polish.test.mjs",
+        "app/test/unit/desktop-manager.test.mjs",
+        "app/test/unit/desktop-message.test.mjs",
+        "app/test/unit/health-regressions.test.mjs",
+        "docs/chat-ui-polish-evidence/real-dev-results.json",
+        "docs/chat-ui-polish-evidence/real-production-results.json",
+        "docs/desktop-chat-evidence/dev-surface.json",
+        "docs/desktop-chat-evidence/production-surface.json",
+        "docs/desktop-chat-evidence/real-extended-v2-results.json",
+        "docs/desktop-chat-evidence/real-queue.json",
+        "docs/desktop-chat-evidence/restart-after-results.json",
+        "docs/desktop-chat-evidence/restart-before-results.json",
+        "docs/research/analysis/agent_canvas_dim01.md",
+        "docs/research/analysis/agent_canvas_dim03.md",
+        "docs/research/analysis/agent_canvas_dim05.md",
+        "docs/research/analysis/agent_canvas_dim06.md",
+        "docs/research/analysis/agent_canvas_dim08.md",
+        "docs/research/analysis/agent_canvas_dim09.md",
+        "docs/research/analysis/agent_canvas_dim10.md",
+        "docs/research/analysis/agent_canvas_dim11.md",
+        "docs/research/analysis/agent_canvas_insight.md",
+        "docs/research/report/agent_canvas.agent.final.converted.md",
+        "docs/research/report/agent_canvas.agent.final.md",
+        "docs/research/report/agent_canvas.citation.jsonl",
+        "docs/research/report/agent_canvas_ref.md",
+        "docs/research/report/agent_canvas_sec00_refs.md",
+        "docs/research/report/agent_canvas_sec01_refs.md",
+        "docs/research/report/agent_canvas_sec06.md",
+        "docs/research/report/agent_canvas_sec06_refs.md",
+        "docs/research/report/agent_canvas_sec07_refs.md",
+        "docs/research/report/agent_canvas_sec08_refs.md",
+        "tools/legacy/spike/herdr-api.schema.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/kbd.tsx",
+      "decision": "remove",
+      "sha256": "886e04c83aaa016dfce924e461aa38aa68a9f5c83bdaedd6209dc358c32a8f22",
+      "gitStatus": "clean",
+      "lines": 28,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/src/components/ui/input-group.tsx",
+        "app/src/pages/canvas/identity-window.css",
+        "app/src/shared/FocusOverlay.tsx"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/label.tsx",
+      "decision": "retain-dependency",
+      "sha256": "9ec42c8a57e82311118b794318409ee02b2cebfa49ba6cce8457cff6448cd471",
+      "gitStatus": "clean",
+      "lines": 24,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [
+        "app/src/components/ui/field.tsx",
+        "app/src/components/ui/form.tsx"
+      ],
+      "stringReferences": [
+        "app/api/coordinator.ts",
+        "app/api/e/contracts.ts",
+        "app/api/graph.ts",
+        "app/api/graphs/demo-release-pipeline.json",
+        "app/api/graphs/etl-nightly.json",
+        "app/api/graphs/research-sprint.json",
+        "app/api/herdr-adapter.ts",
+        "app/api/routes.ts",
+        "app/api/types.ts",
+        "app/info.md",
+        "app/package.json",
+        "app/scripts/agents/seed-etl.sh",
+        "app/scripts/agents/seed-research.sh",
+        "app/scripts/e-runtime-worker.mts",
+        "app/src/components/ui/breadcrumb.tsx",
+        "app/src/components/ui/calendar.tsx",
+        "app/src/components/ui/chart.tsx",
+        "app/src/components/ui/context-menu.tsx",
+        "app/src/components/ui/dropdown-menu.tsx",
+        "app/src/components/ui/field.tsx",
+        "app/src/components/ui/form.tsx",
+        "app/src/components/ui/menubar.tsx",
+        "app/src/components/ui/pagination.tsx",
+        "app/src/components/ui/select.tsx",
+        "app/src/components/ui/sidebar.tsx",
+        "app/src/components/ui/spinner.tsx",
+        "app/src/pages/PocLanding.tsx",
+        "app/src/pages/canvas/ApprovalModeControl.tsx",
+        "app/src/pages/canvas/CardViewControl.tsx",
+        "app/src/pages/canvas/LiveChat.tsx",
+        "app/src/pages/canvas/LiveEdge.tsx",
+        "app/src/pages/canvas/LiveNode.tsx",
+        "app/src/pages/canvas/LiveTerminal.tsx",
+        "app/src/pages/canvas/RunBar.tsx",
+        "app/src/pages/canvas/SessionControls.tsx",
+        "app/src/pages/canvas/SessionIdentity.tsx",
+        "app/src/pages/canvas/TracePanel.tsx",
+        "app/src/pages/canvas/chat/ApprovalRequest.tsx",
+        "app/src/pages/canvas/chat/AttachmentTray.tsx",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/CodeBlock.tsx",
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "app/src/pages/canvas/chat/ConversationView.tsx",
+        "app/src/pages/canvas/chat/Diagnostics.tsx",
+        "app/src/pages/canvas/chat/QueuePanel.tsx",
+        "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
+        "app/src/pages/canvas/chat/ToolActivity.tsx",
+        "app/src/pages/canvas/chat/TurnView.tsx",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/chat/message-metadata.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/chat/primitives.tsx",
+        "app/src/pages/canvas/contracts.ts",
+        "app/src/pages/canvas/index.tsx",
+        "app/src/pages/canvas/mock-server.ts",
+        "app/src/pages/home/CreateSessionForm.tsx",
+        "app/src/pages/home/GraphPreview.tsx",
+        "app/src/pages/home/index.tsx",
+        "app/src/pages/reactflow/AgentEdge.tsx",
+        "app/src/pages/reactflow/TracePanel.tsx",
+        "app/src/pages/reactflow/index.tsx",
+        "app/src/pages/reactflow/utils.ts",
+        "app/src/pages/tldraw/CanvasOverlays.tsx",
+        "app/src/pages/tldraw/EdgesLayer.tsx",
+        "app/src/pages/tldraw/L0SummaryCard.tsx",
+        "app/src/pages/tldraw/Minimap.tsx",
+        "app/src/pages/tldraw/TracePanel.tsx",
+        "app/src/shared/ArtifactView.tsx",
+        "app/src/shared/EdgeLegend.tsx",
+        "app/src/shared/FocusOverlay.tsx",
+        "app/src/shared/PlaybackBar.tsx",
+        "app/src/shared/StatusBadge.tsx",
+        "app/src/shared/TerminalView.tsx",
+        "app/src/shared/meta.ts",
+        "app/src/shared/mock/events.ts",
+        "app/src/shared/types.ts",
+        "app/src/theme/ThemeSwitcher.tsx",
+        "app/test/browser/card-approval-modes.spec.ts",
+        "app/test/browser/real-e.spec.ts",
+        "app/test/browser/real-multi.mjs",
+        "app/test/browser/real-tools.mjs",
+        "app/test/manual/ws-smoke.mjs",
+        "app/test/unit/chat-presentation-state.test.mjs",
+        "app/test/unit/coordinator-failure.test.mjs",
+        "app/test/unit/desktop-metadata.test.mjs",
+        "app/test/unit/e-routes.test.mjs",
+        "docs/chat-ui-polish-evidence/final-unit.log",
+        "docs/desktop-chat-evidence/dev-surface.json",
+        "docs/desktop-chat-evidence/final-unit.log",
+        "docs/desktop-chat-evidence/production-surface.json",
+        "docs/desktop-chat-evidence/real-extended-v2-results.json",
+        "docs/guides/RUNBOOK_WSL.md",
+        "docs/plans/canvas-optimization.md",
+        "docs/research/analysis/agent_canvas_dim04.md",
+        "docs/research/analysis/agent_canvas_dim06.md",
+        "docs/research/analysis/agent_canvas_dim08.md",
+        "docs/research/analysis/agent_canvas_dim10.md",
+        "docs/research/analysis/agent_canvas_dim12.md",
+        "tools/legacy/render-preview/accept-run.py",
+        "tools/legacy/render-preview/herdr-structure.py",
+        "tools/legacy/spike/REPORT.md",
+        "tools/legacy/spike/backend-selftest.md",
+        "tools/legacy/spike/events-sample.jsonl",
+        "tools/legacy/spike/herdr-api.schema.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/menubar.tsx",
+      "decision": "remove",
+      "sha256": "b4be4da586ce1288e8259b1e760a9e317eb0ee9183548c762d8b2a222bbdb3e5",
+      "gitStatus": "clean",
+      "lines": 274,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/navigation-menu-variants.ts",
+      "decision": "retain-uncommitted",
+      "sha256": "2c6ff2f023def0df21372bdc997c0825325e71246e56187ed3199240fce81c61",
+      "gitStatus": "?? app/src/components/ui/navigation-menu-variants.ts",
+      "lines": 6,
+      "imports": [],
+      "importedBy": [
+        "app/src/components/ui/navigation-menu.tsx"
+      ],
+      "stringReferences": [
+        "app/src/components/ui/navigation-menu.tsx"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/navigation-menu.tsx",
+      "decision": "retain-uncommitted",
+      "sha256": "0b0dec25a3e036f159e485f4d6ad39c3606a1baddad0b503b1794f9c040d3647",
+      "gitStatus": "M app/src/components/ui/navigation-menu.tsx",
+      "lines": 164,
+      "imports": [
+        "app/src/components/ui/navigation-menu-variants.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/pagination.tsx",
+      "decision": "retain-uncommitted",
+      "sha256": "3b4eb99eb496637d6da56257b0008b1e7ccc20c716af3065bb009b72fd59a445",
+      "gitStatus": "M app/src/components/ui/pagination.tsx",
+      "lines": 128,
+      "imports": [
+        "app/src/components/ui/button-variants.ts",
+        "app/src/components/ui/button.tsx",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/popover.tsx",
+      "decision": "remove",
+      "sha256": "29a217781737bbf5c430859b3de46097a44ada81c4143c2d05543d2167de0ee1",
+      "gitStatus": "clean",
+      "lines": 48,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/components/ui/calendar.tsx",
+        "app/src/components/ui/command.tsx",
+        "app/src/components/ui/context-menu.tsx",
+        "app/src/components/ui/dropdown-menu.tsx",
+        "app/src/components/ui/hover-card.tsx",
+        "app/src/components/ui/menubar.tsx",
+        "app/src/components/ui/navigation-menu.tsx",
+        "app/src/components/ui/select.tsx",
+        "app/src/components/ui/sonner.tsx",
+        "app/src/index.css",
+        "app/src/pages/canvas/chat/AttachmentTray.tsx",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/tailwind.config.js",
+        "app/test/browser/chat-polish.spec.ts",
+        "docs/chat-ui-polish-evidence/browser-dev-final.log",
+        "docs/chat-ui-polish-evidence/browser-dev-full.log",
+        "docs/chat-ui-polish-evidence/browser-dev-polish-final.log",
+        "docs/chat-ui-polish-evidence/browser-production-final.log",
+        "docs/chat-ui-polish-evidence/menu-stability.log"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/progress.tsx",
+      "decision": "remove",
+      "sha256": "9e36ca3f10bc56b69058d8edd342832b72c8c1b2d36cd142a0decb2445c3b724",
+      "gitStatus": "clean",
+      "lines": 29,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/api/coordinator.ts",
+        "app/api/registry.ts",
+        "app/api/routes.ts",
+        "app/api/types.ts",
+        "app/info.md",
+        "app/package.json",
+        "app/scripts/agents/data-process.sh",
+        "app/scripts/agents/env-setup.sh",
+        "app/scripts/agents/report-gen.sh",
+        "app/scripts/agents/seed-etl.sh",
+        "app/scripts/agents/seed-research.sh",
+        "app/src/pages/canvas/LiveEdge.tsx",
+        "app/src/pages/canvas/LiveNode.tsx",
+        "app/src/pages/canvas/contracts.ts",
+        "app/src/pages/canvas/index.tsx",
+        "app/src/pages/canvas/mock-server.ts",
+        "app/src/pages/reactflow/AgentEdge.tsx",
+        "app/src/pages/reactflow/index.tsx",
+        "app/src/pages/tldraw/AgentNodeContent.tsx",
+        "app/src/pages/tldraw/EdgesLayer.tsx",
+        "app/src/shared/PlaybackBar.tsx",
+        "docs/guides/RUNBOOK_WSL.md",
+        "docs/research/analysis/agent_canvas_dim01.md",
+        "docs/research/analysis/agent_canvas_dim02.md",
+        "docs/research/analysis/agent_canvas_dim08.md",
+        "docs/research/analysis/agent_canvas_dim09.md",
+        "docs/research/analysis/agent_canvas_dim10.md",
+        "tools/legacy/render-preview/accept-run.py"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/radio-group.tsx",
+      "decision": "remove",
+      "sha256": "b12ca5cef859dd75b274337234bae66e413b0f97845243254a1dedcb2d7a7237",
+      "gitStatus": "clean",
+      "lines": 45,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/components/ui/context-menu.tsx",
+        "app/src/components/ui/dropdown-menu.tsx",
+        "app/src/components/ui/field.tsx",
+        "app/src/components/ui/menubar.tsx"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/resizable.tsx",
+      "decision": "remove",
+      "sha256": "4634b0a700b91e5d422babc1f068b6d145b5f000c8aff62d5cfc9b5711fbff73",
+      "gitStatus": "clean",
+      "lines": 54,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/scroll-area.tsx",
+      "decision": "remove",
+      "sha256": "1c5d0b242d0513848f4bfa9b57ba7f438d9b1120617029941bfaa137196ecead",
+      "gitStatus": "clean",
+      "lines": 58,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/select.tsx",
+      "decision": "remove",
+      "sha256": "68fc754d3042f9fec3406895845e6fcc05d44f93a049478a9d3c706919100ebe",
+      "gitStatus": "clean",
+      "lines": 188,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/components/ui/button-group-variants.ts",
+        "app/src/components/ui/calendar.tsx",
+        "app/src/components/ui/carousel.tsx",
+        "app/src/components/ui/command.tsx",
+        "app/src/components/ui/context-menu.tsx",
+        "app/src/components/ui/dropdown-menu.tsx",
+        "app/src/components/ui/input-group.tsx",
+        "app/src/components/ui/input.tsx",
+        "app/src/components/ui/kbd.tsx",
+        "app/src/components/ui/label.tsx",
+        "app/src/components/ui/menubar.tsx",
+        "app/src/components/ui/scroll-area.tsx",
+        "app/src/components/ui/sidebar.tsx",
+        "app/src/components/ui/slider.tsx",
+        "app/src/components/ui/table.tsx",
+        "app/src/index.css",
+        "app/src/pages/canvas/ApprovalModeControl.tsx",
+        "app/src/pages/canvas/CardViewControl.tsx",
+        "app/src/pages/canvas/L0Summary.tsx",
+        "app/src/pages/canvas/LiveNode.tsx",
+        "app/src/pages/canvas/ZoneNode.tsx",
+        "app/src/pages/canvas/canvas-context.ts",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
+        "app/src/pages/canvas/chat/chat-ui-store.ts",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/identity-window.css",
+        "app/src/pages/canvas/index.tsx",
+        "app/src/pages/home/CreateSessionForm.tsx",
+        "app/src/pages/reactflow/AgentNode.tsx",
+        "app/src/pages/reactflow/L0Summary.tsx",
+        "app/src/pages/reactflow/canvas-context.ts",
+        "app/src/pages/reactflow/index.tsx",
+        "app/src/pages/reactflow/reactflow.css",
+        "app/src/pages/tldraw/AgentNodeContent.tsx",
+        "app/src/pages/tldraw/L0SummaryCard.tsx",
+        "app/src/pages/tldraw/TldrawPage.tsx",
+        "app/src/pages/tldraw/tldraw-overrides.css",
+        "app/src/shared/ArtifactView.tsx",
+        "app/src/shared/NodeShell.tsx",
+        "app/src/theme/ThemeSwitcher.tsx",
+        "app/src/theme/terminal-theme.ts",
+        "app/tailwind.config.js",
+        "app/test/browser/card-approval-modes.spec.ts",
+        "app/test/browser/chat-polish.spec.ts",
+        "app/test/browser/desktop-composer.spec.ts",
+        "app/test/browser/fixtures/desktop.ts",
+        "app/test/browser/identity-window.spec.ts",
+        "app/test/browser/theme.spec.ts",
+        "app/test/unit/chat-ui-store.test.mjs",
+        "docs/chat-ui-polish-evidence/attachments-stability.log",
+        "docs/chat-ui-polish-evidence/browser-dev-final.log",
+        "docs/chat-ui-polish-evidence/browser-dev-full.log",
+        "docs/chat-ui-polish-evidence/browser-production-final.log",
+        "docs/chat-ui-polish-evidence/final-unit.log",
+        "docs/desktop-chat-evidence/final-browser-production.log",
+        "docs/desktop-chat-evidence/final-unit.log",
+        "docs/plans/canvas-optimization.md",
+        "docs/research/analysis/agent_canvas_cross_verification.md",
+        "docs/research/analysis/agent_canvas_dim01.md",
+        "docs/research/analysis/agent_canvas_dim03.md",
+        "docs/research/analysis/agent_canvas_dim04.md",
+        "docs/research/analysis/agent_canvas_dim05.md",
+        "docs/research/analysis/agent_canvas_dim06.md",
+        "docs/research/analysis/agent_canvas_dim07.md",
+        "docs/research/analysis/agent_canvas_dim10.md",
+        "docs/research/analysis/agent_canvas_dim11.md",
+        "docs/research/analysis/agent_canvas_insight.md",
+        "docs/research/report/agent_canvas.agent.final.converted.md",
+        "docs/research/report/agent_canvas.agent.final.md",
+        "docs/research/report/agent_canvas.agent.outline.md",
+        "docs/research/report/agent_canvas.citation.jsonl",
+        "docs/research/report/agent_canvas_ref.md",
+        "docs/research/report/agent_canvas_sec03.md",
+        "docs/research/report/agent_canvas_sec03_refs.md",
+        "docs/research/report/agent_canvas_sec08.md",
+        "docs/themes.md",
+        "tools/legacy/spike/herdr-api.schema.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/separator.tsx",
+      "decision": "retain-dependency",
+      "sha256": "e9dddbd8dbbc0eccd683306481b0f0bbc8e2b60ea97817416ebb9fe7fbbbdca8",
+      "gitStatus": "clean",
+      "lines": 28,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [
+        "app/src/components/ui/button-group.tsx",
+        "app/src/components/ui/field.tsx",
+        "app/src/components/ui/item.tsx",
+        "app/src/components/ui/sidebar.tsx"
+      ],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/components/ui/breadcrumb.tsx",
+        "app/src/components/ui/button-group.tsx",
+        "app/src/components/ui/command.tsx",
+        "app/src/components/ui/context-menu.tsx",
+        "app/src/components/ui/dropdown-menu.tsx",
+        "app/src/components/ui/field.tsx",
+        "app/src/components/ui/input-otp.tsx",
+        "app/src/components/ui/item.tsx",
+        "app/src/components/ui/menubar.tsx",
+        "app/src/components/ui/select.tsx",
+        "app/src/components/ui/sidebar.tsx",
+        "docs/research/analysis/agent_canvas_dim05.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/sheet.tsx",
+      "decision": "retain-dependency",
+      "sha256": "fbe9b257fd95b9865e1aba651489899c959ed5c16cb8493fe8c2733f83b92ee1",
+      "gitStatus": "clean",
+      "lines": 137,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [
+        "app/src/components/ui/sidebar.tsx"
+      ],
+      "stringReferences": [
+        "app/index.html",
+        "app/info.md",
+        "app/src/components/ui/sidebar.tsx",
+        "app/src/index.css",
+        "docs/research/analysis/agent_canvas_dim09.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/sidebar-context.ts",
+      "decision": "retain-uncommitted",
+      "sha256": "15f9ff65c79133b830ae0ed371f37c02789e6fcecb825ad365d7d8741a3c10c8",
+      "gitStatus": "?? app/src/components/ui/sidebar-context.ts",
+      "lines": 23,
+      "imports": [],
+      "importedBy": [
+        "app/src/components/ui/sidebar.tsx"
+      ],
+      "stringReferences": [
+        "app/src/components/ui/sidebar.tsx"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/sidebar.tsx",
+      "decision": "retain-uncommitted",
+      "sha256": "a17fec7f5a94470949ab3b31efbb28971514650e02b4b3e5a5b6a3891facfef5",
+      "gitStatus": "M app/src/components/ui/sidebar.tsx",
+      "lines": 704,
+      "imports": [
+        "app/src/components/ui/button.tsx",
+        "app/src/components/ui/input.tsx",
+        "app/src/components/ui/separator.tsx",
+        "app/src/components/ui/sheet.tsx",
+        "app/src/components/ui/sidebar-context.ts",
+        "app/src/components/ui/skeleton.tsx",
+        "app/src/components/ui/tooltip.tsx",
+        "app/src/hooks/use-mobile.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/src/index.css",
+        "app/tailwind.config.js",
+        "docs/guides/E_INTEGRATION_VERIFICATION.md",
+        "docs/research/analysis/agent_canvas_dim09.md",
+        "docs/research/report/agent_canvas.agent.final.converted.md",
+        "docs/research/report/agent_canvas.agent.final.md",
+        "docs/research/report/agent_canvas_sec05.md",
+        "docs/themes.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/skeleton.tsx",
+      "decision": "retain-dependency",
+      "sha256": "f2aea81d8baf2b621945382aabac150e3db40f20d19ac1abea7aff805f1dc33c",
+      "gitStatus": "clean",
+      "lines": 13,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [
+        "app/src/components/ui/sidebar.tsx"
+      ],
+      "stringReferences": [
+        "app/info.md",
+        "app/src/components/ui/sidebar.tsx",
+        "docs/research/analysis/agent_canvas_dim04.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/slider.tsx",
+      "decision": "remove",
+      "sha256": "640996327017c3977e3c61eee8ec55230fa0bec509d0f4b44bdc9acdd8eca138",
+      "gitStatus": "clean",
+      "lines": 63,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/shared/PlaybackBar.tsx",
+        "app/src/shared/TerminalView.tsx",
+        "docs/research/analysis/agent_canvas_dim04.md",
+        "docs/research/analysis/agent_canvas_dim05.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/spinner.tsx",
+      "decision": "remove",
+      "sha256": "3e6e6e8d37fb4069f8e43e55318f8db06fbc36e6c8be0096da3c9337c1c798b9",
+      "gitStatus": "clean",
+      "lines": 16,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/src/pages/canvas/LiveNode.tsx",
+        "docs/research/analysis/agent_canvas_dim01.md",
+        "docs/research/analysis/agent_canvas_dim05.md",
+        "docs/research/analysis/agent_canvas_dim09.md",
+        "docs/research/analysis/agent_canvas_dim11.md",
+        "docs/research/report/agent_canvas.agent.final.converted.md",
+        "docs/research/report/agent_canvas.agent.final.md",
+        "docs/research/report/agent_canvas.agent.outline.md",
+        "docs/research/report/agent_canvas_sec02.md",
+        "docs/research/report/agent_canvas_sec05.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/table.tsx",
+      "decision": "remove",
+      "sha256": "95e3ef5db88b3bbfb68eed12f341fb942e40ca815f4342e1d5dbc8c8d47c783d",
+      "gitStatus": "clean",
+      "lines": 114,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/api/coordinator.ts",
+        "app/api/e/approval-binding.ts",
+        "app/api/e/approval-reviewer.ts",
+        "app/api/e/approval-rules.ts",
+        "app/api/herdr-adapter.ts",
+        "app/api/registry.ts",
+        "app/api/routes.ts",
+        "app/api/runtime-router.ts",
+        "app/api/shell.ts",
+        "app/info.md",
+        "app/playwright.config.ts",
+        "app/scripts/e-runtime-worker.mts",
+        "app/src/components/ui/calendar.tsx",
+        "app/src/pages/canvas/SessionIdentity.tsx",
+        "app/src/pages/canvas/chat/ApprovalRequest.tsx",
+        "app/src/pages/canvas/chat/MarkdownContent.tsx",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/chat/project-transcript.ts",
+        "app/src/pages/canvas/index.tsx",
+        "app/src/pages/canvas/session-identity.ts",
+        "app/src/pages/reactflow/index.tsx",
+        "app/src/pages/tldraw/TldrawPage.tsx",
+        "app/src/shared/FocusOverlay.tsx",
+        "app/src/shared/mock/events.ts",
+        "app/test/browser/chat-experience.spec.ts",
+        "app/test/browser/chat-polish.spec.ts",
+        "app/test/browser/desktop-composer.spec.ts",
+        "app/test/browser/real-multi.mjs",
+        "app/test/browser/real-tools.mjs",
+        "app/test/unit/approval-policy.test.mjs",
+        "app/test/unit/chat-errors.test.mjs",
+        "app/test/unit/chat-presentation-state.test.mjs",
+        "app/test/unit/desktop-manager.test.mjs",
+        "app/test/unit/e-control.test.mjs",
+        "app/test/unit/session-identity.test.mjs",
+        "docs/chat-ui-polish-evidence/browser-dev-final.log",
+        "docs/chat-ui-polish-evidence/browser-dev-full.log",
+        "docs/chat-ui-polish-evidence/browser-dev-polish-final.log",
+        "docs/chat-ui-polish-evidence/browser-production-final.log",
+        "docs/chat-ui-polish-evidence/final-unit.log",
+        "docs/desktop-chat-evidence/final-browser-production.log",
+        "docs/desktop-chat-evidence/final-unit.log",
+        "docs/research/analysis/agent_canvas_dim01.md",
+        "docs/research/analysis/agent_canvas_dim03.md",
+        "docs/research/analysis/agent_canvas_dim04.md",
+        "docs/research/analysis/agent_canvas_dim05.md",
+        "docs/research/analysis/agent_canvas_dim09.md",
+        "docs/research/analysis/agent_canvas_dim11.md",
+        "docs/research/analysis/agent_canvas_dim12.md",
+        "tools/legacy/spike/REPORT.md",
+        "tools/legacy/spike/herdr-api.schema.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/tabs.tsx",
+      "decision": "remove",
+      "sha256": "e8469e599381cf021ce751c27cca3d8cb06440a45665ca9c2ef2efb0acef1fd9",
+      "gitStatus": "clean",
+      "lines": 66,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "docs/guides/RUNBOOK_WSL.md",
+        "docs/research/analysis/agent_canvas_cross_verification.md",
+        "docs/research/analysis/agent_canvas_dim02.md",
+        "docs/research/analysis/agent_canvas_dim11.md",
+        "tools/legacy/render-preview/herdr-structure.py",
+        "tools/legacy/spike/herdr-api.schema.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/textarea.tsx",
+      "decision": "remove",
+      "sha256": "de4e9fb0fd8e8ed10ea2e475ffe202a922ffe77e3f3edb2c517b0781447ad1b4",
+      "gitStatus": "clean",
+      "lines": 18,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [
+        "app/src/components/ui/input-group.tsx"
+      ],
+      "stringReferences": [
+        "app/info.md",
+        "app/src/components/ui/input-group.tsx",
+        "app/src/pages/canvas/chat/AttachmentTray.tsx",
+        "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "app/src/pages/canvas/chat/QueuePanel.tsx",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/index.tsx",
+        "app/src/pages/reactflow/index.tsx",
+        "app/src/pages/tldraw/TldrawPage.tsx",
+        "app/test/browser/chat-polish.spec.ts",
+        "app/test/browser/identity-window.spec.ts",
+        "docs/chat-ui-polish.md"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/toggle-group.tsx",
+      "decision": "retain-uncommitted",
+      "sha256": "c5abe6fb3a991b5372fb7cb98743b22cb04f1ac1624e6509400fa52e82136e10",
+      "gitStatus": "M app/src/components/ui/toggle-group.tsx",
+      "lines": 81,
+      "imports": [
+        "app/src/components/ui/toggle-variants.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/toggle-variants.ts",
+      "decision": "retain-uncommitted",
+      "sha256": "5b74b91abcde7c4f11d5aa717f47b6e63b779b1fb5d40031d7c30fbbe894b7f8",
+      "gitStatus": "?? app/src/components/ui/toggle-variants.ts",
+      "lines": 24,
+      "imports": [],
+      "importedBy": [
+        "app/src/components/ui/toggle-group.tsx",
+        "app/src/components/ui/toggle.tsx"
+      ],
+      "stringReferences": [
+        "app/src/components/ui/toggle-group.tsx",
+        "app/src/components/ui/toggle.tsx"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/toggle.tsx",
+      "decision": "retain-uncommitted",
+      "sha256": "7e41861e1300bedc7788dbd889c16d50afa31cebee2eea841874926d98dde56a",
+      "gitStatus": "M app/src/components/ui/toggle.tsx",
+      "lines": 25,
+      "imports": [
+        "app/src/components/ui/toggle-variants.ts",
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/components/ui/sidebar-context.ts",
+        "app/src/components/ui/sidebar.tsx",
+        "app/src/components/ui/toggle-group.tsx",
+        "app/src/components/ui/toggle-variants.ts",
+        "app/src/pages/canvas/chat/ApprovalRequest.tsx",
+        "app/src/pages/canvas/chat/QueuePanel.tsx",
+        "app/src/pages/canvas/chat/chat-ui-store.ts",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/chat/primitives.tsx",
+        "app/src/pages/reactflow/index.tsx",
+        "app/src/pages/tldraw/CanvasOverlays.tsx",
+        "app/src/shared/mock/engine.ts",
+        "app/test/unit/chat-ui-store.test.mjs",
+        "docs/research/analysis/agent_canvas_dim01.md",
+        "docs/research/analysis/agent_canvas_dim02.md",
+        "docs/research/analysis/agent_canvas_dim03.md",
+        "docs/research/analysis/agent_canvas_dim04.md",
+        "docs/research/analysis/agent_canvas_dim05.md",
+        "docs/research/analysis/agent_canvas_dim09.md",
+        "tools/legacy/spike/herdr-api.schema.json"
+      ]
+    },
+    {
+      "file": "app/src/components/ui/tooltip.tsx",
+      "decision": "retain-dependency",
+      "sha256": "cbc12f4086448f8a307ed5fbb160f79467c84a44c48ca0dbd2c62e39a2db6f5d",
+      "gitStatus": "clean",
+      "lines": 61,
+      "imports": [
+        "app/src/lib/utils.ts"
+      ],
+      "importedBy": [
+        "app/src/components/ui/sidebar.tsx"
+      ],
+      "stringReferences": [
+        "app/info.md",
+        "app/package.json",
+        "app/src/components/ui/chart.tsx",
+        "app/src/components/ui/kbd.tsx",
+        "app/src/components/ui/sidebar.tsx",
+        "app/src/pages/canvas/SessionIdentity.tsx",
+        "app/src/pages/canvas/identity-window.css",
+        "app/test/browser/identity-window.spec.ts",
+        "docs/desktop-chat-experience.md"
+      ]
+    },
+    {
+      "file": "app/src/hooks/use-mobile.ts",
+      "decision": "retain-dependency",
+      "sha256": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b",
+      "gitStatus": "clean",
+      "lines": 19,
+      "imports": [],
+      "importedBy": [
+        "app/src/components/ui/sidebar.tsx"
+      ],
+      "stringReferences": [
+        "app/src/components/ui/sidebar.tsx"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/EApprovalCard.tsx",
+      "decision": "retain-uncommitted",
+      "sha256": "56a6ceda5e48615a120e7de96fde23870541dea84a280c1ddcc9f060da70f9e6",
+      "gitStatus": "?? app/src/pages/canvas/EApprovalCard.tsx",
+      "lines": 5,
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/ApprovalRequest.tsx",
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "importedBy": [],
+      "stringReferences": [
+        "docs/chat-experience.md"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/collaboration-demo/model.ts",
+      "decision": "retain-uncommitted",
+      "sha256": "1a4615be7bc3b58e8ebec341db31cb7f2182c7223953339d1b246990215940ca",
+      "gitStatus": "?? app/src/pages/canvas/collaboration-demo/model.ts",
+      "lines": 92,
+      "imports": [],
+      "importedBy": [],
+      "stringReferences": [
+        "app/api/coordinator.ts",
+        "app/api/e/approval-reviewer.ts",
+        "app/api/e/config.ts",
+        "app/api/e/contracts.ts",
+        "app/api/e/session-manager.ts",
+        "app/api/graph.ts",
+        "app/api/routes.ts",
+        "app/scripts/e-configuration.mjs",
+        "app/scripts/e-message-preflight.mjs",
+        "app/scripts/e-runtime-worker.mts",
+        "app/src/pages/canvas/ApprovalModeControl.tsx",
+        "app/src/pages/canvas/L0Summary.tsx",
+        "app/src/pages/canvas/LiveNode.tsx",
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
+        "app/src/pages/canvas/chat/ToolActivity.tsx",
+        "app/src/pages/canvas/chat/TurnView.tsx",
+        "app/src/pages/canvas/chat/chat.css",
+        "app/src/pages/canvas/chat/message-metadata.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts",
+        "app/src/pages/canvas/chat/project-transcript.ts",
+        "app/src/pages/canvas/live-store.ts",
+        "app/src/pages/home/CreateSessionForm.tsx",
+        "app/src/pages/reactflow/L0Summary.tsx",
+        "app/src/pages/tldraw/AgentNodeContent.tsx",
+        "app/src/pages/tldraw/AgentNodeShape.tsx",
+        "app/src/pages/tldraw/EdgesLayer.tsx",
+        "app/src/pages/tldraw/L0SummaryCard.tsx",
+        "app/src/pages/tldraw/Minimap.tsx",
+        "app/src/pages/tldraw/TldrawPage.tsx",
+        "app/src/pages/tldraw/TracePanel.tsx",
+        "app/src/shared/FocusOverlay.tsx",
+        "app/src/shared/NodeShell.tsx",
+        "app/src/shared/mock/events.ts",
+        "app/src/shared/types.ts",
+        "app/test/browser/card-approval-modes.spec.ts",
+        "app/test/browser/chat-polish.spec.ts",
+        "app/test/browser/desktop-composer.spec.ts",
+        "app/test/browser/e-canvas.spec.ts",
+        "app/test/browser/fixtures/desktop.ts",
+        "app/test/browser/real-e.spec.ts",
+        "app/test/browser/real-multi.mjs",
+        "app/test/unit/approval-policy.test.mjs",
+        "app/test/unit/approval-reviewer.test.mjs",
+        "app/test/unit/desktop-configuration.test.mjs",
+        "app/test/unit/desktop-message.test.mjs",
+        "app/test/unit/desktop-metadata.test.mjs",
+        "app/test/unit/e-projection.test.mjs",
+        "app/test/unit/e-session-manager.test.mjs",
+        "app/test/unit/fixtures/desktop-worker.mjs",
+        "docs/card-views-and-approvals.md",
+        "docs/chat-ui-polish-evidence/after-measurements.json",
+        "docs/chat-ui-polish-evidence/browser-dev-final.log",
+        "docs/chat-ui-polish-evidence/browser-dev-full.log",
+        "docs/chat-ui-polish-evidence/browser-production-final.log",
+        "docs/chat-ui-polish-evidence/final-unit.log",
+        "docs/chat-ui-polish-evidence/real-dev-results.json",
+        "docs/chat-ui-polish-evidence/real-production-results.json",
+        "docs/chat-ui-polish.md",
+        "docs/desktop-chat-evidence/final-browser-production.log",
+        "docs/desktop-chat-evidence/final-unit.log",
+        "docs/desktop-chat-evidence/real-extended-v2-results.json",
+        "docs/desktop-chat-evidence/restart-after-results.json",
+        "docs/desktop-chat-evidence/restart-before-results.json",
+        "docs/desktop-chat-evidence/runtime-configuration.json",
+        "docs/desktop-chat-experience.md",
+        "docs/guides/E_BACKEND.md",
+        "docs/guides/E_INTEGRATION_VERIFICATION.md",
+        "docs/plans/canvas-optimization.md",
+        "docs/research/analysis/agent_canvas_dim01.md",
+        "docs/research/analysis/agent_canvas_dim04.md",
+        "docs/research/analysis/agent_canvas_dim05.md",
+        "docs/research/analysis/agent_canvas_dim06.md",
+        "docs/research/analysis/agent_canvas_dim07.md",
+        "docs/research/analysis/agent_canvas_dim08.md",
+        "docs/research/analysis/agent_canvas_dim09.md",
+        "docs/research/analysis/agent_canvas_dim10.md",
+        "docs/research/analysis/agent_canvas_dim11.md",
+        "docs/research/report/agent_canvas.agent.final.converted.md",
+        "docs/research/report/agent_canvas.agent.final.md",
+        "docs/research/report/agent_canvas.citation.jsonl",
+        "docs/research/report/agent_canvas_ref.md",
+        "docs/research/report/agent_canvas_sec05.md",
+        "docs/research/report/agent_canvas_sec07.md",
+        "docs/research/report/agent_canvas_sec07_refs.md"
+      ]
+    }
+  ]
+}

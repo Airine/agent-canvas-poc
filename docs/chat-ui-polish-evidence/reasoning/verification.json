@@ -1,0 +1,26 @@
+{
+  "unitPassed": 115,
+  "browserPassed": 58,
+  "fixtureBrowserTests": 57,
+  "realBrowserTests": 1,
+  "additionalRealConfigCheck": "real-picker.json",
+  "visualChecks": [
+    "real reasoning panel",
+    "real model catalog"
+  ],
+  "backendRuntimeChanged": [],
+  "concurrentChanges": [],
+  "originalBaselineFilesUnchanged": 246,
+  "ownedSessionsBeforeShutdown": [
+    {
+      "node": "n-c15ae839-8a00-4e51-b03a-7aedad400c84",
+      "lifecycle": "stopped"
+    },
+    {
+      "node": "n-c5b5f331-82c4-4c07-bc46-3d7948085f5d",
+      "lifecycle": "stopped"
+    }
+  ],
+  "ownedLauncherStopped": 99346,
+  "dailyServicesRestarted": false
+}

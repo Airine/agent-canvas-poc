@@ -7,7 +7,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useEditor, useValue } from 'tldraw';
 import { MOCK_NODES } from '@/shared';
-import type { NodeStatus } from '@/shared/types';
 import { shapeIdForNode } from './model';
 import { useCanvasServices } from './context';
 
@@ -15,15 +14,6 @@ const W = 200;
 const H = 130;
 const PAD = 10;
 
-/** canvas 2D 无法用 CSS 变量，状态色按令牌值展开（§1.1.2） */
-const STATUS_HEX: Record<NodeStatus, string> = {
-  queued: '#8A93A6',
-  running: '#4D9FFF',
-  waiting: '#F5A524',
-  completed: '#3DC97E',
-  failed: '#F2555A',
-  skipped: '#5C6478',
-};
 
 export function Minimap() {
   const editor = useEditor();
@@ -53,6 +43,7 @@ export function Minimap() {
       canvas.width = W * dpr;
       canvas.height = H * dpr;
     }
+    const tokens = getComputedStyle(document.documentElement);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
@@ -74,13 +65,13 @@ export function Minimap() {
     /* 节点色块（状态色） */
     for (const n of geo.nodes) {
       const status = services.snapshot.nodes[n.id]?.status ?? 'queued';
-      ctx.fillStyle = STATUS_HEX[status];
+      ctx.fillStyle = tokens.getPropertyValue(`--st-${status}`).trim();
       ctx.globalAlpha = status === 'queued' ? 0.45 : 1;
       ctx.fillRect(n.x * scale + ox, n.y * scale + oy, Math.max(3, n.w * scale), Math.max(2, n.h * scale));
     }
     ctx.globalAlpha = 1;
     /* 视口框 --border-strong */
-    ctx.strokeStyle = '#38415a';
+    ctx.strokeStyle = tokens.getPropertyValue('--border-strong').trim();
     ctx.lineWidth = 1;
     ctx.strokeRect(
       geo.viewport.x * scale + ox,
@@ -92,6 +83,9 @@ export function Minimap() {
 
   useEffect(() => {
     draw();
+    const observer = new MutationObserver(draw);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
   }, [draw]);
 
   return (

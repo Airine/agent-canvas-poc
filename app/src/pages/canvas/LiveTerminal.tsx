@@ -25,29 +25,8 @@ import { WindowFrame, type LiveTier } from '@/shared';
 import type { CanvasNode, LiveStore, NodeEvent } from './live-store';
 import { ansiTail } from './utils';
 
-const XTERM_THEME = {
-  background: '#0A0C10',
-  foreground: '#E8EAF0',
-  cursor: '#E8EAF0',
-  cursorAccent: '#0A0C10',
-  selectionBackground: '#262C3A',
-  black: '#0B0D12',
-  red: '#F2555A',
-  green: '#3DC97E',
-  yellow: '#F5A524',
-  blue: '#4D9FFF',
-  magenta: '#7C6BF5',
-  cyan: '#2DD4BF',
-  white: '#E8EAF0',
-  brightBlack: '#5C6478',
-  brightRed: '#F2555A',
-  brightGreen: '#3DC97E',
-  brightYellow: '#F5A524',
-  brightBlue: '#4D9FFF',
-  brightMagenta: '#7C6BF5',
-  brightCyan: '#2DD4BF',
-  brightWhite: '#FFFFFF',
-};
+import { terminalTheme } from '@/theme/terminal-theme';
+
 
 /* ---------------- 事件回放（简化 v0，只读列表） ---------------- */
 
@@ -145,7 +124,7 @@ export function LiveTerminal({
    */
   const interactive = subscribed && !observeOnly;
   const interactiveRef = useRef(interactive);
-  interactiveRef.current = interactive;
+  useEffect(() => { interactiveRef.current = interactive; }, [interactive]);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const termRef = useRef<Terminal | null>(null);
@@ -158,7 +137,7 @@ export function LiveTerminal({
   useEffect(() => {
     if (!subscribed) return;
     const term = new Terminal({
-      theme: XTERM_THEME,
+      theme: terminalTheme(),
       fontSize: 12,
       fontFamily: '"JetBrains Mono", "SF Mono", Consolas, monospace',
       lineHeight: 17 / 12,
@@ -167,6 +146,9 @@ export function LiveTerminal({
       cursorBlink: interactiveRef.current,
       scrollback: 2000,
     });
+    // Theme changes repaint the existing instance, never recreate/clear its buffer.
+    const themeObserver = new MutationObserver(() => { term.options.theme = terminalTheme(); });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     const fit = new FitAddon();
     term.loadAddon(fit);
     termRef.current = term;
@@ -204,6 +186,7 @@ export function LiveTerminal({
     if (el) ro.observe(el);
     return () => {
       ro.disconnect();
+      themeObserver.disconnect();
       term.dispose();
       termRef.current = null;
       fitRef.current = null;

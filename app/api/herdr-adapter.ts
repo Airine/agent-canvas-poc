@@ -19,8 +19,25 @@ import { fileURLToPath } from 'node:url';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-export const HERDR_BIN =
-  process.env.HERDR_BIN || path.join(REPO_ROOT, 'bin', 'herdr');
+function resolveHerdrBin(): string {
+  if (process.env.HERDR_BIN) return process.env.HERDR_BIN;
+  const candidates = [
+    path.join(REPO_ROOT, 'bin', 'herdr'),
+    path.join(os.homedir(), '.local', 'bin', 'herdr'),
+    '/usr/local/bin/herdr',
+    '/opt/homebrew/bin/herdr',
+  ];
+  for (const c of candidates) {
+    try {
+      fs.accessSync(c, fs.constants.X_OK);
+      return c;
+    } catch {
+      /* try next */
+    }
+  }
+  return 'herdr'; // rely on PATH
+}
+export const HERDR_BIN = resolveHerdrBin();
 export const HERDR_SOCKET_PATH =
   process.env.HERDR_SOCKET_PATH ||
   path.join(os.homedir(), '.config', 'herdr', 'herdr.sock');
@@ -143,12 +160,24 @@ export async function ensureServer(): Promise<void> {
 }
 
 async function ping(): Promise<boolean> {
-  try {
-    await call('session.ping', {}, 1500);
-    return true;
-  } catch {
-    return fs.existsSync(HERDR_SOCKET_PATH) && (await tryPingFallback());
+  // 0.9.x calls it session.ping; 0.8.x plain ping. An unknown method makes
+  // herdr close the connection right after accept ('closed'), which means the
+  // server IS alive — try the next name. Only ECONNREFUSED-ish errors (the
+  // call() rejection has no 'closed' payload but a raw syscall message) or
+  // timeouts mean the server is truly not answering.
+  for (const method of ['session.ping', 'ping']) {
+    try {
+      await call(method, {}, 1500);
+      return true;
+    } catch (e) {
+      const err = e as HerdrError;
+      if (err.code === 'timeout') return false;
+      if (err.code === 'closed') continue; // alive but method unknown
+      // other codes (ECONNREFUSED, ENOENT...): server not listening
+      return fs.existsSync(HERDR_SOCKET_PATH) && (await tryPingFallback());
+    }
   }
+  return fs.existsSync(HERDR_SOCKET_PATH) && (await tryPingFallback());
 }
 
 async function tryPingFallback(): Promise<boolean> {
