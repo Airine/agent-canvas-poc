@@ -1,0 +1,43 @@
+{
+  "name": "agent-canvas-docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare:content": "node scripts/prepare-content.mjs",
+    "dev": "npm run prepare:content && next dev --hostname 127.0.0.1 --port 4310",
+    "build": "npm run prepare:content && next build --webpack",
+    "start": "next start --hostname 127.0.0.1 --port 4310",
+    "typecheck": "npm run prepare:content && fumadocs-mdx && tsc --noEmit",
+    "architecture:analyze": "node scripts/analyze.mjs",
+    "architecture:render": "node scripts/render-architecture.mjs",
+    "architecture:verify": "node ../docs/architecture/verify.mjs",
+    "test": "node --test scripts/*.test.mjs"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.0",
+    "fumadocs-core": "16.17.6",
+    "fumadocs-mdx": "15.4.7",
+    "fumadocs-ui": "16.17.6",
+    "lucide-react": "^0.562.0",
+    "next": "16.4.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "remark-parse": "^11.0.0",
+    "remark-stringify": "^11.0.0",
+    "tailwindcss": "^4.1.0",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0",
+    "zod": "^4.3.5",
+    "yaml": "^2.8.0"
+  },
+  "devDependencies": {
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "oxc-parser": "^0.144.0",
+    "oxc-resolver": "^11.24.2",
+    "typescript": "~5.9.3"
+  }
+}

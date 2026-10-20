@@ -1,0 +1,18 @@
+{
+  "check": "two queue items consumed in order",
+  "evidence": [
+    {
+      "id": "d50faf09-ecad-4f2b-9520-a4c97a2f412c",
+      "state": "consumed",
+      "submittedAt": "2026-10-19T03:37:33.358Z",
+      "consumedAt": "2026-10-19T03:37:33.375Z"
+    },
+    {
+      "id": "890ce8b3-dc6e-40ed-b3ba-ffc56d11fb24",
+      "state": "consumed",
+      "submittedAt": "2026-10-19T03:37:35.249Z",
+      "consumedAt": "2026-10-19T03:37:35.268Z"
+    }
+  ],
+  "at": "2026-10-19T03:37:37.901Z"
+}

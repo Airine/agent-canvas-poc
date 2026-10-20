@@ -1,0 +1,22 @@
+{
+  "geometry": {
+    "composerHeight": 90,
+    "toolbarCenterDifference": 0,
+    "status": "可继续对话 · 上下文 15.8% · 78933 / 500000 tokens · 采集于 2026-10-19T17:44:17.496Z",
+    "permissionIcon": "manual",
+    "manualDeliveryControl": false
+  },
+  "writes": [],
+  "errors": [],
+  "session": {
+    "native": "8ceb4c8f-d744-4a4c-9275-54a86028523c",
+    "lifecycle": "ready",
+    "configurationSample": "2026-10-19T17:44:17.496Z",
+    "contextUsage": {
+      "tokens": 78933,
+      "contextWindow": 500000,
+      "percent": 15.7866
+    }
+  },
+  "readOnly": true
+}

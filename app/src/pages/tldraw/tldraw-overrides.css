@@ -19,7 +19,7 @@
   50% {
     box-shadow:
       0 0 0 3px var(--accent),
-      0 4px 16px rgba(0, 0, 0, 0.5);
+      var(--shadow-node-selected);
   }
 }
 .anchor-flash {

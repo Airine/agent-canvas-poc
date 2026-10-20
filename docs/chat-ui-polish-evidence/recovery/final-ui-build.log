@@ -1,0 +1,34 @@
+
+> my-app@0.0.0 build
+> tsc -b && vite build
+
+vite v7.3.0 building client environment for production...
+transforming...
+Browserslist: browsers data (caniuse-lite) is 10 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+✓ 3103 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                0.74 kB │ gzip:   0.42 kB
+dist/assets/index-C0tVzxqf.css               193.15 kB │ gzip:  35.02 kB
+dist/assets/json-Cp-IABpG.js                   2.82 kB │ gzip:   0.78 kB
+dist/assets/sanitizeSvg-BRz1NfP5.js            7.32 kB │ gzip:   2.98 kB
+dist/assets/github-light-DAi9KRSo.js          11.18 kB │ gzip:   2.52 kB
+dist/assets/github-dark-DHJKELXO.js           11.41 kB │ gzip:   2.56 kB
+dist/assets/bash-Yzrsuije.js                  41.48 kB │ gzip:   6.10 kB
+dist/assets/css-DPfMkruS.js                   49.02 kB │ gzip:  11.85 kB
+dist/assets/html-GMplVEZG.js                  57.25 kB │ gzip:  11.75 kB
+dist/assets/engine-javascript-IeGplK8H.js     59.08 kB │ gzip:  20.57 kB
+dist/assets/python-B6aJPvgy.js                69.95 kB │ gzip:   9.16 kB
+dist/assets/core--PQV18FP.js                  95.05 kB │ gzip:  29.78 kB
+dist/assets/javascript-wDzz0qaB.js           174.83 kB │ gzip:  16.60 kB
+dist/assets/tsx-COt5Ahok.js                  175.54 kB │ gzip:  16.59 kB
+dist/assets/typescript-BPQ3VLAy.js           181.08 kB │ gzip:  16.11 kB
+dist/assets/index-BgbTElOX.js              2,917.90 kB │ gzip: 868.58 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 6.45s

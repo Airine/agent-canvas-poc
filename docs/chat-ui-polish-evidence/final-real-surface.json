@@ -1,0 +1,15 @@
+{
+  "url": "http://127.0.0.1:3329/canvas/ws-506aff1a",
+  "screenshots": [
+    "final-real-node-light.png",
+    "final-real-node-dark.png",
+    "final-real-floating-light.png",
+    "final-real-floating-dark.png",
+    "final-real-fullscreen-light.png",
+    "final-real-fullscreen-dark.png",
+    "final-real-configuration.png"
+  ],
+  "errors": [],
+  "native": "1882f186-7671-4fbb-9dc7-4c26a7d8b9ca",
+  "noModelMessagesSent": true
+}

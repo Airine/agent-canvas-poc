@@ -1,0 +1,79 @@
+{
+  "checkedAt": "2026-10-20T06:21:39.562752+00:00",
+  "baseCommit": "119cbf315d3888de69a064d915272826debf93e1",
+  "scope": "assisted approval policy v2; combined workspace preserves concurrent Canvas spawn changes",
+  "checks": {
+    "unit": {
+      "passed": 168,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 76,
+      "skipped": 1,
+      "failed": 0,
+      "kind": "HTTP/WS fixtures; opt-in real e test skipped"
+    },
+    "apiBuild": "passed",
+    "uiBuild": "passed",
+    "lintIncludingArchitecture": "passed",
+    "docsTests": {
+      "passed": 11,
+      "failed": 0
+    },
+    "docsTypecheck": "passed",
+    "docsBuild": "passed",
+    "productionDependencyInstall": "npm ci --omit=dev --ignore-scripts --no-audit --no-fund; acorn 8.15.0 runtime import passed",
+    "diffCheck": "passed",
+    "architecture": {
+      "sources": 221,
+      "unusedCandidates": 0,
+      "cycles": 0,
+      "parseBreaks": 0,
+      "wikiPages": 24,
+      "digest": "6cb7ed12f7a6"
+    }
+  },
+  "realReviewer": {
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "decision": "approve",
+    "risk": "low",
+    "attempts": 1,
+    "actualToolExecution": false,
+    "approvalHost": "isolated test double",
+    "evidence": "real-review.json"
+  },
+  "activation": {
+    "dailyApiReportsV2": false,
+    "apiRestartedByThisTask": false,
+    "existingApprovalsResolvedByThisTask": false,
+    "userSessionPromptSentByThisTask": false,
+    "commitOrPushByThisTask": false,
+    "remaining": "Explicit safe API reload and fresh session-scoped assisted consent required."
+  },
+  "resolvedTestFailures": [
+    "Immediate textarea size assertion now waits for the original height bound; Composer implementation unchanged.",
+    "Collaboration package browser assertion now checks the loaded contract versions/tool count instead of stale v1/four constants."
+  ],
+  "retainedWarnings": [
+    "UI bundle size",
+    "Existing xterm/xterm-addon-fit and transitive lodash.isequal deprecations"
+  ],
+  "sourceSha256": {
+    "app/api/e/approval-rules.ts": "7aea59f9fa146deeaceae164bb3795f6b9eb45397ae77671f70b36748ab0f091",
+    "app/api/e/approval-shell.ts": "2b2e60badec8004e9a448cc5e54bfd36ba068529d97954cefd515b5cfb86cbcc",
+    "app/api/e/approval-node.ts": "8195f5ec921b967ea42addbe4e470dfd7c71ad6798cbc4b7674928c16e5a9d47",
+    "app/api/e/approval-paths.ts": "e4701ffe86f7677846ac40ffbd13dc4c85e615b516eb9666bf21c74c0c976004",
+    "app/api/e/approval-binding.ts": "e0d0484490b9d58545e19597016085d1c9cf53570d7d42e70bc32f63144c7bf9",
+    "app/api/e/approval-engine.ts": "31a14a41348579712515dbe05431ce803939e917f8bfef3524ec19e4d70e3ff6",
+    "app/api/e/approval-reviewer.ts": "29a62bb7022cdb59ca30be7f12120f9c4925e1fb459df869310db63f762e15a0",
+    "app/api/e/contracts.ts": "59ffa303cf10f430ab2dfaf08e77083e5efe6ad61d4bf20509ea5301fd5c4966",
+    "app/api/e/session-manager.ts": "d8d83a4815aeecb7e3585b97b183482e307e936ddb6547dbdf74c03ebadf3248",
+    "app/src/pages/canvas/ApprovalModeControl.tsx": "fc82a2862a4ce0eba3dfc819c2b98660288a365b61a003cf8acbff9f997aaf2e",
+    "app/src/pages/canvas/chat/ApprovalRequest.tsx": "3fb23db8e69a3a17c4f8df8a57ee04844eb9061701489c80e208dda9179f485e",
+    "app/src/pages/canvas/chat/approval-presentation.ts": "7f045955d963d1a75e152842a0d4f24316802741aa61229e801cac801f7d245e",
+    "app/src/pages/canvas/chat/presentation-state.ts": "84ed5aa02da6a71f7580ef8f8f2db254eb9ea86befbc06f62ff93e2a7f83affc",
+    "app/package.json": "ff1b8178e6c0f0b7da3e9d6dd8110b2bfae727f527f2225c84afa69170b92260",
+    "app/package-lock.json": "d95463427b8c91ee87b788e9615f598dfcd6fc0a9aeee066981d0fec88c09e74"
+  }
+}

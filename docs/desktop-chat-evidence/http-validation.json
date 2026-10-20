@@ -1,0 +1,20 @@
+[
+  {
+    "name": "invalid UTF-8",
+    "status": 409,
+    "body": "{\"error\":\"文本附件必须是有效 UTF-8，不能静默替换错误编码\"}"
+  },
+  {
+    "name": "forbidden URI",
+    "status": 400,
+    "body": "{\"error\":\"invalid control request\"}"
+  },
+  {
+    "name": "request >12 MiB",
+    "status": 413,
+    "body": "{\"error\":\"总请求不能超过 12 MiB\"}"
+  },
+  {
+    "noRuntimeDispatch": true
+  }
+]

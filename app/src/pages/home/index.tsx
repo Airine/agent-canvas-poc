@@ -13,6 +13,7 @@ import { Diamond, Folder, FolderGit2, Loader2, Radio } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { fetchWorkspaces, type WorkspaceSummary } from '@/pages/canvas/live-store';
 import { GraphPreview } from './GraphPreview';
+import { CreateSessionForm } from './CreateSessionForm';
 
 /* ---------------- status 徽章（workspace 四态 → 复用六态配色） ---------------- */
 
@@ -84,7 +85,7 @@ function WorkspaceCard({ ws, now }: { ws: WorkspaceSummary; now: number }) {
       tabIndex={0}
       onClick={() => openCanvas(ws.id)}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+        if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) {
           e.preventDefault();
           openCanvas(ws.id);
         }
@@ -116,6 +117,18 @@ function WorkspaceCard({ ws, now }: { ws: WorkspaceSummary; now: number }) {
           打开
         </Button>
       </div>
+      <div className="mt-2 flex gap-3 text-small">
+        <button onClick={async e => {
+          e.stopPropagation();const title = window.prompt('工作区名称', ws.title);if (!title?.trim()) return;
+          const res = await fetch(`/api/workspaces/${ws.id}`, {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({title})});
+          if(!res.ok){window.alert((await res.json()).error);return;}window.location.reload();
+        }}>重命名</button>
+        <button onClick={async e => {
+          e.stopPropagation();if(!ws.archivedAt && !window.confirm('归档会停止本工作区的 Agent，但保留全部历史。继续？'))return;
+          const res = await fetch(`/api/workspaces/${ws.id}`, {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({archived:!ws.archivedAt})});
+          if(!res.ok){window.alert((await res.json()).error);return;}window.location.reload();
+        }}>{ws.archivedAt ? '恢复工作区' : '归档'}</button>
+      </div>
     </div>
   );
 }
@@ -126,12 +139,14 @@ export default function HomePage() {
   const [workspaces, setWorkspaces] = useState<WorkspaceSummary[] | null>(null);
   const [source, setSource] = useState<'api' | 'mock'>('api');
   const [now, setNow] = useState(() => Date.now());
+  const [loadError, setLoadError] = useState('');
 
   useEffect(() => {
     let alive = true;
     void fetchWorkspaces().then((res) => {
       if (!alive) return;
       setWorkspaces(res.workspaces);
+      setLoadError(res.error ?? '');
       setSource(res.source);
       setNow(Date.now());
     });
@@ -144,9 +159,10 @@ export default function HomePage() {
   const groups = useMemo(() => {
     const byPath = new Map<string, WorkspaceSummary[]>();
     for (const ws of workspaces ?? []) {
-      const list = byPath.get(ws.path) ?? [];
+      const group = `${ws.backend === 'e' ? '真实 e 会话' : ws.source === 'demo' || !ws.source ? '示例拓扑' : 'herdr 工作区'} · ${ws.path}`;
+      const list = byPath.get(group) ?? [];
       list.push(ws);
-      byPath.set(ws.path, list);
+      byPath.set(group, list);
     }
     return [...byPath.entries()]
       .map(([path, list]) => ({
@@ -169,12 +185,18 @@ export default function HomePage() {
         {source === 'mock' && (
           <span className="flex items-center gap-1.5 rounded-pill bg-surface-2 px-2.5 py-1 text-small text-text-secondary shadow-node">
             <Radio className="size-3 text-st-waiting" />
-            本地 mock 数据
+            离线示例（非真实运行）
           </span>
         )}
       </header>
 
       <main className="mx-auto w-full max-w-[1200px] flex-1 px-6 pb-16">
+        <nav className="mt-5 flex gap-4 text-small"><a href="/">工作区</a><a href="/?view=archived">归档</a><a href="/?view=examples">示例 / herdr 兼容入口</a></nav>
+        <CreateSessionForm/>
+        {loadError && <p role="alert">{loadError} <button onClick={()=>window.location.reload()}>重试</button></p>}
+        <p className="mt-6 text-small text-text-secondary">
+          创建真实 Agent 会话，在画布内执行任务；工具操作需人工审批。示例拓扑仅在独立示例入口展示。
+        </p>
         {workspaces === null ? (
           <div className="flex h-64 items-center justify-center gap-2 text-body text-text-secondary">
             <Loader2 className="size-4 animate-spin" />

@@ -1,0 +1,9 @@
+
+> my-app@0.0.0 lint
+> eslint . && npm run architecture:verify
+
+
+> my-app@0.0.0 architecture:verify
+> node ../docs/architecture/verify.mjs
+
+Architecture wiki OK: 23 pages, digest ccb719374299

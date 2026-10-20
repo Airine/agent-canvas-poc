@@ -1,0 +1,19 @@
+
+> my-app@0.0.0 test:e2e
+> playwright test chat-polish.spec.ts --grep compact dock|native-free --repeat-each=5 --output=/Users/aaron/.pi-desktop/scratch/***/ui-polish/playwright-menus-stability
+
+
+Running 10 tests using 1 worker
+
+  ✓   1 test/browser/chat-polish.spec.ts:9:1 › compact dock is 112–136px; popovers never move composer/transcript; aligned readable column (2.8s)
+  ✓   2 test/browser/chat-polish.spec.ts:29:1 › native-free provider confirmation is safe, nested Escape and IME preserve full viewport (1.3s)
+  ✓   3 test/browser/chat-polish.spec.ts:9:1 › compact dock is 112–136px; popovers never move composer/transcript; aligned readable column (2.0s)
+  ✓   4 test/browser/chat-polish.spec.ts:29:1 › native-free provider confirmation is safe, nested Escape and IME preserve full viewport (1.4s)
+  ✓   5 test/browser/chat-polish.spec.ts:9:1 › compact dock is 112–136px; popovers never move composer/transcript; aligned readable column (2.0s)
+  ✓   6 test/browser/chat-polish.spec.ts:29:1 › native-free provider confirmation is safe, nested Escape and IME preserve full viewport (1.3s)
+  ✓   7 test/browser/chat-polish.spec.ts:9:1 › compact dock is 112–136px; popovers never move composer/transcript; aligned readable column (1.8s)
+  ✓   8 test/browser/chat-polish.spec.ts:29:1 › native-free provider confirmation is safe, nested Escape and IME preserve full viewport (1.3s)
+  ✓   9 test/browser/chat-polish.spec.ts:9:1 › compact dock is 112–136px; popovers never move composer/transcript; aligned readable column (1.9s)
+  ✓  10 test/browser/chat-polish.spec.ts:29:1 › native-free provider confirmation is safe, nested Escape and IME preserve full viewport (1.3s)
+
+  10 passed (22.2s)

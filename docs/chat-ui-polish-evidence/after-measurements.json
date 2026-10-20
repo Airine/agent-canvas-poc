@@ -1,0 +1,67 @@
+{
+  "phase": "after",
+  "base": "http://127.0.0.1:3329",
+  "measurements": [
+    {
+      "name": "floating",
+      "composer": {
+        "x": 332,
+        "y": 738,
+        "width": 776,
+        "height": 122
+      },
+      "bodyFont": "16px"
+    },
+    {
+      "name": "permissions-open",
+      "composer": {
+        "x": 332,
+        "y": 738,
+        "width": 776,
+        "height": 122
+      },
+      "bodyFont": "16px"
+    },
+    {
+      "name": "model-open",
+      "composer": {
+        "x": 332,
+        "y": 738,
+        "width": 776,
+        "height": 122
+      },
+      "bodyFont": "16px"
+    },
+    {
+      "name": "900x800",
+      "composer": {
+        "x": 62,
+        "y": 610,
+        "width": 776,
+        "height": 122
+      },
+      "bodyFont": "16px"
+    },
+    {
+      "name": "390x844",
+      "composer": {
+        "x": 20,
+        "y": 640,
+        "width": 350,
+        "height": 154
+      },
+      "bodyFont": "16px"
+    },
+    {
+      "name": "900x540",
+      "composer": {
+        "x": 62,
+        "y": 365.59375,
+        "width": 776,
+        "height": 122
+      },
+      "bodyFont": "16px"
+    }
+  ],
+  "errors": []
+}

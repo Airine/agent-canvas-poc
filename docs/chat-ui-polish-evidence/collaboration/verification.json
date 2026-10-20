@@ -1,0 +1,382 @@
+{
+  "checks": {
+    "unit": {
+      "passed": 137
+    },
+    "browser": {
+      "passed": 70,
+      "skipped": 1,
+      "skipReason": "existing real-e opt-in test; collaboration real models verified separately"
+    },
+    "docsTools": {
+      "passed": 11
+    },
+    "lint": "passed",
+    "apiBuild": "passed",
+    "uiBuild": "passed",
+    "diffCheck": "passed"
+  },
+  "realInitial": {
+    "passed": true,
+    "nativeSessions": [
+      {
+        "nativeSessionId": "4d95bde1-1f4d-430d-a8d9-36207e5a2714",
+        "agentSessionId": "as:a0bdd15cbae0c277dd75e607cef62c10",
+        "provider": "openai-codex",
+        "model": "gpt-6-astra"
+      },
+      {
+        "nativeSessionId": "38cd5841-b2e2-4c5b-a505-7fc32fb4b8bb",
+        "agentSessionId": "as:bcbb174cea8fab33e37e5eb87cc4d2e6",
+        "provider": "openai-codex",
+        "model": "gpt-6-astra"
+      }
+    ],
+    "approvals": [
+      {
+        "nodeId": "n-real-collab-b",
+        "tool": "canvas_publish",
+        "args": {
+          "title": "实验结果",
+          "content": "CANVAS_ARTIFACT_7391: the measured value is 42."
+        }
+      },
+      {
+        "nodeId": "n-real-collab-a",
+        "tool": "canvas_agents",
+        "args": {}
+      },
+      {
+        "nodeId": "n-real-collab-a",
+        "tool": "canvas_read",
+        "args": {
+          "target": "@\"研究员 B\"#91d66efe",
+          "artifactId": "artifact:0e830b2f-4a13-4f3c-913a-345ebe80d917"
+        }
+      },
+      {
+        "nodeId": "n-real-collab-a",
+        "tool": "canvas_send",
+        "args": {
+          "target": "@\"研究员 B\"#91d66efe",
+          "message": "CANVAS_MESSAGE_7391: I read the artifact. Please confirm the measured value in your own chat, without sending any Agent message."
+        }
+      }
+    ],
+    "records": [
+      {
+        "id": "comm-4b1068f6-3029-4d0d-b8ff-2987ebd4c8fd",
+        "workspaceId": "ws-collaboration-real",
+        "source": "n-real-collab-a",
+        "target": "n-real-collab-b",
+        "sourceName": "@\"调查员 A\"#fa1e00a7",
+        "targetName": "@\"研究员 B\"#91d66efe",
+        "operation": "read",
+        "state": "read",
+        "createdAt": "2026-10-19T19:28:45.106Z",
+        "updatedAt": "2026-10-19T19:28:45.106Z",
+        "toolCallId": "call_621c3ae6b7cd4f71b12a029730b06849|fc_0c5444f870eb0e55016ad66f6c34348191a6e17f6909096285",
+        "nativeSessionId": "4d95bde1-1f4d-430d-a8d9-36207e5a2714",
+        "runId": "run:3e37f3fbd4db981d491aca960f463a3e",
+        "content": "CANVAS_ARTIFACT_7391: the measured value is 42.",
+        "rootId": "comm-4b1068f6-3029-4d0d-b8ff-2987ebd4c8fd",
+        "hop": 0,
+        "artifactId": "artifact:0e830b2f-4a13-4f3c-913a-345ebe80d917",
+        "digest": "2a39002c19497826f6a180956f7587b869b4a13cca6f87c0a79ba9fb0ae73a16",
+        "truncated": false
+      },
+      {
+        "id": "comm-6086b16a-b965-4e15-a650-8286116e67b1",
+        "workspaceId": "ws-collaboration-real",
+        "source": "n-real-collab-a",
+        "target": "n-real-collab-b",
+        "sourceName": "@\"调查员 A\"#fa1e00a7",
+        "targetName": "@\"研究员 B\"#91d66efe",
+        "operation": "send",
+        "state": "consumed",
+        "createdAt": "2026-10-19T19:28:47.874Z",
+        "updatedAt": "2026-10-19T19:28:48.016Z",
+        "toolCallId": "call_2899d8fde6b54be986c30e7300db1e1f|fc_0c5444f870eb0e55016ad66f6ef19081919848378d19ec6cd4",
+        "nativeSessionId": "4d95bde1-1f4d-430d-a8d9-36207e5a2714",
+        "runId": "run:3e37f3fbd4db981d491aca960f463a3e",
+        "content": "CANVAS_MESSAGE_7391: I read the artifact. Please confirm the measured value in your own chat, without sending any Agent message.",
+        "rootId": "comm-6086b16a-b965-4e15-a650-8286116e67b1",
+        "hop": 0,
+        "itemId": "comm-6086b16a-b965-4e15-a650-8286116e67b1"
+      }
+    ],
+    "replies": [
+      {
+        "nodeId": "n-real-collab-a",
+        "text": "SENT_7391: 42",
+        "origins": [
+          {
+            "id": "message:33305c5d8ceec2256dc6c0d6996b724c",
+            "origin": {
+              "kind": "unknown",
+              "label": "Canvas 本地输入",
+              "channel": "canvas-api",
+              "authenticated": false,
+              "intentId": "human-seed-a"
+            }
+          }
+        ]
+      },
+      {
+        "nodeId": "n-real-collab-b",
+        "text": "PUBLISHED_7391\nRECEIVED_7391: 42",
+        "origins": [
+          {
+            "id": "message:df11d564f5b6ee67518850d053e7be1c",
+            "origin": {
+              "kind": "agent",
+              "label": "@\"调查员 A\"#fa1e00a7",
+              "channel": "canvas-collaboration",
+              "authenticated": true,
+              "sourceNodeId": "n-real-collab-a",
+              "sourceNativeSessionId": "4d95bde1-1f4d-430d-a8d9-36207e5a2714",
+              "communicationId": "comm-6086b16a-b965-4e15-a650-8286116e67b1",
+              "intentId": "queue:comm-6086b16a-b965-4e15-a650-8286116e67b1"
+            }
+          },
+          {
+            "id": "message:7cdb83ff44f3579076b32e16a205d349",
+            "origin": {
+              "kind": "unknown",
+              "label": "Canvas 本地输入",
+              "channel": "canvas-api",
+              "authenticated": false,
+              "intentId": "human-seed-b"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "realReproducibleAfterFix": {
+    "passed": true,
+    "nativeSessions": [
+      {
+        "nativeSessionId": "bb12c4ec-d9be-47e9-9b1c-c80b81406884",
+        "agentSessionId": "as:28708930ffca866f497b09542d24b20c",
+        "provider": "openai-codex",
+        "model": "gpt-6-astra"
+      },
+      {
+        "nativeSessionId": "ef649b34-b85f-41e0-9772-31ea869f07a3",
+        "agentSessionId": "as:519dd5a84a08502a471d3f490606fa6e",
+        "provider": "openai-codex",
+        "model": "gpt-6-astra"
+      }
+    ],
+    "approvals": [
+      {
+        "nodeId": "n-real-collab-b",
+        "tool": "canvas_publish",
+        "args": {
+          "title": "实验结果",
+          "content": "CANVAS_ARTIFACT_7391: the measured value is 42."
+        }
+      },
+      {
+        "nodeId": "n-real-collab-a",
+        "tool": "canvas_agents",
+        "args": {}
+      },
+      {
+        "nodeId": "n-real-collab-a",
+        "tool": "canvas_read",
+        "args": {
+          "target": "@\"研究员 B\"#91d66efe",
+          "artifactId": "artifact:5e13afe1-892f-4b5b-8bd7-23b8f5c43296"
+        }
+      },
+      {
+        "nodeId": "n-real-collab-a",
+        "tool": "canvas_send",
+        "args": {
+          "target": "@\"研究员 B\"#91d66efe",
+          "message": "CANVAS_MESSAGE_7391: I read the artifact. Please confirm the measured value in your own chat, without sending any Agent message."
+        }
+      }
+    ],
+    "records": [
+      {
+        "id": "comm-cc0930af-f937-471a-8b2a-7e125211b4f1",
+        "workspaceId": "ws-collaboration-real",
+        "source": "n-real-collab-a",
+        "target": "n-real-collab-b",
+        "sourceName": "@\"调查员 A\"#fa1e00a7",
+        "targetName": "@\"研究员 B\"#91d66efe",
+        "operation": "read",
+        "state": "read",
+        "createdAt": "2026-10-19T19:54:58.060Z",
+        "updatedAt": "2026-10-19T19:54:58.060Z",
+        "toolCallId": "call_2caf034f55e149a0be79b55db1e38134|fc_0a2be09cdd2bc656016ad6759118cc81918e394bf78ba4d741",
+        "nativeSessionId": "bb12c4ec-d9be-47e9-9b1c-c80b81406884",
+        "runId": "run:f2190dba1e0ec80d4676a2b4e5cae93c",
+        "content": "CANVAS_ARTIFACT_7391: the measured value is 42.",
+        "rootId": "comm-cc0930af-f937-471a-8b2a-7e125211b4f1",
+        "hop": 0,
+        "artifactId": "artifact:5e13afe1-892f-4b5b-8bd7-23b8f5c43296",
+        "digest": "2a39002c19497826f6a180956f7587b869b4a13cca6f87c0a79ba9fb0ae73a16",
+        "truncated": false
+      },
+      {
+        "id": "comm-c34d3667-65c8-41db-b206-e70596c894c2",
+        "workspaceId": "ws-collaboration-real",
+        "source": "n-real-collab-a",
+        "target": "n-real-collab-b",
+        "sourceName": "@\"调查员 A\"#fa1e00a7",
+        "targetName": "@\"研究员 B\"#91d66efe",
+        "operation": "send",
+        "state": "consumed",
+        "createdAt": "2026-10-19T19:55:00.836Z",
+        "updatedAt": "2026-10-19T19:55:00.930Z",
+        "toolCallId": "call_38e50116afab4c4485dc1c02db969008|fc_0a2be09cdd2bc656016ad67593cc2c8191ae6dd73c1f4ca685",
+        "nativeSessionId": "bb12c4ec-d9be-47e9-9b1c-c80b81406884",
+        "runId": "run:f2190dba1e0ec80d4676a2b4e5cae93c",
+        "content": "CANVAS_MESSAGE_7391: I read the artifact. Please confirm the measured value in your own chat, without sending any Agent message.",
+        "rootId": "comm-c34d3667-65c8-41db-b206-e70596c894c2",
+        "hop": 0,
+        "itemId": "comm-c34d3667-65c8-41db-b206-e70596c894c2"
+      }
+    ],
+    "replies": [
+      {
+        "nodeId": "n-real-collab-a",
+        "text": "SENT_7391: 42",
+        "origins": [
+          {
+            "id": "message:e5e5b0ca7e6bcb50ab2668690ec5f4f7",
+            "origin": {
+              "kind": "unknown",
+              "label": "Canvas 本地输入",
+              "channel": "canvas-api",
+              "authenticated": false,
+              "intentId": "human-seed-a"
+            }
+          }
+        ]
+      },
+      {
+        "nodeId": "n-real-collab-b",
+        "text": "PUBLISHED_7391\nRECEIVED_7391: the measured value is 42.",
+        "origins": [
+          {
+            "id": "message:0d667e23b0369312900ae94838f91309",
+            "origin": {
+              "kind": "agent",
+              "label": "@\"调查员 A\"#fa1e00a7",
+              "channel": "canvas-collaboration",
+              "authenticated": true,
+              "sourceNodeId": "n-real-collab-a",
+              "sourceNativeSessionId": "bb12c4ec-d9be-47e9-9b1c-c80b81406884",
+              "communicationId": "comm-c34d3667-65c8-41db-b206-e70596c894c2",
+              "intentId": "queue:comm-c34d3667-65c8-41db-b206-e70596c894c2"
+            }
+          },
+          {
+            "id": "message:101b785796a3ed4e15ce9d2a4f019adb",
+            "origin": {
+              "kind": "unknown",
+              "label": "Canvas 本地输入",
+              "channel": "canvas-api",
+              "authenticated": false,
+              "intentId": "human-seed-b"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "realHttpSteps": [
+    "A restored same native; B stays stopped; 3 historical communication records hydrated",
+    "unapproved canvas_send creates no edge and no queue item",
+    "rejected send did not enqueue or create record",
+    "approved send paused in stopped B queue; authenticated source and WS edge observed",
+    "editing Agent-origin queue item rejected (409), cannot impersonate sender",
+    "B restored same native but queue stayed paused and did not consume"
+  ],
+  "realHttpConsumedEdgeObserved": true,
+  "realRestoration": {
+    "steps": [
+      "real applied consumption, matching normal completed run; model emitted empty text, not a fabricated answer",
+      "corresponding consumed WS edge captured",
+      "same native restored; changed history ID retains exact observed Agent origin",
+      "real canvas_read returned latest nonempty completed reply by timestamp, despite replay order"
+    ],
+    "kind": "real-model-history-and-latest-read",
+    "passed": true,
+    "delivery": {
+      "itemId": "comm-0324b4be-935a-43af-b7b1-77585de8217d",
+      "state": "consumed",
+      "incomingId": "message:history:9ed41753d657869134d55829ae440bff",
+      "origin": {
+        "kind": "agent",
+        "label": "@\"调查员 A\"#fa1e00a7",
+        "channel": "canvas-collaboration",
+        "authenticated": true,
+        "sourceNodeId": "n-real-collab-a",
+        "sourceNativeSessionId": "4d95bde1-1f4d-430d-a8d9-36207e5a2714",
+        "communicationId": "comm-0324b4be-935a-43af-b7b1-77585de8217d",
+        "intentId": "queue:comm-0324b4be-935a-43af-b7b1-77585de8217d"
+      },
+      "runState": "completed",
+      "stopReason": "stop",
+      "text": ""
+    },
+    "history": {
+      "native": "38cd5841-b2e2-4c5b-a505-7fc32fb4b8bb",
+      "before": "message:7812e30a89192731549e8c5c523ac459",
+      "after": "message:history:9ed41753d657869134d55829ae440bff",
+      "origin": {
+        "kind": "agent",
+        "label": "@\"调查员 A\"#fa1e00a7",
+        "channel": "canvas-collaboration",
+        "authenticated": true,
+        "sourceNodeId": "n-real-collab-a",
+        "sourceNativeSessionId": "4d95bde1-1f4d-430d-a8d9-36207e5a2714",
+        "communicationId": "comm-0324b4be-935a-43af-b7b1-77585de8217d",
+        "intentId": "queue:comm-0324b4be-935a-43af-b7b1-77585de8217d"
+      }
+    },
+    "expectedLatest": {
+      "id": "message:history:ae8068b22f10607660e90005d9f99de8",
+      "createdAt": "2026-10-19T19:41:44.120Z",
+      "text": "No action taken; this message is outside the authorized test."
+    },
+    "read": {
+      "id": "comm-abb9a5b6-5a26-4780-a17a-19fbbb9cd3da",
+      "workspaceId": "ws-collaboration-real",
+      "source": "n-real-collab-a",
+      "target": "n-real-collab-b",
+      "sourceName": "@\"调查员 A\"#fa1e00a7",
+      "targetName": "@\"研究员 B\"#91d66efe",
+      "operation": "read",
+      "state": "read",
+      "createdAt": "2026-10-19T19:54:42.864Z",
+      "updatedAt": "2026-10-19T19:54:42.864Z",
+      "toolCallId": "call_e465842720e94d8e8957ccf6c2210415|fc_0c5444f870eb0e55016ad67582711881918ed9daff8265c9a8",
+      "nativeSessionId": "4d95bde1-1f4d-430d-a8d9-36207e5a2714",
+      "runId": "run:95b9034f41940f308e2ffbff7a07fe9a",
+      "content": "No action taken; this message is outside the authorized test.",
+      "rootId": "comm-abb9a5b6-5a26-4780-a17a-19fbbb9cd3da",
+      "hop": 0,
+      "artifactId": "message:history:ae8068b22f10607660e90005d9f99de8",
+      "digest": "b89fbfebb16f11ee772318c3fa4abb3caa41b4498d09a27537e1d49b49a37976",
+      "truncated": false
+    }
+  },
+  "historicalHarnessFailures": [
+    {
+      "test": "HTTP pass 1",
+      "reason": "Expected fixed reply; B consumed the message and explicitly declined outside its original task."
+    },
+    {
+      "test": "HTTP pass 2",
+      "reason": "Expected nonempty text; B consumed message and completed normally with empty text. Follow-up checks verified consumption, source restoration and latest nonempty reply separately."
+    }
+  ],
+  "dailyRuntimeReloaded": false
+}

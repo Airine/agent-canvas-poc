@@ -1,0 +1,17 @@
+
+> my-app@0.0.0 test:e2e
+> playwright test chat-polish.spec.ts --output=/Users/aaron/.pi-desktop/scratch/***/ui-polish/playwright-dev-polish-final
+
+
+Running 8 tests using 1 worker
+
+  ✓  1 test/browser/chat-polish.spec.ts:9:1 › compact dock is 112–136px; popovers never move composer/transcript; aligned readable column (3.7s)
+  ✓  2 test/browser/chat-polish.spec.ts:20:1 › responsive focus retains DOM/draft through narrow and short windows, menus stay hit-testable (2.6s)
+  ✓  3 test/browser/chat-polish.spec.ts:29:1 › native-free provider confirmation is safe, nested Escape and IME preserve full viewport (2.0s)
+  ✓  4 test/browser/chat-polish.spec.ts:35:1 › delivery choices work with keyboard; auto-grow stays bounded; menu changes preserve draft (1.9s)
+  ✓  5 test/browser/chat-polish.spec.ts:41:1 › state matrix keeps actionable lifecycle errors, risks, missing attachments and unknown queue visible (3.3s)
+  ✓  6 test/browser/chat-polish.spec.ts:54:1 › node settings are not clipped; normal text contrast and 32px focus targets are retained (4.6s)
+  ✓  7 test/browser/chat-polish.spec.ts:61:1 › opening settings preserves the reading anchor and expanded tool state (3.9s)
+  ✓  8 test/browser/chat-polish.spec.ts:67:1 › touch viewport can open and dismiss settings without hover or losing the draft (1.7s)
+
+  8 passed (25.4s)

@@ -1,0 +1,697 @@
+{
+  "unusedReview": [
+    {
+      "file": "app/src/components/ui/accordion.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/alert-dialog.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/alert.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/aspect-ratio.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/avatar.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/badge-variants.ts",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/badge.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/breadcrumb.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/button-group-variants.ts",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/button-group.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/calendar.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/card.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/carousel.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/chart.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/checkbox.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/collapsible.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/command.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/context-menu.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/dialog.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/drawer.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/dropdown-menu.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/empty.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/field.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/form-context.ts",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/form.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/hover-card.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/input-group.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/input-otp.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/input.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/item.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/kbd.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/label.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/menubar.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/navigation-menu-variants.ts",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/navigation-menu.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/pagination.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/popover.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/progress.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/radio-group.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/resizable.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/scroll-area.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/select.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/separator.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/sheet.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/sidebar-context.ts",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/sidebar.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/skeleton.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/slider.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/spinner.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/table.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/tabs.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/textarea.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/toggle-group.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/toggle-variants.ts",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/toggle.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/components/ui/tooltip.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/hooks/use-mobile.ts",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/pages/canvas/EApprovalCard.tsx",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/src/pages/canvas/collaboration-demo/model.ts",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/info.md",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/Dockerfile",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/.dockerignore",
+      "decision": "remove",
+      "status": "removed"
+    }
+  ],
+  "head": "c428a53c41dffc93fddb96676b83b90a5a3b3afb",
+  "files": 232,
+  "dead": [],
+  "suspects": [],
+  "deadExports": 0,
+  "cycles": [],
+  "hotspots": [
+    {
+      "file": "app/api/routes.ts",
+      "changes": 3,
+      "lines": 544,
+      "score": 1632
+    },
+    {
+      "file": "app/src/pages/canvas/live-store.ts",
+      "changes": 3,
+      "lines": 470,
+      "score": 1410
+    },
+    {
+      "file": "app/src/pages/canvas/mock-server.ts",
+      "changes": 2,
+      "lines": 640,
+      "score": 1280
+    },
+    {
+      "file": "app/api/coordinator.ts",
+      "changes": 2,
+      "lines": 617,
+      "score": 1234
+    },
+    {
+      "file": "app/api/herdr-adapter.ts",
+      "changes": 3,
+      "lines": 409,
+      "score": 1227
+    },
+    {
+      "file": "app/src/pages/canvas/index.tsx",
+      "changes": 2,
+      "lines": 612,
+      "score": 1224
+    },
+    {
+      "file": "app/src/pages/reactflow/index.tsx",
+      "changes": 2,
+      "lines": 475,
+      "score": 950
+    },
+    {
+      "file": "app/api/e/session-manager.ts",
+      "changes": 2,
+      "lines": 391,
+      "score": 782
+    },
+    {
+      "file": "app/scripts/demo-quant-canvas/run.mjs",
+      "changes": 1,
+      "lines": 763,
+      "score": 763
+    },
+    {
+      "file": "app/src/shared/ViewModeManager.ts",
+      "changes": 3,
+      "lines": 253,
+      "score": 759
+    }
+  ],
+  "breaks": [],
+  "entries": [
+    {
+      "file": "app/api/index.ts",
+      "kind": "真实入口：HTTP / WebSocket 控制面，见数据流「控制面入口」"
+    },
+    {
+      "file": "app/eslint.config.js",
+      "kind": "非入口：构建或检查配置，由对应工具加载"
+    },
+    {
+      "file": "app/playwright.config.ts",
+      "kind": "非入口：构建或检查配置，由对应工具加载"
+    },
+    {
+      "file": "app/postcss.config.js",
+      "kind": "非入口：构建或检查配置，由对应工具加载"
+    },
+    {
+      "file": "app/scripts/canvas-tools.mjs",
+      "kind": "真实入口：由会话 worker 生成的扩展显式加载，走私有 FD 与 e 审批，见数据流「Agent 协作」"
+    },
+    {
+      "file": "app/scripts/collaboration-inspect.mjs",
+      "kind": "只读入口：打印版本匹配的 Skill / 契约 / manifest，不启动会话或发送消息"
+    },
+    {
+      "file": "app/scripts/demo-quant-canvas/run.mjs",
+      "kind": "示例入口：离线量化研究模拟，显式运行，不连接模型或券商"
+    },
+    {
+      "file": "app/scripts/dev-e.mjs",
+      "kind": "真实入口：开发/生产启动器，见数据流「启动与退出」"
+    },
+    {
+      "file": "app/scripts/e-runtime-worker.mts",
+      "kind": "真实入口：父进程 fork 的 IPC worker，见数据流「会话进程」"
+    },
+    {
+      "file": "app/shared/agent-reference.d.mts",
+      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
+    },
+    {
+      "file": "app/shared/collaboration-package.d.mts",
+      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
+    },
+    {
+      "file": "app/shared/collaboration-protocol.d.mts",
+      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
+    },
+    {
+      "file": "app/shared/message-content.d.mts",
+      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
+    },
+    {
+      "file": "app/shared/model-recovery.d.mts",
+      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
+    },
+    {
+      "file": "app/src/main.tsx",
+      "kind": "真实入口：浏览器启动 → 路由 → 工作区/画布，见数据流「浏览器入口」"
+    },
+    {
+      "file": "app/tailwind.config.js",
+      "kind": "非入口：构建或检查配置，由对应工具加载"
+    },
+    {
+      "file": "app/test/browser/card-approval-modes.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/chat-experience.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/chat-header.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/chat-polish.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/collaboration-package.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/collaboration.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/composer-auto.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/desktop-composer.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/e-canvas.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/global-card-view.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/identity-window.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/real-e.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/real-multi.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/real-tools.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/reasoning-picker.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/recovery-ui.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/theme.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/tool-hierarchy.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/manual/real-collaboration.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/manual/ws-smoke.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/approval-policy.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/approval-presentation.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/approval-reviewer.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/attachments.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/card-view.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/chat-errors.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/chat-polish.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/chat-presentation-state.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/chat-projection.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/chat-ui-store.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/collaboration-package.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/collaboration.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/composer-auto.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/coordinator-failure.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/desktop-configuration.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/desktop-image-preflight.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/desktop-manager.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/desktop-message.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/desktop-metadata.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/e-adapter.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/e-control.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/e-projection.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/e-routes.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/e-session-manager.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/execution-description.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/execution-presentation.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/fixtures/desktop-worker.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/fixtures/session-worker.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/global-card-view.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/health-regressions.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/live-store-reconnect.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/message-origins.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/production-assets.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/quant-canvas-demo.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/recovery-presentation.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/runtime-config-presentation.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/session-identity.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/session-store.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/theme-tokens.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/workspace-paths.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/vite.config.ts",
+      "kind": "非入口：构建或检查配置，由对应工具加载"
+    },
+    {
+      "file": "tools/legacy/render-preview/ws-term-test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    }
+  ]
+}

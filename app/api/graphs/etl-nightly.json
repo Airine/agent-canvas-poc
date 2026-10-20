@@ -1,8 +1,8 @@
 {
   "id": "ws-etl",
   "title": "Nightly ETL · 数据管道",
-  "path": "C:/projects/nightly-etl",
-  "description": "另一个项目：两路抽取 → 清洗转换 → 加载 → 校验的夜间批处理拓扑。",
+  "path": ".",
+  "description": "当前项目的 ETL 示例：两路抽取 → 清洗转换 → 加载 → 校验的夜间批处理拓扑。",
   "graph": {
     "zones": [
       { "id": "z-extract", "title": "抽取" },

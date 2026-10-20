@@ -12,109 +12,25 @@
  */
 import { useSyncExternalStore } from 'react';
 import { MockBackend, mockWorkspaceSummaries } from './mock-server';
+import { SessionStore } from './session-store';
+import type { ControlPayload, SessionView } from '../../../api/e/contracts';
+import type { BackendApi, CanvasNode, CanvasEdge, CanvasZone, RunState, NodeEvent, ConnState, ClientMessage, ServerMessage, WorkspaceSummary } from './contracts';
+export type * from './contracts';
 
-/* ================= 契约 §1 数据模型 ================= */
-
-export type NodeStatus = 'queued' | 'running' | 'waiting' | 'completed' | 'failed' | 'skipped';
-export type NodeType = 'coordinator' | 'operation' | 'chat' | 'artifact';
-export type EdgeKind = 'strong' | 'weak' | 'error';
-
-export interface CanvasNode {
-  id: string;
-  type: NodeType;
-  title: string;
-  status: NodeStatus;
-  harness: string;
-  env: string;
-  agentId: string;
-  x: number;
-  y: number;
-  /** 分区归属（冻结契约）：Zone 容器按成员节点坐标自适应边界 */
-  zoneId?: string;
-  startedAt?: number;
-  endedAt?: number;
-  statusReason?: string;
-  paneId?: string;
-  /** 冻结契约 v1：节点启动命令（纯展示用途，前端暂不消费） */
-  command?: string;
-  approval?: { prompt: string };
-  progress?: number;
-}
-
-export interface CanvasEdge {
-  id: string;
-  source: string;
-  target: string;
-  kind: EdgeKind;
-  label?: string;
-}
-
-export type RunState = 'idle' | 'running' | 'done';
-
-/** 冻结契约：画布分区（Zone 容器 = 半透明底 + 顶部标题栏，边界由成员节点坐标计算） */
-export interface CanvasZone {
-  id: string;
-  title: string;
-}
-
-export interface Graph {
-  nodes: CanvasNode[];
-  edges: CanvasEdge[];
-  zones: CanvasZone[];
-  runState: RunState;
-}
-
-/** 冻结契约：workspace 摘要（GET /api/workspaces，主页按 path 分组聚合渲染） */
-export interface WorkspaceSummary {
-  id: string;
-  title: string;
-  path: string;
-  description: string;
-  createdAt: string;
-  lastActiveAt: string;
-  status: 'idle' | 'running' | 'done' | 'failed';
-  graph: Graph;
-}
-
-/** 契约 §3 事件（WS event / GET /api/nodes/:id/events 回放） */
-export interface NodeEvent {
-  id: number;
-  ts: number;
-  nodeId?: string;
-  kind: string;
-  text: string;
-}
-
-/* ================= 契约 §3 WS 消息 ================= */
-
-export type ClientMessage =
-  | { type: 'hello'; workspaceId?: string }
-  | { type: 'term.subscribe'; nodeId: string }
-  | { type: 'term.unsubscribe'; nodeId: string };
-
-export type ServerMessage =
-  | { type: 'graph'; graph: Graph }
-  | { type: 'node'; node: CanvasNode }
-  | { type: 'edge'; edge: CanvasEdge }
-  | { type: 'term'; nodeId: string; ansi: string }
-  | { type: 'event'; event: NodeEvent };
-
-/* ================= 后端抽象（远程 / 浏览器内 mock 同构） ================= */
-
-export interface BackendApi {
-  send(msg: ClientMessage): void;
-  post(path: string, body?: unknown): Promise<{ ok: boolean }>;
-  getNodeEvents(nodeId: string): Promise<NodeEvent[]>;
-  dispose(): void;
-}
-
-export type ConnState = 'connecting' | 'online' | 'reconnecting' | 'mock';
 
 /* ================= LiveStore ================= */
 
 const MAX_EVENTS = 500;
 
 export class LiveStore {
+  readonly sessions = new SessionStore();
+  backendKind: 'e' | 'herdr' = 'herdr';
+  source: 'live' | 'demo' = 'live';
+  error: string | null = null;
+  readOnly = false;
+  private nodeListeners = new Map<string, Set<() => void>>();
+  private generation?: string;
+  private sequence = 0;
   /** 节点/边以 id 索引；graph 到达或补丁到达时整体 bump 版本 */
   nodes = new Map<string, CanvasNode>();
   edges = new Map<string, CanvasEdge>();
@@ -127,6 +43,8 @@ export class LiveStore {
   graphSeq = 0;
   /** 前端发起的 reset 序号（适配层据此重置本地拖拽位置；graph 消息不动拖拽位置） */
   resetSeq = 0;
+  /** 前端发起的一键布局序号（适配层据此清拖拽位置缓存并 fitView） */
+  layoutSeq = 0;
   /** 目标 workspace（冻结契约：hello 可带 workspaceId，响应为对应 workspace 全量 graph） */
   readonly workspaceId?: string;
 
@@ -189,7 +107,6 @@ export class LiveStore {
 
     ws.onopen = () => {
       clearTimeout(openWatchdog);
-      this.setConnState('online');
       this.backend = this.remoteApi(ws);
       ws.send(
         JSON.stringify({
@@ -210,9 +127,21 @@ export class LiveStore {
       }, 2000);
     };
     ws.onmessage = (e) => {
+      if (this.ws !== ws || this.disposed) return;
       try {
         const msg = JSON.parse(e.data as string) as ServerMessage;
+        if (this.workspaceId && msg.workspaceId !== this.workspaceId) return;
+        if (msg.type === 'graph' && msg.generation !== this.generation) { this.generation = msg.generation; this.sequence = 0; }
+        if (msg.generation !== undefined) {
+          if (msg.generation !== this.generation && msg.type !== 'error') return;
+          if (msg.sequence !== undefined && msg.sequence <= this.sequence) return;
+          if (msg.sequence !== undefined && msg.sequence > this.sequence + 1 && msg.type !== 'graph' && msg.type !== 'error') {
+            this.setConnState('reconnecting');ws.send(JSON.stringify({ type: 'hello', workspaceId: this.workspaceId }));return;
+          }
+          this.sequence = msg.sequence ?? this.sequence;
+        }
         if (msg.type === 'graph') {
+          this.error = null;this.setConnState('online');
           if (graphWatchdog !== null) clearTimeout(graphWatchdog);
           if (!settled) {
             settled = true;
@@ -221,6 +150,12 @@ export class LiveStore {
           }
         }
         this.dispatch(msg);
+        // hello clears subscriptions server-side, including sequence-gap resync.
+        if (msg.type === 'graph' && this.backendKind === 'herdr') {
+          for (const [nodeId, count] of this.termRefCount) {
+            if (count > 0 && this.nodes.has(nodeId)) this.backend?.send({ type: 'term.subscribe', nodeId });
+          }
+        }
       } catch {
         /* 忽略坏帧 */
       }
@@ -243,7 +178,7 @@ export class LiveStore {
   private onHandshakeFail(): void {
     if (this.disposed) return;
     this.failedHandshakes += 1;
-    if (this.failedHandshakes >= 2) {
+    if (this.failedHandshakes >= 2 && this.backendKind !== 'e' && this.source === 'demo' && new URLSearchParams(location.search).get('demo') === '1') {
       const mock = new MockBackend((msg) => this.dispatch(msg), this.workspaceId);
       this.backend = mock.api;
       this.setConnState('mock');
@@ -251,6 +186,7 @@ export class LiveStore {
       mock.api.send({ type: 'hello', workspaceId: this.workspaceId });
       return;
     }
+    this.error = '连接断开，保留最后快照；未切换为演示数据';
     this.scheduleReconnect();
   }
 
@@ -275,20 +211,31 @@ export class LiveStore {
           headers: { 'Content-Type': 'application/json' },
           body: body === undefined ? '{}' : JSON.stringify(body),
         });
-        return (await res.json()) as { ok: boolean };
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+        return data as { ok: boolean };
       },
       getNodeEvents: async (nodeId) => {
         const res = await fetch(`/api${this.nodeApiPath(nodeId, 'events')}`);
-        return (await res.json()) as NodeEvent[];
+        const data = await res.json();if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+        return data as NodeEvent[];
       },
       dispose: () => ws.close(),
     };
   }
 
   /** 契约 §3 server→client 消息统一入口（WS 与 mock 共用） */
+  applySessionView(view: SessionView): void {
+    this.sessions.apply(view);
+    const current=this.sessions.get(view.nodeId)!;
+    const node=this.nodes.get(view.nodeId);
+    if(node&&node.backend==='e'&&node.archivedAt!==current.archivedAt){if(current.archivedAt)node.archivedAt=current.archivedAt;else delete node.archivedAt;this.emit();}
+  }
+
   private dispatch(msg: ServerMessage): void {
     switch (msg.type) {
       case 'graph': {
+        this.backendKind = msg.backend ?? 'herdr';this.source = msg.source ?? 'demo';this.readOnly = !!msg.archivedAt;
         this.nodes = new Map(msg.graph.nodes.map((n) => [n.id, n]));
         this.edges = new Map(msg.graph.edges.map((e) => [e.id, e]));
         this.zones = new Map((msg.graph.zones ?? []).map((z) => [z.id, z]));
@@ -297,9 +244,17 @@ export class LiveStore {
         this.emit();
         break;
       }
+      case 'session': {
+        this.applySessionView(msg.session);
+        break;
+      }
+      case 'error': { this.error = msg.error;this.setConnState('reconnecting');this.emit();break; }
       case 'node': {
+        const prior = this.nodes.get(msg.node.id);
         this.nodes.set(msg.node.id, msg.node);
-        this.emit();
+        const layoutChanged = !prior || prior.x !== msg.node.x || prior.y !== msg.node.y || prior.zoneId !== msg.node.zoneId || prior.type !== msg.node.type || prior.archivedAt !== msg.node.archivedAt;
+        if (msg.node.backend === 'e' && !layoutChanged) { for (const fn of this.nodeListeners.get(msg.node.id) ?? []) fn(); }
+        else this.emit();
         break;
       }
       case 'edge': {
@@ -338,15 +293,28 @@ export class LiveStore {
   }
 
   async run(): Promise<void> {
-    await this.backend?.post('/graph/run');
+    await this.backend?.post(this.workspaceId ? `/workspaces/${encodeURIComponent(this.workspaceId)}/run` : '/graph/run');
   }
 
   async reset(): Promise<void> {
-    await this.backend?.post('/graph/reset');
+    await this.backend?.post(this.workspaceId ? `/workspaces/${encodeURIComponent(this.workspaceId)}/reset` : '/graph/reset');
     // reset 后 server 推全量 graph；本地事件日志清空保持一致
     this.events = [];
     this.termLast.clear();
     this.resetSeq += 1;
+    this.emit();
+  }
+
+  /**
+   * 一键最优布局（canvas-optimization.md）：后端 dagre + zone 泳道列，
+   * 坐标经 node 补丁回推。layoutSeq 供适配层清拖拽缓存 + fitView。
+   */
+  async autoLayout(): Promise<void> {
+    const path = this.workspaceId
+      ? `/workspaces/${encodeURIComponent(this.workspaceId)}/layout`
+      : '/graph/layout';
+    await this.backend?.post(path);
+    this.layoutSeq += 1;
     this.emit();
   }
 
@@ -361,6 +329,26 @@ export class LiveStore {
     await this.backend?.post(this.nodeApiPath(nodeId, 'input'), { text });
   }
 
+  async sessionAction(nodeId: string, operation: 'messages' | 'abort' | 'approval' | 'stop' | 'resume' | 'configuration' | 'queue', body?: ControlPayload | import('../../../api/e/contracts').QueueMutation | import('../../../api/e/contracts').ConfigurationChange): Promise<unknown> {
+    if (this.connState !== 'online') throw new Error('画布离线，操作未发送');
+    const res = await fetch(`/api${this.nodeApiPath(nodeId, operation)}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body ?? {}) });
+    const data = await res.json();if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    if (data.session) this.sessions.apply(data.session);
+    if (operation === 'messages' && ['rejected', 'outcome-unknown'].includes(data.action?.state)) {
+      throw new Error(`${data.action.state === 'rejected' ? '运行器拒绝消息' : '发送结果未知，不会自动重发'}${data.action.reason ? `：${data.action.reason}` : ''}`);
+    }
+    return data;
+  }
+  async addSession(options: { title?: string; provider?: string; model?: string } = {}): Promise<void> {
+    if (!this.workspaceId || this.connState !== 'online') throw new Error('画布尚未连接');
+    const res = await fetch(`/api/workspaces/${encodeURIComponent(this.workspaceId)}/sessions`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(options)});
+    const data = await res.json();if(!res.ok)throw new Error(data.error || `HTTP ${res.status}`);
+  }
+  async saveLayout(positions: Array<{id:string;x:number;y:number}>): Promise<void> {
+    if (!this.workspaceId || this.connState !== 'online') return;
+    const res=await fetch(`/api/workspaces/${encodeURIComponent(this.workspaceId)}/layout`, {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({positions})});
+    if(!res.ok)throw new Error('布局保存失败');
+  }
   async fetchNodeEvents(nodeId: string): Promise<NodeEvent[]> {
     return (await this.backend?.getNodeEvents(nodeId)) ?? [];
   }
@@ -391,6 +379,7 @@ export class LiveStore {
       this.termRefCount.set(nodeId, left);
       if (left <= 0 && subs.size === 0) {
         this.termSubs.delete(nodeId);
+        this.termRefCount.delete(nodeId);
         this.backend?.send({ type: 'term.unsubscribe', nodeId });
       }
     };
@@ -408,6 +397,10 @@ export class LiveStore {
     return () => this.listeners.delete(listener);
   };
 
+  subscribeNode = (nodeId: string, fn: () => void): (() => void) => {
+    const list = this.nodeListeners.get(nodeId) ?? new Set();list.add(fn);this.nodeListeners.set(nodeId,list);
+    return () => {list.delete(fn);if (!list.size)this.nodeListeners.delete(nodeId);};
+  };
   getVersion = (): number => this.version;
 
   private setConnState(s: ConnState): void {
@@ -419,6 +412,7 @@ export class LiveStore {
   private emit(): void {
     this.version += 1;
     for (const l of this.listeners) l();
+    for (const list of this.nodeListeners.values()) for (const fn of list) fn();
   }
 
   dispose(): void {
@@ -437,6 +431,7 @@ export interface WorkspaceListResult {
   workspaces: WorkspaceSummary[];
   /** 与画布页 connState 同语义：后端不在场时明示「本地 mock」 */
   source: 'api' | 'mock';
+  error?: string;
 }
 
 /**
@@ -445,15 +440,17 @@ export interface WorkspaceListResult {
  */
 export async function fetchWorkspaces(): Promise<WorkspaceListResult> {
   try {
-    const res = await fetch('/api/workspaces', { headers: { Accept: 'application/json' } });
+    const view = new URLSearchParams(location.search).get('view');
+    const res = await fetch(`/api/workspaces${view === 'examples' || view === 'archived' ? `?view=${view}` : ''}`, { headers: { Accept: 'application/json' } });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const ctype = res.headers.get('content-type') ?? '';
     if (!ctype.includes('application/json')) throw new Error('non-json response');
     const data = (await res.json()) as { workspaces?: WorkspaceSummary[] };
     if (!Array.isArray(data.workspaces)) throw new Error('bad payload');
     return { workspaces: data.workspaces, source: 'api' };
-  } catch {
-    return { workspaces: mockWorkspaceSummaries(), source: 'mock' };
+  } catch (error) {
+    if (new URLSearchParams(location.search).get('demo') === '1') return { workspaces: mockWorkspaceSummaries(), source: 'mock' };
+    return { workspaces: [], source: 'api', error: `API 离线：${String(error)}` };
   }
 }
 
@@ -469,10 +466,4 @@ export function pickActiveWorkspace(list: WorkspaceSummary[]): WorkspaceSummary 
 /** 订阅 store 任意变化（返回版本号），组件内自行从 store 选取数据 */
 export function useLiveStore(store: LiveStore): number {
   return useSyncExternalStore(store.subscribe, store.getVersion);
-}
-
-/** 单节点实时状态（WS node 补丁驱动） */
-export function useLiveNode(store: LiveStore, nodeId: string): CanvasNode | undefined {
-  useSyncExternalStore(store.subscribe, store.getVersion);
-  return store.nodes.get(nodeId);
 }

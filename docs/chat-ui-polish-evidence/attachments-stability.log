@@ -1,0 +1,12 @@
+
+> my-app@0.0.0 test:e2e
+> playwright test desktop-composer.spec.ts --grep long paste --repeat-each=3 --output=/Users/aaron/.pi-desktop/scratch/***/ui-polish/playwright-attachments-stability
+
+
+Running 3 tests using 1 worker
+
+  ✓  1 test/browser/desktop-composer.spec.ts:36:1 › long paste cards edit/remove, validated attachment preview equals sent bytes; refresh requires reselection (2.6s)
+  ✓  2 test/browser/desktop-composer.spec.ts:36:1 › long paste cards edit/remove, validated attachment preview equals sent bytes; refresh requires reselection (2.1s)
+  ✓  3 test/browser/desktop-composer.spec.ts:36:1 › long paste cards edit/remove, validated attachment preview equals sent bytes; refresh requires reselection (2.0s)
+
+  3 passed (9.8s)

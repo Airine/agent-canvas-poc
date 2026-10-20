@@ -1,0 +1,68 @@
+{
+  "checkedAt": "2026-10-20T07:41:57.276248+00:00",
+  "scope": "mixed assistant message display fragments and tighter execution summaries",
+  "headAtVerification": "119cbf315d3888de69a064d915272826debf93e1",
+  "checks": {
+    "unit": {
+      "passed": 177,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 81,
+      "skipped": 1,
+      "failed": 0,
+      "kind": "HTTP/WS fixtures; real e opt-in skipped"
+    },
+    "uiBuild": "passed",
+    "lintIncludingArchitecture": "passed",
+    "docsTests": {
+      "passed": 11,
+      "failed": 0
+    },
+    "docsTypecheck": "passed",
+    "docsBuild": "passed",
+    "architecture": {
+      "sources": 225,
+      "unusedCandidates": 0,
+      "cycles": 0,
+      "parseBreaks": 0,
+      "wikiPages": 24,
+      "digest": "928481b3fab8"
+    }
+  },
+  "visual": {
+    "desktop": "fixture screenshot visually inspected in PI-Desktop browser",
+    "mobile390": "fixture screenshot visually inspected in PI-Desktop browser"
+  },
+  "acceptance": {
+    "mixedBoundaryPattern": "24 tools, mixed thought/text/one tool, 69 tools, thought/final text => two execution groups (24 and 70)",
+    "collapsedGroupHeight": "at most 40px in desktop fixture",
+    "summary": "tool count plus nearby state; thoughts/tool inventory only after expansion",
+    "streaming": "open tool-80 DOM and output retained when final prose arrives",
+    "copy": "one footer owner copies all original prose around the tool"
+  },
+  "resolvedRegression": "Existing reasoning test raced requestAnimationFrame back-navigation focus; now waits for focus and preview before Enter. RuntimeConfigControl unchanged. Initial full run and isolated recheck failed; fixed file and final complete suite passed.",
+  "safety": {
+    "backendSharedAndSkillUnchangedSinceStageStart": true,
+    "priorChangesPreserved": true,
+    "dailyServiceRestarted": false,
+    "realSessionWriteOrApproval": false,
+    "modelInvoked": false,
+    "committedOrPushed": false,
+    "ownedScreenshotPreviewStopped": true
+  },
+  "remainingBlockers": [],
+  "retainedWarnings": [
+    "Existing large UI bundle warning"
+  ],
+  "sourceSha256": {
+    "app/src/pages/canvas/chat/ExecutionGroup.tsx": "4c4377fd6d5e4b685fa9aaaa6e2d9c0f40f7f0744c490762e3b627191966abe9",
+    "app/src/pages/canvas/chat/execution-presentation.ts": "b83a6cd80e8e5c252a1fa16008566d3c652aeda7ae7dd79fb2acad85c62df596",
+    "app/test/browser/tool-hierarchy.spec.ts": "c3c3b71d330766ab2be4bfdcdfbd96f304d6321eca4e2d5b63b349c160231b41",
+    "app/test/unit/execution-presentation.test.mjs": "bf0c2828b9a8ad59de15fb8840cf7fbdca69735b74341b9e55c57a1ac468eee6",
+    "app/src/pages/canvas/chat/TurnView.tsx": "bd9373d65bb243a4376cf8994c5b69caa45bfc6da066b949373fa30aba66fe39",
+    "app/src/pages/canvas/chat/chat.css": "819d1d298e8b8653628fdec7159f3d4070cd025d30421d637d94ce1f36c8f77a",
+    "app/src/pages/canvas/chat/model.ts": "bb5af309f02b599c0f4d5881f9f9941124e1b924c05696d457f6de721d6bf339",
+    "app/test/browser/desktop-composer.spec.ts": "3cce94282fad700ef5f6247be8c7fa4c3a1a13edaa265fa826890400238edab8"
+  }
+}

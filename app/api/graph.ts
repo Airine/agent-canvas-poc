@@ -2,58 +2,14 @@
  * graph.ts — canvas graph model + six-state state machine (contract §1/§4/§5).
  *
  * Multi-workspace edition: one GraphStore per workspaceId, held in a Map.
- * initialGraph() loads the demo seed JSON (graphs/demo-release-pipeline.json)
- * and falls back to the hardcoded v0 demo topology if the file is missing.
  *
  * Six states: queued | running | waiting | completed | failed | skipped.
  */
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import type { CanvasEdge, CanvasNode, Graph, NodeStatus } from './types.js';
 import { eventbus } from './eventbus.js';
 
-const API_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)));
-const DEMO_SEED = path.join(API_ROOT, 'graphs', 'demo-release-pipeline.json');
-
 function deepClone<T>(v: T): T {
   return JSON.parse(JSON.stringify(v)) as T;
-}
-
-/** Demo graph: seed JSON first, hardcoded v0 topology as fallback. */
-export function initialGraph(): Graph {
-  try {
-    const seed = JSON.parse(fs.readFileSync(DEMO_SEED, 'utf8')) as { graph: Graph };
-    if (seed.graph?.nodes && seed.graph?.edges) return normalizeGraph(seed.graph);
-  } catch {
-    /* fall through to hardcoded demo */
-  }
-  const nodes: CanvasNode[] = [
-    { id: 'n-coord', type: 'coordinator', title: 'Coordinator', status: 'queued', harness: 'canvas-orchestrator', env: 'herdr-local', agentId: 'ag-coord-01', x: 80, y: 64, zoneId: 'z-prepare' },
-    { id: 'n-env', type: 'operation', title: '环境初始化', status: 'queued', harness: 'shell-agent', env: 'herdr-local', agentId: 'ag-env-01', x: 80, y: 224, zoneId: 'z-prepare' },
-    { id: 'n-data', type: 'operation', title: '数据处理', status: 'queued', harness: 'shell-agent', env: 'herdr-local', agentId: 'ag-data-01', x: 500, y: 64, zoneId: 'z-exec' },
-    { id: 'n-report', type: 'operation', title: '报告生成', status: 'queued', harness: 'shell-agent', env: 'herdr-local', agentId: 'ag-report-01', x: 500, y: 224, zoneId: 'z-exec' },
-    { id: 'n-fail', type: 'artifact', title: '失败处置', status: 'queued', harness: 'shell-agent', env: 'herdr-local', agentId: 'ag-fail-01', x: 920, y: 224, zoneId: 'z-deliver' },
-    { id: 'n-chat', type: 'chat', title: '分析汇报', status: 'queued', harness: 'shell-agent', env: 'herdr-local', agentId: 'ag-chat-01', x: 920, y: 64, zoneId: 'z-deliver' },
-  ];
-  const edges: CanvasEdge[] = [
-    { id: 'e-coord-env', source: 'n-coord', target: 'n-env', kind: 'strong' },
-    { id: 'e-env-data', source: 'n-env', target: 'n-data', kind: 'strong' },
-    { id: 'e-env-report', source: 'n-env', target: 'n-report', kind: 'strong' },
-    { id: 'e-report-fail', source: 'n-report', target: 'n-fail', kind: 'error' },
-    { id: 'e-coord-env-weak', source: 'n-coord', target: 'n-env', kind: 'weak', label: '0 msg/min' },
-    { id: 'e-data-chat', source: 'n-data', target: 'n-chat', kind: 'weak', label: '0 msg/min' },
-  ];
-  return {
-    nodes,
-    edges,
-    zones: [
-      { id: 'z-prepare', title: '准备' },
-      { id: 'z-exec', title: '执行' },
-      { id: 'z-deliver', title: '交付' },
-    ],
-    runState: 'idle',
-  };
 }
 
 /** Defensive normalization for graphs coming from JSON / the network. */
@@ -116,6 +72,7 @@ export class GraphStore {
     if (TERMINAL.includes(status)) node.endedAt = new Date().toISOString();
     if (prev !== status) {
       eventbus.append({
+        workspaceId: this.workspaceId,
         nodeId: id,
         kind: 'status',
         text: `${id}: ${prev} -> ${status}${node.statusReason ? ` (${node.statusReason})` : ''}`,
@@ -125,12 +82,34 @@ export class GraphStore {
     return node;
   }
 
+  upsertNode(node: CanvasNode): void {
+    const prior = this.getNode(node.id);
+    if (prior) Object.assign(prior, node);
+    else this.graph.nodes.push(node);
+    this.emitNode(prior ?? node);
+  }
+
+  removeNode(id: string): boolean {
+    const had=this.getNode(id);if(!had)return false;
+    this.graph.nodes=this.graph.nodes.filter(n=>n.id!==id);
+    this.graph.edges=this.graph.edges.filter(e=>e.source!==id&&e.target!==id);
+    return true;
+  }
+
   patchNode(id: string, patch: Partial<CanvasNode>): CanvasNode | undefined {
     const node = this.getNode(id);
     if (!node) return undefined;
     Object.assign(node, patch);
     this.emitNode(node);
     return node;
+  }
+
+  upsertEdge(edge: CanvasEdge): void {
+    const prior = this.graph.edges.find(e => e.id === edge.id);
+    if (prior) { this.patchEdge(edge.id, edge); return; }
+    this.graph.edges.push(edge);
+    for (const l of this.edgeListeners) l({ ...edge });
+    for (const l of anyPatchListeners) l(this.workspaceId, { type: 'edge', edge: { ...edge } });
   }
 
   patchEdge(id: string, patch: Partial<CanvasEdge>): CanvasEdge | undefined {
@@ -172,12 +151,4 @@ export function registerGraphStore(workspaceId: string, graph: Graph): GraphStor
 
 export function getGraphStore(workspaceId: string): GraphStore | undefined {
   return stores.get(workspaceId);
-}
-
-export function removeGraphStore(workspaceId: string): void {
-  stores.delete(workspaceId);
-}
-
-export function listGraphStores(): Array<[string, GraphStore]> {
-  return [...stores.entries()];
 }

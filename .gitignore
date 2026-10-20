@@ -10,10 +10,16 @@ __pycache__/
 
 # herdr 二进制（Linux ELF，约 25MB，可从 https://herdr.dev 获取）
 app/bin/herdr
-spike/herdr
+tools/legacy/spike/herdr
 
 # 二进制资产暂不入库，见 README
-render-preview/*.pdf
-render-preview/page-*.png
+tools/legacy/render-preview/*.pdf
+tools/legacy/render-preview/page-*.png
 /*.docx
 /*.png
+
+# Local MVP configuration and browser test artifacts
+app/.env.e
+app/test-results/
+app/playwright-report/
+.DS_Store

@@ -1,7 +1,7 @@
 {
   "id": "ws-research",
   "title": "竞品调研 · 双 Agent 并行",
-  "path": "C:/projects/agent-canvas",
+  "path": ".",
   "description": "与 Demo 同项目的第二个 workspace：双 Agent 并行调研 → 对比分析 → 产出简报。",
   "graph": {
     "zones": [

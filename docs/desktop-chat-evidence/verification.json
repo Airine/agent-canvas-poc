@@ -1,0 +1,30 @@
+{
+  "observedAt": "2026-10-19T04:38:40.650072+00:00",
+  "unitPassed": 89,
+  "browserPassed": 28,
+  "browserFixtureTests": 27,
+  "browserRealModelTests": 1,
+  "windowingRepeatedPasses": 5,
+  "screenshots": 12,
+  "originalFilesUnchanged": 204,
+  "ownedTasksRunning": 0,
+  "dailyServiceRestarted": false,
+  "manualVisualInspection": false,
+  "evidenceSha256": {
+    "final-lint.log": "64d02581f09d78874ae6643ecad602e328ad6bf8a976a76993281fb4f0fa2a42",
+    "final-unit.log": "6743f4caf4a9eedb70d3f2088e9da8897be34a9a1700a3cf9352cc13e490b448",
+    "final-api-build.log": "578378076c94193ce247d5618a829f881f3c478d8ff73a08dbef888c35e539ab",
+    "final-ui-build.log": "b3309b8bde43e46527b94ccef583eb5cb5fe7038e68fea3919f9076cbe0ce5b2",
+    "final-browser-production.log": "3e904e5e8bbd44884749602d6fd12fe939af80fbba5a99370183047cc488e1f4",
+    "final-browser-stability.log": "26c5e9574267df2dba365d4f159141088bb851b54b84bb57cb2a798724926283",
+    "real-extended-v2-results.json": "e13de0829c6847cac26a691afa4d64c7e412747c24c1945457ea9610ea50b180",
+    "real-sorted-replies.json": "58f11975d150348383a66bafd19238fb5661a4359fd82cf29ea217e7017d11e8",
+    "runtime-configuration.json": "8a9ea3920a5e2bdb3bfeb7ef4101b2f26dc38e297a208d68dce02a4b5f92c6d4",
+    "real-queue.json": "731006a1ec5910732d4b46e5c6e171e71a868f166ce4408b56f5180a89907656",
+    "restart-before-results.json": "9b5adae27845b3012c24d0c99eb28128aa3f7cfef78992c3c301795bd6222280",
+    "restart-after-results.json": "b6016a8a07308bc3337d2eb77b9042b2d1e83a3869894bbafdeeddc489e79e41",
+    "http-validation.json": "74c7f97a1698f570bdf03dc1b32c4d52e741346134c8c02d9fb26b84a4a3fb19",
+    "dev-surface.json": "b7be0499124ad9b1b384be66ced6af9ebeb502bbe09beb932638748213b2440d",
+    "production-surface.json": "936ecc8358370e06ae518746014e747e0c39b48b5e96ffaba01b56fa659ee3c7"
+  }
+}

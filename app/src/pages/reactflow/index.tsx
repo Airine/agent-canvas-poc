@@ -436,7 +436,7 @@ function CanvasInner() {
           <MiniMap
             style={{ width: 200, height: 130 }}
             nodeColor={(n) => STATUS_HEX[snapshot.nodes[n.id]?.status ?? 'queued']}
-            maskColor="rgba(11,13,18,0.72)"
+            maskColor="var(--minimap-mask)"
             bgColor="var(--surface-1)"
             pannable
             zoomable
@@ -459,7 +459,7 @@ function CanvasInner() {
           </div>
         )}
 
-        <Toaster position="top-right" visibleToasts={3} theme="dark" />
+        <Toaster position="top-right" visibleToasts={3}  />
       </div>
     </CanvasCtx.Provider>
   );

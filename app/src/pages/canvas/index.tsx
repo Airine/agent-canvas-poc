@@ -26,7 +26,7 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import '../reactflow/reactflow.css';
-import { Diamond, Maximize, Minus, Plus, Radio } from 'lucide-react';
+import { Diamond, LayoutGrid, Maximize, Minus, Plus, Radio } from 'lucide-react';
 import { toast } from 'sonner';
 import { Toaster } from '@/components/ui/sonner';
 import {
@@ -34,10 +34,13 @@ import {
   STATUS_COLORS,
   ViewModeManager,
   useAnimationsEnabled,
+  useFocusedNodeId,
 } from '@/shared';
 import type { LiveTier, NodeStatus } from '@/shared';
 import { LiveEdge, EdgeMarkerDefs, type LiveFlowEdge } from './LiveEdge';
 import { LiveNode, type LiveFlowNode } from './LiveNode';
+import { ArchivedSessionsControl } from './ArchivedSessionsControl';
+import { GlobalCardViewControl } from './GlobalCardViewControl';
 import { ZoneNode, ZONE_HEADER_H, ZONE_PADDING, type ZoneFlowNode } from './ZoneNode';
 import { TracePanel } from './TracePanel';
 import { RunBar } from './RunBar';
@@ -111,7 +114,7 @@ function computeTiers(
   promoted: string[],
 ): { tiers: Record<string, LiveTier>; liveCount: number } {
   const windowIds = [...store.nodes.values()]
-    .filter((n) => n.type !== 'coordinator')
+    .filter((n) => n.type !== 'coordinator'&&!n.archivedAt)
     .map((n) => n.id);
   const rank = (id: string): number => {
     const s = store.nodes.get(id)?.status ?? 'queued';
@@ -218,7 +221,7 @@ function ZoomControls() {
 
 function CanvasInner({ workspaceId }: { workspaceId?: string }) {
   const [store] = useState(() => new LiveStore(workspaceId));
-  const [manager] = useState(() => new ViewModeManager());
+  const [manager] = useState(() => new ViewModeManager(workspaceId));
   const rf = useReactFlow();
 
   const storeVersion = useLiveStore(store); // graph/node/edge/event 补丁 → 版本号重渲染
@@ -231,6 +234,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
   );
 
   const animationsEnabled = useAnimationsEnabled(manager);
+  const focusedNodeId = useFocusedNodeId(manager);
 
   /* ---- React Flow 节点：reset 时按契约 x/y 重建，平时保留拖拽位置 ---- */
   const dragPos = useRef(new Map<string, { x: number; y: number }>());
@@ -239,11 +243,17 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
     lastResetSeq.current = store.resetSeq;
     dragPos.current.clear();
   }
+  /* 一键布局确认后：丢弃本地拖拽位置，跟随服务端新坐标 */
+  const lastLayoutSeq = useRef(0);
+  if (store.layoutSeq !== lastLayoutSeq.current) {
+    lastLayoutSeq.current = store.layoutSeq;
+    dragPos.current.clear();
+  }
   const [nodes, setNodes] = useState<LiveFlowNode[]>([]);
   useEffect(() => {
     setNodes((prev) => {
       const prevById = new Map(prev.map((n) => [n.id, n]));
-      return [...store.nodes.values()].map((n) => {
+      return [...store.nodes.values()].filter(n=>!n.archivedAt).map((n) => {
         const old = prevById.get(n.id);
         return {
           id: n.id,
@@ -255,7 +265,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
         };
       });
     });
-     
+
   }, [store, storeVersion]);
   const onNodesChange = useCallback((changes: NodeChange<CanvasFlowNode>[]) => {
     for (const c of changes) {
@@ -280,9 +290,12 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
   const [traceEdgeId, setTraceEdgeId] = useState<string | null>(null);
   const edges = useMemo<LiveFlowEdge[]>(
     () =>
-      [...store.edges.values()].map((e: CanvasEdge) => {
+      [...store.edges.values()].filter(e=>!store.nodes.get(e.source)?.archivedAt&&!store.nodes.get(e.target)?.archivedAt).map((e: CanvasEdge) => {
         const src = store.nodes.get(e.source);
         const srcStatus: NodeStatus = src?.status ?? 'queued';
+        const channels = [...store.edges.values()].filter(other => other.kind === 'communication' &&
+          (other.source === e.source && other.target === e.target || other.source === e.target && other.target === e.source)).sort((a,b)=>a.id.localeCompare(b.id));
+        const lane = e.kind === 'communication' ? (channels.findIndex(other=>other.id===e.id) - (channels.length - 1) / 2) * 56 : 0;
         return {
           id: e.id,
           source: e.source,
@@ -290,6 +303,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
           type: 'agent' as const,
           data: {
             kind: e.kind,
+            lane,
             semantic: EDGE_KIND_SEMANTIC[e.kind],
             sourceStatus: srcStatus,
             sourceColor: STATUS_COLORS[srcStatus],
@@ -315,6 +329,18 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
     (id: string) => setPromoted((p) => [id, ...p.filter((x) => x !== id)]),
     [],
   );
+
+  /* ---- 一键布局后自动 fitView（layoutSeq 由 store.autoLayout() 递增） ---- */
+  const lastFitLayoutSeq = useRef(0);
+  const layoutSeq = store.layoutSeq;
+  useEffect(() => {
+    if (layoutSeq !== lastFitLayoutSeq.current) {
+      lastFitLayoutSeq.current = layoutSeq;
+      // 等 node 补丁渲染完一帧再适应
+      const t = setTimeout(() => void rf.fitView({ duration: 400, padding: 0.15 }), 120);
+      return () => clearTimeout(t);
+    }
+  }, [layoutSeq, rf]);
 
   /* ---- 选中 / 双向锚定闪烁（600ms×2） ---- */
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -346,14 +372,14 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
   useEffect(() => {
     for (const n of store.nodes.values()) {
       const prev = prevStatus.current[n.id];
-      if (n.status === 'waiting' && prev !== 'waiting') {
+      if (n.backend !== 'e' && n.status === 'waiting' && prev !== 'waiting') {
         toast(`${n.title} 等待批准`, {
           description: n.approval?.prompt ?? n.statusReason ?? 'approval',
         });
       }
       prevStatus.current[n.id] = n.status;
     }
-     
+
   }, [store, storeVersion]);
 
   /* ---- 键盘（§7）：+/- 缩放、F 适应、Esc 关面板、Enter 专注 ---- */
@@ -367,10 +393,11 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
       else if (e.key === 'f' || e.key === 'F') void rf.fitView({ duration: 300, padding: 0.2 });
       else if (e.key === 'Escape') setTraceEdgeId(null);
       else if (e.key === 'Enter' && selectedId) manager.enterFocus(selectedId);
+      else if (e.key === 'l' || e.key === 'L') void store.autoLayout().catch(() => {});
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [rf, manager, selectedId]);
+  }, [rf, manager, selectedId, store]);
 
   /* ---- 窄屏提示（§7：桌面优先，<1024px 提示但仍可用） ---- */
   const [narrow, setNarrow] = useState(
@@ -410,10 +437,12 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
   };
 
   const traceEdge = traceEdgeId ? store.edges.get(traceEdgeId) : undefined;
-  const windowTotal = [...store.nodes.values()].filter((n) => n.type !== 'coordinator').length;
+  const windowTotal = [...store.nodes.values()].filter((n) => n.type !== 'coordinator'&&!n.archivedAt).length;
+  useEffect(()=>{if(focusedNodeId){const node=store.nodes.get(focusedNodeId);if(!node||node.archivedAt)manager.exitFocus();}},[focusedNodeId,manager,store,storeVersion]);
 
   return (
     <CanvasCtx.Provider value={ctxValue}>
+      <GlobalCardViewControl manager={manager}/>
       <div className="relative h-[100dvh] w-full overflow-hidden bg-canvas-bg text-text-primary">
         <ReactFlow
           nodes={flowNodes}
@@ -424,14 +453,14 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
           onSelectionChange={onSelectionChange}
           onNodeDoubleClick={(_, node) => manager.enterFocus(node.id)}
           onNodeDragStart={() => setDragging(true)}
-          onNodeDragStop={() => setDragging(false)}
+          onNodeDragStop={(_, node) => { setDragging(false);void store.saveLayout([{id:node.id,x:node.position.x,y:node.position.y}]).catch(e=>toast.error(String(e))); }}
           onDoubleClick={onCanvasDoubleClick}
           onPaneClick={() => setTraceEdgeId(null)}
           minZoom={0.1}
           maxZoom={2}
           fitView
           fitViewOptions={{ padding: 0.2 }}
-          onlyRenderVisibleElements
+          onlyRenderVisibleElements={!focusedNodeId}
           zoomOnDoubleClick={false}
           nodesConnectable={false}
           deleteKeyCode={null}
@@ -454,7 +483,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
           </button>
           <span className="flex items-center gap-1.5 rounded-pill bg-surface-2 px-2.5 py-1 text-small text-text-secondary shadow-node">
             <Radio className="size-3 text-accent" />
-            herdr 真实驱动
+            {store.backendKind === 'e' ? 'e · 真实 AgentSession' : 'herdr / 示例'}
           </span>
           {workspaceId && (
             <span
@@ -467,28 +496,40 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
         </div>
 
         {/* §2.2.4 顶部居中：常驻图例（含边动画总开关，接 ViewModeManager） */}
-        <EdgeLegend
+        {store.backendKind !== 'e' && <EdgeLegend
           className="absolute left-1/2 top-4 -translate-x-1/2 max-[1180px]:hidden"
           animationsEnabled={animationsEnabled}
           onAnimationsChange={(v) => manager.setAnimationsOverride(v)}
-        />
+        />}
+        {store.backendKind === 'e' && <span className="absolute left-1/2 top-5 -translate-x-1/2 text-small text-text-tertiary max-[1280px]:hidden">独立会话 · 无自动连线调度</span>}
 
-        {/* 顶部右侧：RunBar（运行/重置/runState/连接状态）+ 活窗配额 */}
+        {/* 顶部右侧：RunBar（运行/重置/runState/连接状态）+ 活窗配额 + 一键布局 */}
         <div className="absolute right-4 top-4 z-legend flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="一键最优布局"
+            title="一键最优布局（L）：按依赖方向整理为 zone 泳道"
+            onClick={() => void store.autoLayout().catch(() => {})}
+            className="flex h-9 items-center gap-1.5 rounded-pill bg-surface-2 px-3 text-small text-text-secondary shadow-node transition-colors duration-fast hover:bg-surface-3 hover:text-text-primary"
+          >
+            <LayoutGrid className="size-4" />
+            布局
+          </button>
           <span
             className="tnum flex h-9 items-center rounded-pill bg-surface-2 px-3 text-small text-text-secondary shadow-node"
             title="活窗配额：超出降为 2fps 心跳帧 / 快照，点窗口栏标记可手动点亮（§3.2.2）"
           >
             活窗 {liveCount}/{windowTotal}
           </span>
-          <RunBar
+          {store.backendKind === 'e' ? <div className="flex items-center gap-2 rounded bg-surface-2 p-2 text-small"><span>{store.connState}</span><button disabled={store.connState !== 'online'} onClick={()=>void store.addSession().catch(e=>toast.error(String(e)))}>添加 Pi 会话</button><ArchivedSessionsControl store={store}/></div> : <RunBar
             runState={store.runState}
             connState={store.connState}
             onRun={() => store.run()}
             onReset={() => store.reset()}
-          />
+          />}
         </div>
 
+        {store.error && <div role="alert" className="absolute bottom-4 left-1/2 z-legend -translate-x-1/2 rounded bg-surface-2 p-3">{store.error}</div>}
         {/* §2.2.2 左下：缩放控制 */}
         <ZoomControls />
 
@@ -498,10 +539,10 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
             style={{ width: 200, height: 130 }}
             nodeColor={(n) =>
               n.type === 'zone'
-                ? 'rgba(138,147,166,0.08)'
+                ? 'var(--minimap-zone)'
                 : STATUS_HEX[store.nodes.get(n.id)?.status ?? 'queued']
             }
-            maskColor="rgba(11,13,18,0.72)"
+            maskColor="var(--minimap-mask)"
             bgColor="var(--surface-1)"
             pannable
             zoomable
@@ -520,7 +561,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
           </div>
         )}
 
-        <Toaster position="top-right" visibleToasts={3} theme="dark" />
+        <Toaster position="top-right" visibleToasts={3}  />
       </div>
     </CanvasCtx.Provider>
   );

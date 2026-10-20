@@ -22,6 +22,7 @@ import type { EdgeKind, NodeStatus } from './live-store';
 
 export interface LiveEdgeData extends Record<string, unknown> {
   kind: EdgeKind;
+  lane?: number;
   /** hover 语义标签（§4） */
   semantic: string;
   sourceStatus: NodeStatus;
@@ -41,8 +42,10 @@ const EDGE_COLOR: Record<EdgeKind, string> = {
   strong: 'var(--edge-strong)',
   weak: 'var(--edge-weak)',
   error: 'var(--edge-error)',
+  communication: 'var(--accent)',
+  spawn: 'var(--edge-strong)',
 };
-const EDGE_WIDTH: Record<EdgeKind, number> = { strong: 2.5, weak: 1.5, error: 2 };
+const EDGE_WIDTH: Record<EdgeKind, number> = { strong: 2.5, weak: 1.5, error: 2, communication: 2, spawn: 2 };
 
 /** 全局 marker 定义（在页面挂一次；SVG fill/stroke attribute 不支持 var()，用 style） */
 export function EdgeMarkerDefs() {
@@ -85,6 +88,7 @@ export function EdgeMarkerDefs() {
         <marker id="ac-dot-error" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5">
           <circle cx="5" cy="5" r="3" style={{ fill: 'var(--edge-error)' }} />
         </marker>
+        <marker id="ac-arrow-communication" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style={{fill:'var(--accent)'}}/></marker>
       </defs>
     </svg>
   );
@@ -94,7 +98,7 @@ export function LiveEdge(props: EdgeProps<LiveFlowEdge>) {
   const { id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, data } = props;
   const [hover, setHover] = useState(false);
   const d = data as LiveEdgeData;
-  const [path, labelX, labelY] = getBezierPath({
+  const [basePath, labelX, baseLabelY] = getBezierPath({
     sourceX,
     sourceY,
     targetX,
@@ -104,10 +108,14 @@ export function LiveEdge(props: EdgeProps<LiveFlowEdge>) {
     curvature: 0.25,
   });
 
+  const lane = d.kind === 'communication' ? d.lane ?? 0 : 0;
+  const distance = Math.max(50, Math.abs(targetX - sourceX) / 2);
+  const path = lane ? `M${sourceX},${sourceY} C${sourceX + distance},${sourceY + lane} ${targetX - distance},${targetY + lane} ${targetX},${targetY}` : basePath;
+  const labelY = baseLabelY + lane * .75;
   const done =
     d.sourceStatus === 'completed' || d.sourceStatus === 'failed' || d.sourceStatus === 'skipped';
   const live = d.sourceStatus === 'running' || d.sourceStatus === 'waiting';
-  const showParticles = d.animationsEnabled && live && d.kind !== 'error';
+  const showParticles = d.animationsEnabled && live && d.kind !== 'error' && d.kind !== 'communication';
   /** 速率 ∝ 源节点进度；基准 1400ms 走完全程（--dur-particle） */
   const dur = 1.4 / (0.5 + d.progress);
 
@@ -119,7 +127,7 @@ export function LiveEdge(props: EdgeProps<LiveFlowEdge>) {
   return (
     <>
       <g
-        opacity={done ? 0.5 : 1}
+        opacity={done && d.kind !== 'communication' ? 0.5 : 1}
         style={{ transition: 'opacity var(--dur-med) var(--ease-out)' }}
       >
         <BaseEdge
@@ -128,7 +136,7 @@ export function LiveEdge(props: EdgeProps<LiveFlowEdge>) {
           style={{
             stroke,
             strokeWidth,
-            strokeDasharray: d.kind === 'weak' ? '6 6' : undefined,
+            strokeDasharray: d.kind === 'weak' ? '6 6' : d.kind === 'communication' ? '3 4' : d.kind === 'spawn' ? '2 5' : undefined,
             transition: 'stroke var(--dur-fast), stroke-width var(--dur-fast)',
           }}
           markerStart={
@@ -139,7 +147,7 @@ export function LiveEdge(props: EdgeProps<LiveFlowEdge>) {
                 : undefined
           }
           markerEnd={
-            d.kind === 'strong'
+            d.kind === 'communication' ? 'url(#ac-arrow-communication)' : d.kind === 'strong' || d.kind === 'spawn'
               ? 'url(#ac-arrow-strong)'
               : d.kind === 'weak'
                 ? 'url(#ac-arrow-weak)'
@@ -155,9 +163,9 @@ export function LiveEdge(props: EdgeProps<LiveFlowEdge>) {
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           onClick={() => {
-            if (d.kind === 'weak') d.onOpenTrace?.(id);
+            if (d.kind === 'weak' || d.kind === 'communication') d.onOpenTrace?.(id);
           }}
-          style={{ cursor: d.kind === 'weak' ? 'pointer' : 'default', pointerEvents: 'stroke' }}
+          style={{ cursor: d.kind === 'weak' || d.kind === 'communication' ? 'pointer' : 'default', pointerEvents: 'stroke' }}
         />
         {/* 运行态粒子（SVG animateMotion，禁用 dasharray 动画） */}
         {showParticles &&
@@ -183,8 +191,9 @@ export function LiveEdge(props: EdgeProps<LiveFlowEdge>) {
       </g>
 
       <EdgeLabelRenderer>
+        {d.kind === 'communication' && <button type="button" className="canvas-communication-label nodrag nopan" aria-label={`查看通信：${d.label}`} style={{transform:`translate(-50%,-50%) translate(${labelX}px,${labelY}px)`}} onClick={()=>d.onOpenTrace?.(id)}>{d.label}</button>}
         {/* 弱链接：中点常驻数据面标签（契约 CanvasEdge.label，等宽数字） */}
-        {d.kind === 'weak' && d.label && (
+        {(d.kind === 'weak' || d.kind === 'spawn') && d.label && (
           <div
             className="tnum absolute text-node-meta text-text-tertiary"
             style={{

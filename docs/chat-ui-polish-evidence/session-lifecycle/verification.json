@@ -1,0 +1,76 @@
+{
+  "checkedAt": "2026-10-20T16:02:43.219512+00:00",
+  "headAtVerification": "c428a53c41dffc93fddb96676b83b90a5a3b3afb",
+  "scope": "session archive, restore and destructive delete with live-capacity accounting",
+  "checks": {
+    "unit": {
+      "passed": 191,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 87,
+      "skipped": 1,
+      "failed": 0,
+      "kind": "HTTP/WS fixtures; real e opt-in skipped"
+    },
+    "apiBuild": "passed",
+    "uiBuild": "passed",
+    "lintIncludingArchitecture": "passed",
+    "docsTests": {
+      "passed": 12,
+      "failed": 0
+    },
+    "docsTypecheck": "passed",
+    "docsBuild": "passed",
+    "architecture": {
+      "sources": 232,
+      "unusedCandidates": 0,
+      "cycles": 0,
+      "parseBreaks": 0,
+      "wikiPages": 25,
+      "digest": "5592e93e250a"
+    }
+  },
+  "visual": {
+    "archivedSessionsPopover": "captured and visually inspected in PI-Desktop browser"
+  },
+  "currentDailyApi": {
+    "sessionLifecycleVersion": "absent before safe API reload",
+    "archiveControlsVisible": false,
+    "note": "hot-updated UI hides unavailable archive/delete actions until backend restart"
+  },
+  "safety": {
+    "realSessionArchivedDeletedOrRestored": false,
+    "serviceRestarted": false,
+    "queueChanged": false,
+    "approvalChanged": false,
+    "committedOrPushed": false,
+    "ownedScreenshotPreviewStopped": true
+  },
+  "remainingBlockers": [
+    "A safe API reload is required before the archive/delete routes exist in the daily service.",
+    "Existing outcome-unknown queue entries still require explicit user review."
+  ],
+  "sourceSha256": {
+    "app/api/e/contracts.ts": "2432a3be6c30f42f37cf0dc7a6f753c18cb9e69cdccf3e47b81dbeb6b82adf86",
+    "app/api/e/session-manager.ts": "439509d50b47c3322745c853ebf207030d183297cadf903154e7a3dc6e57e3ee",
+    "app/api/e/projection.ts": "57dbd247d45e7a19452fda8b77371b2631cca52651579fa11cbfd33601d5d8f0",
+    "app/api/types.ts": "64b129f38d9bc03f483611f21ee4a4871b7c2e8c979846a9800a54435e690c7e",
+    "app/api/graph.ts": "99958151a54e4cc17b9bae9d2b64492fb2936d8eefa20c2905272417b66d0209",
+    "app/api/routes.ts": "1baf74baeaf8731def53ecf97ff45e69f4f82516cd03eb076282c6c19f083e59",
+    "app/src/pages/canvas/contracts.ts": "76d50dc79fe93e92e4cebd72cff592befb0ec18a9fadc8420220bbfd0f1eb154",
+    "app/src/pages/canvas/index.tsx": "5ee9efaaa04f207b8df3f26007704a082ea98f76d7e70a61833f6dbded5d4275",
+    "app/src/pages/canvas/SessionHeaderActions.tsx": "50a57f35029c2a9a5c650159707bf8ae7c9c805c50bd9412e8deebfab0a74660",
+    "app/src/pages/canvas/live-store.ts": "518acb5c90f7d4e7a46f9a8339561fb0bf82e94a41d5a9647abd0f8d48383a59",
+    "app/test/unit/e-session-manager.test.mjs": "1d622e2bfc5591c559079d53da53fc2facf2bf97e0ab41858ce58b2fd378d4f5",
+    "app/test/unit/e-routes.test.mjs": "be9572df7c965c6581333cd12803af5fa48946e292f5a8d63f95d7b9dc1e274a",
+    "app/test/browser/recovery-ui.spec.ts": "8aa1c74adbd7576b330865dd2e85bd7438064e592adaaf3dfa95c1ea8e4c1622",
+    "app/test/browser/ui-actions.ts": "c5a66ac44670ef825d8dd06b963eee3474d661da222759dc71e4c57a74692619",
+    "app/src/pages/canvas/ArchivedSessionsControl.tsx": "be35b57aceb2d6b21c9ba64d6e3a2376e2dab19444413942223e9ec9a861cdd5",
+    "app/src/pages/canvas/chat/chat.css": "64726848cdb240f4d2b9a57b905092cb81c9602bb1be3a56c7ef3e21e1ff3eda",
+    "app/api/e/config.ts": "db4611743d3abec21f05dfa37123cf0a24d8e2526b555a5dcefd62a8234274c2",
+    "app/test/browser/fixtures/desktop.ts": "00f20d97bc238ecbafbd82eeece58b8efd48968d3e29c966e310fd73d9c7dbb9",
+    "app/api/layout.ts": "4204e0443de4658b01654841317fed5a993191a06f423fac667c64cd0ab5fa7f",
+    "app/test/unit/e-projection.test.mjs": "1a0894c073b372636527f78f0b24817bce1eec185e7fd073768467cba45bbbba"
+  }
+}

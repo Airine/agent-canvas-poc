@@ -1,0 +1,119 @@
+[
+  {
+    "check": "deep route + same native ready",
+    "evidence": {
+      "wid": "ws-506aff1a",
+      "nid": "n-6961c32d-01fa-4be2-974a-5a7a9cad6f1e",
+      "ref": {
+        "nativeSessionId": "1882f186-7671-4fbb-9dc7-4c26a7d8b9ca",
+        "agentSessionId": "as:5a0582ef10a2e31e0a3c03928705ff58",
+        "cwd": "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/ui-polish/real-project",
+        "provider": "openai-codex",
+        "model": "gpt-6-astra"
+      },
+      "configuration": "gpt-6-astra"
+    },
+    "at": "2026-10-19T06:23:24.835Z"
+  },
+  {
+    "check": "UI thinking confirmed",
+    "evidence": {
+      "thinking": "minimal",
+      "confirmedAt": "2026-10-19T06:23:25.166Z"
+    },
+    "at": "2026-10-19T06:23:25.170Z"
+  },
+  {
+    "check": "UI model confirmed",
+    "evidence": {
+      "model": {
+        "provider": "openai-codex",
+        "id": "gpt-6.1-sol",
+        "name": "GPT-6.1 Sol",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 500000
+      },
+      "ref": {
+        "nativeSessionId": "1882f186-7671-4fbb-9dc7-4c26a7d8b9ca",
+        "agentSessionId": "as:5a0582ef10a2e31e0a3c03928705ff58",
+        "cwd": "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/ui-polish/real-project",
+        "provider": "openai-codex",
+        "model": "gpt-6.1-sol"
+      }
+    },
+    "at": "2026-10-19T06:23:25.455Z"
+  },
+  {
+    "check": "original config restored",
+    "evidence": {
+      "model": "gpt-6-astra",
+      "thinking": "medium"
+    },
+    "at": "2026-10-19T06:23:26.003Z"
+  },
+  {
+    "check": "UI pending edit refresh resume and exact ordered consumption",
+    "evidence": {
+      "items": [
+        {
+          "id": "4823bff6-03c9-4d43-8d2d-3edbe419396b",
+          "state": "consumed",
+          "content": "不要调用工具，只回复 POLISH_1792391006015_QUEUE_1_EDITED",
+          "submittedAt": "2026-10-19T06:23:26.761Z",
+          "consumedAt": "2026-10-19T06:23:26.803Z"
+        },
+        {
+          "id": "6c732fab-7ccb-40fd-89b0-c3fc5dc9b88a",
+          "state": "consumed",
+          "content": "不要调用工具，只回复 POLISH_1792391006015_QUEUE_2",
+          "submittedAt": "2026-10-19T06:23:39.698Z",
+          "consumedAt": "2026-10-19T06:23:39.717Z"
+        }
+      ],
+      "replies": [
+        {
+          "id": "message:116d68c307a832651f605319ba48e37a",
+          "blocks": [
+            {
+              "type": "text",
+              "text": "POLISH_1792391006015_QUEUE_1_EDITED"
+            }
+          ]
+        },
+        {
+          "id": "message:1f63e7b975bec12037efdd044a345717",
+          "blocks": [
+            {
+              "type": "text",
+              "text": "POLISH_1792391006015_QUEUE_2"
+            }
+          ]
+        }
+      ]
+    },
+    "at": "2026-10-19T06:23:42.856Z"
+  },
+  {
+    "check": "UI stop/resume preserves native draft and queue pause",
+    "evidence": {
+      "ref": {
+        "nativeSessionId": "1882f186-7671-4fbb-9dc7-4c26a7d8b9ca",
+        "agentSessionId": "as:5a0582ef10a2e31e0a3c03928705ff58",
+        "cwd": "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/ui-polish/real-project",
+        "provider": "openai-codex",
+        "model": "gpt-6-astra"
+      },
+      "paused": true,
+      "draft": "这是尚未发送的 UI 验收草稿"
+    },
+    "at": "2026-10-19T06:23:45.183Z"
+  },
+  {
+    "check": "page errors",
+    "evidence": [],
+    "at": "2026-10-19T06:23:45.184Z"
+  }
+]

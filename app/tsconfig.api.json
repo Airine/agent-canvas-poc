@@ -7,10 +7,12 @@
     "outDir": "dist-api",
     "rootDir": "api",
     "strict": true,
+    "noEmitOnError": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
-  "include": ["api/**/*.ts"]
+  "include": ["api/**/*.ts"],
+  "exclude": ["api/data/**", "dist-api/**", "node_modules/**"]
 }

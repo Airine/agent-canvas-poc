@@ -1,0 +1,12 @@
+{
+  "command": "npx -y knip@5 --reporter json --include files,exports,cycles",
+  "status": 2,
+  "stderr": "ERROR: Invalid issue type: cycles\n",
+  "fallback": "npx -y knip@5 --reporter json --include files,exports",
+  "fallbackStatus": 0,
+  "fallbackError": "",
+  "result": {
+    "files": [],
+    "issues": []
+  }
+}

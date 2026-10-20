@@ -1,0 +1,87 @@
+[
+  {
+    "check": "isolated native ready",
+    "evidence": {
+      "ref": {
+        "nativeSessionId": "3e13fbdf-0d76-42e6-b0df-fbc7324aae75",
+        "agentSessionId": "as:bf453dd70b995e1bbdd01f0f2d50cc20",
+        "cwd": "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/reasoning-picker/real-project",
+        "provider": "openai-codex",
+        "model": "gpt-6-astra"
+      },
+      "model": {
+        "provider": "openai-codex",
+        "id": "gpt-6-astra",
+        "name": "GPT-6 Astra",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 272000
+      },
+      "thinking": "medium",
+      "messages": 5
+    }
+  },
+  {
+    "check": "real reasoning committed only after Enter",
+    "evidence": {
+      "value": "minimal",
+      "confirmedAt": "2026-10-19T18:20:39.217Z",
+      "revision": 2
+    }
+  },
+  {
+    "check": "real model switch rebuilt reasoning panel",
+    "evidence": {
+      "model": {
+        "provider": "openai-codex",
+        "id": "gpt-6.1-sol",
+        "name": "GPT-6.1 Sol",
+        "input": [
+          "text",
+          "image"
+        ],
+        "contextWindow": 500000
+      },
+      "thinking": "medium",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "ref": {
+        "nativeSessionId": "3e13fbdf-0d76-42e6-b0df-fbc7324aae75",
+        "agentSessionId": "as:bf453dd70b995e1bbdd01f0f2d50cc20",
+        "cwd": "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/reasoning-picker/real-project",
+        "provider": "openai-codex",
+        "model": "gpt-6.1-sol"
+      }
+    }
+  },
+  {
+    "check": "original config restored, no new messages or identity changes",
+    "evidence": {
+      "ref": {
+        "nativeSessionId": "3e13fbdf-0d76-42e6-b0df-fbc7324aae75",
+        "agentSessionId": "as:bf453dd70b995e1bbdd01f0f2d50cc20",
+        "cwd": "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/reasoning-picker/real-project",
+        "provider": "openai-codex",
+        "model": "gpt-6-astra"
+      },
+      "thinking": "medium",
+      "messages": 5
+    }
+  },
+  {
+    "check": "completed",
+    "evidence": {
+      "lifecycle": "stopped",
+      "pageErrors": [],
+      "url": "http://127.0.0.1:5211/canvas/ws-dac9417c"
+    }
+  }
+]

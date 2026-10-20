@@ -1,0 +1,114 @@
+{
+  "results": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/docs/data-flow",
+      "status": 200
+    },
+    {
+      "path": "/docs/entrypoints",
+      "status": 200
+    },
+    {
+      "path": "/docs/getting-started",
+      "status": 200
+    },
+    {
+      "path": "/docs/health",
+      "status": 200
+    },
+    {
+      "path": "/docs",
+      "status": 200
+    },
+    {
+      "path": "/docs/maintenance",
+      "status": 200
+    },
+    {
+      "path": "/docs/repository-layout",
+      "status": 200
+    },
+    {
+      "path": "/docs/review",
+      "status": 200
+    },
+    {
+      "path": "/docs/system",
+      "status": 200
+    },
+    {
+      "path": "/docs/unused-exports",
+      "status": 200
+    },
+    {
+      "path": "/docs/unused-files",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/canvas",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/chat-ui",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/collaboration",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/control-plane",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/development",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/documentation",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/e-approvals",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/e-runtime",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/frontend-shell",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/herdr",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/message-content",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/prototypes",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/research",
+      "status": 200
+    },
+    {
+      "path": "/docs/modules/ui-primitives",
+      "status": 200
+    },
+    {
+      "path": "/architecture.html",
+      "status": 200
+    }
+  ],
+  "missingStatus": 404,
+  "chineseSearchResults": 60
+}

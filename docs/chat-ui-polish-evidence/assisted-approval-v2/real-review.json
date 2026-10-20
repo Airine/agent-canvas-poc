@@ -1,0 +1,42 @@
+{
+  "kind": "real-no-tools-review-with-synthetic-approval-host",
+  "at": "2026-10-20T05:56:32.530Z",
+  "policyVersion": 2,
+  "reviewer": {
+    "provider": "deepseek",
+    "model": "deepseek-flash"
+  },
+  "elapsedMs": 1741,
+  "reviewAttempts": 1,
+  "verdict": {
+    "decision": "approve",
+    "risk": "low",
+    "reason": "可见的 Node 单行命令仅读取本地 sample.json 并打印 name/count，无写入、删除、网络或凭据操作，与任务一致且风险低。"
+  },
+  "approvalHostCalls": 1,
+  "actualToolExecution": false,
+  "dailySessionTouched": false,
+  "audits": [
+    {
+      "source": "ai",
+      "state": "reviewing",
+      "rule": "inspectable-shell-v2",
+      "reviewAttempted": true,
+      "reason": "独立 AI 审查中；可随时人工批准/拒绝"
+    },
+    {
+      "source": "ai",
+      "state": "submitting",
+      "rule": "inspectable-shell-v2",
+      "reviewAttempted": true,
+      "reason": "可见的 Node 单行命令仅读取本地 sample.json 并打印 name/count，无写入、删除、网络或凭据操作，与任务一致且风险低。"
+    },
+    {
+      "source": "ai",
+      "state": "submitted",
+      "rule": "inspectable-shell-v2",
+      "reviewAttempted": true,
+      "reason": "可见的 Node 单行命令仅读取本地 sample.json 并打印 name/count，无写入、删除、网络或凭据操作，与任务一致且风险低。；已提交到 e，执行状态以真实审批记录为准"
+    }
+  ]
+}

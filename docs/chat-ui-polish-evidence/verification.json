@@ -1,0 +1,18 @@
+{
+  "unitPassed": 92,
+  "productionBrowserPassed": 36,
+  "productionFixtureTests": 35,
+  "productionRealModelTests": 1,
+  "developmentPolishPassed": 8,
+  "menuRepeatedPasses": 10,
+  "attachmentRepeatedPasses": 3,
+  "composerBeforePx": 192.78125,
+  "composerAfterPx": 122,
+  "permissionOpenBeforePx": 265.375,
+  "permissionOpenAfterPx": 122,
+  "screenshotCount": 47,
+  "manualVisualInspection": "not completed: PI browser not visible; Orca runtime unavailable",
+  "runtimeBackendModified": false,
+  "dailyServiceRestarted": false,
+  "url": "http://127.0.0.1:3329/canvas/ws-506aff1a"
+}

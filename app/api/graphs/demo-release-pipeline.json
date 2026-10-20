@@ -1,7 +1,7 @@
 {
   "id": "ws-demo",
   "title": "Demo · 发布流水线",
-  "path": "C:/projects/agent-canvas",
+  "path": ".",
   "description": "复刻 v0 演示拓扑：环境初始化 → 数据处理/报告生成 → 汇报，含失败处置错误路由。",
   "graph": {
     "zones": [

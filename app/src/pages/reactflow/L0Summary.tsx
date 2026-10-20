@@ -29,11 +29,11 @@ export function L0SummaryCard({ def, state, detail, selected }: L0SummaryCardPro
       <div
         className={cn(
           'rounded-node bg-surface-1 shadow-node transition-[box-shadow,opacity] duration-fast',
-          'hover:[box-shadow:0_1px_2px_rgba(0,0,0,.4),0_0_0_1px_var(--border-strong)]',
+          'hover:[box-shadow:var(--shadow-hover)]',
           state.status === 'failed' && 'shadow-failed hover:shadow-failed',
           state.status === 'skipped' && 'node-skipped',
           def.kind === 'coordinator' &&
-            '[box-shadow:0_1px_2px_rgba(0,0,0,.4),0_0_0_1.5px_var(--nt-coord)]',
+            '[box-shadow:0_0_0_1.5px_var(--nt-coord)]',
           selected && 'shadow-node-selected hover:shadow-node-selected',
         )}
       >

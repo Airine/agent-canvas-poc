@@ -93,7 +93,7 @@
     --secondary-foreground: 225 21% 93%;
     --muted: 223 23% 12%;
     --muted-foreground: 221 14% 66%; /* --text-secondary #9BA3B4 */
-    --accent: 247 87% 69%;           /* 品牌紫 */
+    --accent-hsl: 247 87% 69%;           /* 品牌紫 */
     --accent-foreground: 0 0% 100%;
     --destructive: 358 86% 64%;      /* --st-failed #F2555A */
     --destructive-foreground: 0 0% 100%;
@@ -125,7 +125,7 @@
     --secondary-foreground: 225 21% 93%;
     --muted: 223 23% 12%;
     --muted-foreground: 221 14% 66%;
-    --accent: 247 87% 69%;
+    --accent-hsl: 247 87% 69%;
     --accent-foreground: 0 0% 100%;
     --destructive: 358 86% 64%;
     --destructive-foreground: 0 0% 100%;
@@ -180,7 +180,7 @@
   }
   /* 终端底色（§3.3.2） */
   .terminal-bg {
-    background-color: #0A0C10;
+    background-color: var(--terminal-bg);
   }
 }
 
@@ -248,3 +248,54 @@ html[data-motion='off'] *::after {
   transition-duration: 0.01ms !important;
   scroll-behavior: auto !important;
 }
+
+/* Theme additions: native controls, canvas surfaces, overlays and terminals share tokens. */
+:root {
+ --terminal-bg:#0A0C10; --terminal-fg:#E8EAF0; --terminal-selection:#38415a;
+ --terminal-black:#0B0D12; --terminal-white:#E8EAF0; --terminal-bright-black:#9BA3B4; --terminal-bright-white:#FFFFFF;
+ --minimap-mask:rgba(11,13,18,.72); --minimap-zone:rgba(138,147,166,.12); --minimap-viewport:rgba(56,65,90,.28);
+ --modal-backdrop:rgba(11,13,18,.65); --chart-1:247 87% 69%; --chart-2:159 56% 52%; --chart-3:209 100% 65%; --chart-4:37 91% 55%; --chart-5:358 86% 64%;
+ --shadow-hover:0 1px 2px rgba(0,0,0,.25),0 0 0 1px var(--border-strong);
+}
+:root.light {
+ color-scheme:light;
+ --canvas-bg:#F3F5FA; --canvas-grid:#D5DBE7;
+ --surface-1:#FFFFFF; --surface-2:#F0F3F8; --surface-3:#E5EAF3;
+ --surface-overlay:rgba(226,232,242,.78); --modal-backdrop:rgba(35,47,69,.28);
+ --border-subtle:#D6DDE8; --border-strong:#97A5BA;
+ --text-primary:#182236; --text-secondary:#49586F; --text-tertiary:#56657C;
+ --accent:#6047C8; --accent-soft:rgba(96,71,200,.10);
+ --st-queued:#5B6A80; --st-running:#1766BE; --st-waiting:#885700; --st-completed:#167548; --st-failed:#C42E3B; --st-skipped:#56657C;
+ --nt-coord:#6047C8; --nt-artifact:#087E72; --nt-operation:#885700; --nt-chat:#1766BE;
+ --edge-strong:#7768AE; --edge-weak:#8390A6; --edge-error:#C42E3B;
+ --shadow-node:0 2px 6px rgba(32,50,80,.06),0 0 0 1px var(--border-subtle);
+ --shadow-node-selected:0 0 0 2px var(--accent),0 5px 18px rgba(32,50,80,.12);
+ --shadow-overlay:0 18px 60px rgba(32,50,80,.18);
+ --shadow-hover:0 2px 7px rgba(32,50,80,.09),0 0 0 1px var(--border-strong);
+ --background:223 41% 97%; --foreground:220 38% 15%;
+ --card:0 0% 100%; --card-foreground:220 38% 15%; --popover:0 0% 100%; --popover-foreground:220 38% 15%;
+ --primary:252 54% 53%; --primary-foreground:0 0% 100%;
+ --secondary:218 36% 96%; --secondary-foreground:220 38% 15%;
+ --muted:218 36% 96%; --muted-foreground:217 21% 36%;
+ --accent-hsl:252 54% 53%; --accent-foreground:0 0% 100%;
+ --destructive:355 62% 47%; --destructive-foreground:0 0% 100%;
+ --border:217 28% 87%; --input:217 28% 87%; --ring:252 54% 53%;
+ --sidebar-background:218 36% 96%; --sidebar-foreground:220 38% 15%; --sidebar-primary:252 54% 53%; --sidebar-primary-foreground:0 0% 100%;
+ --sidebar-accent:218 36% 92%; --sidebar-accent-foreground:220 38% 15%; --sidebar-border:217 28% 87%; --sidebar-ring:252 54% 53%;
+ --terminal-bg:#F8FAFD; --terminal-fg:#182236; --terminal-selection:#CBD9F1;
+ --terminal-black:#182236; --terminal-white:#63728A; --terminal-bright-black:#63728A; --terminal-bright-white:#182236;
+ --minimap-mask:rgba(243,245,250,.72); --minimap-zone:rgba(73,88,111,.12); --minimap-viewport:rgba(96,71,200,.10);
+ --chart-1:252 54% 53%; --chart-2:151 69% 27%; --chart-3:212 78% 42%; --chart-4:39 100% 29%; --chart-5:355 62% 47%;
+}
+.theme-switcher-global{position:fixed;left:16px;bottom:176px;z-index:var(--z-legend)}
+.theme-switcher{display:inline-flex;align-items:center;gap:8px;padding:6px 9px;border-radius:9px;background:var(--surface-2);box-shadow:0 0 0 1px var(--border-subtle);color:var(--text-secondary);font-size:11px;white-space:nowrap}
+.theme-switcher select{background:var(--surface-1);color:var(--text-primary);border-radius:5px;padding:3px 5px;border:0;font:inherit;cursor:pointer}
+.theme-switcher select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[data-slot='dialog-overlay'],[data-slot='sheet-overlay'],[data-slot='alert-dialog-overlay']{background:var(--modal-backdrop)}
+.react-flow__minimap-mask{fill:var(--minimap-mask)}
+.react-flow__attribution a{color:var(--text-tertiary)}
+
+/* Product canvas view defaults share the existing global theme dock. */
+.theme-switcher-global{display:flex;align-items:center;gap:8px;max-width:calc(100vw - 24px)}
+[data-global-card-view-slot]:empty{display:none}
+@media(max-width:640px){.theme-switcher-global{gap:6px}}

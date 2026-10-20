@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-10-20T09:48:29.007367+00:00",
+  "scope": "empty system failure notice and live fetch failed diagnosis",
+  "liveDiagnosis": {
+    "pageLoaded": true,
+    "canvasOnline": true,
+    "consoleNetworkErrors": 0,
+    "rest": {
+      "workspaces": 200,
+      "graph": 200,
+      "session": 200,
+      "runtimeStatus": 200
+    },
+    "websocket": "hello acknowledged with graph",
+    "visibleFetchFailedSource": "consumed queue/message text, not a network failure",
+    "sessionMutated": false,
+    "approvalHandled": false,
+    "serviceRestarted": false
+  },
+  "fix": {
+    "file": "app/src/pages/canvas/chat/project-transcript.ts",
+    "behavior": "empty system text or empty error payloads no longer create visible failure notices"
+  },
+  "checks": {
+    "unit": {
+      "passed": 187,
+      "failed": 0
+    },
+    "focusedBrowser": {
+      "passed": 11,
+      "failed": 0
+    },
+    "build": "passed",
+    "lintIncludingArchitecture": "passed",
+    "docs": "11 tests, typecheck and build passed",
+    "architecture": "24 pages, digest ffca30836368"
+  },
+  "notes": [
+    "Existing historical failure notices are separate records and were not hidden.",
+    "Documentation duplicate introduced during sync was removed and architecture verify rerun."
+  ],
+  "remainingBlockers": []
+}

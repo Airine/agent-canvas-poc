@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-20",
+  "unit": {
+    "passed": 154,
+    "failed": 0
+  },
+  "browser": {
+    "passed": 74,
+    "skipped": 1,
+    "failed": 0,
+    "kind": "HTTP/WS fixtures",
+    "repeatedAfterCleanup": true
+  },
+  "apiBuild": "passed",
+  "uiBuild": "passed",
+  "eslint": "passed",
+  "realModel": {
+    "passed": true,
+    "source": "real-evidence.json",
+    "ownedSessionsStopped": true
+  },
+  "dailyServicesRestarted": false,
+  "architectureAndCleanup": {
+    "architecture": "passed",
+    "wikiPages": 24,
+    "sourceFiles": 216,
+    "unusedFiles": 0,
+    "cycles": 0,
+    "parseBreaks": 0,
+    "docsToolTests": 11,
+    "docsTypecheck": "passed",
+    "docsBuild": "passed",
+    "fullLint": "passed",
+    "diffCheck": "passed",
+    "removedSourceFiles": 25,
+    "removedObsoleteTemplateFiles": 3,
+    "removedDirectDependencies": 34,
+    "removedLockEntries": 46,
+    "existingPackageVersionsChanged": false,
+    "knipFilesDependenciesUnlistedBinaries": "no findings"
+  },
+  "cleanInstall": {
+    "location": "isolated scratch copy; no user runtime data",
+    "command": "npm ci --ignore-scripts --no-audit --no-fund",
+    "passed": true,
+    "unitPassed": 154,
+    "apiBuild": "passed",
+    "uiBuild": "passed",
+    "eslint": "passed",
+    "dailyNodeModulesPruned": false
+  },
+  "secretPatternScan": {
+    "matched": 0,
+    "includesRuntimeData": false
+  },
+  "nonBlockingWarnings": [
+    "large UI bundle",
+    "deprecated but still-used xterm/xterm-addon-fit and transitive lodash.isequal"
+  ]
+}

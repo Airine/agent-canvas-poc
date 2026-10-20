@@ -6,25 +6,36 @@ import { useEffect, useState } from 'react';
 import type { CanvasNode, EdgeKind, NodeStatus } from './live-store';
 
 /** 耗时：`42s` / `3m12s`，等宽数字（§1.2） */
-export function fmtElapsed(ms: number): string {
+function fmtElapsed(ms: number): string {
   const s = Math.max(0, Math.round(ms / 1000));
   if (s < 60) return `${s}s`;
   return `${Math.floor(s / 60)}m${String(s % 60).padStart(2, '0')}s`;
 }
 
 /** 状态徽章后缀（§3.1）：running=elapsed / waiting=reason / done=duration / failed=一行摘要 */
+/**
+ * 契约里的时间戳是 ISO 字符串（后端 toISOString），历史版本误当 number 用，
+ * 直接做减法会得到 NaN（"NaNmNaNs"）。统一在此归一为 epoch ms。
+ */
+function toMs(v: number | string | undefined): number | undefined {
+  if (v === undefined) return undefined;
+  if (typeof v === 'number') return v;
+  const t = Date.parse(v);
+  return Number.isNaN(t) ? undefined : t;
+}
+
 export function statusDetailFor(node: CanvasNode, nowMs: number): string | undefined {
+  const started = toMs(node.startedAt);
+  const ended = toMs(node.endedAt);
   switch (node.status) {
     case 'running':
-      return fmtElapsed(nowMs - (node.startedAt ?? nowMs));
+      return started === undefined ? undefined : fmtElapsed(nowMs - started);
     case 'waiting':
       return node.statusReason;
     case 'completed':
       return (
         node.statusReason ??
-        (node.startedAt !== undefined && node.endedAt !== undefined
-          ? fmtElapsed(node.endedAt - node.startedAt)
-          : undefined)
+        (started !== undefined && ended !== undefined ? fmtElapsed(ended - started) : undefined)
       );
     case 'failed':
       return node.statusReason;
@@ -45,7 +56,7 @@ export function useSecondClock(active: boolean): number {
 }
 
 /** 剥离 ansi 转义序列（L0 静态快照 / 未订阅节点的静态末屏用） */
-export function stripAnsi(s: string): string {
+function stripAnsi(s: string): string {
   // eslint-disable-next-line no-control-regex
   return s.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '').replace(/\r/g, '');
 }
@@ -62,6 +73,8 @@ export const EDGE_KIND_SEMANTIC: Record<EdgeKind, string> = {
   strong: '强依赖 · 事务',
   weak: '弱链接 · 通信',
   error: '错误路由',
+  communication: 'Agent 通信 · 实际记录',
+  spawn: '会话派生 · 父 → 子',
 };
 
 /** 节点 DOM 宽（§3.2：默认态固定 400px；Coordinator 320px，§3.3.4） */
@@ -71,10 +84,10 @@ export function nodeWidth(node: CanvasNode): number {
 
 /** minimap 节点色块（SVG fill attribute 不支持 var()，用与令牌一致的 hex） */
 export const STATUS_HEX: Record<NodeStatus, string> = {
-  queued: '#8A93A6',
-  running: '#4D9FFF',
-  waiting: '#F5A524',
-  completed: '#3DC97E',
-  failed: '#F2555A',
-  skipped: '#5C6478',
+  queued: 'var(--st-queued)',
+  running: 'var(--st-running)',
+  waiting: 'var(--st-waiting)',
+  completed: 'var(--st-completed)',
+  failed: 'var(--st-failed)',
+  skipped: 'var(--st-skipped)',
 };

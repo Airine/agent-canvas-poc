@@ -34,7 +34,7 @@
   overflow: hidden;
 }
 .react-flow__minimap-viewport {
-  fill: rgba(56, 65, 90, 0.28);
+  fill: var(--minimap-viewport);
   stroke: var(--border-strong);
   stroke-width: 2;
   rx: 2;

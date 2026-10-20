@@ -28,7 +28,7 @@ export interface EngineState {
 }
 
 /** 纯函数：把事件序列折叠到 upto（含）为止，重建全部节点/边状态 */
-export function buildSnapshot(
+function buildSnapshot(
   events: AgentEvent[],
   nodeDefs: CanvasNodeDef[],
   edgeDefs: CanvasEdgeDef[],

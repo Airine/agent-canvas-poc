@@ -1,0 +1,20 @@
+{
+  "unitPassed": 105,
+  "browserPassed": 44,
+  "realModelSkipped": 1,
+  "visualChecks": [
+    "real card",
+    "real header menu",
+    "real floating focus"
+  ],
+  "backendRuntimeChanged": [],
+  "concurrentChanges": [],
+  "originalBaselineFilesUnchanged": 246,
+  "protectedPaths": 579,
+  "realSessionAfter": {
+    "lifecycle": "interrupted",
+    "activeRuns": 0,
+    "queueItems": 0,
+    "native": "8ceb4c8f-d744-4a4c-9275-54a86028523c"
+  }
+}

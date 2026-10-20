@@ -6,7 +6,7 @@ import type { EngineState, NodeState, NodeStatus } from '@/shared';
 import { MOCK_EVENTS } from '@/shared';
 
 /** 耗时：`42s` / `3m12s`，等宽数字（§1.2） */
-export function fmtElapsed(ms: number): string {
+function fmtElapsed(ms: number): string {
   const s = Math.max(0, Math.round(ms / 1000));
   if (s < 60) return `${s}s`;
   return `${Math.floor(s / 60)}m${String(s % 60).padStart(2, '0')}s`;
@@ -132,10 +132,10 @@ export const MSG_RATE: Record<string, number> = {
 
 /** minimap 节点色块（SVG fill attribute 不支持 var()，用与令牌一致的 hex） */
 export const STATUS_HEX: Record<NodeStatus, string> = {
-  queued: '#8A93A6',
-  running: '#4D9FFF',
-  waiting: '#F5A524',
-  completed: '#3DC97E',
-  failed: '#F2555A',
-  skipped: '#5C6478',
+  queued: 'var(--st-queued)',
+  running: 'var(--st-running)',
+  waiting: 'var(--st-waiting)',
+  completed: 'var(--st-completed)',
+  failed: 'var(--st-failed)',
+  skipped: 'var(--st-skipped)',
 };

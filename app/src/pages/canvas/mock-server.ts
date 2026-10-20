@@ -21,7 +21,7 @@ import type {
   NodeEvent,
   ServerMessage,
   WorkspaceSummary,
-} from './live-store';
+} from './contracts';
 
 type Emit = (msg: ServerMessage) => void;
 
@@ -603,7 +603,7 @@ function buildMockWorkspaces(): WorkspaceSummary[] {
     {
       id: 'ws-demo',
       title: '数据管线演示',
-      path: 'C:/work/agent-canvas',
+      path: '离线示例 · 未连接本地目录',
       description: '契约 §5 编排脚本演示：环境初始化 → 数据处理（审批）/ 报告生成（失败兜底）→ 分析汇报。',
       createdAt: iso(1000 * 60 * 60 * 24 * 6),
       lastActiveAt: iso(1000 * 60 * 4),
@@ -613,7 +613,7 @@ function buildMockWorkspaces(): WorkspaceSummary[] {
     {
       id: 'ws-ingest',
       title: '数据接入 PoC',
-      path: 'C:/work/agent-canvas',
+      path: '离线示例 · 未连接本地目录',
       description: '同项目下的接入链路验证：抽取完成，加载入仓因表锁失败，告警节点被跳过。',
       createdAt: iso(1000 * 60 * 60 * 24 * 3),
       lastActiveAt: iso(1000 * 60 * 60 * 26),
@@ -623,7 +623,7 @@ function buildMockWorkspaces(): WorkspaceSummary[] {
     {
       id: 'ws-research',
       title: '调研助手集群',
-      path: 'C:/work/research-swarm',
+      path: '离线示例 · 未连接本地目录',
       description: '三节点调研流水线：检索 → 撰写，Coordinator 弱链接旁听，已完整跑完一轮。',
       createdAt: iso(1000 * 60 * 60 * 24 * 12),
       lastActiveAt: iso(1000 * 60 * 60 * 50),

@@ -1,0 +1,19 @@
+
+> my-app@0.0.0 test:e2e
+> playwright test chat-experience.spec.ts --grep 500 messages --repeat-each=5 --output=/Users/aaron/.pi-desktop/scratch/***/desktop-chat/playwright-stability
+
+
+Running 5 tests using 1 worker
+
+CHAT_PERFORMANCE {"nodes":4,"messagesPerNode":500,"initialMountedPerNode":30,"fixtureToInteractiveMs":3923}
+  ✓  1 test/browser/chat-experience.spec.ts:49:1 › 500 messages per node are windowed; stream in other node does not mutate focused history (4.5s)
+CHAT_PERFORMANCE {"nodes":4,"messagesPerNode":500,"initialMountedPerNode":30,"fixtureToInteractiveMs":3519}
+  ✓  2 test/browser/chat-experience.spec.ts:49:1 › 500 messages per node are windowed; stream in other node does not mutate focused history (3.8s)
+CHAT_PERFORMANCE {"nodes":4,"messagesPerNode":500,"initialMountedPerNode":30,"fixtureToInteractiveMs":2078}
+  ✓  3 test/browser/chat-experience.spec.ts:49:1 › 500 messages per node are windowed; stream in other node does not mutate focused history (2.3s)
+CHAT_PERFORMANCE {"nodes":4,"messagesPerNode":500,"initialMountedPerNode":30,"fixtureToInteractiveMs":3409}
+  ✓  4 test/browser/chat-experience.spec.ts:49:1 › 500 messages per node are windowed; stream in other node does not mutate focused history (3.6s)
+CHAT_PERFORMANCE {"nodes":4,"messagesPerNode":500,"initialMountedPerNode":30,"fixtureToInteractiveMs":3405}
+  ✓  5 test/browser/chat-experience.spec.ts:49:1 › 500 messages per node are windowed; stream in other node does not mutate focused history (3.8s)
+
+  5 passed (23.0s)

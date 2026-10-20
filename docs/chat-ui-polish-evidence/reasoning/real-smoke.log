@@ -1,0 +1,10 @@
+
+> my-app@0.0.0 test:e2e
+> playwright test real-e.spec.ts --output=/Users/aaron/.pi-desktop/scratch/***/reasoning-picker/playwright-real
+
+
+Running 1 test using 1 worker
+
+  ✓  1 test/browser/real-e.spec.ts:6:1 › real Pi responds inside the main canvas and resumes the same native session (12.6s)
+
+  1 passed (14.3s)

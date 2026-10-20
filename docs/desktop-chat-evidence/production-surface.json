@@ -1,0 +1,23 @@
+{
+  "base": "http://127.0.0.1:3327",
+  "label": "production",
+  "screenshots": [
+    "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/desktop-chat/production-node-light.png",
+    "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/desktop-chat/production-node-dark.png",
+    "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/desktop-chat/production-floating-light.png",
+    "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/desktop-chat/production-floating-dark.png",
+    "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/desktop-chat/production-fullscreen-light.png",
+    "/Users/aaron/.pi-desktop/scratch/a46ab45d-e973-490f-89a3-ee918f751d32/desktop-chat/production-fullscreen-dark.png"
+  ],
+  "native": "f62e2b4d-0460-4f29-a2dc-505b4c06cae8",
+  "queue": {
+    "paused": true,
+    "itemId": "b6f2f3ed-d3b2-44b7-bdbf-0c37f3968659",
+    "state": "pending"
+  },
+  "draftPreserved": true,
+  "sameDOM": true,
+  "readingAnchor": "message:message:history:c39697db16c2ad107490b461da06a82a",
+  "pageErrors": [],
+  "badAssets": []
+}

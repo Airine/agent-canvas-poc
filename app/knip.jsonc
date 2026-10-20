@@ -1,0 +1,24 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema-jsonc.json",
+  "entry": [
+    "src/main.tsx",
+    "api/index.ts",
+    "scripts/dev-e.mjs",
+    // Forked dynamically by SessionManager; not an unused standalone script.
+    "scripts/e-runtime-worker.mts",
+    // Explicit Pi extension and read-only package inspector; no static app importer.
+    "scripts/canvas-tools.mjs",
+    "scripts/collaboration-inspect.mjs",
+    // Documented, offline synthetic example; not a live runtime service.
+    "scripts/demo-quant-canvas/run.mjs",
+    "test/unit/*.test.mjs",
+    "test/manual/*.mjs",
+    "test/browser/*.mjs"
+  ],
+  "project": ["src/**/*.{ts,tsx}", "api/**/*.ts", "!api/data/**", "scripts/**/*.{mjs,mts}", "shared/**/*.{mjs,mts}", "test/**/*.{ts,mjs}"],
+  "paths": { "@/*": ["./src/*"] },
+  // canvas-tools is loaded inside the installed Pi runtime, which supplies pi-ai.
+  "ignoreDependencies": ["@earendil-works/pi-ai"],
+  // TypeScript resolves each declaration alongside its same-named .mjs implementation.
+  "ignore": ["shared/message-content.d.mts", "shared/agent-reference.d.mts", "shared/collaboration-protocol.d.mts", "shared/collaboration-package.d.mts", "shared/model-recovery.d.mts"]
+}

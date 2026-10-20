@@ -1,0 +1,64 @@
+{
+  "checkedAt": "2026-10-20T08:20:26.833303+00:00",
+  "scope": "deterministic execution header sentence",
+  "headAtVerification": "119cbf315d3888de69a064d915272826debf93e1",
+  "checks": {
+    "unit": {
+      "passed": 186,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 82,
+      "skipped": 1,
+      "failed": 0,
+      "kind": "HTTP/WS fixtures; real e opt-in skipped"
+    },
+    "uiBuild": "passed",
+    "lintIncludingArchitecture": "passed",
+    "docsTests": {
+      "passed": 11,
+      "failed": 0
+    },
+    "docsTypecheck": "passed",
+    "docsBuild": "passed",
+    "architecture": {
+      "sources": 228,
+      "unusedCandidates": 0,
+      "cycles": 0,
+      "parseBreaks": 0,
+      "wikiPages": 24,
+      "digest": "ffca30836368"
+    }
+  },
+  "visual": {
+    "desktop": "visually inspected",
+    "mobile390": "visually inspected"
+  },
+  "behavior": {
+    "liveSentence": "read -> completed and thinking -> edit -> pending approval -> failed, with unchanged description DOM",
+    "summaryDOM": "same description element across ordinary updates; no eager expansion, scroll or API writes",
+    "safety": "short filenames only; no thought/output/private path/secret text; complex shell remains generic"
+  },
+  "resolvedIssue": "Failure sentence redundantly repeated “thinking”; it now reads action + not successful beside the existing failure badge. Full suite reran after refinement.",
+  "safety": {
+    "backendSharedAndSkillUnchangedSinceStageStart": true,
+    "priorChangesPreserved": true,
+    "dailyServiceRestarted": false,
+    "realSessionWriteOrApproval": false,
+    "modelInvoked": false,
+    "committedOrPushed": false,
+    "ownedScreenshotPreviewStopped": true
+  },
+  "remainingBlockers": [],
+  "retainedWarnings": [
+    "Existing large UI bundle warning"
+  ],
+  "sourceSha256": {
+    "app/src/pages/canvas/chat/ExecutionGroup.tsx": "8b660434872240de2c27bec80144709ba60458c0a9fcd1881a7dc809ee1db041",
+    "app/src/pages/canvas/chat/execution-presentation.ts": "b2a230e9a1df5a8791ed41bdbb668c8f2bd3b14da37ad9921cfeb82d9a6e0699",
+    "app/test/browser/tool-hierarchy.spec.ts": "a29937482f8b4085dd53774e563bfcb567eeae266c84c68f8cf8791450c79392",
+    "app/src/pages/canvas/chat/chat.css": "aa968ae691b7345603c843c446d90f7a5ab0b34bcff37060b6b810f7334ec7a4",
+    "app/src/pages/canvas/chat/execution-description.ts": "4d0a68ac63705b400b44c3f6e3ef5d3d5d53d0825100b7f6c75580371091850b",
+    "app/test/unit/execution-description.test.mjs": "c23fbeaf4caade0bf750d0faf8b56d10b9ed3b8c9e9736bcadb7598490778922"
+  }
+}

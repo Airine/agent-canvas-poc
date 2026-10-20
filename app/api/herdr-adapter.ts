@@ -11,7 +11,7 @@
  *  - No streaming output subscription exists; use pane.read polling (pump.ts).
  */
 import net from 'node:net';
-import { spawn, spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -19,9 +19,26 @@ import { fileURLToPath } from 'node:url';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-export const HERDR_BIN =
-  process.env.HERDR_BIN || path.join(REPO_ROOT, 'bin', 'herdr');
-export const HERDR_SOCKET_PATH =
+function resolveHerdrBin(): string {
+  if (process.env.HERDR_BIN) return process.env.HERDR_BIN;
+  const candidates = [
+    path.join(REPO_ROOT, 'bin', 'herdr'),
+    path.join(os.homedir(), '.local', 'bin', 'herdr'),
+    '/usr/local/bin/herdr',
+    '/opt/homebrew/bin/herdr',
+  ];
+  for (const c of candidates) {
+    try {
+      fs.accessSync(c, fs.constants.X_OK);
+      return c;
+    } catch {
+      /* try next */
+    }
+  }
+  return 'herdr'; // rely on PATH
+}
+const HERDR_BIN = resolveHerdrBin();
+const HERDR_SOCKET_PATH =
   process.env.HERDR_SOCKET_PATH ||
   path.join(os.homedir(), '.config', 'herdr', 'herdr.sock');
 
@@ -38,7 +55,7 @@ export interface HerdrResponse {
   [k: string]: unknown;
 }
 
-export class HerdrError extends Error {
+class HerdrError extends Error {
   code: string;
   constructor(code: string, message: string) {
     super(`${code}: ${message}`);
@@ -47,7 +64,7 @@ export class HerdrError extends Error {
 }
 
 /** One-shot NDJSON call: new connection per request, closed after response. */
-export function call(
+function call(
   method: string,
   params: Record<string, unknown> = {},
   timeoutMs = 10_000,
@@ -109,14 +126,6 @@ export function call(
   });
 }
 
-/** CLI fallback (used only when the socket path cannot express an operation). */
-export function cli(args: string[], timeoutMs = 15_000): string {
-  const r = spawnSync(HERDR_BIN, args, { timeout: timeoutMs, encoding: 'utf8' });
-  if (r.error) throw r.error;
-  if (r.status !== 0) throw new HerdrError('cli_error', (r.stderr || r.stdout || '').trim());
-  return r.stdout;
-}
-
 /** Spawn `bin/herdr server` headless if the control socket is not answering. */
 export async function ensureServer(): Promise<void> {
   if (await ping()) return;
@@ -143,12 +152,24 @@ export async function ensureServer(): Promise<void> {
 }
 
 async function ping(): Promise<boolean> {
-  try {
-    await call('session.ping', {}, 1500);
-    return true;
-  } catch {
-    return fs.existsSync(HERDR_SOCKET_PATH) && (await tryPingFallback());
+  // 0.9.x calls it session.ping; 0.8.x plain ping. An unknown method makes
+  // herdr close the connection right after accept ('closed'), which means the
+  // server IS alive — try the next name. Only ECONNREFUSED-ish errors (the
+  // call() rejection has no 'closed' payload but a raw syscall message) or
+  // timeouts mean the server is truly not answering.
+  for (const method of ['session.ping', 'ping']) {
+    try {
+      await call(method, {}, 1500);
+      return true;
+    } catch (e) {
+      const err = e as HerdrError;
+      if (err.code === 'timeout') return false;
+      if (err.code === 'closed') continue; // alive but method unknown
+      // other codes (ECONNREFUSED, ENOENT...): server not listening
+      return fs.existsSync(HERDR_SOCKET_PATH) && (await tryPingFallback());
+    }
   }
+  return fs.existsSync(HERDR_SOCKET_PATH) && (await tryPingFallback());
 }
 
 async function tryPingFallback(): Promise<boolean> {
@@ -242,10 +263,6 @@ export async function tabCreate(workspaceId: string, title?: string): Promise<Ta
     workspace_id: workspaceId,
     rootPaneId: r.root_pane?.pane_id as string | undefined,
   };
-}
-
-export async function tabClose(tabId: string): Promise<void> {
-  await call('tab.close', { tab_id: tabId }).catch(() => {});
 }
 
 export async function paneSplit(

@@ -1,0 +1,70 @@
+{
+  "checkedAt": "2026-10-20T10:17:03.670448+00:00",
+  "scope": "move consumed queue receipts from composer area to session status details",
+  "headAtVerification": "c428a53c41dffc93fddb96676b83b90a5a3b3afb",
+  "checks": {
+    "unit": {
+      "passed": 187,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 84,
+      "skipped": 1,
+      "failed": 0,
+      "kind": "HTTP/WS fixtures; real e opt-in skipped"
+    },
+    "uiBuild": "passed",
+    "lintIncludingArchitecture": "passed",
+    "docsTests": {
+      "passed": 12,
+      "failed": 0
+    },
+    "docsTypecheck": "passed",
+    "docsBuild": "passed",
+    "architecture": {
+      "sources": 231,
+      "unusedCandidates": 0,
+      "cycles": 0,
+      "parseBreaks": 0,
+      "wikiPages": 25,
+      "digest": "f72511e4c742"
+    }
+  },
+  "visual": {
+    "queueReceiptsStatus": "captured and visually inspected in PI-Desktop browser"
+  },
+  "behavior": {
+    "allConsumed": "composer area has no queue archive or panel",
+    "pendingWork": "queue panel still appears and handles only actionable entries",
+    "receipts": "latest five consumed receipts available under 会话状态与上下文",
+    "draft": "input draft and DOM identity preserved"
+  },
+  "notes": [
+    "An initial full browser run overlapped with build work and had two unrelated timing failures; both files passed isolated recheck, then the complete suite passed cleanly without parallel build.",
+    "Concurrent unused-export review and Herdr internalization changes were preserved; architecture hashes were synced only after reviewing them."
+  ],
+  "safety": {
+    "dailyServiceRestarted": false,
+    "realSessionWriteOrApproval": false,
+    "modelInvoked": false,
+    "backendQueueSemanticsChanged": false,
+    "committedOrPushed": false,
+    "ownedScreenshotPreviewStopped": true
+  },
+  "remainingBlockers": [],
+  "retainedWarnings": [
+    "Existing large UI bundle warning"
+  ],
+  "sourceSha256": {
+    "app/src/pages/canvas/chat/QueuePanel.tsx": "9cbde4aa538a81319c64f6cb2c9741a61265f55bbfa07c0c3ad541bc5800384d",
+    "app/src/pages/canvas/SessionIdentity.tsx": "e6f164e384bf870ac6b1875d9b6ffeb77e91d133fdfa0908d6c8b007deabe10a",
+    "app/src/pages/canvas/chat/chat.css": "bd10ed49c58e3b215cef60cd39885c42457ec1474a4c315607dc87077b04fea4",
+    "app/test/browser/desktop-composer.spec.ts": "1d02dac2c486e46b07917b34d617c3d5795df35301322ecf0d837705ffea493f",
+    "app/src/pages/canvas/chat/QueueReceipts.tsx": "fa189c4afb985e319f25404e65ef189604a44c5fe5bf59b2c306f190fb6a4eb7"
+  },
+  "liveHotUpdateCheck": {
+    "pageOnline": true,
+    "legacyQueueArchiveCount": 0,
+    "note": "Remaining queue panel is actionable queue work, not consumed receipt archive."
+  }
+}
