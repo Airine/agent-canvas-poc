@@ -10,7 +10,6 @@ sources:
   - app/src/index.css 41d59ac8e5b6
   - app/vite.config.ts cf1d2d5a5f57 apiPort
   - app/src/lib/utils.ts bd0c391ddd10 cn
-  - app/src/hooks/use-mobile.ts 2b0fe1dfef3b useIsMobile
 covers:
   - app/src/App.tsx
   - app/src/main.tsx
@@ -18,7 +17,6 @@ covers:
   - app/src/pages/home/
   - app/src/theme/
   - app/src/lib/
-  - app/src/hooks/
   - app/index.html
   - app/vite.config.ts
   - app/tsconfig.app.json
@@ -47,7 +45,7 @@ covers:
 
 `HomePage` 位于 `app/src/pages/home/index.tsx`，列表读取复用 `live-store.ts` 的 `fetchWorkspaces`。`CreateSessionForm` 位于同目录，调用运行环境探测、工作区创建和会话创建端点。
 
-`ThemeProvider`（`app/src/theme/ThemeProvider.tsx`）使用 `next-themes`，通过根元素 class 切换主题，存储键是 `agent-canvas-theme`，默认跟随系统。`cn`（`app/src/lib/utils.ts`）合并类名，`useIsMobile`（`app/src/hooks/use-mobile.ts`）以 768px 为断点供基础组件使用。
+`ThemeProvider`（`app/src/theme/ThemeProvider.tsx`）使用 `next-themes`，通过根元素 class 切换主题，存储键是 `agent-canvas-theme`，默认跟随系统。`cn`（`app/src/lib/utils.ts`）合并类名。旧侧栏专用的 `useIsMobile` 随未接入组件一起删除，产品布局继续由各界面的响应式规则处理。
 
 `App` 在全局配色容器内提供卡片视图入口的挂载槽；仅主画布页面挂入该入口，其他页面保持原来的配色控制。入口与配色一起在浮层/全屏期间可访问，不进入聊天消息内容或运行器配置。
 

@@ -7,8 +7,8 @@
     },
     {
       "file": "app/src/components/ui/alert-dialog.tsx",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/alert.tsx",
@@ -27,13 +27,13 @@
     },
     {
       "file": "app/src/components/ui/badge-variants.ts",
-      "decision": "retain-uncommitted",
-      "status": "changed"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/badge.tsx",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/breadcrumb.tsx",
@@ -42,18 +42,18 @@
     },
     {
       "file": "app/src/components/ui/button-group-variants.ts",
-      "decision": "retain-uncommitted",
-      "status": "changed"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/button-group.tsx",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/calendar.tsx",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/card.tsx",
@@ -117,13 +117,13 @@
     },
     {
       "file": "app/src/components/ui/form-context.ts",
-      "decision": "retain-uncommitted",
-      "status": "changed"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/form.tsx",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/hover-card.tsx",
@@ -142,8 +142,8 @@
     },
     {
       "file": "app/src/components/ui/input.tsx",
-      "decision": "retain-dependency",
-      "status": "retain-dependency"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/item.tsx",
@@ -157,8 +157,8 @@
     },
     {
       "file": "app/src/components/ui/label.tsx",
-      "decision": "retain-dependency",
-      "status": "retain-dependency"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/menubar.tsx",
@@ -167,18 +167,18 @@
     },
     {
       "file": "app/src/components/ui/navigation-menu-variants.ts",
-      "decision": "retain-uncommitted",
-      "status": "changed"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/navigation-menu.tsx",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/pagination.tsx",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/popover.tsx",
@@ -212,28 +212,28 @@
     },
     {
       "file": "app/src/components/ui/separator.tsx",
-      "decision": "retain-dependency",
-      "status": "retain-dependency"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/sheet.tsx",
-      "decision": "retain-dependency",
-      "status": "retain-dependency"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/sidebar-context.ts",
-      "decision": "retain-uncommitted",
-      "status": "changed"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/sidebar.tsx",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/skeleton.tsx",
-      "decision": "retain-dependency",
-      "status": "retain-dependency"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/slider.tsx",
@@ -262,771 +262,121 @@
     },
     {
       "file": "app/src/components/ui/toggle-group.tsx",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/toggle-variants.ts",
-      "decision": "retain-uncommitted",
-      "status": "changed"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/toggle.tsx",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/components/ui/tooltip.tsx",
-      "decision": "retain-dependency",
-      "status": "retain-dependency"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/hooks/use-mobile.ts",
-      "decision": "retain-dependency",
-      "status": "retain-dependency"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/pages/canvas/EApprovalCard.tsx",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
     },
     {
       "file": "app/src/pages/canvas/collaboration-demo/model.ts",
-      "decision": "retain-uncommitted",
-      "status": "retain-uncommitted"
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/info.md",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/Dockerfile",
+      "decision": "remove",
+      "status": "removed"
+    },
+    {
+      "file": "app/.dockerignore",
+      "decision": "remove",
+      "status": "removed"
     }
   ],
-  "head": "bc3fe792b0fa1cc587067690e7494ab127bf01b2",
-  "files": 241,
+  "head": "a1858ae366967628b82326c8479db64b0d760036",
+  "files": 216,
   "dead": [],
-  "suspects": [
-    {
-      "file": "app/src/hooks/use-mobile.ts",
-      "refs": [
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/sidebar.tsx"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/alert-dialog.tsx",
-      "refs": [
-        "app/info.md",
-        "app/package.json",
-        "app/src/components/ui/README.md",
-        "app/src/index.css",
-        "app/src/pages/canvas/chat/ChatPopover.tsx"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/badge-variants.ts",
-      "refs": [
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/badge.tsx"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/badge.tsx",
-      "refs": [
-        "app/info.md",
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/badge-variants.ts",
-        "app/src/components/ui/sidebar.tsx",
-        "app/src/index.css",
-        "app/src/shared/EdgeLegend.tsx",
-        "app/src/shared/StatusBadge.tsx",
-        "docs/research/analysis/agent_canvas_dim11.md"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/button-group-variants.ts",
-      "refs": [
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/button-group.tsx"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/button-group.tsx",
-      "refs": [
-        "app/info.md",
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/button-group-variants.ts"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/calendar.tsx",
-      "refs": [
-        "app/info.md",
-        "app/src/components/ui/README.md"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/form-context.ts",
-      "refs": [
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/form.tsx"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/form.tsx",
-      "refs": [
-        "app/README.md",
-        "app/api/e/attachments.ts",
-        "app/api/e/session-manager.ts",
-        "app/api/eventbus.ts",
-        "app/api/graphs/etl-nightly.json",
-        "app/api/herdr-adapter.ts",
-        "app/api/pump.ts",
-        "app/info.md",
-        "app/package.json",
-        "app/scripts/agents/data-process.sh",
-        "app/scripts/agents/seed-etl.sh",
-        "app/scripts/e-control.mjs",
-        "app/shared/collaboration-protocol.mjs",
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/calendar.tsx",
-        "app/src/components/ui/form-context.ts",
-        "app/src/components/ui/sidebar.tsx",
-        "app/src/components/ui/switch.tsx",
-        "app/src/components/ui/tooltip.tsx",
-        "app/src/index.css",
-        "app/src/pages/PocLanding.tsx",
-        "app/src/pages/canvas/LiveEdge.tsx",
-        "app/src/pages/canvas/SessionIdentity.tsx",
-        "app/src/pages/canvas/chat/Composer.tsx",
-        "app/src/pages/canvas/chat/MarkdownContent.tsx",
-        "app/src/pages/canvas/chat/chat.css",
-        "app/src/pages/canvas/identity-window.css",
-        "app/src/pages/reactflow/AgentEdge.tsx",
-        "app/src/pages/tldraw/EdgesLayer.tsx",
-        "app/src/pages/tldraw/Minimap.tsx",
-        "app/src/pages/tldraw/TracePanel.tsx",
-        "app/src/pages/tldraw/tldraw-overrides.css",
-        "app/src/shared/ViewModeManager.ts",
-        "app/src/shared/mock/events.ts",
-        "app/test/browser/chat-experience.spec.ts",
-        "app/test/unit/chat-projection.test.mjs",
-        "app/test/unit/collaboration-package.test.mjs",
-        "app/test/unit/composer-auto.test.mjs",
-        "app/test/unit/desktop-image-preflight.test.mjs",
-        "docs/chat-ui-polish-evidence/automatic/final-ui-build.log",
-        "docs/chat-ui-polish-evidence/automatic/final-unit.log",
-        "docs/chat-ui-polish-evidence/final-ui-build.log",
-        "docs/chat-ui-polish-evidence/final-unit.log",
-        "docs/chat-ui-polish-evidence/global-view/final-ui-build.log",
-        "docs/chat-ui-polish-evidence/global-view/final-unit.log",
-        "docs/chat-ui-polish-evidence/header/final-ui-build.log",
-        "docs/chat-ui-polish-evidence/header/final-unit.log",
-        "docs/chat-ui-polish-evidence/reasoning/final-ui-build.log",
-        "docs/chat-ui-polish-evidence/reasoning/final-unit.log",
-        "docs/chat-ui-polish-evidence/recovery/final-ui-build.log",
-        "docs/chat-ui-polish-evidence/recovery/final-unit.log",
-        "docs/desktop-chat-evidence/final-ui-build.log",
-        "docs/desktop-chat-evidence/final-unit.log",
-        "docs/research/analysis/agent_canvas_cross_verification.md",
-        "docs/research/analysis/agent_canvas_dim01.md",
-        "docs/research/analysis/agent_canvas_dim02.md",
-        "docs/research/analysis/agent_canvas_dim03.md",
-        "docs/research/analysis/agent_canvas_dim04.md",
-        "docs/research/analysis/agent_canvas_dim05.md",
-        "docs/research/analysis/agent_canvas_dim06.md",
-        "docs/research/analysis/agent_canvas_dim07.md",
-        "docs/research/analysis/agent_canvas_dim08.md",
-        "docs/research/analysis/agent_canvas_dim09.md",
-        "docs/research/analysis/agent_canvas_dim10.md",
-        "docs/research/analysis/agent_canvas_dim11.md",
-        "docs/research/analysis/agent_canvas_dim12.md",
-        "docs/research/report/agent_canvas.agent.final.converted.md",
-        "docs/research/report/agent_canvas.agent.final.md",
-        "docs/research/report/agent_canvas.citation.jsonl",
-        "docs/research/report/agent_canvas_ref.md",
-        "docs/research/report/agent_canvas_sec00_refs.md",
-        "docs/research/report/agent_canvas_sec01_refs.md",
-        "docs/research/report/agent_canvas_sec02.md",
-        "docs/research/report/agent_canvas_sec02_refs.md",
-        "docs/research/report/agent_canvas_sec04_refs.md",
-        "docs/research/report/agent_canvas_sec06_refs.md",
-        "docs/research/report/agent_canvas_sec07.md",
-        "docs/research/report/agent_canvas_sec07_refs.md",
-        "docs/research/report/agent_canvas_sec08_refs.md",
-        "tools/legacy/render-preview/parity-test.py",
-        "tools/legacy/render-preview/ws-term-test.mjs",
-        "tools/legacy/spike/REPORT.md",
-        "tools/legacy/spike/events-sample.jsonl",
-        "tools/legacy/spike/herdr-api.schema.json"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/input.tsx",
-      "refs": [
-        "app/api/coordinator.ts",
-        "app/api/e/approval-engine.ts",
-        "app/api/e/approval-reviewer.ts",
-        "app/api/e/approval-rules.ts",
-        "app/api/e/collaboration.ts",
-        "app/api/e/config.ts",
-        "app/api/e/contracts.ts",
-        "app/api/e/message-queue.ts",
-        "app/api/e/session-manager.ts",
-        "app/api/herdr-adapter.ts",
-        "app/api/registry.ts",
-        "app/api/routes.ts",
-        "app/api/runtime-router.ts",
-        "app/info.md",
-        "app/package.json",
-        "app/scripts/agents/data-process.sh",
-        "app/scripts/agents/seed-etl.sh",
-        "app/scripts/agents/seed-research.sh",
-        "app/scripts/e-configuration.mjs",
-        "app/scripts/e-control.mjs",
-        "app/scripts/e-message-preflight.mjs",
-        "app/scripts/e-runtime-worker.mts",
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/button-group-variants.ts",
-        "app/src/components/ui/button-group.tsx",
-        "app/src/components/ui/button-variants.ts",
-        "app/src/components/ui/calendar.tsx",
-        "app/src/components/ui/sidebar.tsx",
-        "app/src/components/ui/switch.tsx",
-        "app/src/components/ui/toggle-variants.ts",
-        "app/src/index.css",
-        "app/src/lib/utils.ts",
-        "app/src/pages/canvas/LiveTerminal.tsx",
-        "app/src/pages/canvas/SessionIdentity.tsx",
-        "app/src/pages/canvas/chat/ChatPopover.tsx",
-        "app/src/pages/canvas/chat/Composer.tsx",
-        "app/src/pages/canvas/chat/QueuePanel.tsx",
-        "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
-        "app/src/pages/canvas/chat/chat.css",
-        "app/src/pages/canvas/chat/presentation-state.ts",
-        "app/src/pages/canvas/chat/project-transcript.ts",
-        "app/src/pages/canvas/identity-window.css",
-        "app/src/pages/canvas/index.tsx",
-        "app/src/pages/canvas/live-store.ts",
-        "app/src/pages/canvas/mock-server.ts",
-        "app/src/pages/home/CreateSessionForm.tsx",
-        "app/src/pages/reactflow/index.tsx",
-        "app/src/pages/tldraw/TldrawPage.tsx",
-        "app/src/shared/PlaybackBar.tsx",
-        "app/src/shared/TerminalView.tsx",
-        "app/tailwind.config.js",
-        "app/test/browser/chat-experience.spec.ts",
-        "app/test/browser/chat-header.spec.ts",
-        "app/test/browser/chat-polish.spec.ts",
-        "app/test/browser/collaboration-package.spec.ts",
-        "app/test/browser/collaboration.spec.ts",
-        "app/test/browser/composer-auto.spec.ts",
-        "app/test/browser/desktop-composer.spec.ts",
-        "app/test/browser/fixtures/desktop.ts",
-        "app/test/browser/global-card-view.spec.ts",
-        "app/test/browser/identity-window.spec.ts",
-        "app/test/browser/real-e.spec.ts",
-        "app/test/browser/real-multi.mjs",
-        "app/test/browser/reasoning-picker.spec.ts",
-        "app/test/browser/recovery-ui.spec.ts",
-        "app/test/browser/theme.spec.ts",
-        "app/test/unit/approval-policy.test.mjs",
-        "app/test/unit/approval-reviewer.test.mjs",
-        "app/test/unit/chat-projection.test.mjs",
-        "app/test/unit/collaboration-package.test.mjs",
-        "app/test/unit/desktop-configuration.test.mjs",
-        "app/test/unit/desktop-image-preflight.test.mjs",
-        "app/test/unit/e-session-manager.test.mjs",
-        "app/test/unit/fixtures/desktop-worker.mjs",
-        "app/test/unit/health-regressions.test.mjs",
-        "app/test/unit/workspace-paths.test.mjs",
-        "docs/chat-ui-polish-evidence/automatic/final-browser.log",
-        "docs/chat-ui-polish-evidence/automatic/final-unit.log",
-        "docs/chat-ui-polish-evidence/final-unit.log",
-        "docs/chat-ui-polish-evidence/global-view/final-browser.log",
-        "docs/chat-ui-polish-evidence/global-view/final-unit.log",
-        "docs/chat-ui-polish-evidence/header/final-unit.log",
-        "docs/chat-ui-polish-evidence/real-dev-results.json",
-        "docs/chat-ui-polish-evidence/real-production-results.json",
-        "docs/chat-ui-polish-evidence/reasoning/final-browser.log",
-        "docs/chat-ui-polish-evidence/reasoning/final-unit.log",
-        "docs/chat-ui-polish-evidence/reasoning/real-picker.json",
-        "docs/chat-ui-polish-evidence/reasoning/real-picker.log",
-        "docs/chat-ui-polish-evidence/recovery/final-unit.log",
-        "docs/desktop-chat-evidence/final-unit.log",
-        "docs/desktop-chat-evidence/runtime-configuration.json",
-        "docs/guides/RUNBOOK_WSL.md",
-        "docs/plans/canvas-optimization.md",
-        "docs/research/analysis/agent_canvas_dim01.md",
-        "docs/research/analysis/agent_canvas_dim02.md",
-        "docs/research/analysis/agent_canvas_dim03.md",
-        "docs/research/analysis/agent_canvas_dim05.md",
-        "docs/research/analysis/agent_canvas_dim06.md",
-        "docs/research/analysis/agent_canvas_dim07.md",
-        "docs/research/analysis/agent_canvas_dim08.md",
-        "docs/research/analysis/agent_canvas_dim09.md",
-        "docs/research/analysis/agent_canvas_dim10.md",
-        "docs/research/analysis/agent_canvas_dim11.md",
-        "docs/research/report/agent_canvas.agent.final.converted.md",
-        "docs/research/report/agent_canvas.agent.final.md",
-        "docs/research/report/agent_canvas_sec04.md",
-        "tools/legacy/render-preview/parity-test.py",
-        "tools/legacy/spike/REPORT.md",
-        "tools/legacy/spike/backend-selftest.md",
-        "tools/legacy/spike/herdr-api.schema.json"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/label.tsx",
-      "refs": [
-        "app/api/coordinator.ts",
-        "app/api/e/collaboration.ts",
-        "app/api/e/contracts.ts",
-        "app/api/graph.ts",
-        "app/api/graphs/demo-release-pipeline.json",
-        "app/api/graphs/etl-nightly.json",
-        "app/api/graphs/research-sprint.json",
-        "app/api/herdr-adapter.ts",
-        "app/api/routes.ts",
-        "app/api/types.ts",
-        "app/info.md",
-        "app/package.json",
-        "app/scripts/agents/seed-etl.sh",
-        "app/scripts/agents/seed-research.sh",
-        "app/scripts/canvas-tools.mjs",
-        "app/scripts/demo-quant-canvas/run.mjs",
-        "app/scripts/e-runtime-worker.mts",
-        "app/shared/collaboration-protocol.d.mts",
-        "app/shared/collaboration-protocol.mjs",
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/calendar.tsx",
-        "app/src/components/ui/form.tsx",
-        "app/src/components/ui/pagination.tsx",
-        "app/src/components/ui/sidebar.tsx",
-        "app/src/pages/PocLanding.tsx",
-        "app/src/pages/canvas/ApprovalModeControl.tsx",
-        "app/src/pages/canvas/CardViewControl.tsx",
-        "app/src/pages/canvas/CommunicationTrace.tsx",
-        "app/src/pages/canvas/GlobalCardViewControl.tsx",
-        "app/src/pages/canvas/L0Summary.tsx",
-        "app/src/pages/canvas/LiveEdge.tsx",
-        "app/src/pages/canvas/LiveNode.tsx",
-        "app/src/pages/canvas/LiveTerminal.tsx",
-        "app/src/pages/canvas/RunBar.tsx",
-        "app/src/pages/canvas/SessionControls.tsx",
-        "app/src/pages/canvas/SessionHeaderActions.tsx",
-        "app/src/pages/canvas/SessionIdentity.tsx",
-        "app/src/pages/canvas/TracePanel.tsx",
-        "app/src/pages/canvas/chat/ApprovalRequest.tsx",
-        "app/src/pages/canvas/chat/AttachmentTray.tsx",
-        "app/src/pages/canvas/chat/ChatPopover.tsx",
-        "app/src/pages/canvas/chat/CodeBlock.tsx",
-        "app/src/pages/canvas/chat/CollaborationStatus.tsx",
-        "app/src/pages/canvas/chat/Composer.tsx",
-        "app/src/pages/canvas/chat/ConversationView.tsx",
-        "app/src/pages/canvas/chat/Diagnostics.tsx",
-        "app/src/pages/canvas/chat/QueuePanel.tsx",
-        "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
-        "app/src/pages/canvas/chat/ToolActivity.tsx",
-        "app/src/pages/canvas/chat/TurnView.tsx",
-        "app/src/pages/canvas/chat/chat.css",
-        "app/src/pages/canvas/chat/collaboration-presentation.ts",
-        "app/src/pages/canvas/chat/message-metadata.ts",
-        "app/src/pages/canvas/chat/presentation-state.ts",
-        "app/src/pages/canvas/chat/primitives.tsx",
-        "app/src/pages/canvas/chat/use-agent-mentions.tsx",
-        "app/src/pages/canvas/collaboration.css",
-        "app/src/pages/canvas/contracts.ts",
-        "app/src/pages/canvas/index.tsx",
-        "app/src/pages/canvas/mock-server.ts",
-        "app/src/pages/home/CreateSessionForm.tsx",
-        "app/src/pages/home/GraphPreview.tsx",
-        "app/src/pages/home/index.tsx",
-        "app/src/pages/reactflow/AgentEdge.tsx",
-        "app/src/pages/reactflow/TracePanel.tsx",
-        "app/src/pages/reactflow/index.tsx",
-        "app/src/pages/reactflow/utils.ts",
-        "app/src/pages/tldraw/CanvasOverlays.tsx",
-        "app/src/pages/tldraw/EdgesLayer.tsx",
-        "app/src/pages/tldraw/L0SummaryCard.tsx",
-        "app/src/pages/tldraw/Minimap.tsx",
-        "app/src/pages/tldraw/TracePanel.tsx",
-        "app/src/shared/ArtifactView.tsx",
-        "app/src/shared/EdgeLegend.tsx",
-        "app/src/shared/FocusOverlay.tsx",
-        "app/src/shared/PlaybackBar.tsx",
-        "app/src/shared/StatusBadge.tsx",
-        "app/src/shared/TerminalView.tsx",
-        "app/src/shared/meta.ts",
-        "app/src/shared/mock/events.ts",
-        "app/src/shared/types.ts",
-        "app/src/theme/ThemeSwitcher.tsx",
-        "app/test/browser/card-approval-modes.spec.ts",
-        "app/test/browser/collaboration.spec.ts",
-        "app/test/browser/composer-auto.spec.ts",
-        "app/test/browser/desktop-composer.spec.ts",
-        "app/test/browser/real-e.spec.ts",
-        "app/test/browser/real-multi.mjs",
-        "app/test/browser/real-tools.mjs",
-        "app/test/manual/real-collaboration.mjs",
-        "app/test/manual/ws-smoke.mjs",
-        "app/test/unit/chat-presentation-state.test.mjs",
-        "app/test/unit/coordinator-failure.test.mjs",
-        "app/test/unit/desktop-metadata.test.mjs",
-        "app/test/unit/e-routes.test.mjs",
-        "app/test/unit/message-origins.test.mjs",
-        "app/test/unit/recovery-presentation.test.mjs",
-        "app/test/unit/runtime-config-presentation.test.mjs",
-        "docs/chat-ui-polish-evidence/automatic/final-unit.log",
-        "docs/chat-ui-polish-evidence/collaboration-package/real-evidence.json",
-        "docs/chat-ui-polish-evidence/collaboration/verification.json",
-        "docs/chat-ui-polish-evidence/final-unit.log",
-        "docs/chat-ui-polish-evidence/global-view/final-unit.log",
-        "docs/chat-ui-polish-evidence/header/final-unit.log",
-        "docs/chat-ui-polish-evidence/reasoning/final-unit.log",
-        "docs/chat-ui-polish-evidence/recovery/final-unit.log",
-        "docs/desktop-chat-evidence/dev-surface.json",
-        "docs/desktop-chat-evidence/final-unit.log",
-        "docs/desktop-chat-evidence/production-surface.json",
-        "docs/desktop-chat-evidence/real-extended-v2-results.json",
-        "docs/guides/RUNBOOK_WSL.md",
-        "docs/plans/canvas-optimization.md",
-        "docs/research/analysis/agent_canvas_dim04.md",
-        "docs/research/analysis/agent_canvas_dim06.md",
-        "docs/research/analysis/agent_canvas_dim08.md",
-        "docs/research/analysis/agent_canvas_dim10.md",
-        "docs/research/analysis/agent_canvas_dim12.md",
-        "tools/legacy/render-preview/accept-run.py",
-        "tools/legacy/render-preview/herdr-structure.py",
-        "tools/legacy/spike/REPORT.md",
-        "tools/legacy/spike/backend-selftest.md",
-        "tools/legacy/spike/events-sample.jsonl",
-        "tools/legacy/spike/herdr-api.schema.json"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/navigation-menu-variants.ts",
-      "refs": [
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/navigation-menu.tsx"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/navigation-menu.tsx",
-      "refs": [
-        "app/info.md",
-        "app/package.json",
-        "app/src/components/ui/README.md"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/pagination.tsx",
-      "refs": [
-        "app/info.md",
-        "app/src/components/ui/README.md"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/separator.tsx",
-      "refs": [
-        "app/info.md",
-        "app/package.json",
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/button-group.tsx",
-        "app/src/components/ui/sidebar.tsx",
-        "docs/research/analysis/agent_canvas_dim05.md"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/sheet.tsx",
-      "refs": [
-        "app/index.html",
-        "app/info.md",
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/sidebar.tsx",
-        "app/src/index.css",
-        "docs/research/analysis/agent_canvas_dim09.md"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/sidebar-context.ts",
-      "refs": [
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/sidebar.tsx"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/sidebar.tsx",
-      "refs": [
-        "app/info.md",
-        "app/src/components/ui/README.md",
-        "app/src/index.css",
-        "app/tailwind.config.js",
-        "docs/guides/E_INTEGRATION_VERIFICATION.md",
-        "docs/research/analysis/agent_canvas_dim09.md",
-        "docs/research/report/agent_canvas.agent.final.converted.md",
-        "docs/research/report/agent_canvas.agent.final.md",
-        "docs/research/report/agent_canvas_sec05.md",
-        "docs/themes.md"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/skeleton.tsx",
-      "refs": [
-        "app/info.md",
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/sidebar.tsx",
-        "docs/research/analysis/agent_canvas_dim04.md"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/toggle-group.tsx",
-      "refs": [
-        "app/info.md",
-        "app/package.json",
-        "app/src/components/ui/README.md"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/toggle-variants.ts",
-      "refs": [
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/toggle-group.tsx",
-        "app/src/components/ui/toggle.tsx"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/toggle.tsx",
-      "refs": [
-        "app/info.md",
-        "app/package.json",
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/sidebar-context.ts",
-        "app/src/components/ui/sidebar.tsx",
-        "app/src/components/ui/toggle-group.tsx",
-        "app/src/components/ui/toggle-variants.ts",
-        "app/src/pages/canvas/chat/ApprovalRequest.tsx",
-        "app/src/pages/canvas/chat/QueuePanel.tsx",
-        "app/src/pages/canvas/chat/chat-ui-store.ts",
-        "app/src/pages/canvas/chat/chat.css",
-        "app/src/pages/canvas/chat/primitives.tsx",
-        "app/src/pages/reactflow/index.tsx",
-        "app/src/pages/tldraw/CanvasOverlays.tsx",
-        "app/src/shared/mock/engine.ts",
-        "app/test/unit/chat-ui-store.test.mjs",
-        "docs/research/analysis/agent_canvas_dim01.md",
-        "docs/research/analysis/agent_canvas_dim02.md",
-        "docs/research/analysis/agent_canvas_dim03.md",
-        "docs/research/analysis/agent_canvas_dim04.md",
-        "docs/research/analysis/agent_canvas_dim05.md",
-        "docs/research/analysis/agent_canvas_dim09.md",
-        "tools/legacy/spike/herdr-api.schema.json"
-      ]
-    },
-    {
-      "file": "app/src/components/ui/tooltip.tsx",
-      "refs": [
-        "app/info.md",
-        "app/package.json",
-        "app/src/components/ui/README.md",
-        "app/src/components/ui/sidebar.tsx",
-        "app/src/pages/canvas/ApprovalModeControl.tsx",
-        "app/src/pages/canvas/SessionIdentity.tsx",
-        "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
-        "app/src/pages/canvas/chat/chat.css",
-        "app/src/pages/canvas/identity-window.css",
-        "app/test/browser/composer-auto.spec.ts",
-        "app/test/browser/identity-window.spec.ts",
-        "app/test/browser/reasoning-picker.spec.ts",
-        "docs/chat-ui-polish-evidence/global-view/final-browser.log",
-        "docs/chat-ui-polish-evidence/reasoning/final-browser.log",
-        "docs/chat-ui-polish.md",
-        "docs/desktop-chat-experience.md"
-      ]
-    },
-    {
-      "file": "app/src/pages/canvas/EApprovalCard.tsx",
-      "refs": [
-        "docs/chat-experience.md"
-      ]
-    },
-    {
-      "file": "app/src/pages/canvas/collaboration-demo/model.ts",
-      "refs": [
-        "app/api/coordinator.ts",
-        "app/api/e/approval-reviewer.ts",
-        "app/api/e/config.ts",
-        "app/api/e/contracts.ts",
-        "app/api/e/session-manager.ts",
-        "app/api/graph.ts",
-        "app/api/routes.ts",
-        "app/scripts/demo-quant-canvas/lib/canvas.mjs",
-        "app/scripts/demo-quant-canvas/run.mjs",
-        "app/scripts/e-configuration.mjs",
-        "app/scripts/e-message-preflight.mjs",
-        "app/scripts/e-runtime-worker.mts",
-        "app/shared/collaboration-protocol.mjs",
-        "app/src/pages/canvas/ApprovalModeControl.tsx",
-        "app/src/pages/canvas/LiveNode.tsx",
-        "app/src/pages/canvas/chat/Composer.tsx",
-        "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
-        "app/src/pages/canvas/chat/ToolActivity.tsx",
-        "app/src/pages/canvas/chat/TurnView.tsx",
-        "app/src/pages/canvas/chat/chat.css",
-        "app/src/pages/canvas/chat/message-metadata.ts",
-        "app/src/pages/canvas/chat/presentation-state.ts",
-        "app/src/pages/canvas/chat/project-transcript.ts",
-        "app/src/pages/canvas/chat/runtime-config-presentation.ts",
-        "app/src/pages/canvas/live-store.ts",
-        "app/src/pages/home/CreateSessionForm.tsx",
-        "app/src/pages/reactflow/L0Summary.tsx",
-        "app/src/pages/tldraw/AgentNodeContent.tsx",
-        "app/src/pages/tldraw/AgentNodeShape.tsx",
-        "app/src/pages/tldraw/EdgesLayer.tsx",
-        "app/src/pages/tldraw/L0SummaryCard.tsx",
-        "app/src/pages/tldraw/Minimap.tsx",
-        "app/src/pages/tldraw/TldrawPage.tsx",
-        "app/src/pages/tldraw/TracePanel.tsx",
-        "app/src/shared/FocusOverlay.tsx",
-        "app/src/shared/NodeShell.tsx",
-        "app/src/shared/mock/events.ts",
-        "app/src/shared/types.ts",
-        "app/test/browser/card-approval-modes.spec.ts",
-        "app/test/browser/chat-header.spec.ts",
-        "app/test/browser/chat-polish.spec.ts",
-        "app/test/browser/desktop-composer.spec.ts",
-        "app/test/browser/e-canvas.spec.ts",
-        "app/test/browser/fixtures/desktop.ts",
-        "app/test/browser/real-e.spec.ts",
-        "app/test/browser/real-multi.mjs",
-        "app/test/browser/reasoning-picker.spec.ts",
-        "app/test/browser/recovery-ui.spec.ts",
-        "app/test/browser/ui-actions.ts",
-        "app/test/manual/real-collaboration.mjs",
-        "app/test/unit/approval-policy.test.mjs",
-        "app/test/unit/approval-reviewer.test.mjs",
-        "app/test/unit/composer-auto.test.mjs",
-        "app/test/unit/desktop-configuration.test.mjs",
-        "app/test/unit/desktop-message.test.mjs",
-        "app/test/unit/desktop-metadata.test.mjs",
-        "app/test/unit/e-projection.test.mjs",
-        "app/test/unit/e-session-manager.test.mjs",
-        "app/test/unit/fixtures/desktop-worker.mjs",
-        "app/test/unit/recovery-presentation.test.mjs",
-        "app/test/unit/runtime-config-presentation.test.mjs",
-        "docs/card-views-and-approvals.md",
-        "docs/chat-ui-polish-evidence/after-measurements.json",
-        "docs/chat-ui-polish-evidence/automatic/final-browser.log",
-        "docs/chat-ui-polish-evidence/automatic/final-unit.log",
-        "docs/chat-ui-polish-evidence/browser-dev-final.log",
-        "docs/chat-ui-polish-evidence/browser-dev-full.log",
-        "docs/chat-ui-polish-evidence/browser-production-final.log",
-        "docs/chat-ui-polish-evidence/collaboration-package/real-evidence.json",
-        "docs/chat-ui-polish-evidence/collaboration/README.md",
-        "docs/chat-ui-polish-evidence/collaboration/verification.json",
-        "docs/chat-ui-polish-evidence/final-unit.log",
-        "docs/chat-ui-polish-evidence/global-view/final-browser.log",
-        "docs/chat-ui-polish-evidence/global-view/final-unit.log",
-        "docs/chat-ui-polish-evidence/header/browser-full.log",
-        "docs/chat-ui-polish-evidence/header/browser-header-final.log",
-        "docs/chat-ui-polish-evidence/header/final-unit.log",
-        "docs/chat-ui-polish-evidence/real-dev-results.json",
-        "docs/chat-ui-polish-evidence/real-production-results.json",
-        "docs/chat-ui-polish-evidence/reasoning/final-browser.log",
-        "docs/chat-ui-polish-evidence/reasoning/final-unit.log",
-        "docs/chat-ui-polish-evidence/reasoning/real-picker.json",
-        "docs/chat-ui-polish-evidence/reasoning/real-picker.log",
-        "docs/chat-ui-polish-evidence/reasoning/verification.json",
-        "docs/chat-ui-polish-evidence/recovery/final-browser.log",
-        "docs/chat-ui-polish-evidence/recovery/final-unit.log",
-        "docs/chat-ui-polish-evidence/recovery/live-after.json",
-        "docs/chat-ui-polish-evidence/recovery/live-before.json",
-        "docs/chat-ui-polish.md",
-        "docs/desktop-chat-evidence/final-browser-production.log",
-        "docs/desktop-chat-evidence/final-unit.log",
-        "docs/desktop-chat-evidence/real-extended-v2-results.json",
-        "docs/desktop-chat-evidence/restart-after-results.json",
-        "docs/desktop-chat-evidence/restart-before-results.json",
-        "docs/desktop-chat-evidence/runtime-configuration.json",
-        "docs/desktop-chat-experience.md",
-        "docs/guides/E_BACKEND.md",
-        "docs/guides/E_INTEGRATION_VERIFICATION.md",
-        "docs/plans/canvas-optimization.md",
-        "docs/research/analysis/agent_canvas_dim01.md",
-        "docs/research/analysis/agent_canvas_dim04.md",
-        "docs/research/analysis/agent_canvas_dim05.md",
-        "docs/research/analysis/agent_canvas_dim06.md",
-        "docs/research/analysis/agent_canvas_dim07.md",
-        "docs/research/analysis/agent_canvas_dim08.md",
-        "docs/research/analysis/agent_canvas_dim09.md",
-        "docs/research/analysis/agent_canvas_dim10.md",
-        "docs/research/analysis/agent_canvas_dim11.md",
-        "docs/research/report/agent_canvas.agent.final.converted.md",
-        "docs/research/report/agent_canvas.agent.final.md",
-        "docs/research/report/agent_canvas.citation.jsonl",
-        "docs/research/report/agent_canvas_ref.md",
-        "docs/research/report/agent_canvas_sec05.md",
-        "docs/research/report/agent_canvas_sec07.md",
-        "docs/research/report/agent_canvas_sec07_refs.md"
-      ]
-    }
-  ],
+  "suspects": [],
   "deadExports": 36,
   "cycles": [],
   "hotspots": [
     {
-      "file": "app/src/components/ui/sidebar.tsx",
-      "changes": 1,
-      "lines": 705,
-      "score": 705
-    },
-    {
       "file": "app/src/pages/canvas/mock-server.ts",
-      "changes": 1,
+      "changes": 2,
       "lines": 640,
-      "score": 640
+      "score": 1280
     },
     {
       "file": "app/api/coordinator.ts",
-      "changes": 1,
+      "changes": 2,
       "lines": 617,
-      "score": 617
+      "score": 1234
     },
     {
       "file": "app/src/pages/canvas/index.tsx",
-      "changes": 1,
+      "changes": 2,
       "lines": 610,
-      "score": 610
+      "score": 1220
     },
     {
       "file": "app/api/routes.ts",
-      "changes": 1,
+      "changes": 2,
       "lines": 507,
-      "score": 507
+      "score": 1014
     },
     {
       "file": "app/src/pages/reactflow/index.tsx",
-      "changes": 1,
+      "changes": 2,
       "lines": 475,
-      "score": 475
+      "score": 950
     },
     {
       "file": "app/src/pages/canvas/live-store.ts",
-      "changes": 1,
+      "changes": 2,
       "lines": 469,
-      "score": 469
+      "score": 938
     },
     {
       "file": "app/api/herdr-adapter.ts",
-      "changes": 1,
+      "changes": 2,
       "lines": 421,
-      "score": 421
+      "score": 842
     },
     {
-      "file": "app/src/pages/tldraw/EdgesLayer.tsx",
+      "file": "app/scripts/demo-quant-canvas/run.mjs",
       "changes": 1,
-      "lines": 385,
-      "score": 385
+      "lines": 763,
+      "score": 763
     },
     {
       "file": "app/src/pages/canvas/LiveTerminal.tsx",
-      "changes": 1,
+      "changes": 2,
       "lines": 325,
-      "score": 325
+      "score": 650
+    },
+    {
+      "file": "app/src/pages/tldraw/TldrawPage.tsx",
+      "changes": 2,
+      "lines": 285,
+      "score": 570
     }
   ],
   "breaks": [],
@@ -1084,56 +434,8 @@
       "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
     },
     {
-      "file": "app/src/components/ui/alert-dialog.tsx",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
-    },
-    {
-      "file": "app/src/components/ui/badge.tsx",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
-    },
-    {
-      "file": "app/src/components/ui/button-group.tsx",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
-    },
-    {
-      "file": "app/src/components/ui/calendar.tsx",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
-    },
-    {
-      "file": "app/src/components/ui/form.tsx",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
-    },
-    {
-      "file": "app/src/components/ui/navigation-menu.tsx",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
-    },
-    {
-      "file": "app/src/components/ui/pagination.tsx",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
-    },
-    {
-      "file": "app/src/components/ui/sidebar.tsx",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
-    },
-    {
-      "file": "app/src/components/ui/toggle-group.tsx",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
-    },
-    {
-      "file": "app/src/components/ui/toggle.tsx",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
-    },
-    {
       "file": "app/src/main.tsx",
       "kind": "真实入口：浏览器启动 → 路由 → 工作区/画布，见数据流「浏览器入口」"
-    },
-    {
-      "file": "app/src/pages/canvas/EApprovalCard.tsx",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
-    },
-    {
-      "file": "app/src/pages/canvas/collaboration-demo/model.ts",
-      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
     },
     {
       "file": "app/tailwind.config.js",

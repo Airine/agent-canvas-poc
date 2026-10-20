@@ -2,7 +2,7 @@
 title: 入口对账
 description: 逐项裁决静态图的零入度候选，区分运行入口、工具配置和未接入代码。
 generated: npm --prefix docs-site run architecture:analyze
-generated-at: bc3fe792b0fa1cc587067690e7494ab127bf01b2
+generated-at: a1858ae366967628b82326c8479db64b0d760036
 ---
 # 入口对账
 
@@ -23,19 +23,7 @@ generated-at: bc3fe792b0fa1cc587067690e7494ab127bf01b2
 | `app/shared/collaboration-package.d.mts` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/shared/collaboration-protocol.d.mts` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/shared/message-content.d.mts` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
-| `app/src/components/ui/alert-dialog.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
-| `app/src/components/ui/badge.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
-| `app/src/components/ui/button-group.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
-| `app/src/components/ui/calendar.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
-| `app/src/components/ui/form.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
-| `app/src/components/ui/navigation-menu.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
-| `app/src/components/ui/pagination.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
-| `app/src/components/ui/sidebar.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
-| `app/src/components/ui/toggle-group.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
-| `app/src/components/ui/toggle.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/src/main.tsx` | 真实入口：浏览器启动 → 路由 → 工作区/画布，见数据流「浏览器入口」 |
-| `app/src/pages/canvas/EApprovalCard.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
-| `app/src/pages/canvas/collaboration-demo/model.ts` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/tailwind.config.js` | 非入口：构建或检查配置，由对应工具加载 |
 | `app/test/browser/card-approval-modes.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/browser/chat-experience.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |

@@ -1,7 +1,7 @@
 {
-  "reviewedAt": "2026-10-19",
-  "baseline": "bc3fe792b0fa1cc587067690e7494ab127bf01b2",
-  "scope": "59 Knip candidates; source reachability plus dynamic-reference and uncommitted-work review",
+  "reviewedAt": "2026-10-20",
+  "baseline": "a1858ae366967628b82326c8479db64b0d760036",
+  "scope": "62 cumulative decisions: 34 previously removed, 25 unreachable source files preserved in a1858ae before authorized removal, 3 obsolete scaffold/container files",
   "records": [
     {
       "file": "app/src/components/ui/accordion.tsx",
@@ -21,9 +21,9 @@
     },
     {
       "file": "app/src/components/ui/alert-dialog.tsx",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "68f23de1da58d6e0999fbf1d1ce85364a09f44cef899eb8778e84ec0285469b9",
-      "gitStatus": "M app/src/components/ui/alert-dialog.tsx",
+      "gitStatus": "committed in a1858ae",
       "lines": 155,
       "imports": [
         "app/src/components/ui/button-variants.ts",
@@ -35,7 +35,13 @@
         "app/package.json",
         "app/src/index.css",
         "app/src/pages/canvas/chat/ChatPopover.tsx"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "68f23de1da58d6e0999fbf1d1ce85364a09f44cef899eb8778e84ec0285469b9",
+        "gitStatus": "M app/src/components/ui/alert-dialog.tsx"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/alert.tsx",
@@ -103,9 +109,9 @@
     },
     {
       "file": "app/src/components/ui/badge-variants.ts",
-      "decision": "retain-uncommitted",
-      "sha256": "2d78d22236de90def1fb88f6bfad60093467bc92021329eecdaeb5f33dfcffd4",
-      "gitStatus": "?? app/src/components/ui/badge-variants.ts",
+      "decision": "remove",
+      "sha256": "84349f5f56efceac0af5f8e5b3860b4467985517c6da7868d0bd3074eed05569",
+      "gitStatus": "committed in a1858ae",
       "lines": 23,
       "imports": [],
       "importedBy": [
@@ -113,13 +119,19 @@
       ],
       "stringReferences": [
         "app/src/components/ui/badge.tsx"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "2d78d22236de90def1fb88f6bfad60093467bc92021329eecdaeb5f33dfcffd4",
+        "gitStatus": "?? app/src/components/ui/badge-variants.ts"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/badge.tsx",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "0d987e7c704ac71af577e9a065810c93bcaa573b4bb35427b769d04ff81d38b6",
-      "gitStatus": "M app/src/components/ui/badge.tsx",
+      "gitStatus": "committed in a1858ae",
       "lines": 27,
       "imports": [
         "app/src/components/ui/badge-variants.ts",
@@ -134,7 +146,13 @@
         "app/src/shared/EdgeLegend.tsx",
         "app/src/shared/StatusBadge.tsx",
         "docs/research/analysis/agent_canvas_dim11.md"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "0d987e7c704ac71af577e9a065810c93bcaa573b4bb35427b769d04ff81d38b6",
+        "gitStatus": "M app/src/components/ui/badge.tsx"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/breadcrumb.tsx",
@@ -152,9 +170,9 @@
     },
     {
       "file": "app/src/components/ui/button-group-variants.ts",
-      "decision": "retain-uncommitted",
-      "sha256": "10aee90f9be34919e374a65d060c5c2c23004fe95d5a50bef16845b8c31d9ba2",
-      "gitStatus": "?? app/src/components/ui/button-group-variants.ts",
+      "decision": "remove",
+      "sha256": "5d04673c8d1fde248eeda973dc38a415e9c604eb165d843c5f92e72003364346",
+      "gitStatus": "committed in a1858ae",
       "lines": 19,
       "imports": [],
       "importedBy": [
@@ -162,13 +180,19 @@
       ],
       "stringReferences": [
         "app/src/components/ui/button-group.tsx"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "10aee90f9be34919e374a65d060c5c2c23004fe95d5a50bef16845b8c31d9ba2",
+        "gitStatus": "?? app/src/components/ui/button-group-variants.ts"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/button-group.tsx",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "8aefac3bc014859ea676665536eeb69fbd7010ac585e5c8c2eec3889b89a9e67",
-      "gitStatus": "M app/src/components/ui/button-group.tsx",
+      "gitStatus": "committed in a1858ae",
       "lines": 67,
       "imports": [
         "app/src/components/ui/button-group-variants.ts",
@@ -179,13 +203,19 @@
       "stringReferences": [
         "app/info.md",
         "app/src/components/ui/button-group-variants.ts"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "8aefac3bc014859ea676665536eeb69fbd7010ac585e5c8c2eec3889b89a9e67",
+        "gitStatus": "M app/src/components/ui/button-group.tsx"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/calendar.tsx",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "3be6a4151ce03c284888459900ccb958d5c4a99f20c049689f152e423b3b538f",
-      "gitStatus": "M app/src/components/ui/calendar.tsx",
+      "gitStatus": "committed in a1858ae",
       "lines": 221,
       "imports": [
         "app/src/components/ui/button-variants.ts",
@@ -195,7 +225,13 @@
       "importedBy": [],
       "stringReferences": [
         "app/info.md"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "3be6a4151ce03c284888459900ccb958d5c4a99f20c049689f152e423b3b538f",
+        "gitStatus": "M app/src/components/ui/calendar.tsx"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/card.tsx",
@@ -521,9 +557,9 @@
     },
     {
       "file": "app/src/components/ui/form-context.ts",
-      "decision": "retain-uncommitted",
-      "sha256": "98280a27ef5ed8fc32a8bb58cdb5a05aaabb3464e12c563416d413c3d53e5cfd",
-      "gitStatus": "?? app/src/components/ui/form-context.ts",
+      "decision": "remove",
+      "sha256": "7c08ac857efe69f2a82d5f7634e5214063d2f94710a31b3727d71e7b65d09f6a",
+      "gitStatus": "committed in a1858ae",
       "lines": 45,
       "imports": [],
       "importedBy": [
@@ -531,13 +567,19 @@
       ],
       "stringReferences": [
         "app/src/components/ui/form.tsx"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "98280a27ef5ed8fc32a8bb58cdb5a05aaabb3464e12c563416d413c3d53e5cfd",
+        "gitStatus": "?? app/src/components/ui/form-context.ts"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/form.tsx",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "600de1ce6efaf0d74f59db3dbac8cb88a78da301852b0d3ea12ef3b2ed1ef3a6",
-      "gitStatus": "M app/src/components/ui/form.tsx",
+      "gitStatus": "committed in a1858ae",
       "lines": 124,
       "imports": [
         "app/src/components/ui/form-context.ts",
@@ -624,7 +666,13 @@
         "tools/legacy/spike/REPORT.md",
         "tools/legacy/spike/events-sample.jsonl",
         "tools/legacy/spike/herdr-api.schema.json"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "600de1ce6efaf0d74f59db3dbac8cb88a78da301852b0d3ea12ef3b2ed1ef3a6",
+        "gitStatus": "M app/src/components/ui/form.tsx"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/hover-card.tsx",
@@ -675,9 +723,9 @@
     },
     {
       "file": "app/src/components/ui/input.tsx",
-      "decision": "retain-dependency",
+      "decision": "remove",
       "sha256": "56b7fd30208addbcc2468cfda4f5bc0a55342211deaab61ee35b1c352b1622f1",
-      "gitStatus": "clean",
+      "gitStatus": "committed in a1858ae",
       "lines": 21,
       "imports": [
         "app/src/lib/utils.ts"
@@ -784,7 +832,13 @@
         "tools/legacy/spike/REPORT.md",
         "tools/legacy/spike/backend-selftest.md",
         "tools/legacy/spike/herdr-api.schema.json"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-dependency",
+        "sha256": "56b7fd30208addbcc2468cfda4f5bc0a55342211deaab61ee35b1c352b1622f1",
+        "gitStatus": "clean"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/item.tsx",
@@ -941,9 +995,9 @@
     },
     {
       "file": "app/src/components/ui/label.tsx",
-      "decision": "retain-dependency",
+      "decision": "remove",
       "sha256": "9ec42c8a57e82311118b794318409ee02b2cebfa49ba6cce8457cff6448cd471",
-      "gitStatus": "clean",
+      "gitStatus": "committed in a1858ae",
       "lines": 24,
       "imports": [
         "app/src/lib/utils.ts"
@@ -1057,7 +1111,13 @@
         "tools/legacy/spike/backend-selftest.md",
         "tools/legacy/spike/events-sample.jsonl",
         "tools/legacy/spike/herdr-api.schema.json"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-dependency",
+        "sha256": "9ec42c8a57e82311118b794318409ee02b2cebfa49ba6cce8457cff6448cd471",
+        "gitStatus": "clean"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/menubar.tsx",
@@ -1076,9 +1136,9 @@
     },
     {
       "file": "app/src/components/ui/navigation-menu-variants.ts",
-      "decision": "retain-uncommitted",
-      "sha256": "2c6ff2f023def0df21372bdc997c0825325e71246e56187ed3199240fce81c61",
-      "gitStatus": "?? app/src/components/ui/navigation-menu-variants.ts",
+      "decision": "remove",
+      "sha256": "8020a229e297850e506324d6242f0b21174871c411edbdfcc96f1cc1b99edc96",
+      "gitStatus": "committed in a1858ae",
       "lines": 6,
       "imports": [],
       "importedBy": [
@@ -1086,13 +1146,19 @@
       ],
       "stringReferences": [
         "app/src/components/ui/navigation-menu.tsx"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "2c6ff2f023def0df21372bdc997c0825325e71246e56187ed3199240fce81c61",
+        "gitStatus": "?? app/src/components/ui/navigation-menu-variants.ts"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/navigation-menu.tsx",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "0b0dec25a3e036f159e485f4d6ad39c3606a1baddad0b503b1794f9c040d3647",
-      "gitStatus": "M app/src/components/ui/navigation-menu.tsx",
+      "gitStatus": "committed in a1858ae",
       "lines": 164,
       "imports": [
         "app/src/components/ui/navigation-menu-variants.ts",
@@ -1102,13 +1168,19 @@
       "stringReferences": [
         "app/info.md",
         "app/package.json"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "0b0dec25a3e036f159e485f4d6ad39c3606a1baddad0b503b1794f9c040d3647",
+        "gitStatus": "M app/src/components/ui/navigation-menu.tsx"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/pagination.tsx",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "3b4eb99eb496637d6da56257b0008b1e7ccc20c716af3065bb009b72fd59a445",
-      "gitStatus": "M app/src/components/ui/pagination.tsx",
+      "gitStatus": "committed in a1858ae",
       "lines": 128,
       "imports": [
         "app/src/components/ui/button-variants.ts",
@@ -1118,7 +1190,13 @@
       "importedBy": [],
       "stringReferences": [
         "app/info.md"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "3b4eb99eb496637d6da56257b0008b1e7ccc20c716af3065bb009b72fd59a445",
+        "gitStatus": "M app/src/components/ui/pagination.tsx"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/popover.tsx",
@@ -1341,9 +1419,9 @@
     },
     {
       "file": "app/src/components/ui/separator.tsx",
-      "decision": "retain-dependency",
+      "decision": "remove",
       "sha256": "e9dddbd8dbbc0eccd683306481b0f0bbc8e2b60ea97817416ebb9fe7fbbbdca8",
-      "gitStatus": "clean",
+      "gitStatus": "committed in a1858ae",
       "lines": 28,
       "imports": [
         "app/src/lib/utils.ts"
@@ -1369,13 +1447,19 @@
         "app/src/components/ui/select.tsx",
         "app/src/components/ui/sidebar.tsx",
         "docs/research/analysis/agent_canvas_dim05.md"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-dependency",
+        "sha256": "e9dddbd8dbbc0eccd683306481b0f0bbc8e2b60ea97817416ebb9fe7fbbbdca8",
+        "gitStatus": "clean"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/sheet.tsx",
-      "decision": "retain-dependency",
+      "decision": "remove",
       "sha256": "fbe9b257fd95b9865e1aba651489899c959ed5c16cb8493fe8c2733f83b92ee1",
-      "gitStatus": "clean",
+      "gitStatus": "committed in a1858ae",
       "lines": 137,
       "imports": [
         "app/src/lib/utils.ts"
@@ -1389,13 +1473,19 @@
         "app/src/components/ui/sidebar.tsx",
         "app/src/index.css",
         "docs/research/analysis/agent_canvas_dim09.md"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-dependency",
+        "sha256": "fbe9b257fd95b9865e1aba651489899c959ed5c16cb8493fe8c2733f83b92ee1",
+        "gitStatus": "clean"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/sidebar-context.ts",
-      "decision": "retain-uncommitted",
-      "sha256": "15f9ff65c79133b830ae0ed371f37c02789e6fcecb825ad365d7d8741a3c10c8",
-      "gitStatus": "?? app/src/components/ui/sidebar-context.ts",
+      "decision": "remove",
+      "sha256": "342ae6ac65e312e8269be1cfb8fae66ae6ade9f1c4909e09210c9e1f365929c7",
+      "gitStatus": "committed in a1858ae",
       "lines": 23,
       "imports": [],
       "importedBy": [
@@ -1403,13 +1493,19 @@
       ],
       "stringReferences": [
         "app/src/components/ui/sidebar.tsx"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "15f9ff65c79133b830ae0ed371f37c02789e6fcecb825ad365d7d8741a3c10c8",
+        "gitStatus": "?? app/src/components/ui/sidebar-context.ts"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/sidebar.tsx",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "a17fec7f5a94470949ab3b31efbb28971514650e02b4b3e5a5b6a3891facfef5",
-      "gitStatus": "M app/src/components/ui/sidebar.tsx",
+      "gitStatus": "committed in a1858ae",
       "lines": 704,
       "imports": [
         "app/src/components/ui/button.tsx",
@@ -1433,13 +1529,19 @@
         "docs/research/report/agent_canvas.agent.final.md",
         "docs/research/report/agent_canvas_sec05.md",
         "docs/themes.md"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "a17fec7f5a94470949ab3b31efbb28971514650e02b4b3e5a5b6a3891facfef5",
+        "gitStatus": "M app/src/components/ui/sidebar.tsx"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/skeleton.tsx",
-      "decision": "retain-dependency",
+      "decision": "remove",
       "sha256": "f2aea81d8baf2b621945382aabac150e3db40f20d19ac1abea7aff805f1dc33c",
-      "gitStatus": "clean",
+      "gitStatus": "committed in a1858ae",
       "lines": 13,
       "imports": [
         "app/src/lib/utils.ts"
@@ -1451,7 +1553,13 @@
         "app/info.md",
         "app/src/components/ui/sidebar.tsx",
         "docs/research/analysis/agent_canvas_dim04.md"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-dependency",
+        "sha256": "f2aea81d8baf2b621945382aabac150e3db40f20d19ac1abea7aff805f1dc33c",
+        "gitStatus": "clean"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/slider.tsx",
@@ -1611,9 +1719,9 @@
     },
     {
       "file": "app/src/components/ui/toggle-group.tsx",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "c5abe6fb3a991b5372fb7cb98743b22cb04f1ac1624e6509400fa52e82136e10",
-      "gitStatus": "M app/src/components/ui/toggle-group.tsx",
+      "gitStatus": "committed in a1858ae",
       "lines": 81,
       "imports": [
         "app/src/components/ui/toggle-variants.ts",
@@ -1623,13 +1731,19 @@
       "stringReferences": [
         "app/info.md",
         "app/package.json"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "c5abe6fb3a991b5372fb7cb98743b22cb04f1ac1624e6509400fa52e82136e10",
+        "gitStatus": "M app/src/components/ui/toggle-group.tsx"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/toggle-variants.ts",
-      "decision": "retain-uncommitted",
-      "sha256": "5b74b91abcde7c4f11d5aa717f47b6e63b779b1fb5d40031d7c30fbbe894b7f8",
-      "gitStatus": "?? app/src/components/ui/toggle-variants.ts",
+      "decision": "remove",
+      "sha256": "de28533af71a1fe843fd4b4410015f7d45bbe4f1e03cc2e25e9e11771a3c1881",
+      "gitStatus": "committed in a1858ae",
       "lines": 24,
       "imports": [],
       "importedBy": [
@@ -1639,13 +1753,19 @@
       "stringReferences": [
         "app/src/components/ui/toggle-group.tsx",
         "app/src/components/ui/toggle.tsx"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "5b74b91abcde7c4f11d5aa717f47b6e63b779b1fb5d40031d7c30fbbe894b7f8",
+        "gitStatus": "?? app/src/components/ui/toggle-variants.ts"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/toggle.tsx",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "7e41861e1300bedc7788dbd889c16d50afa31cebee2eea841874926d98dde56a",
-      "gitStatus": "M app/src/components/ui/toggle.tsx",
+      "gitStatus": "committed in a1858ae",
       "lines": 25,
       "imports": [
         "app/src/components/ui/toggle-variants.ts",
@@ -1675,13 +1795,19 @@
         "docs/research/analysis/agent_canvas_dim05.md",
         "docs/research/analysis/agent_canvas_dim09.md",
         "tools/legacy/spike/herdr-api.schema.json"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "7e41861e1300bedc7788dbd889c16d50afa31cebee2eea841874926d98dde56a",
+        "gitStatus": "M app/src/components/ui/toggle.tsx"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/components/ui/tooltip.tsx",
-      "decision": "retain-dependency",
+      "decision": "remove",
       "sha256": "cbc12f4086448f8a307ed5fbb160f79467c84a44c48ca0dbd2c62e39a2db6f5d",
-      "gitStatus": "clean",
+      "gitStatus": "committed in a1858ae",
       "lines": 61,
       "imports": [
         "app/src/lib/utils.ts"
@@ -1699,13 +1825,19 @@
         "app/src/pages/canvas/identity-window.css",
         "app/test/browser/identity-window.spec.ts",
         "docs/desktop-chat-experience.md"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-dependency",
+        "sha256": "cbc12f4086448f8a307ed5fbb160f79467c84a44c48ca0dbd2c62e39a2db6f5d",
+        "gitStatus": "clean"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/hooks/use-mobile.ts",
-      "decision": "retain-dependency",
+      "decision": "remove",
       "sha256": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b",
-      "gitStatus": "clean",
+      "gitStatus": "committed in a1858ae",
       "lines": 19,
       "imports": [],
       "importedBy": [
@@ -1713,13 +1845,19 @@
       ],
       "stringReferences": [
         "app/src/components/ui/sidebar.tsx"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-dependency",
+        "sha256": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b",
+        "gitStatus": "clean"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/pages/canvas/EApprovalCard.tsx",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "56a6ceda5e48615a120e7de96fde23870541dea84a280c1ddcc9f060da70f9e6",
-      "gitStatus": "?? app/src/pages/canvas/EApprovalCard.tsx",
+      "gitStatus": "committed in a1858ae",
       "lines": 5,
       "imports": [
         "app/api/e/contracts.ts",
@@ -1729,13 +1867,19 @@
       "importedBy": [],
       "stringReferences": [
         "docs/chat-experience.md"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "56a6ceda5e48615a120e7de96fde23870541dea84a280c1ddcc9f060da70f9e6",
+        "gitStatus": "?? app/src/pages/canvas/EApprovalCard.tsx"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
     },
     {
       "file": "app/src/pages/canvas/collaboration-demo/model.ts",
-      "decision": "retain-uncommitted",
+      "decision": "remove",
       "sha256": "1a4615be7bc3b58e8ebec341db31cb7f2182c7223953339d1b246990215940ca",
-      "gitStatus": "?? app/src/pages/canvas/collaboration-demo/model.ts",
+      "gitStatus": "committed in a1858ae",
       "lines": 92,
       "imports": [],
       "importedBy": [],
@@ -1825,7 +1969,104 @@
         "docs/research/report/agent_canvas_sec05.md",
         "docs/research/report/agent_canvas_sec07.md",
         "docs/research/report/agent_canvas_sec07_refs.md"
-      ]
+      ],
+      "previousDecision": {
+        "decision": "retain-uncommitted",
+        "sha256": "1a4615be7bc3b58e8ebec341db31cb7f2182c7223953339d1b246990215940ca",
+        "gitStatus": "?? app/src/pages/canvas/collaboration-demo/model.ts"
+      },
+      "reason": "No incoming import from outside the removal closure; no route, dynamic loader or configured external consumer. User authorized removal after preserving pending work."
+    },
+    {
+      "file": "app/info.md",
+      "decision": "remove",
+      "sha256": "e86b40922c19326c0d3ddf44ac003359f21f105a38324a471e21ddc678b6eafc",
+      "gitStatus": "committed in a1858ae",
+      "lines": 31,
+      "imports": [],
+      "importedBy": [],
+      "stringReferences": [
+        "docs/architecture/wiki/modules/development.md"
+      ],
+      "reason": "Outdated generated scaffold inventory and machine path; superseded by app/README.md"
+    },
+    {
+      "file": "app/Dockerfile",
+      "decision": "remove",
+      "sha256": "03ecadcc1a7e8312cdcad24ac028255700a57d8df18ee5a6c0b7c1e79db4ff39",
+      "gitStatus": "committed in a1858ae",
+      "lines": 18,
+      "imports": [],
+      "importedBy": [],
+      "stringReferences": [
+        "docs/architecture/wiki/modules/development.md"
+      ],
+      "reason": "Unreferenced Node 20 container template does not provide the current e/Pi runtime; supported startup uses dev:e/start:e"
+    },
+    {
+      "file": "app/.dockerignore",
+      "decision": "remove",
+      "sha256": "2a9e906c32820a9b45e064a0d2807033370be687a718e4fa38e703a97c2e7237",
+      "gitStatus": "committed in a1858ae",
+      "lines": 5,
+      "imports": [],
+      "importedBy": [],
+      "stringReferences": [
+        "docs/architecture/wiki/modules/development.md"
+      ],
+      "reason": "Only paired with the removed, unsupported container template"
     }
-  ]
+  ],
+  "previousReview": {
+    "reviewedAt": "2026-10-19",
+    "baseline": "bc3fe792b0fa1cc587067690e7494ab127bf01b2",
+    "scope": "59 Knip candidates; source reachability plus dynamic-reference and uncommitted-work review"
+  },
+  "snapshotCommit": "a1858ae366967628b82326c8479db64b0d760036",
+  "preserved": "Active React Flow/tldraw routes, Herdr compatibility, all runtime data and meaningful historical evidence, new offline quant example",
+  "dependencyCleanup": {
+    "directRemoved": {
+      "dependencies": [
+        "@dagrejs/dagre",
+        "@hookform/resolvers",
+        "@radix-ui/react-accordion",
+        "@radix-ui/react-aspect-ratio",
+        "@radix-ui/react-avatar",
+        "@radix-ui/react-checkbox",
+        "@radix-ui/react-collapsible",
+        "@radix-ui/react-context-menu",
+        "@radix-ui/react-dialog",
+        "@radix-ui/react-dropdown-menu",
+        "@radix-ui/react-hover-card",
+        "@radix-ui/react-label",
+        "@radix-ui/react-menubar",
+        "@radix-ui/react-navigation-menu",
+        "@radix-ui/react-progress",
+        "@radix-ui/react-radio-group",
+        "@radix-ui/react-scroll-area",
+        "@radix-ui/react-select",
+        "@radix-ui/react-separator",
+        "@radix-ui/react-slider",
+        "@radix-ui/react-tabs",
+        "@radix-ui/react-toggle",
+        "@radix-ui/react-toggle-group",
+        "@radix-ui/react-tooltip",
+        "cmdk",
+        "date-fns",
+        "embla-carousel-react",
+        "input-otp",
+        "react-day-picker",
+        "react-hook-form",
+        "react-resizable-panels",
+        "recharts",
+        "vaul"
+      ],
+      "devDependencies": [
+        "tw-animate-css"
+      ]
+    },
+    "removedLockEntries": 46,
+    "remainingVersionsChanged": false,
+    "method": "Knip dependency findings plus zero literal references in source/config/CSS/scripts; lock-only update, no daily node_modules prune"
+  }
 }

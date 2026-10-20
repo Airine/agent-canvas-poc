@@ -3,7 +3,7 @@ title: 文档维护
 description: 代码先行，审阅差异后更新 wiki，再重建站点与架构地图。
 sources:
   - docs-site/scripts/unused-review.mjs 1d72f1c3bafd reconcileUnusedReview
-  - app/package.json 76486a23e156
+  - app/package.json 141da0328124
   - docs/architecture/verify.mjs f2b8209fece8
   - docs-site/scripts/analyze.mjs 202ce7549c4a
   - docs-site/scripts/prepare-content.mjs b3f5e68f66dc

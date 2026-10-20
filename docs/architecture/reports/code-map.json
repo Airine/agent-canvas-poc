@@ -773,82 +773,6 @@
         "react-router"
       ]
     },
-    "app/src/components/ui/alert-dialog.tsx": {
-      "loc": 156,
-      "exports": [
-        "AlertDialog",
-        "AlertDialogPortal",
-        "AlertDialogOverlay",
-        "AlertDialogTrigger",
-        "AlertDialogContent",
-        "AlertDialogHeader",
-        "AlertDialogFooter",
-        "AlertDialogTitle",
-        "AlertDialogDescription",
-        "AlertDialogAction",
-        "AlertDialogCancel"
-      ],
-      "imports": [
-        "app/src/components/ui/button-variants.ts",
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-alert-dialog",
-        "react"
-      ]
-    },
-    "app/src/components/ui/badge-variants.ts": {
-      "loc": 23,
-      "exports": [
-        "badgeVariants"
-      ],
-      "imports": [],
-      "packages": [
-        "class-variance-authority"
-      ]
-    },
-    "app/src/components/ui/badge.tsx": {
-      "loc": 28,
-      "exports": [
-        "Badge"
-      ],
-      "imports": [
-        "app/src/components/ui/badge-variants.ts",
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-slot",
-        "class-variance-authority",
-        "react"
-      ]
-    },
-    "app/src/components/ui/button-group-variants.ts": {
-      "loc": 19,
-      "exports": [
-        "buttonGroupVariants"
-      ],
-      "imports": [],
-      "packages": [
-        "class-variance-authority"
-      ]
-    },
-    "app/src/components/ui/button-group.tsx": {
-      "loc": 68,
-      "exports": [
-        "ButtonGroup",
-        "ButtonGroupSeparator",
-        "ButtonGroupText"
-      ],
-      "imports": [
-        "app/src/components/ui/button-group-variants.ts",
-        "app/src/components/ui/separator.tsx",
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-slot",
-        "class-variance-authority"
-      ]
-    },
     "app/src/components/ui/button-variants.ts": {
       "loc": 34,
       "exports": [
@@ -874,238 +798,6 @@
         "react"
       ]
     },
-    "app/src/components/ui/calendar.tsx": {
-      "loc": 222,
-      "exports": [
-        "Calendar",
-        "CalendarDayButton"
-      ],
-      "imports": [
-        "app/src/components/ui/button-variants.ts",
-        "app/src/components/ui/button.tsx",
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "lucide-react",
-        "react",
-        "react-day-picker"
-      ]
-    },
-    "app/src/components/ui/form-context.ts": {
-      "loc": 45,
-      "exports": [
-        "FormFieldContext",
-        "useFormField",
-        "FormItemContext"
-      ],
-      "imports": [],
-      "packages": [
-        "react",
-        "react-hook-form"
-      ]
-    },
-    "app/src/components/ui/form.tsx": {
-      "loc": 125,
-      "exports": [
-        "Form",
-        "FormItem",
-        "FormLabel",
-        "FormControl",
-        "FormDescription",
-        "FormMessage",
-        "FormField"
-      ],
-      "imports": [
-        "app/src/components/ui/form-context.ts",
-        "app/src/components/ui/label.tsx",
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-label",
-        "@radix-ui/react-slot",
-        "react",
-        "react-hook-form"
-      ]
-    },
-    "app/src/components/ui/input.tsx": {
-      "loc": 22,
-      "exports": [
-        "Input"
-      ],
-      "imports": [
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "react"
-      ]
-    },
-    "app/src/components/ui/label.tsx": {
-      "loc": 25,
-      "exports": [
-        "Label"
-      ],
-      "imports": [
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-label",
-        "react"
-      ]
-    },
-    "app/src/components/ui/navigation-menu-variants.ts": {
-      "loc": 6,
-      "exports": [
-        "navigationMenuTriggerStyle"
-      ],
-      "imports": [],
-      "packages": [
-        "class-variance-authority"
-      ]
-    },
-    "app/src/components/ui/navigation-menu.tsx": {
-      "loc": 165,
-      "exports": [
-        "NavigationMenu",
-        "NavigationMenuList",
-        "NavigationMenuItem",
-        "NavigationMenuContent",
-        "NavigationMenuTrigger",
-        "NavigationMenuLink",
-        "NavigationMenuIndicator",
-        "NavigationMenuViewport"
-      ],
-      "imports": [
-        "app/src/components/ui/navigation-menu-variants.ts",
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-navigation-menu",
-        "lucide-react",
-        "react"
-      ]
-    },
-    "app/src/components/ui/pagination.tsx": {
-      "loc": 129,
-      "exports": [
-        "Pagination",
-        "PaginationContent",
-        "PaginationLink",
-        "PaginationItem",
-        "PaginationPrevious",
-        "PaginationNext",
-        "PaginationEllipsis"
-      ],
-      "imports": [
-        "app/src/components/ui/button-variants.ts",
-        "app/src/components/ui/button.tsx",
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "lucide-react",
-        "react"
-      ]
-    },
-    "app/src/components/ui/separator.tsx": {
-      "loc": 29,
-      "exports": [
-        "Separator"
-      ],
-      "imports": [
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-separator",
-        "react"
-      ]
-    },
-    "app/src/components/ui/sheet.tsx": {
-      "loc": 138,
-      "exports": [
-        "Sheet",
-        "SheetTrigger",
-        "SheetClose",
-        "SheetContent",
-        "SheetHeader",
-        "SheetFooter",
-        "SheetTitle",
-        "SheetDescription"
-      ],
-      "imports": [
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-dialog",
-        "lucide-react",
-        "react"
-      ]
-    },
-    "app/src/components/ui/sidebar-context.ts": {
-      "loc": 23,
-      "exports": [
-        "SidebarContextProps",
-        "SidebarContext",
-        "useSidebar"
-      ],
-      "imports": [],
-      "packages": [
-        "react"
-      ]
-    },
-    "app/src/components/ui/sidebar.tsx": {
-      "loc": 705,
-      "exports": [
-        "Sidebar",
-        "SidebarContent",
-        "SidebarFooter",
-        "SidebarGroup",
-        "SidebarGroupAction",
-        "SidebarGroupContent",
-        "SidebarGroupLabel",
-        "SidebarHeader",
-        "SidebarInput",
-        "SidebarInset",
-        "SidebarMenu",
-        "SidebarMenuAction",
-        "SidebarMenuBadge",
-        "SidebarMenuButton",
-        "SidebarMenuItem",
-        "SidebarMenuSkeleton",
-        "SidebarMenuSub",
-        "SidebarMenuSubButton",
-        "SidebarMenuSubItem",
-        "SidebarProvider",
-        "SidebarRail",
-        "SidebarSeparator",
-        "SidebarTrigger"
-      ],
-      "imports": [
-        "app/src/components/ui/button.tsx",
-        "app/src/components/ui/input.tsx",
-        "app/src/components/ui/separator.tsx",
-        "app/src/components/ui/sheet.tsx",
-        "app/src/components/ui/sidebar-context.ts",
-        "app/src/components/ui/skeleton.tsx",
-        "app/src/components/ui/tooltip.tsx",
-        "app/src/hooks/use-mobile.ts",
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-slot",
-        "class-variance-authority",
-        "lucide-react",
-        "react"
-      ]
-    },
-    "app/src/components/ui/skeleton.tsx": {
-      "loc": 14,
-      "exports": [
-        "Skeleton"
-      ],
-      "imports": [
-        "app/src/lib/utils.ts"
-      ],
-      "packages": []
-    },
     "app/src/components/ui/sonner.tsx": {
       "loc": 39,
       "exports": [
@@ -1128,73 +820,6 @@
       ],
       "packages": [
         "@radix-ui/react-switch",
-        "react"
-      ]
-    },
-    "app/src/components/ui/toggle-group.tsx": {
-      "loc": 82,
-      "exports": [
-        "ToggleGroup",
-        "ToggleGroupItem"
-      ],
-      "imports": [
-        "app/src/components/ui/toggle-variants.ts",
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-toggle-group",
-        "class-variance-authority",
-        "react"
-      ]
-    },
-    "app/src/components/ui/toggle-variants.ts": {
-      "loc": 24,
-      "exports": [
-        "toggleVariants"
-      ],
-      "imports": [],
-      "packages": [
-        "class-variance-authority"
-      ]
-    },
-    "app/src/components/ui/toggle.tsx": {
-      "loc": 26,
-      "exports": [
-        "Toggle"
-      ],
-      "imports": [
-        "app/src/components/ui/toggle-variants.ts",
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-toggle",
-        "class-variance-authority",
-        "react"
-      ]
-    },
-    "app/src/components/ui/tooltip.tsx": {
-      "loc": 62,
-      "exports": [
-        "Tooltip",
-        "TooltipTrigger",
-        "TooltipContent",
-        "TooltipProvider"
-      ],
-      "imports": [
-        "app/src/lib/utils.ts"
-      ],
-      "packages": [
-        "@radix-ui/react-tooltip",
-        "react"
-      ]
-    },
-    "app/src/hooks/use-mobile.ts": {
-      "loc": 20,
-      "exports": [
-        "useIsMobile"
-      ],
-      "imports": [],
-      "packages": [
         "react"
       ]
     },
@@ -1290,18 +915,6 @@
       "packages": [
         "lucide-react"
       ]
-    },
-    "app/src/pages/canvas/EApprovalCard.tsx": {
-      "loc": 6,
-      "exports": [
-        "EApprovalCard"
-      ],
-      "imports": [
-        "app/api/e/contracts.ts",
-        "app/src/pages/canvas/chat/ApprovalRequest.tsx",
-        "app/src/pages/canvas/live-store.ts"
-      ],
-      "packages": []
     },
     "app/src/pages/canvas/GlobalCardViewControl.tsx": {
       "loc": 26,
@@ -1948,25 +1561,6 @@
         "react",
         "use-stick-to-bottom"
       ]
-    },
-    "app/src/pages/canvas/collaboration-demo/model.ts": {
-      "loc": 93,
-      "exports": [
-        "AgentId",
-        "DemoStatus",
-        "DemoPhase",
-        "DemoEvent",
-        "DemoStep",
-        "agents",
-        "steps",
-        "DemoState",
-        "DemoAction",
-        "initialDemoState",
-        "demoReducer",
-        "outputAt"
-      ],
-      "imports": [],
-      "packages": []
     },
     "app/src/pages/canvas/contracts.ts": {
       "loc": 107,
@@ -2983,7 +2577,7 @@
       "exports": [],
       "imports": [],
       "packages": [
-        "playwright"
+        "@playwright/test"
       ]
     },
     "app/test/browser/real-tools.mjs": {
@@ -2991,7 +2585,7 @@
       "exports": [],
       "imports": [],
       "packages": [
-        "playwright"
+        "@playwright/test"
       ]
     },
     "app/test/browser/reasoning-picker.spec.ts": {

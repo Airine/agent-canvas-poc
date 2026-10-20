@@ -2,15 +2,14 @@
 title: 启动与验证
 description: 本地启动器、编译检查和分层测试的维护入口。
 sources:
-  - app/knip.jsonc 5f091132ff40
-  - app/package.json 76486a23e156
+  - app/knip.jsonc ef83524bab2d
+  - app/package.json 141da0328124
   - app/scripts/dev-e.mjs 82c22e9d56a3
   - app/scripts/e-control.mjs ed63498cbe6f controlSession
   - app/scripts/agents/data-process.sh 29d20304546c
   - app/playwright.config.ts 82f0d7dd0bc7
   - app/test/browser/real-e.spec.ts 63f88818ee13
   - app/test/unit/e-routes.test.mjs a1d8431a9269
-  - app/Dockerfile 935d7addc86d
   - app/tsconfig.api.json 3ef105e6ff0c
   - README.md ffed4273ee8d
   - docs/guides/E_BACKEND.md cc566f02080e
@@ -21,9 +20,7 @@ covers:
   - app/tsconfig.json
   - app/tsconfig.api.json
   - app/playwright.config.ts
-  - app/Dockerfile
   - app/README.md
-  - app/info.md
   - app/test/
   - app/scripts/dev-e.mjs
   - app/scripts/e-control.mjs
@@ -52,7 +49,8 @@ covers:
 | `npm run dev` / `npm run dev:api` | 单独启动前端或 API；需要自行对齐端口 |
 | `npm run build` | TypeScript 项目构建与 Vite 打包 |
 | `npm run build:api` | 依据 `app/tsconfig.api.json` 编译 API 到 `dist-api/` |
-| `npm run lint` | ESLint 检查 |
+| `npm run lint` | ESLint 与架构事实/归属校验 |
+| `npm run collaboration:inspect -- --manifest` | 只读版本包检查，不代表某会话已加载 |
 | `npm test` | 通过 tsx 执行 `app/test/unit/*.test.mjs` |
 | `npm run test:e2e` | 执行 `app/test/browser/` 的 Playwright 用例 |
 
@@ -72,7 +70,7 @@ covers:
 
 ## 改动指南
 
-本地真实会话前提和参数见 `docs/guides/E_BACKEND.md`；其 Node 要求是 22.13 以上，且需要已有 ADE/Pi 依赖。`app/Dockerfile` 仍是 Node 20 的旧版容器入口，`app/README.md` 与 `app/info.md` 也保留脚手架说明，不能据此推断真实 e 后端已支持容器部署。
+本地真实会话前提和参数见 `docs/guides/E_BACKEND.md`；其 Node 要求是 22.13 以上，且需要已有 ADE/Pi 依赖。旧 Node 20 Dockerfile、配套 .dockerignore 和过时 info.md 已移除，app/README.md 改为实际启动与检查说明；当前不宣称 e 后端已支持容器部署。未使用源码与依赖先通过入口/闭包核对，再分提交清理。
 
 改端口时同时核对启动器、前端代理和控制面的来源校验。改 API 编译输出时注意 `tsconfig.api.json` 仅编译 API TypeScript；示例 JSON、运维脚本和外部运行时依赖不能假设会自动复制进输出目录。
 

@@ -1,4 +1,4 @@
-import {chromium} from 'playwright';
+import {chromium} from '@playwright/test';
 import fs from 'node:fs';import path from 'node:path';
 if(process.env.CANVAS_REAL_E2E !== '1' || !process.env.CANVAS_TEST_URL) throw Error('Explicit CANVAS_REAL_E2E=1 and CANVAS_TEST_URL are required');
 const base=process.env.CANVAS_TEST_URL,dir=process.env.CANVAS_EVIDENCE_DIR || (process.env.PI_SCRATCH_DIR ? path.join(process.env.PI_SCRATCH_DIR,'mvp') : path.resolve('test-results/real-mvp')), marker=`MVP_${Date.now()}`;

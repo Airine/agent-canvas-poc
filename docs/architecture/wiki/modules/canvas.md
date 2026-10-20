@@ -21,7 +21,6 @@ covers:
   - app/src/pages/canvas/ApprovalCard.tsx
   - app/src/pages/canvas/ApprovalModeControl.tsx
   - app/src/pages/canvas/CardViewControl.tsx
-  - app/src/pages/canvas/EApprovalCard.tsx
   - app/src/pages/canvas/L0Summary.tsx
   - app/src/pages/canvas/LiveChat.tsx
   - app/src/pages/canvas/LiveEdge.tsx

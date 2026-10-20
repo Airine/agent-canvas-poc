@@ -9,13 +9,11 @@ sources:
   - app/src/shared/mock/engine.ts b0b754204342 EventEngine buildSnapshot
   - app/src/shared/ViewModeManager.ts 7298339d7c1d ViewModeManager modeForScreenWidth
   - app/src/shared/FocusOverlay.tsx a60114c77b42 FocusOverlay
-  - app/src/pages/canvas/collaboration-demo/model.ts c941724956b2 demoReducer outputAt
   - app/src/pages/PocLanding.tsx 11a61d8c9b07 Home
 covers:
   - app/src/pages/reactflow/
   - app/src/pages/tldraw/
   - app/src/pages/PocLanding.tsx
-  - app/src/pages/canvas/collaboration-demo/
   - app/src/shared/
 ---
 
@@ -32,7 +30,6 @@ covers:
 - `ViewModeManager`、`modeForScreenWidth`（`app/src/shared/ViewModeManager.ts`）管理 L0/L1/L1s 显示档位、用户显式进入的 L2 专注，以及动画开关。按节点屏幕宽度划档，阈值是 240px、640px，缩放停止 120ms 后重算。
 - `FocusOverlay`（`app/src/shared/FocusOverlay.tsx`）把同一个内容容器移到浮窗或视口窗口，使用稳定 portal 容器保留子组件状态。
 - `Home`（`app/src/pages/PocLanding.tsx`，路由侧以 `PocLanding` 名称导入）提供原型入口。旧画布占位页已在本次体检修复中删除；实际原型路由仍保留。
-- `demoReducer`、`outputAt`（`app/src/pages/canvas/collaboration-demo/model.ts`）描述独立的预设协作剧本；目前未接入浏览器页面，不能写成已上线协作入口。
 
 ## 数据怎么流
 
@@ -51,4 +48,4 @@ React Flow 页面把快照映射为自定义节点与边；tldraw 页面创建�
 - `NodeShell` 和 `FocusOverlay` 通过可选 `compactHeader` / `headerActions` 接纳真实聊天的紧凑标题栏；默认值保留原型与 herdr 的身份行及原有标题布局。
 - `FocusOverlay` 的内容容器身份必须稳定。切换浮窗、铺满和返回画布应移动现有容器，而不是重建输入框、终端或阅读位置。
 - 原型界面的审批覆盖只影响本地快照，不等同于后端审批。新增真实审批仍走会话交互模块。
-- 旧画布占位页已删除；`collaboration-demo/model.ts` 仍是未接入的预设剧本。不要按目录名批量删除 `shared/`。
+- 旧画布占位页和未接入的 `collaboration-demo/model.ts` 剧本已删除；仍有路由的两个原型与离线量化示例保留。不要按目录名批量删除产品仍在使用的 `shared/`。
