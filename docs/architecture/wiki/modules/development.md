@@ -3,7 +3,7 @@ title: 启动与验证
 description: 本地启动器、编译检查和分层测试的维护入口。
 sources:
   - app/knip.jsonc ef83524bab2d
-  - app/package.json 141da0328124
+  - app/package.json 73c4e294f2ea
   - app/scripts/dev-e.mjs 82c22e9d56a3
   - app/scripts/e-control.mjs ed63498cbe6f controlSession
   - app/scripts/agents/data-process.sh 29d20304546c
@@ -11,8 +11,8 @@ sources:
   - app/test/browser/real-e.spec.ts 63f88818ee13
   - app/test/unit/e-routes.test.mjs a1d8431a9269
   - app/tsconfig.api.json 3ef105e6ff0c
-  - README.md ffed4273ee8d
-  - docs/guides/E_BACKEND.md cc566f02080e
+  - README.md c575fca242fc
+  - docs/guides/E_BACKEND.md 9259ede61a07
 covers:
   - app/package.json
   - app/eslint.config.js

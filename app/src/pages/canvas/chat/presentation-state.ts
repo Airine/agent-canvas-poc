@@ -1,4 +1,5 @@
 import type { DeliverAs, SessionView, SessionRef } from '../../../../api/e/contracts';
+import { allPendingReviewing } from './approval-presentation';
 import { capabilityAvailable } from '../session-store';
 export const approvalLabel:Record<string,string>={approved:'已批准',rejected:'已拒绝',cancelled:'已取消',pending:'等待批准','outcome-unknown':'结果未证实'};
 /** No cause is inferred from interrupted alone: it is also used when loading history. */
@@ -31,7 +32,7 @@ export function presentation(view: SessionView|undefined, online: boolean, mode:
  else if(fault){label=view?.lifecycle==='failed'?'会话故障':'运行器异常';reason='运行器报告异常，请查看诊断；历史和草稿保留';}
  else if(s?.status==='exited'){label='会话已停止';reason='恢复会话后可发送，草稿会保留';}
  else if(view?.lifecycle==='ready'){
-  label=pending.length?`等待批准 · ${pending.length}`:active?(s?.tools.some(t=>t.state==='running')?'正在执行工具':'正在生成'):'可继续对话';
+  label=pending.length?`${allPendingReviewing(view)?'AI 审查中':'等待批准'} · ${pending.length}`:active?(s?.tools.some(t=>t.state==='running')?'正在执行工具':'正在生成'):'可继续对话';
   reason=!capabilityAvailable(view,capability,now)?'当前发送能力不可用或已过期，草稿会保留':mode==='nextTurn'&&active?'当前轮执行中，可先写草稿，或选择 Steer/Follow-up':'';
  }
  const unknown=s?.pendingActions?.filter(a=>a.state==='outcome-unknown'&&a.kind!=='model').length??0;
@@ -54,7 +55,7 @@ export function sessionNotices(view:SessionView|undefined,online:boolean,readOnl
  else if(!view||view.lifecycle==='starting')notices.push({id:'starting',title:'正在连接运行器',description:'可以先写草稿，就绪后再发送。',tone:'neutral'});
  else if(view.error)notices.push({id:'runtime-error',title:'会话运行器报告异常',description:'请查看会话诊断，消息历史与草稿仍保留。',tone:'danger'});
  const pending=view?.snapshot?.approvals?.filter(a=>a.state==='pending').length??0;
- if(pending)notices.push({id:'approval',title:`等待批准 · ${pending} 项`,description:'查看具体工具请求后再决定，不会自动放宽权限。',tone:'warning',approval:true});
+ if(pending)notices.push({id:'approval',title:`${allPendingReviewing(view)?'AI 审查中':'等待批准'} · ${pending} 项`,description:allPendingReviewing(view)?'独立 AI 正在审查；无需重复点批准，也可随时人工接管。':'查看具体工具请求后再决定，不会自动放宽权限。',tone:'warning',approval:true});
  const covered=new Set(view?.queue?.items.filter(i=>i.state==='unknown'||i.state==='rejected').map(i=>i.intentId));
  const unresolved=view?.snapshot?.pendingActions?.filter(a=>a.kind!=='model'&&!covered.has(a.idempotencyKey??'')&&(a.state==='outcome-unknown'||a.state==='rejected'||(['submitted','dispatched'].includes(a.state)&&!!a.deadlineAt&&Date.parse(a.deadlineAt)<now))).length??0;
  if(unresolved)notices.push({id:'actions',title:`${unresolved} 项操作未确认或被拒绝`,description:'请在会话诊断中核对。不会自动重发，也不等同任务成功。',tone:'warning'});

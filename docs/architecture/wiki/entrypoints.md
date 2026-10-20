@@ -2,7 +2,7 @@
 title: 入口对账
 description: 逐项裁决静态图的零入度候选，区分运行入口、工具配置和未接入代码。
 generated: npm --prefix docs-site run architecture:analyze
-generated-at: a1858ae366967628b82326c8479db64b0d760036
+generated-at: 119cbf315d3888de69a064d915272826debf93e1
 ---
 # 入口对账
 
@@ -42,10 +42,13 @@ generated-at: a1858ae366967628b82326c8479db64b0d760036
 | `app/test/browser/reasoning-picker.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/browser/recovery-ui.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/browser/theme.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
+| `app/test/browser/tool-hierarchy.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/manual/real-collaboration.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/manual/ws-smoke.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/approval-policy.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
+| `app/test/unit/approval-presentation.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/approval-reviewer.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
+| `app/test/unit/attachments.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/card-view.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/chat-errors.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/chat-polish.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
@@ -66,6 +69,8 @@ generated-at: a1858ae366967628b82326c8479db64b0d760036
 | `app/test/unit/e-projection.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/e-routes.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/e-session-manager.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
+| `app/test/unit/execution-description.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
+| `app/test/unit/execution-presentation.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/fixtures/desktop-worker.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/fixtures/session-worker.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/global-card-view.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |

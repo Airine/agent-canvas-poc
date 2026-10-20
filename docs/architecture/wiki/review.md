@@ -7,13 +7,13 @@ sources:
   - app/test/unit/coordinator-failure.test.mjs 7e6aeeacbf12
   - app/test/unit/e-routes.test.mjs a1d8431a9269
   - app/test/browser/e-canvas.spec.ts 6dbdbfa1d93d
-  - app/api/e/approval-rules.ts de2e761cb335 approvalRule
+  - app/api/e/approval-rules.ts f4596999d61c approvalRule
   - app/api/e/message-queue.ts 035004c14654 mutateQueue
   - app/src/pages/canvas/live-store.ts 056a5d79638a LiveStore
   - app/src/pages/canvas/LiveTerminal.tsx c93871702251 LiveTerminal
   - app/src/pages/canvas/index.tsx 0c93d9ab6b59
-  - app/src/pages/canvas/chat/attachments.ts 2eba1c6a1bc5 readAttachment
-  - app/api/routes.ts 7cbd733eaf33 wsHandlers
+  - app/src/pages/canvas/chat/attachments.ts 012a8ffa699f readAttachment
+  - app/api/routes.ts a121973dd5ba wsHandlers
   - app/api/eventbus.ts 47b4e6ed936c
   - app/api/coordinator.ts 2f2630aa80fe
 ---

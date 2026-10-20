@@ -4,10 +4,10 @@ description: 会话从持久化记录启动独立工作进程，经 e-core 与 P
 sources:
   - app/api/e-adapter.ts e4029903d0d7 eSessions SessionManager
   - app/api/e/config.ts f41967b22889 runtimeConfig runtimeStatus MAX_SESSIONS
-  - app/api/e/session-manager.ts f1a051ecac53 SessionManager eSessions
+  - app/api/e/session-manager.ts 4ae0c14e0652 SessionManager eSessions
   - app/api/e/message-queue.ts 035004c14654 mutateQueue reconcileQueue queueReady
   - app/api/e/projection.ts b9672126cfbc projectSession
-  - app/scripts/e-runtime-worker.mts 597fd806824d control publish init
+  - app/scripts/e-runtime-worker.mts 640693a1eb1f control publish init
   - app/scripts/e-configuration.mjs 6014fd127d51 readConfiguration assertIdle changeConfiguration
   - app/scripts/e-control.mjs ed63498cbe6f controlSession
 covers:

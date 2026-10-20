@@ -39,7 +39,7 @@ export class TranscriptProjector {
    turn.messages.push(m);
    for(const [index,block] of m.blocks.entries()){
     const id=`${m.id}:${index}`;
-    if(block.type==='text'||block.type==='thinking'){if(block.text)turn.parts.push({id,kind:block.type,text:block.text});}
+    if(block.type==='text'||block.type==='thinking'){if(block.text?.trim())turn.parts.push({id,kind:block.type,text:block.text});}
     else if(block.type==='tool-call'&&typeof block.toolCallId==='string'){
      if(!consumed.has(block.toolCallId))turn.parts.push({id:`tool:${block.toolCallId}`,kind:'tool',activity:activity(block.toolCallId,{name:typeof block.name==='string'?block.name:'工具',arguments:block.arguments})});
     }else if(block.type==='tool-result'&&typeof block.toolCallId==='string'){
@@ -48,7 +48,7 @@ export class TranscriptProjector {
     else turn.parts.push({id,kind:'unknown',block});
    }
    if(m.stopReason==='aborted'||m.state==='cancelled')turn.parts.push({id:`cancel:${m.id}`,kind:'text',text:'本次回复已中断。'});
-   else if(m.error||m.stopReason==='error')turn.parts.push({id:`error:${m.id}`,kind:'error',error:m.error??'模型返回错误结束状态'});
+   else if((m.error&&String(m.error).trim())||m.stopReason==='error')turn.parts.push({id:`error:${m.id}`,kind:'error',error:m.error??'模型返回错误结束状态'});
    for(const tool of tools.values())if(tool.parentMessageId===m.id&&!consumed.has(tool.id))turn.parts.push({id:`tool:${tool.id}`,kind:'tool',activity:activity(tool.id)});
   }
   // A turnId is an explicit association; otherwise retain as unassociated activity.

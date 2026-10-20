@@ -35,7 +35,7 @@ test('native-free provider confirmation is safe, nested Escape and IME preserve 
 test('icon permission menu works with keyboard; auto-grow stays bounded and preserves draft',async({page})=>{
  await setup(page);await input(page).fill('键盘草稿');await page.getByRole('button',{name:'权限设置',exact:true}).focus();await page.keyboard.press('Enter');const menu=page.getByRole('dialog',{name:'权限设置',exact:true});await menu.getByRole('button',{name:/手动审批/}).focus();await page.keyboard.press('ArrowDown');await expect(menu.getByRole('button',{name:/帮我审批/})).toBeFocused();await page.keyboard.press('Escape');await expect(menu).toHaveCount(0);await expect(input(page)).toHaveValue('键盘草稿');
  const height=(await box(input(page))).height;await input(page).fill('较长的多行草稿。\n'.repeat(60));expect((await box(input(page))).height).toBeGreaterThan(height);expect((await box(input(page))).height).toBeLessThanOrEqual(200);expect(await input(page).evaluate(el=>el.scrollHeight>el.clientHeight)).toBe(true);await expect(input(page)).toHaveCSS('resize','none');await page.getByRole('button',{name:'权限设置',exact:true}).click();await page.keyboard.press('Escape');await expect(input(page)).toHaveValue('较长的多行草稿。\n'.repeat(60));
- await input(page).fill('');expect((await box(page.locator('.chat-composer'))).height).toBeLessThanOrEqual(136);
+ await input(page).fill('');await expect.poll(async()=>(await box(page.locator('.chat-composer'))).height).toBeLessThanOrEqual(136);
 });
 
 test('state matrix keeps actionable lifecycle errors, risks, missing attachments and unknown queue visible',async({page},info)=>{

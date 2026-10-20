@@ -74,6 +74,7 @@ export const EDGE_KIND_SEMANTIC: Record<EdgeKind, string> = {
   weak: '弱链接 · 通信',
   error: '错误路由',
   communication: 'Agent 通信 · 实际记录',
+  spawn: '会话派生 · 父 → 子',
 };
 
 /** 节点 DOM 宽（§3.2：默认态固定 400px；Coordinator 320px，§3.3.4） */

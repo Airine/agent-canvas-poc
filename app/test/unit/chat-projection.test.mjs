@@ -25,3 +25,12 @@ test('empty system hidden; unknown block and error completion retained as failur
 test('canonical tool missing output uses matching result message without duplicate transcript',()=>{const t=new TranscriptProjector().project(snap([msg('a',[{type:'tool-call',toolCallId:'t',name:'read'}]),msg('result',[{type:'text',text:'actual result'}],{role:'tool',toolCallId:'t'})],[{id:'t',name:'read',state:'completed'}]));const tool=t.flatMap(x=>x.parts).find(p=>p.kind==='tool');assert.deepEqual(tool.activity.tool.result,[{type:'text',text:'actual result'}]);assert.equal(t.flatMap(x=>x.parts).filter(p=>p.kind==='tool').length,1);});
 
 test('interleaved user instruction splits assistant turn instead of moving text across user input',()=>{const p=new TranscriptProjector();const input=[msg('a',[{type:'text',text:'before'}],{runId:'r',turnId:'t',order:0}),msg('u',[{type:'text',text:'steer'}],{runId:'r',turnId:'t',order:1,role:'user'}),msg('b',[{type:'text',text:'after'}],{runId:'r',turnId:'t',order:2})];const result=p.project(snap(input));assert.deepEqual(result.map(t=>t.messages[0].id),['a','u','b']);});
+
+
+test('empty system or empty error payloads do not create visible failure text',()=>{
+ const p=new TranscriptProjector();
+ const turns=p.project({messages:[{id:'sys',role:'system',order:0,state:'completed',blocks:[{type:'text',text:''}]},{id:'a',role:'assistant',order:1,state:'completed',blocks:[{type:'text',text:'ok'}]}],tools:[],approvals:[],runs:[],pendingActions:[]});
+ assert.equal(turns.length,1);assert.deepEqual(turns[0].parts.map(p=>p.kind),['text']);
+ const noError=p.project({messages:[{id:'a',role:'assistant',order:1,state:'completed',blocks:[{type:'text',text:'ok'}],error:'',stopReason:''}],tools:[],approvals:[],runs:[],pendingActions:[]});
+ assert.equal(noError[0].parts.filter(p=>p.kind==='error').length,0);
+});

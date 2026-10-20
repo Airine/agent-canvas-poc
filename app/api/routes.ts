@@ -53,7 +53,7 @@ const edgeSchema = z.object({
   id: z.string().min(1),
   source: z.string().min(1),
   target: z.string().min(1),
-  kind: z.enum(['strong', 'weak', 'error']),
+  kind: z.enum(['strong', 'weak', 'error', 'communication', 'spawn']),
   label: z.string().optional(),
 });
 
@@ -141,6 +141,20 @@ export function wireBroadcasts(): void {
   eventbus.subscribe(event => broadcast({ type: 'event', event, workspaceId: event.workspaceId }));
   coordinator.onGraphBroadcast(workspaceId => broadcast(graphMessage(workspaceId)));
   eSessions.on('communication', applyCommunications);
+  // A spawn is a card creation, not a DAG edge someone else executes: place the child next to its
+  // parent in the same zone before applySession settles its live status.
+  eSessions.on('spawned', (payload: { workspaceId: string; parent: string; nodeId: string; spawnId: string; depth: number; view: SessionView }) => {
+    if (registry.backend(payload.workspaceId) !== 'e') return;
+    const store = getGraphStore(payload.workspaceId); if (!store) return;
+    const view = eSessions.get(payload.workspaceId, payload.nodeId) ?? payload.view;
+    const parent = store.getNode(payload.parent);
+    const node = projectSession(view, undefined, store.graph.nodes.length);
+    node.x = (parent?.x ?? 80) + 560; node.y = parent?.y ?? 80;
+    if (parent?.zoneId) node.zoneId = parent.zoneId;
+    store.upsertNode(node);
+    store.upsertEdge({ id: `spawn:${payload.spawnId}`, source: payload.parent, target: payload.nodeId, kind: 'spawn', label: `派生 · 深度 ${payload.depth}` });
+    registry.persist();
+  });
   eSessions.on('changed', (view: SessionView) => {
     applySession(view);
     broadcast({ type: 'session', session: view, workspaceId: view.workspaceId });

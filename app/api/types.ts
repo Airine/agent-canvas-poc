@@ -7,7 +7,7 @@ import type { Lifecycle, SessionRef, SessionView } from './e/contracts.js';
 
 export type NodeStatus = 'queued' | 'running' | 'waiting' | 'completed' | 'failed' | 'skipped';
 export type NodeType = 'coordinator' | 'operation' | 'chat' | 'artifact';
-export type EdgeKind = 'strong' | 'weak' | 'error' | 'communication';
+export type EdgeKind = 'strong' | 'weak' | 'error' | 'communication' | 'spawn';
 
 export interface CanvasZone {
   id: string;

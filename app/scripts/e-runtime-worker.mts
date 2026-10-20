@@ -1,3 +1,4 @@
+import { recoveryEvent } from '../shared/model-recovery.mjs';
 import { createCanvasChannel } from './canvas-channel.mjs';
 import { readCollaborationPackage } from '../shared/collaboration-package.mjs';
 import { manifestsMatch } from '../shared/collaboration-protocol.mjs';
@@ -20,7 +21,7 @@ const sockets = [];
 const logs = [];
 let bridge, client, ref, closing = false, initialized = false, publishTimer;
 let piError, lastSnapshot, piProcess, runtimeConfiguration, refreshTimer;
-let piBin, imageProcessor, collaborationChannel;
+let piBin, imageProcessor, collaborationChannel, modelRecovery;
 let collaborationStatus={state:'unavailable',reason:'API 未提供协作版本，普通聊天不受影响'};
 let exclusive = false, serial = Promise.resolve();
 const sentIntents = new Set(), actionEvidence = new Set(), origins = {};
@@ -147,6 +148,8 @@ async function init(input) {
   piProcess=pi;canvasPair?.client.destroy();
   pi.stderr.pipe(log(path.join(generationDir,'pi.stderr.log')));
   readLines(pi.stdout,event=>{
+    const nextRecovery=recoveryEvent(modelRecovery,event);
+    if(nextRecovery!==modelRecovery){modelRecovery=nextRecovery;send({type:'model-recovery',nativeSessionId,recovery:modelRecovery??null});}
     if(event.type==='extension_error')piError=String(event.error);
     if(event.type==='response'&&pendingPi.has(event.id)){const cb=pendingPi.get(event.id);pendingPi.delete(event.id);cb(event);}
   });

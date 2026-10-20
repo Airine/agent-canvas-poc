@@ -14,6 +14,7 @@ import { emptyQueue, mutateQueue, pauseQueue, queueReady, reconcileQueue } from 
 import { validateMessage } from './attachments.js';
 import type { ConfigurationChange, RuntimeConfiguration, QueueMutation, QueueItem, MessageOrigin } from './contracts.js';
 import { ApprovalEngine } from './approval-engine.js';
+import { APPROVAL_POLICY_VERSION } from './approval-rules.js';
 import type { ApprovalMode } from './contracts.js';
 import type { ReviewerConfig } from './approval-reviewer.js';
 import { bindApproval } from './approval-binding.js';
@@ -22,7 +23,7 @@ import { APP_ROOT, DATA_ROOT, MAX_SESSIONS, runtimeConfig, runtimeStatus } from 
 
 interface WorkerMessage { request?: CollaborationRequest; collaboration?: CollaborationStatus; type: string; id?: string; error?: string; snapshot?: SessionSnapshot; ref?: SessionRef; result?: unknown; configuration?: RuntimeConfiguration; origins?: Record<string, MessageOrigin> }
 interface ActionRecord { signature: string; result?: unknown; error?: string; pending?: boolean }
-interface RecordData { view: SessionView; intents: Record<string, ActionRecord>; started: boolean; queueMutations?: Record<string,string>; origins?: Record<string,MessageOrigin>; intentOrigins?: Record<string,MessageOrigin>; originBindings?: Record<string,OriginBinding> }
+interface RecordData { view: SessionView; intents: Record<string, ActionRecord>; started: boolean; queueMutations?: Record<string,string>; origins?: Record<string,MessageOrigin>; intentOrigins?: Record<string,MessageOrigin>; originBindings?: Record<string,OriginBinding>; spawnTask?: { content: string; spawnId: string; origin: MessageOrigin } }
 interface Running { child: ChildProcess; stopping: boolean; pending: Map<string, {resolve:(v:unknown)=>void;reject:(e:Error)=>void;timer:NodeJS.Timeout}>; readyReject?: (e:Error)=>void; closed: Promise<void> }
 interface Options { dataDir?: string; workerPath?: string; startupMs?: number; controlMs?: number; maxSessions?: number; skipPreflight?: boolean }
 
@@ -53,6 +54,7 @@ export class SessionManager extends EventEmitter {
         record.intentOrigins ??= Object.create(null);record.intentOrigins![`queue:${id}`] = origin;
         this.changed(record);
       },
+      spawn: input => this.spawn(input),
     });
   }
   private key(wid: string, nid: string) { return `${wid}/${nid}`; }
@@ -70,6 +72,7 @@ export class SessionManager extends EventEmitter {
         record.view.collaboration={...record.view.collaboration,state:'unavailable',reason:'API 已重启；恢复会话后重新确认协作版本'};
         record.queueMutations=Object.assign(Object.create(null),record.queueMutations);
         record.view.sessionApprovalGrantCount = 0;
+        record.view.approvalPolicyVersion = APPROVAL_POLICY_VERSION;
         record.view.approvalMode = 'manual';
         delete record.view.approvalModeError;delete record.view.approvalReviewer;
         record.view.version++;record.view.updatedAt = new Date().toISOString();
@@ -86,6 +89,7 @@ export class SessionManager extends EventEmitter {
     const file = path.join(dir, 'record.json');fs.writeFileSync(`${file}.tmp`, JSON.stringify(record), {mode:0o600});fs.renameSync(`${file}.tmp`, file);
   }
   private changed(record: RecordData) {
+    record.view.approvalPolicyVersion = APPROVAL_POLICY_VERSION;
     record.view.queue ??= emptyQueue();
     if(record.view.lifecycle!=='ready'&&!record.view.queue.paused)pauseQueue(record.view.queue,'会话不可用，需明确恢复待发');
     if(record.view.snapshot){
@@ -226,6 +230,20 @@ export class SessionManager extends EventEmitter {
     this.records.set(key,record);this.changed(record);
     return this.launch(record,false);
   }
+  /** Agent-initiated card creation: registers the record synchronously, launches the worker in the background. */
+  spawn(input: { workspaceId:string;parent:string;spawnId:string;title:string;task:string;depth:number;origin:MessageOrigin }): SessionView {
+    this.load(); if(this.closing)throw new Error('manager is closing');
+    const cwd=this.record(input.workspaceId,input.parent).view.ref.cwd;
+    const nodeId=`n-${randomUUID()}`,key=this.key(input.workspaceId,nodeId);
+    const record:RecordData={started:false,intents:Object.create(null),spawnTask:{content:input.task,spawnId:input.spawnId,origin:input.origin},
+      view:{workspaceId:input.workspaceId,nodeId,title:input.title,lifecycle:'starting',version:0,updatedAt:new Date().toISOString(),ref:{agentSessionId:'',nativeSessionId:randomUUID(),cwd}}};
+    this.records.set(key,record);
+    // Position and lineage are applied by the canvas layer before applySession sees this view.
+    this.emit('spawned',{workspaceId:input.workspaceId,parent:input.parent,nodeId,spawnId:input.spawnId,depth:input.depth,view:structuredClone(record.view)});
+    this.changed(record);
+    queueMicrotask(()=>{void this.launch(record,false).catch(()=>{/* lifecycle/error already recorded */});});
+    return structuredClone(record.view);
+  }
   private async launch(record: RecordData, resume: boolean): Promise<SessionView> {
     const key=this.key(record.view.workspaceId,record.view.nodeId);
     // Reject before entering cleanup: another launch owns this live process.
@@ -291,7 +309,10 @@ export class SessionManager extends EventEmitter {
             if(msg.configuration)this.applyConfiguration(record,msg.configuration);
             if(!running.stopping){record.view.lifecycle = msg.snapshot.status === 'degraded' ? 'interrupted' : 'ready';delete record.view.error;}
             record.started=true;this.changed(record);
-            if(msg.type==='ready'){if(msg.collaboration)applyCollaboration(msg.collaboration);else if(record.view.collaboration?.state==='checking')record.view.collaboration={...record.view.collaboration,state:'unavailable',reason:'运行器未确认协作包；需要更新并恢复会话'};this.changed(record);clearTimeout(timer);running.readyReject=undefined;resolve(structuredClone(record.view));}
+            if(msg.type==='ready'){if(msg.collaboration)applyCollaboration(msg.collaboration);else if(record.view.collaboration?.state==='checking')record.view.collaboration={...record.view.collaboration,state:'unavailable',reason:'运行器未确认协作包；需要更新并恢复会话'};this.changed(record);clearTimeout(timer);running.readyReject=undefined;resolve(structuredClone(record.view));
+              const task=record.spawnTask;if(task){delete record.spawnTask;record.intentOrigins??=Object.create(null);record.intentOrigins![task.spawnId]=task.origin;this.persist(record);
+                void this.control(record.view.workspaceId,record.view.nodeId,'messages',{intentId:task.spawnId,content:task.content,deliverAs:'nextTurn'}).catch(error=>{record.view.error=error instanceof Error?error.message:String(error);this.changed(record);});}
+            }
           }
           if(msg.type==='configuration'&&msg.configuration){this.applyConfiguration(record,msg.configuration);this.changed(record);}
           if(msg.type==='response'&&msg.id){const waiter=running.pending.get(msg.id);if(waiter){clearTimeout(waiter.timer);running.pending.delete(msg.id);if(msg.error)waiter.reject(new Error(msg.error));else waiter.resolve(msg.result);}}

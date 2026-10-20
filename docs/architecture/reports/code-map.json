@@ -48,7 +48,7 @@
       "packages": []
     },
     "app/api/e/approval-engine.ts": {
-      "loc": 82,
+      "loc": 86,
       "exports": [
         "ApprovalEngine"
       ],
@@ -58,6 +58,27 @@
         "app/api/e/approval-rules.ts",
         "app/api/e/contracts.ts"
       ],
+      "packages": []
+    },
+    "app/api/e/approval-node.ts": {
+      "loc": 98,
+      "exports": [
+        "inspectNode"
+      ],
+      "imports": [
+        "app/api/e/approval-paths.ts"
+      ],
+      "packages": [
+        "acorn"
+      ]
+    },
+    "app/api/e/approval-paths.ts": {
+      "loc": 25,
+      "exports": [
+        "sensitive",
+        "safePath"
+      ],
+      "imports": [],
       "packages": []
     },
     "app/api/e/approval-reviewer.ts": {
@@ -79,13 +100,28 @@
       ]
     },
     "app/api/e/approval-rules.ts": {
-      "loc": 62,
+      "loc": 47,
       "exports": [
+        "APPROVAL_POLICY_VERSION",
         "RuleDecision",
         "approvalRule"
       ],
       "imports": [
-        "app/api/e/approval-binding.ts"
+        "app/api/e/approval-binding.ts",
+        "app/api/e/approval-paths.ts",
+        "app/api/e/approval-shell.ts",
+        "app/shared/collaboration-protocol.mjs"
+      ],
+      "packages": []
+    },
+    "app/api/e/approval-shell.ts": {
+      "loc": 110,
+      "exports": [
+        "shellRule"
+      ],
+      "imports": [
+        "app/api/e/approval-node.ts",
+        "app/api/e/approval-paths.ts"
       ],
       "packages": []
     },
@@ -113,7 +149,7 @@
       "packages": []
     },
     "app/api/e/collaboration-contracts.ts": {
-      "loc": 13,
+      "loc": 14,
       "exports": [
         "CanvasTool",
         "CollaborationRequest",
@@ -121,6 +157,7 @@
         "CollaborationManifest",
         "AgentArtifact",
         "CommunicationState",
+        "SpawnRecord",
         "CommunicationRecord",
         "CommunicationSummary"
       ],
@@ -130,7 +167,7 @@
       "packages": []
     },
     "app/api/e/collaboration.ts": {
-      "loc": 154,
+      "loc": 185,
       "exports": [
         "CollaborationStore"
       ],
@@ -232,7 +269,7 @@
       "packages": []
     },
     "app/api/e/session-manager.ts": {
-      "loc": 345,
+      "loc": 366,
       "exports": [
         "SessionManager",
         "eSessions"
@@ -241,6 +278,7 @@
         "app/api/e/approval-binding.ts",
         "app/api/e/approval-engine.ts",
         "app/api/e/approval-reviewer.ts",
+        "app/api/e/approval-rules.ts",
         "app/api/e/attachments.ts",
         "app/api/e/collaboration-authorization.ts",
         "app/api/e/collaboration-contracts.ts",
@@ -376,7 +414,7 @@
       "packages": []
     },
     "app/api/routes.ts": {
-      "loc": 507,
+      "loc": 521,
       "exports": [
         "WSContext",
         "wireBroadcasts",
@@ -706,7 +744,7 @@
       "packages": []
     },
     "app/shared/collaboration-protocol.mjs": {
-      "loc": 106,
+      "loc": 109,
       "exports": [
         "COLLABORATION_PROTOCOL_VERSION",
         "COLLABORATION_EXTENSION_VERSION",
@@ -875,13 +913,14 @@
       ]
     },
     "app/src/pages/canvas/ApprovalModeControl.tsx": {
-      "loc": 42,
+      "loc": 45,
       "exports": [
         "ApprovalModeControl"
       ],
       "imports": [
         "app/api/e/contracts.ts",
         "app/src/pages/canvas/chat/ChatPopover.tsx",
+        "app/src/pages/canvas/chat/approval-presentation.ts",
         "app/src/pages/canvas/chat/error-presentation.ts",
         "app/src/pages/canvas/live-store.ts"
       ],
@@ -974,7 +1013,7 @@
       ]
     },
     "app/src/pages/canvas/LiveEdge.tsx": {
-      "loc": 234,
+      "loc": 235,
       "exports": [
         "LiveEdgeData",
         "LiveFlowEdge",
@@ -1153,12 +1192,13 @@
       ]
     },
     "app/src/pages/canvas/chat/ApprovalRequest.tsx": {
-      "loc": 39,
+      "loc": 40,
       "exports": [
         "ApprovalRequest"
       ],
       "imports": [
         "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/approval-presentation.ts",
         "app/src/pages/canvas/chat/chat-ui-store.ts",
         "app/src/pages/canvas/chat/error-presentation.ts",
         "app/src/pages/canvas/chat/presentation-state.ts",
@@ -1229,7 +1269,7 @@
       "packages": []
     },
     "app/src/pages/canvas/chat/Composer.tsx": {
-      "loc": 57,
+      "loc": 58,
       "exports": [
         "Composer"
       ],
@@ -1254,7 +1294,7 @@
       ]
     },
     "app/src/pages/canvas/chat/ConversationView.tsx": {
-      "loc": 28,
+      "loc": 29,
       "exports": [
         "ConversationView"
       ],
@@ -1263,6 +1303,7 @@
         "app/src/pages/canvas/chat/ApprovalRequest.tsx",
         "app/src/pages/canvas/chat/TurnView.tsx",
         "app/src/pages/canvas/chat/chat-ui-store.ts",
+        "app/src/pages/canvas/chat/execution-presentation.ts",
         "app/src/pages/canvas/chat/project-transcript.ts",
         "app/src/pages/canvas/chat/useConversationScroll.ts",
         "app/src/pages/canvas/live-store.ts"
@@ -1279,6 +1320,25 @@
       "imports": [
         "app/api/e/contracts.ts",
         "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/chat/primitives.tsx"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/chat/ExecutionGroup.tsx": {
+      "loc": 31,
+      "exports": [
+        "ExecutionGroup"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/MarkdownContent.tsx",
+        "app/src/pages/canvas/chat/ToolActivity.tsx",
+        "app/src/pages/canvas/chat/chat-ui-store.ts",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/chat/execution-presentation.ts",
+        "app/src/pages/canvas/chat/message-metadata.ts",
+        "app/src/pages/canvas/chat/model.ts",
         "app/src/pages/canvas/chat/primitives.tsx"
       ],
       "packages": [
@@ -1369,10 +1429,11 @@
         "TurnView"
       ],
       "imports": [
+        "app/src/pages/canvas/chat/ExecutionGroup.tsx",
         "app/src/pages/canvas/chat/MarkdownContent.tsx",
-        "app/src/pages/canvas/chat/ToolActivity.tsx",
         "app/src/pages/canvas/chat/chat-ui-store.ts",
         "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/chat/execution-presentation.ts",
         "app/src/pages/canvas/chat/message-metadata.ts",
         "app/src/pages/canvas/chat/model.ts",
         "app/src/pages/canvas/chat/presentation-state.ts",
@@ -1392,11 +1453,24 @@
       "imports": [],
       "packages": []
     },
+    "app/src/pages/canvas/chat/approval-presentation.ts": {
+      "loc": 25,
+      "exports": [
+        "approvalAuditLabel",
+        "approvalProgress",
+        "allPendingReviewing"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
     "app/src/pages/canvas/chat/attachments.ts": {
-      "loc": 15,
+      "loc": 31,
       "exports": [
         "base64",
         "pastedAttachment",
+        "clipboardImages",
         "readAttachment"
       ],
       "imports": [
@@ -1450,6 +1524,32 @@
       "imports": [],
       "packages": []
     },
+    "app/src/pages/canvas/chat/execution-description.ts": {
+      "loc": 87,
+      "exports": [
+        "describeExecution"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/error-presentation.ts",
+        "app/src/pages/canvas/chat/model.ts"
+      ],
+      "packages": []
+    },
+    "app/src/pages/canvas/chat/execution-presentation.ts": {
+      "loc": 70,
+      "exports": [
+        "isProcessPart",
+        "isExecutionOnly",
+        "groupExecutionTurns",
+        "executionSummary"
+      ],
+      "imports": [
+        "app/src/pages/canvas/chat/execution-description.ts",
+        "app/src/pages/canvas/chat/model.ts"
+      ],
+      "packages": []
+    },
     "app/src/pages/canvas/chat/message-metadata.ts": {
       "loc": 22,
       "exports": [
@@ -1475,7 +1575,7 @@
       "packages": []
     },
     "app/src/pages/canvas/chat/presentation-state.ts": {
-      "loc": 85,
+      "loc": 86,
       "exports": [
         "approvalLabel",
         "needsSessionRecovery",
@@ -1487,6 +1587,7 @@
       ],
       "imports": [
         "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/approval-presentation.ts",
         "app/src/pages/canvas/session-store.ts"
       ],
       "packages": []
@@ -1686,7 +1787,7 @@
       ]
     },
     "app/src/pages/canvas/utils.ts": {
-      "loc": 93,
+      "loc": 94,
       "exports": [
         "fmtElapsed",
         "statusDetailFor",
@@ -2437,7 +2538,7 @@
       ]
     },
     "app/test/browser/chat-experience.spec.ts": {
-      "loc": 129,
+      "loc": 152,
       "exports": [],
       "imports": [
         "app/api/e/contracts.ts",
@@ -2619,6 +2720,17 @@
         "@playwright/test"
       ]
     },
+    "app/test/browser/tool-hierarchy.spec.ts": {
+      "loc": 82,
+      "exports": [],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/test/browser/fixtures/desktop.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
     "app/test/browser/ui-actions.ts": {
       "loc": 12,
       "exports": [
@@ -2651,7 +2763,7 @@
       ]
     },
     "app/test/unit/approval-policy.test.mjs": {
-      "loc": 34,
+      "loc": 86,
       "exports": [],
       "imports": [
         "app/api/e/approval-binding.ts",
@@ -2661,11 +2773,28 @@
       ],
       "packages": []
     },
+    "app/test/unit/approval-presentation.test.mjs": {
+      "loc": 18,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/approval-presentation.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts"
+      ],
+      "packages": []
+    },
     "app/test/unit/approval-reviewer.test.mjs": {
       "loc": 15,
       "exports": [],
       "imports": [
         "app/api/e/approval-reviewer.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/attachments.test.mjs": {
+      "loc": 31,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/attachments.ts"
       ],
       "packages": []
     },
@@ -2718,7 +2847,7 @@
       "packages": []
     },
     "app/test/unit/collaboration-package.test.mjs": {
-      "loc": 55,
+      "loc": 59,
       "exports": [],
       "imports": [
         "app/api/e/collaboration-authorization.ts",
@@ -2730,7 +2859,7 @@
       "packages": []
     },
     "app/test/unit/collaboration.test.mjs": {
-      "loc": 29,
+      "loc": 73,
       "exports": [],
       "imports": [
         "app/api/e/collaboration-authorization.ts",
@@ -2841,10 +2970,27 @@
       "packages": []
     },
     "app/test/unit/e-session-manager.test.mjs": {
-      "loc": 14,
+      "loc": 20,
       "exports": [],
       "imports": [
         "app/api/e/session-manager.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/execution-description.test.mjs": {
+      "loc": 36,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/execution-description.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/execution-presentation.test.mjs": {
+      "loc": 56,
+      "exports": [],
+      "imports": [
+        "app/src/pages/canvas/chat/execution-presentation.ts",
+        "app/src/pages/canvas/chat/project-transcript.ts"
       ],
       "packages": []
     },

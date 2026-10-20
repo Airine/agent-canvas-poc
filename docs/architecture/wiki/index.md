@@ -1,7 +1,7 @@
 ---
 title: 文档导航
 description: 从本地启动到代码边界，找到 Agent Canvas 的实现依据。
-baseline: a1858ae366967628b82326c8479db64b0d760036
+baseline: 119cbf315d3888de69a064d915272826debf93e1
 sources:
   - app/src/App.tsx 10682b846ed7 App
   - app/api/index.ts fb665635c747 wireBroadcasts

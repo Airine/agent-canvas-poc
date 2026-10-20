@@ -3,13 +3,13 @@ title: 本地控制面
 description: HTTP、WebSocket 与工作区持久化的共同边界。
 sources:
   - app/api/index.ts fb665635c747
-  - app/api/routes.ts 7cbd733eaf33 wireBroadcasts wsHandlers api
+  - app/api/routes.ts a121973dd5ba wireBroadcasts wsHandlers api
   - app/api/registry.ts 4ccc91d72dac registry
   - app/api/graph.ts a974124ec7cf GraphStore onAnyPatch
   - app/api/layout.ts 40f95704ade7 computeLayout
   - app/api/local-access.ts 160bda3f88d5 localRequestAllowed
   - app/api/runtime-router.ts 16802d8055c1 requireHerdr runtimeRouter
-  - app/api/types.ts 34f2642691f5 CanvasNode ServerMessage ClientMessage
+  - app/api/types.ts 62074d04c1e9 CanvasNode ServerMessage ClientMessage
   - app/api/workspace-paths.ts d251249d59c7 PROJECT_ROOT migrateLegacySeedPath
 covers:
   - app/api/index.ts

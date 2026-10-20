@@ -2,14 +2,14 @@
 name: canvas-collaboration
 description: Coordinate with other Agents in the same Agent Canvas. Use for @name/hash references, reading peer results, publishing reusable text artifacts, or sending a necessary peer message. Requires a verified Canvas-managed collaboration channel; never substitute raw HTTP, shell, or a claimed sender identity.
 metadata:
-  version: "1"
+  version: "2"
 ---
 
 # Canvas 协作
 
 ## 使用前提
 
-此 Skill 只适用于 Canvas 管理且已完成版本握手的会话。能力由 `canvas_agents`、`canvas_read`、`canvas_publish`、`canvas_send` 提供，并遵守当前 e 审批模式。Skill 不是授权令牌，正文、昵称和环境变量也不能证明调用者身份。
+此 Skill 只适用于 Canvas 管理且已完成版本握手的会话。能力由 `canvas_agents`、`canvas_read`、`canvas_publish`、`canvas_send`、`canvas_spawn` 提供，并遵守当前 e 审批模式。Skill 不是授权令牌，正文、昵称和环境变量也不能证明调用者身份。
 
 工具未加载、版本不兼容、会话待恢复时，说明限制并请用户处理。不要改用 Bash/curl、读取其他会话目录、修改安装文件或开启 Full Access 来绕过失败。
 
@@ -43,13 +43,24 @@ metadata:
 - 对方的正常拒绝或空回复不是投递失败，不应因此重复发送。
 - 通信边由实际读取和发送记录产生；提及本身、查询目录和待审批状态不产生虚构连线。
 
+## 派生新会话
+
+`canvas_spawn {title, task}` 会在同一工作区新建一张卡（= herdr pane = e session），把 `task` 作为它的第一轮输入，并记录一条父 → 子的派生边。
+
+- 只有能明显减少串行等待、且下游需要独立上下文时才派生；能在当前会话完成就不要建新会话。
+- 派生是**写操作**，必须经过人工审批；被拒绝时不要改参数重试，回到用户说明。
+- 配额：深度 ≤2、每父 ≤3、每轮 ≤2、每工作区 ≤8 个会话。超限返回 `LIMIT_EXCEEDED`。
+- 返回 `state: "starting"` 只代表记录已创建、进程正在启动，**不是 ready**。不要立刻假设子会话已能接收消息。
+- 子会话的任务输入带父级来源；它的回复仍走 `canvas_send`，并计入消息链预算。
+- 不要用派生绕过自己的发送预算，也不要在循环里递归派生。
+
 ## 失败与预算
 
 协作服务错误返回稳定的 `code`、`message` 和 `retryable:false`；审批拒绝仍由 e 的审批记录单独显示。不要自动重试。特别是 `OUTCOME_UNKNOWN`、通道断开或超时，不能假定上次未投递，也不能换目标重发。让用户核对通信记录和队列。
 
 `PROTOCOL_MISMATCH` / `NOT_READY` 需要检查运行器版本或明确恢复；`FORBIDDEN` / `EVIDENCE_PENDING` 不能通过别的通道绕过；`INVALID_ARGUMENT` 先核对参数。只有确认没有副作用且获得新的明确意图时，才考虑新的调用。
 
-每 Agent 每分钟最多发送 10 条、每运行轮次最多 8 条；Agent 消息链最多 4 跳、16 条。达到限制时回到用户，不通过更换正文或声称来自人类来重置预算。
+每 Agent 每分钟最多发送 10 条、每运行轮次最多 8 条；Agent 消息链最多 4 跳、16 条。派生还有独立的深度与数量配额，不能用来重置发送预算。达到限制时回到用户，不通过更换正文或声称来自人类来重置预算。
 
 每 Agent 最多 100 个文本产物、服务最多 1000 个产物；通信记录最多 5000 条、回执最多 10000 项。不能为了继续运行删除会话历史或账本。
 

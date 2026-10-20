@@ -28,7 +28,7 @@ test('one timeline, resolved approval compact, diagnostics redacted; safe Markdo
  await expect(page.getByRole('button',{name:'批准',exact:true})).toHaveCount(0);await expect(page.getByText('approval-secret-id',{exact:true})).toHaveCount(0);
  await expect(page.getByText('本次回复失败',{exact:true})).toHaveCount(0);await expect(page.getByText('模型服务请求失败',{exact:true})).toBeVisible();
  await page.getByRole('button',{name:'查看脱敏详情'}).click();await expect(page.locator('.chat-error')).not.toContainText('account@example.com');await expect(page.locator('.chat-error')).not.toContainText('secret-token');
- await page.getByRole('button',{name:/执行过程/}).click();await expect(page.locator('[data-tool-id="tool"]')).toHaveCount(1);await expect(page.getByText('已批准',{exact:true})).toBeVisible();
+ await page.getByRole('button',{name:/执行过程/}).click();await expect(page.locator('[data-tool-id="tool"]')).toHaveCount(1);await page.locator('[data-tool-id="tool"]').getByRole('button').click();await expect(page.getByText('已批准',{exact:true})).toBeVisible();
  expect(requests.some(x=>x.includes('tracking.invalid'))).toBe(false);expect(errors).toEqual([]);
  await page.screenshot({path:info.outputPath('focused.png')});await page.keyboard.press('Escape');await page.screenshot({path:info.outputPath('inline.png')});
 });
@@ -67,7 +67,7 @@ test('pending approvals remain actionable but settled ones have no decision butt
  await expect(page.getByTestId('approval-card')).toHaveCount(1);await expect(page.getByTestId('approval-card')).toContainText('printf "full command"');
  await expect(page.getByRole('button',{name:'批准',exact:true})).toBeEnabled();
  s.snapshot!.approvals[0].state='approved';h.publish(s);await expect(page.getByRole('button',{name:'批准',exact:true})).toHaveCount(0);await expect(page.getByTestId('approval-card')).toHaveCount(0);
- await page.getByRole('button',{name:/执行过程/}).click();await expect(page.getByText('已批准',{exact:true})).toBeVisible();
+ await page.getByRole('button',{name:/执行过程/}).click();await page.locator('[data-tool-id="tool-1"]').getByRole('button').click();await expect(page.getByText('已批准',{exact:true})).toBeVisible();
  await page.keyboard.press('Escape');await focus(page);await expect(page.getByText('已批准',{exact:true})).toBeVisible();
 });
 
@@ -125,4 +125,33 @@ test('session diagnostics opens from header without occupying transcript; Escape
  await page.keyboard.press('Escape');await expect(diagnostic).toHaveCount(0);await expect(focusDialog).toBeVisible();await expect(trigger).toBeFocused();await expect(input).toHaveValue('诊断期间保留的草稿');
  await page.keyboard.press('Escape');await expect(focusDialog).toHaveCount(0);
  await openDiagnostics(page);await expect(diagnostic).toBeVisible();await page.getByRole('button',{name:'关闭会话诊断'}).click();await expect(diagnostic).toHaveCount(0);
+});
+
+
+test('assisted distinguishes rule interception, AI review and e confirmation without remounting draft',async({page},info)=>{
+ const s=view();s.approvalMode='assisted';s.approvalPolicyVersion=2;s.approvalReviewer={provider:'fixture',model:'reviewer'};
+ s.snapshot!.approvals=[{id:'p',toolCallId:'t',kind:'bash',toolName:'bash',state:'pending'}];s.snapshot!.messages[0].blocks.push({type:'tool-call',toolCallId:'t',name:'bash',arguments:{command:'cat "sample.json" | head -20'}});
+ const audit=(state:'reviewing'|'manual'|'failed'|'submitted',attempted:boolean)=>{s.approvalAudit=[{approvalId:'p',digest:'fixture',source:attempted?'ai':'manual',state,reviewAttempted:attempted,reason:'synthetic review evidence',rule:'inspectable-shell-v2',at:new Date().toISOString()}];};
+ audit('manual',false);const h=await setup(page,[s]);await focus(page);const card=page.getByTestId('approval-card'),input=page.getByLabel('发送给真实 Agent 的消息');
+ await input.fill('审批期间保留草稿');await input.evaluate(el=>{(window as unknown as {savedInput:Element}).savedInput=el;});
+ await expect(card.getByTestId('approval-review-status')).toContainText('规则转人工 · 未调用 AI');await expect(card.locator('header')).toContainText('需要你的批准');
+ audit('reviewing',true);h.publish(s);await expect(card.locator('header')).toContainText('AI 正在审查');await expect(page.locator('[data-notice=approval]')).toContainText('无需重复点批准');await expect(card.getByRole('button',{name:'批准',exact:true})).toBeEnabled();
+ await page.screenshot({path:info.outputPath('assisted-reviewing.png')});
+ audit('manual',true);h.publish(s);await expect(card.getByTestId('approval-review-status')).toContainText('AI 审查后转人工');
+ audit('failed',true);h.publish(s);await expect(card.getByTestId('approval-review-status')).toContainText('失败');
+ audit('submitted',true);h.publish(s);await expect(card.locator('header')).toContainText('等待审批确认');await expect(card).toBeVisible();await expect(card.getByTestId('approval-review-status')).toContainText('执行状态待 e 确认');
+ await expect(input).toHaveValue('审批期间保留草稿');expect(await input.evaluate(el=>el===(window as unknown as {savedInput:Element}).savedInput)).toBe(true);
+ await page.getByRole('dialog',{name:/专注模式/}).getByRole('button',{name:'权限设置',exact:true}).click();const menu=page.getByRole('dialog',{name:'权限设置',exact:true});await menu.locator('summary').filter({hasText:'授权范围与记录'}).click();await expect(menu).toContainText('审批策略 v2');await expect(menu.getByTestId('approval-policy-legacy')).toHaveCount(0);
+ await page.keyboard.press('Escape');s.snapshot!.approvals![0].state='approved';h.publish(s);await expect(card).toHaveCount(0);
+});
+
+test('hot updated UI warns when assisted backend has not reported policy v2',async({page})=>{
+ const s=view();s.approvalMode='assisted';s.approvalReviewer={provider:'fixture',model:'reviewer'};await setup(page,[s]);await focus(page);
+ await page.getByRole('dialog',{name:/专注模式/}).getByRole('button',{name:'权限设置',exact:true}).click();const menu=page.getByRole('dialog',{name:'权限设置',exact:true});await expect(menu.getByTestId('approval-policy-legacy')).toContainText('前端刷新不代表后端已更新');
+});
+
+
+test('empty system message does not render a failure notice',async({page})=>{
+ const s=view();s.snapshot!.messages=[{id:'sys',role:'system',order:0,state:'completed',blocks:[{type:'text',text:''}]},{id:'m',role:'assistant',state:'completed',order:1,blocks:[{type:'text',text:'可见回复'}]}];
+ const h=await setup(page,[s]);await focus(page);await expect(page.locator('.chat-error')).toHaveCount(0);await expect(page.getByText('可见回复')).toBeVisible();expect(h.calls).toEqual([]);
 });

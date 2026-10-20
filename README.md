@@ -16,7 +16,7 @@ npm --prefix docs-site run dev
 
 在 React Flow 主画布中创建和管理真实 Pi Agent：结构化聊天、统一输入台、真实模型/思考配置、可编辑待发、文本/图片附件、昵称、浮层/全屏、工具审批与原 native 恢复。
 
-桌面聊天合同见 [桌面聊天体验](docs/desktop-chat-experience.md)，界面演进见 [聊天改进](docs/chat-ui-polish.md)。已支持同画布真实 Agent 的引用、公开文本读取/发布和受审批消息发送，配套独立版本 Skill、共享工具契约及运行时加载确认，见 [Canvas 协作](docs/canvas-collaboration.md)。当前回归与真实模型验收分开记录在 [版本包验收](docs/chat-ui-polish-evidence/collaboration-package/README.md)，不把历史测试计数当最新结论。
+桌面聊天合同见 [桌面聊天体验](docs/desktop-chat-experience.md)，界面演进见 [聊天改进](docs/chat-ui-polish.md)。已支持同画布真实 Agent 的引用、公开文本读取/发布、受审批消息发送和受配额约束的会话派生，配套独立版本 Skill、共享工具契约及运行时加载确认，见 [Canvas 协作](docs/canvas-collaboration.md)。当前回归与真实模型验收分开记录在 [版本包验收](docs/chat-ui-polish-evidence/collaboration-package/README.md)，不把历史测试计数当最新结论。
 
 ## 开始使用
 

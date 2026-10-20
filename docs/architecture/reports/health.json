@@ -311,8 +311,8 @@
       "status": "removed"
     }
   ],
-  "head": "a1858ae366967628b82326c8479db64b0d760036",
-  "files": 216,
+  "head": "119cbf315d3888de69a064d915272826debf93e1",
+  "files": 228,
   "dead": [],
   "suspects": [],
   "deadExports": 36,
@@ -339,8 +339,8 @@
     {
       "file": "app/api/routes.ts",
       "changes": 2,
-      "lines": 507,
-      "score": 1014
+      "lines": 521,
+      "score": 1042
     },
     {
       "file": "app/src/pages/reactflow/index.tsx",
@@ -510,6 +510,10 @@
       "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
     },
     {
+      "file": "app/test/browser/tool-hierarchy.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
       "file": "app/test/manual/real-collaboration.mjs",
       "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
     },
@@ -522,7 +526,15 @@
       "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
     },
     {
+      "file": "app/test/unit/approval-presentation.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
       "file": "app/test/unit/approval-reviewer.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/attachments.test.mjs",
       "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
     },
     {
@@ -603,6 +615,14 @@
     },
     {
       "file": "app/test/unit/e-session-manager.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/execution-description.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/execution-presentation.test.mjs",
       "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
     },
     {

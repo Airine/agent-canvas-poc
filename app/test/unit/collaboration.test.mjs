@@ -7,7 +7,7 @@ import {authorizeCollaboration} from '../../api/e/collaboration-authorization.ts
 import {emptyQueue,mutateQueue,pauseQueue,reconcileQueue} from '../../api/e/message-queue.ts';
 import {prepareCanvasAdapter} from '../../scripts/canvas-adapter.mjs';
 const view=(nodeId,workspaceId='w')=>({workspaceId,nodeId,title:'同名 Agent',lifecycle:'ready',ref:{nativeSessionId:`native:${nodeId}`},queue:emptyQueue(),snapshot:{nativeSessionId:`native:${nodeId}`,messages:[{id:'u',role:'user',state:'completed',runId:'run',blocks:[{type:'text',text:'task'}]}],tools:[],approvals:[]}});
-function setup(t){const dir=fs.mkdtempSync(path.join(process.env.PI_SCRATCH_DIR||os.tmpdir(),'collab-test-'));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));const peers=[view('n-a'),view('n-b'),view('n-c','other')];let updates=0;const host={list:wid=>peers.filter(v=>v.workspaceId===wid),changed:()=>updates++,enqueue(target,id,content,origin){const q=target.queue;mutateQueue(q,{mutationId:id,expectedRevision:q.revision,operation:'add',itemId:id,content,authorize:target.lifecycle==='ready'&&(!q.paused||q.reason==='待发尚未授权继续')});q.items.at(-1).origin=origin;}};const file=path.join(dir,'ledger.json');const store=new CollaborationStore(file,host);let call=0;const refs=()=>sessionIdentities(peers,'w');const exec=(tool,args={},source=peers[0],id=`call-${++call}`)=>store.execute(source,{tool,args,toolCallId:id},{runId:'run'});return {dir,file,peers,host,store,refs,exec,updates:()=>updates};}
+function setup(t){const dir=fs.mkdtempSync(path.join(process.env.PI_SCRATCH_DIR||os.tmpdir(),'collab-test-'));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));const peers=[view('n-a'),view('n-b'),view('n-c','other')];let updates=0;let failSpawn=false;const host={list:wid=>peers.filter(v=>v.workspaceId===wid),changed:()=>updates++,failSpawn(value){failSpawn=value;},spawn(input){if(failSpawn)throw new Error('spawn refused');const child=view(`n-spawn-${peers.length}`,input.workspaceId);child.title=input.title;child.snapshot.messages=[{id:'u',role:'user',state:'completed',runId:'run',origin:input.origin,blocks:[{type:'text',text:input.task}]}];peers.push(child);return child;},enqueue(target,id,content,origin){const q=target.queue;mutateQueue(q,{mutationId:id,expectedRevision:q.revision,operation:'add',itemId:id,content,authorize:target.lifecycle==='ready'&&(!q.paused||q.reason==='待发尚未授权继续')});q.items.at(-1).origin=origin;}};const file=path.join(dir,'ledger.json');const store=new CollaborationStore(file,host);let call=0;const refs=()=>sessionIdentities(peers,'w');const exec=(tool,args={},source=peers[0],id=`call-${++call}`)=>store.execute(source,{tool,args,toolCallId:id},{runId:'run'});return {dir,file,peers,host,store,refs,exec,updates:()=>updates};}
 
 test('copy references exist for unique names, ignore stale name but never cross Canvas',()=>{const peers=[view('n-a'),view('n-b'),view('n-c','other')];const identities=sessionIdentities(peers,'w');const ref=identities.get('n-b').reference;assert.match(ref,/^@"同名 Agent"#[a-f0-9]{8}$/);peers[1].title='Renamed';assert.equal(resolveAgentReference(peers,'w',ref),'n-b');assert.throws(()=>resolveAgentReference(peers,'other',ref),/missing|ambiguous/);assert.throws(()=>resolveAgentReference(peers,'w','同名 Agent'),/copied/);assert.notEqual(identities.get('n-a').reference,ref);});
 test('reference tokens handle escaped names, NFC and existing hash collision fallback',()=>{const peers=[{...view('n-a'),title:' "A" \\ 😀'},view('n-b')];const refs=sessionIdentities(peers,'w');assert.equal(resolveAgentReference(peers,'w',refs.get('n-a').reference),'n-a');const collided=sessionIdentities(peers,'w',()=> 'deadbeef');assert.equal(new Set([...collided.values()].map(i=>i.referenceHash)).size,2);assert.ok(collided.get('n-a').referenceHash.startsWith('deadbeef-'));});
@@ -26,3 +26,47 @@ test('local adapter adaptation expands only known tools, resolves imports and fa
 test('per-run and per-minute send caps cannot be reset by changing message text',t=>{const {exec,peers,refs,store}=setup(t);const target=refs().get('n-b').reference;for(let i=0;i<8;i++)exec('canvas_send',{target,message:`message ${i}`});assert.throws(()=>exec('canvas_send',{target,message:'ninth'}),/8 per run/);for(let i=0;i<2;i++)store.execute(peers[0],{tool:'canvas_send',toolCallId:`other-${i}`,args:{target,message:'new run'}},{runId:'other'});assert.throws(()=>store.execute(peers[0],{tool:'canvas_send',toolCallId:'eleventh',args:{target,message:'more'}},{runId:'third'}),/10\/minute/);assert.equal(peers[1].queue.items.length,10);});
 
 test('latest reply follows native timestamps, not history replay array ordering',t=>{const {exec,peers,refs}=setup(t);peers[1].snapshot.messages=[{id:'new',role:'assistant',state:'completed',order:1,createdAt:'2026-02-01T00:00:00Z',blocks:[{type:'text',text:'new result'}]},{id:'old',role:'assistant',state:'completed',order:3,createdAt:'2026-01-01T00:00:00Z',blocks:[{type:'text',text:'old result'}]}];assert.equal(exec('canvas_read',{target:refs().get('n-b').reference}).content,'new result');});
+
+test('spawn creates a card with lineage and the child chain starts from the spawn',t=>{
+ const {peers,store,refs,exec}=setup(t);
+ const spawned=exec('canvas_spawn',{title:'风控合规',task:'独立复核 A3'});
+ assert.equal(spawned.state,'starting');assert.equal(spawned.depth,1);assert.equal(spawned.workspaceId,'w');
+ assert.equal(spawned.nodeId,'n-spawn-3');assert.match(spawned.reference,/^@"风控合规"#[a-f0-9]{8}$/);
+ assert.equal(peers.length,4);
+ const child=peers[3];
+ const send=exec('canvas_send',{target:refs().get('n-b').reference,message:'复核结果'},child);
+ const record=store.records('w').find(r=>r.id===send.communicationId);
+ assert.equal(record.hop,0);assert.equal(record.rootId,spawned.spawnId);
+ assert.equal(record.parentId,undefined);
+});
+
+test('spawn quotas bound depth, children and per-run fan-out; refusal leaves no card',t=>{
+ {
+  const {peers,exec}=setup(t);
+  const d1=exec('canvas_spawn',{title:'L1',task:'a'});
+  const level1=peers[3];
+  const d2=exec('canvas_spawn',{title:'L2',task:'b'},level1);
+  const level2=peers[4];
+  assert.equal(d2.depth,2);
+  assert.throws(()=>exec('canvas_spawn',{title:'L3',task:'c'},level2),/depth limit/);
+  assert.equal(peers.length,5);
+ }
+ {
+  const {peers,exec}=setup(t);
+  for(let i=0;i<2;i++)exec('canvas_spawn',{title:`C${i}`,task:'x'});
+  assert.throws(()=>exec('canvas_spawn',{title:'C2',task:'x'}),/per-run limit/);
+  assert.equal(peers.length,5);
+ }
+ {
+  const {peers,store}=setup(t);const source=peers[0];
+  for(let i=0;i<3;i++)store.execute(source,{tool:'canvas_spawn',args:{title:`K${i}`,task:'x'},toolCallId:`k-${i}`},{runId:`run-${i}`});
+  assert.throws(()=>store.execute(source,{tool:'canvas_spawn',args:{title:'K3',task:'x'},toolCallId:'k-3'},{runId:'run-3'}),/children limit/);
+ }
+});
+
+test('spawn failure rolls back lineage and creates nothing',t=>{
+ const {peers,host,exec}=setup(t);
+ host.failSpawn(true);
+ assert.throws(()=>exec('canvas_spawn',{title:'X',task:'y'}),/spawn refused/);
+ assert.equal(peers.length,3);
+});

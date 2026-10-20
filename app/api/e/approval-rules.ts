@@ -1,28 +1,10 @@
 import fs from 'node:fs';
-import path from 'node:path';
+import { safePath } from './approval-paths.js';
+import { shellRule } from './approval-shell.js';
+import { validateCollaborationArgs } from '../../shared/collaboration-protocol.mjs';
+export const APPROVAL_POLICY_VERSION=2;
 import type { ApprovalInput } from './approval-binding.js';
 export type RuleDecision = { route:'allow'|'review'|'manual'; rule:string; reason:string };
-const sensitive=/(^|[/._-])(env|ssh|aws|gnupg|credentials?|secrets?|tokens?|auth|id_rsa|id_ed25519)([/._-]|$)|\.pem$|\.key$|\.git(?:[/]|$)/i;
-function inside(root:string,target:string) {const rel=path.relative(root,target);return rel===''||(!rel.startsWith('..'+path.sep)&&rel!=='..'&&!path.isAbsolute(rel));}
-function safePath(root:string,input:string,newFile=false): string | undefined {
- if(!input||input.includes('\0')||input.startsWith('~')||sensitive.test(input))return;
- if(input.split(/[\\/]/).includes('..'))return;
- const resolved=path.resolve(root,input);if(!inside(root,resolved))return;
- try{
-  // An in-project directory alias can still target .git or executable config.
-  // Keep assisted approval conservative: reject symlinks at every component.
-  let current=root;
-  for(const part of path.relative(root,resolved).split(path.sep).filter(Boolean)) {
-   current=path.join(current,part);
-   try { if(fs.lstatSync(current).isSymbolicLink())return; }
-   catch(error) { if(!newFile || current!==resolved || (error as NodeJS.ErrnoException).code!=='ENOENT')return; }
-  }
-  const real=fs.realpathSync(newFile?path.dirname(resolved):resolved);
-  if(!inside(root,real))return;
-  if(fs.existsSync(resolved)&&fs.lstatSync(resolved).isSymbolicLink())return;
-  return resolved;
- }catch{return;}
-}
 const manual=(rule:string,reason:string):RuleDecision=>({route:'manual',rule,reason});
 export function approvalRule(input:ApprovalInput,cwd:string):RuleDecision {
  if(!input.complete||!input.args)return manual('missing-parameters','未收到完整一致的工具参数，必须人工确认');
@@ -30,13 +12,16 @@ export function approvalRule(input:ApprovalInput,cwd:string):RuleDecision {
  const args=input.args;
  if(input.tool==='bash'){
   if(Object.keys(args).some(k=>!['command','timeout'].includes(k))||typeof args.command!=='string')return manual('shell-arguments','未知 shell 参数');
-  const command=args.command.trim();
-  // Never infer shell safety from prefixes. No operators, quoting, substitutions or expansion.
-  if(!/^[a-zA-Z0-9_./ =,:-]+$/.test(command)||sensitive.test(command))return manual('complex-shell','复合命令、展开、引号或敏感路径必须人工确认');
-  if(command==='pwd'||/^(git status(?: --short| --porcelain| -s)?|git diff(?: --stat| --name-only| --numstat)?)$/.test(command))return {route:'allow',rule:'readonly-command-v1',reason:'精确命中只读命令白名单'};
-  const parts=command.split(/\s+/);
-  if(parts[0]==='ls'&&parts.slice(1).every(v=>/^-[alh]+$/.test(v)||!!safePath(root,v))){return {route:'allow',rule:'project-list-v1',reason:'项目范围内的目录列表，未含复合 shell 语法'};}
-  return manual('unlisted-shell','未列入白名单的 shell 命令转人工；AI 不批准任意 shell');
+  if(args.timeout!==undefined&&(typeof args.timeout!=='number'||!Number.isFinite(args.timeout)||args.timeout<=0))return manual('shell-arguments','无效的 shell 超时参数');
+  return shellRule(args.command,root);
+ }
+  if(input.tool==='canvas_spawn')return manual('canvas-spawn','派生会启动新的真实会话并消耗模型额度，必须人工确认');
+ // Contract growth must never silently expand permission scope.
+ if(['canvas_agents','canvas_read','canvas_publish','canvas_send'].includes(input.tool)){
+  try{validateCollaborationArgs(input.tool,args);}catch{return manual('canvas-arguments-v2','Canvas 工具参数不符合共享契约，需人工确认');}
+  const text=Object.values(args).join('\n');
+  if(/-----BEGIN|\bsk-[a-zA-Z0-9]{12}|(?:api[_-]?key|password|authorization|bearer|secret|credential|access[_-]?token)\s*[:=]|https?:\/\/|\b(?:rm|sudo|curl|wget)\s|git\s+(?:push|reset)|忽略.*(?:指令|规则)|ignore.*(?:instruction|policy)/i.test(text))return manual('canvas-sensitive-v2','协作内容含敏感、外传或高风险指令线索，需人工确认');
+  return {route:'review',rule:'managed-canvas-v2',reason:'已识别同 Canvas 受管工具；需 AI 审查任务相关性，服务端身份、范围与队列限制仍有效'};
  }
  if(!['write','edit'].includes(input.tool))return manual('unknown-tool','未知工具需要人工审批');
  const rawPath=args.path??args.file_path;

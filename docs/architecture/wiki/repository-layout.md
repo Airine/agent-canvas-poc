@@ -2,9 +2,9 @@
 title: 目录约定
 description: 产品、测试、文档与历史工具的放置规则和迁移对照。
 sources:
-  - app/package.json 141da0328124
+  - app/package.json 73c4e294f2ea
   - app/knip.jsonc ef83524bab2d
-  - app/src/pages/canvas/contracts.ts 75be9b49a4d0
+  - app/src/pages/canvas/contracts.ts 572415b9994f
   - tools/legacy/README.md 7a5e19d96d98
 ---
 

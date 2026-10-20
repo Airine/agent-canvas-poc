@@ -1,0 +1,95 @@
+{
+  "checkedAt": "2026-10-20T06:53:29.347550+00:00",
+  "headAtVerification": "119cbf315d3888de69a064d915272826debf93e1",
+  "scope": "frontend execution hierarchy only",
+  "checks": {
+    "unit": {
+      "passed": 173,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 79,
+      "skipped": 1,
+      "failed": 0,
+      "kind": "HTTP/WS fixtures; opt-in real e test skipped"
+    },
+    "apiBuild": "passed",
+    "uiBuild": "passed",
+    "lintIncludingArchitecture": "passed",
+    "docsTests": {
+      "passed": 11,
+      "failed": 0
+    },
+    "docsTypecheck": "passed",
+    "docsBuild": "passed",
+    "architecture": {
+      "sources": 225,
+      "unusedCandidates": 0,
+      "cycles": 0,
+      "parseBreaks": 0,
+      "wikiPages": 24,
+      "digest": "6eaa9e96ee99"
+    }
+  },
+  "visual": {
+    "collapsedDesktop": "captured and visually inspected in built-in browser",
+    "expandedDesktop": "captured; hierarchy and DOM assertions passed, not visually inspected",
+    "mobile390": "captured; geometry and approval assertions passed, not visually inspected",
+    "limitation": "Browser guest became unavailable after the first image; one reconnect failed."
+  },
+  "behavior": {
+    "eightInternalToolTurns": "one compact execution group with no repeated footer/timestamp",
+    "longChain": "45 steps initially mount 20; open tool remains mounted when step 46 arrives",
+    "pendingApprovals": "separate and actionable even with collapsed execution",
+    "trueExecutionAssociation": "source tools/results/approvals and sourceTurns retained; no reassociation"
+  },
+  "safety": {
+    "dailyServiceRestarted": false,
+    "realSessionPromptOrApprovalSent": false,
+    "modelInvoked": false,
+    "backendAndSharedContractUnchangedSinceStageStart": true,
+    "priorChangesPreserved": true,
+    "committedOrPushed": false
+  },
+  "remaining": "No implementation blocker. Expanded/mobile manual visual inspection incomplete due unavailable browser guest; automated checks passed. Existing bundle-size warning retained.",
+  "changedPaths": [
+    "app/src/pages/canvas/chat/ConversationView.tsx",
+    "app/src/pages/canvas/chat/ToolActivity.tsx",
+    "app/src/pages/canvas/chat/TurnView.tsx",
+    "app/src/pages/canvas/chat/chat.css",
+    "app/src/pages/canvas/chat/model.ts",
+    "app/src/pages/canvas/chat/primitives.tsx",
+    "app/src/pages/canvas/chat/project-transcript.ts",
+    "app/test/browser/chat-experience.spec.ts",
+    "docs/architecture/architecture.html",
+    "docs/architecture/data.json",
+    "docs/architecture/reports/code-map.json",
+    "docs/architecture/reports/health.json",
+    "docs/architecture/wiki/entrypoints.md",
+    "docs/architecture/wiki/health.md",
+    "docs/architecture/wiki/modules/chat-ui.md",
+    "docs/chat-ui-polish.md",
+    "app/src/pages/canvas/chat/execution-presentation.ts",
+    "app/src/pages/canvas/chat/ExecutionGroup.tsx",
+    "app/test/unit/execution-presentation.test.mjs",
+    "app/test/browser/tool-hierarchy.spec.ts",
+    "docs/chat-ui-polish-evidence/tool-hierarchy/README.md",
+    "docs/chat-ui-polish-evidence/tool-hierarchy/collapsed-desktop.png",
+    "docs/chat-ui-polish-evidence/tool-hierarchy/expanded-desktop.png",
+    "docs/chat-ui-polish-evidence/tool-hierarchy/mobile-failure-approval.png"
+  ],
+  "sourceSha256": {
+    "app/src/pages/canvas/chat/ConversationView.tsx": "a0f47fd2e31292073e38260e8607fe0ae6eb1081c8d0796685c03156f109f452",
+    "app/src/pages/canvas/chat/ToolActivity.tsx": "c7a088ea24d12c08edac89586096cd0f586c101828310b74b671e87733a880c0",
+    "app/src/pages/canvas/chat/TurnView.tsx": "892d9c19e324d02477461ffacf8b5d30ca90a0e0c0d93d794a882962c9666324",
+    "app/src/pages/canvas/chat/chat.css": "479db6504a3e6d42d6888ae003853fd3dd60b3245e66f46a856d32174442d2b1",
+    "app/src/pages/canvas/chat/model.ts": "3b966755f39e7575781ed918d5d4a227466e2ab299a8fe8c9fb11b35d2cc3ce1",
+    "app/src/pages/canvas/chat/primitives.tsx": "4ee15850277f9855c1b01508da7236eb69dab16d230be7cc8de6c7c70383b931",
+    "app/src/pages/canvas/chat/project-transcript.ts": "42a3183327d89f6273762caac0c642602171be6e02b7e86fa927c5f4a1a965f1",
+    "app/test/browser/chat-experience.spec.ts": "399388d7d4f53335e3df0d849f3165be9ecf32cf908e642016378279b12f0d23",
+    "app/src/pages/canvas/chat/execution-presentation.ts": "f42741a83bb0c02b86ed354479c67b08294ee18557e1e9425e57650dfb5f8ad7",
+    "app/src/pages/canvas/chat/ExecutionGroup.tsx": "da0de55df7aae7956f250f43667987e114fedd06c605128036db50d7f77eede4",
+    "app/test/unit/execution-presentation.test.mjs": "054c8898c590a80798d81521e7c042fd8aad0e4eadc240366c68cd3b95a77f64",
+    "app/test/browser/tool-hierarchy.spec.ts": "ab71a051ff077b5dab1487504c60fe49f0f301c231824e129d05f1238b2a5106"
+  }
+}

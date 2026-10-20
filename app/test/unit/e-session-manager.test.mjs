@@ -11,3 +11,9 @@ test('timeouts and crashes are surfaced, not silently retried',async t=>{const {
 test('startup failure/timeout and concurrency limits cleanly fail',async t=>{const {m}=setup(t,{maxSessions:1,startupMs:500});await assert.rejects(m.create(input('n-fail-start')),/fixture start failure/);await assert.rejects(m.create(input('n-hang-start')),/timeout/);await m.create(input());await assert.rejects(m.create(input('n-two')),/limit/);assert.equal(m.get('w','n-one').lifecycle,'ready');});
 
 test('Full Access and assisted authority never survive stop or manager reload',async t=>{const {m,dir}=setup(t);await m.create(input());m.setApprovalMode('w','n-one','full');assert.equal(m.get('w','n-one').approvalMode,'full');await m.stop('w','n-one');assert.equal(m.get('w','n-one').approvalMode,'manual');await m.resume('w','n-one');assert.equal(m.get('w','n-one').approvalMode,'manual');m.setApprovalMode('w','n-one','assisted',{provider:'fixture',model:'fixture'});assert.equal(m.get('w','n-one').approvalMode,'assisted');await m.close();const second=new SessionManager({dataDir:dir,workerPath,skipPreflight:true});t.after(()=>second.close());assert.equal(second.get('w','n-one').approvalMode,'manual');assert.equal(second.get('w','n-one').approvalReviewer,undefined);});
+
+test('approval policy version is stamped by the running API, not restored as persisted authority',async t=>{
+ const {m,dir}=setup(t);const created=await m.create(input());assert.equal(created.approvalPolicyVersion,2);await m.close();
+ const file=path.join(dir,'n-one','record.json'),record=JSON.parse(fs.readFileSync(file,'utf8'));record.view.approvalPolicyVersion=999;record.view.approvalMode='assisted';fs.writeFileSync(file,JSON.stringify(record));
+ const next=new SessionManager({dataDir:dir,workerPath,skipPreflight:true});t.after(()=>next.close());const loaded=next.get('w','n-one');assert.equal(loaded.approvalPolicyVersion,2);assert.equal(loaded.approvalMode,'manual');
+});

@@ -1,5 +1,6 @@
+import { capabilityAvailable } from './contracts.js';
 import { randomUUID } from 'node:crypto';
-import type { SessionView, ApprovalMode, ApprovalAudit } from './contracts.js';
+import type { SessionView, ApprovalMode, ApprovalAudit, MessageOrigin } from './contracts.js';
 import { bindApproval, exactOperationKey, type ApprovalInput } from './approval-binding.js';
 import { approvalRule, type RuleDecision } from './approval-rules.js';
 import { reviewApproval, type ReviewRequest, type ReviewResult, type ReviewerConfig } from './approval-reviewer.js';
@@ -48,8 +49,10 @@ export class ApprovalEngine {
  }
  private async evaluate(input:ApprovalInput,generation:string,epoch:string,native:string,mode:ApprovalMode,reviewer:ReviewerConfig|undefined,job:AbortController,granted=false){
   let source:ApprovalAudit['source']=granted?'whitelist':mode==='full'?'full':'manual';let rule:string|undefined=granted?'session-exact-v1':undefined;
-  const report=(state:ApprovalAudit['state'],reason:string)=>this.host.record({approvalId:input.approval.id,digest:input.digest,source,state,reason:reason.slice(0,600),rule,at:new Date().toISOString(),...(source==='ai'&&reviewer?{reviewer}:{})});
-  const current=()=>{const v=this.host.get();const s=v.snapshot;return !job.signal.aborted&&generation===this.generation&&v.lifecycle==='ready'&&s?.epoch===epoch&&v.ref.nativeSessionId===native&&!this.overridden.has(input.approval.id)&&bindApproval(s,input.approval.id)?.digest===input.digest;};
+  const cwd=this.host.get().ref.cwd;
+  let reviewAttempted=false;
+  const report=(state:ApprovalAudit['state'],reason:string)=>this.host.record({approvalId:input.approval.id,digest:input.digest,source,state,reviewAttempted,reason:reason.slice(0,600),rule,at:new Date().toISOString(),...(source==='ai'&&reviewer?{reviewer}:{})});
+  const current=()=>{const v=this.host.get();const s=v.snapshot;return !job.signal.aborted&&generation===this.generation&&v.lifecycle==='ready'&&v.ref.cwd===cwd&&capabilityAvailable(v,'approval.resolve')&&s?.epoch===epoch&&v.ref.nativeSessionId===native&&!this.overridden.has(input.approval.id)&&bindApproval(s,input.approval.id)?.digest===input.digest;};
   try{
    let reason=granted?'用户明确授权：当前会话内相同工具及完整参数（非正则匹配）':'用户明确开启当前会话 Full Access';
    if(!granted&&mode!=='full'){
@@ -58,10 +61,11 @@ export class ApprovalEngine {
     if(result.route==='allow')source='whitelist';
     else {
      source='ai';if(!reviewer){report('manual','未配置独立审查模型');return;}
-     const view=this.host.get();const task=[...(view.snapshot?.messages??[])].filter(m=>m.role==='user').sort((a,b)=>(b.createdAt??'').localeCompare(a.createdAt??'')||b.order-a.order)[0]?.blocks.filter(b=>b.type==='text').map(b=>b.text??'').join('\n')??'';
+     const view=this.host.get();const task=[...(view.snapshot?.messages??[])].filter(m=>m.role==='user'&&(!(m.origin as MessageOrigin|undefined)||(m.origin as MessageOrigin).kind==='human')).sort((a,b)=>(b.createdAt??'').localeCompare(a.createdAt??'')||b.order-a.order)[0]?.blocks.filter(b=>b.type==='text').map(b=>b.text??'').join('\n')??'';
      if(!task.trim()||task.length>12000){report('manual','任务上下文缺失或过长，转人工');return;}
+     reviewAttempted=true;
      report('reviewing','独立 AI 审查中；可随时人工批准/拒绝');
-     const review=await (this.services.review??reviewApproval)({input,task,cwd:view.ref.cwd,reviewer,signal:job.signal});
+     const review=await (this.services.review??reviewApproval)({input,task,cwd:view.ref.cwd,reviewer,signal:job.signal,policyRule:result.rule});
      if(!current()){report('cancelled','审查已失效：模式、参数、会话或人工决定发生变化');return;}
      if(review.decision!=='approve'||review.risk!=='low'){report('manual',review.reason);return;}
      reason=review.reason;

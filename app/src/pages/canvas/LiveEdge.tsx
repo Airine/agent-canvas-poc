@@ -43,8 +43,9 @@ const EDGE_COLOR: Record<EdgeKind, string> = {
   weak: 'var(--edge-weak)',
   error: 'var(--edge-error)',
   communication: 'var(--accent)',
+  spawn: 'var(--edge-strong)',
 };
-const EDGE_WIDTH: Record<EdgeKind, number> = { strong: 2.5, weak: 1.5, error: 2, communication: 2 };
+const EDGE_WIDTH: Record<EdgeKind, number> = { strong: 2.5, weak: 1.5, error: 2, communication: 2, spawn: 2 };
 
 /** 全局 marker 定义（在页面挂一次；SVG fill/stroke attribute 不支持 var()，用 style） */
 export function EdgeMarkerDefs() {
@@ -135,7 +136,7 @@ export function LiveEdge(props: EdgeProps<LiveFlowEdge>) {
           style={{
             stroke,
             strokeWidth,
-            strokeDasharray: d.kind === 'weak' ? '6 6' : d.kind === 'communication' ? '3 4' : undefined,
+            strokeDasharray: d.kind === 'weak' ? '6 6' : d.kind === 'communication' ? '3 4' : d.kind === 'spawn' ? '2 5' : undefined,
             transition: 'stroke var(--dur-fast), stroke-width var(--dur-fast)',
           }}
           markerStart={
@@ -146,7 +147,7 @@ export function LiveEdge(props: EdgeProps<LiveFlowEdge>) {
                 : undefined
           }
           markerEnd={
-            d.kind === 'communication' ? 'url(#ac-arrow-communication)' : d.kind === 'strong'
+            d.kind === 'communication' ? 'url(#ac-arrow-communication)' : d.kind === 'strong' || d.kind === 'spawn'
               ? 'url(#ac-arrow-strong)'
               : d.kind === 'weak'
                 ? 'url(#ac-arrow-weak)'
@@ -192,7 +193,7 @@ export function LiveEdge(props: EdgeProps<LiveFlowEdge>) {
       <EdgeLabelRenderer>
         {d.kind === 'communication' && <button type="button" className="canvas-communication-label nodrag nopan" aria-label={`查看通信：${d.label}`} style={{transform:`translate(-50%,-50%) translate(${labelX}px,${labelY}px)`}} onClick={()=>d.onOpenTrace?.(id)}>{d.label}</button>}
         {/* 弱链接：中点常驻数据面标签（契约 CanvasEdge.label，等宽数字） */}
-        {d.kind === 'weak' && d.label && (
+        {(d.kind === 'weak' || d.kind === 'spawn') && d.label && (
           <div
             className="tnum absolute text-node-meta text-text-tertiary"
             style={{

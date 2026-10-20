@@ -4,8 +4,8 @@ description: 分别启动文档站和真实会话应用，不覆盖已有本机�
 sources:
   - docs-site/package.json 74b39960b4a2
   - app/scripts/dev-e.mjs 82c22e9d56a3
-  - app/package.json 141da0328124
-  - app/scripts/e-runtime-worker.mts 597fd806824d
+  - app/package.json 73c4e294f2ea
+  - app/scripts/e-runtime-worker.mts 640693a1eb1f
 ---
 
 # 本地启动

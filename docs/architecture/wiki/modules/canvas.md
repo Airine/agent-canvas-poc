@@ -4,9 +4,9 @@ description: 将工作区图、终端与会话状态投影到可交互画布。
 sources:
   - app/src/pages/canvas/GlobalCardViewControl.tsx 5eeacac098c7 GlobalCardViewControl
   - app/src/pages/canvas/CardViewControl.tsx 2a0b6806cfd0 CardViewControl
-  - app/src/pages/canvas/ApprovalModeControl.tsx 1efcdfa82ded ApprovalModeControl
+  - app/src/pages/canvas/ApprovalModeControl.tsx 600aaa3b12e7 ApprovalModeControl
   - app/src/pages/canvas/SessionHeaderActions.tsx ee6d5ea0e0ef SessionHeaderActions
-  - app/src/pages/canvas/contracts.ts 75be9b49a4d0
+  - app/src/pages/canvas/contracts.ts 572415b9994f
   - app/src/pages/canvas/index.tsx 0c93d9ab6b59 CanvasPage CanvasRedirect computeTiers
   - app/src/pages/canvas/live-store.ts 056a5d79638a LiveStore fetchWorkspaces sessionAction subscribeTerm
   - app/src/pages/canvas/session-store.ts a1af822c02ec SessionStore capabilityAvailable

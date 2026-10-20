@@ -25,7 +25,7 @@ export interface SessionView {
   queue?: MessageQueue;
   collaborationAvailable?: boolean;
   collaboration?: import('../../shared/collaboration-protocol.mjs').CollaborationStatus;
-  approvalMode?: ApprovalMode; approvalModeError?: string; sessionApprovalGrantCount?: number;
+  approvalPolicyVersion?: number; approvalMode?: ApprovalMode; approvalModeError?: string; sessionApprovalGrantCount?: number;
   approvalReviewer?: {provider:string;model:string}; approvalAudit?: ApprovalAudit[];
 }
 export type ControlOperation = 'messages' | 'abort' | 'approval';
@@ -41,7 +41,7 @@ export function capabilityAvailable(view: SessionView | undefined, name: string,
 }
 
 export type ApprovalMode = 'manual' | 'assisted' | 'full';
-export interface ApprovalAudit {approvalId:string;digest:string;source:'whitelist'|'ai'|'full'|'manual';state:'reviewing'|'manual'|'submitting'|'submitted'|'cancelled'|'failed';reason:string;rule?:string;at:string;reviewer?:{provider:string;model:string}}
+export interface ApprovalAudit {reviewAttempted?:boolean;approvalId:string;digest:string;source:'whitelist'|'ai'|'full'|'manual';state:'reviewing'|'manual'|'submitting'|'submitted'|'cancelled'|'failed';reason:string;rule?:string;at:string;reviewer?:{provider:string;model:string}}
 
 export interface Attachment { id: string; name: string; mimeType: 'text/plain' | 'image/png' | 'image/jpeg' | 'image/webp'; data: string }
 export interface RuntimeModel { provider: string; id: string; name?: string; input: string[]; contextWindow?: number }

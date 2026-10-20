@@ -15,13 +15,13 @@
             "name": "COLLABORATION_ERROR_CODES",
             "line": 6,
             "col": 14,
-            "pos": 583
+            "pos": 650
           },
           {
             "name": "collaborationTool",
-            "line": 64,
+            "line": 67,
             "col": 17,
-            "pos": 6967
+            "pos": 7727
           }
         ]
       },
@@ -73,7 +73,18 @@
             "name": "proposeApprovalGrant",
             "line": 18,
             "col": 17,
-            "pos": 2905
+            "pos": 3567
+          }
+        ]
+      },
+      {
+        "file": "src/pages/canvas/chat/attachments.ts",
+        "exports": [
+          {
+            "name": "base64",
+            "line": 3,
+            "col": 17,
+            "pos": 155
           }
         ]
       },
@@ -137,17 +148,6 @@
             "line": 2,
             "col": 17,
             "pos": 103
-          }
-        ]
-      },
-      {
-        "file": "src/pages/canvas/chat/attachments.ts",
-        "exports": [
-          {
-            "name": "base64",
-            "line": 3,
-            "col": 17,
-            "pos": 155
           }
         ]
       },

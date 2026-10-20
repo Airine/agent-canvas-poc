@@ -2,21 +2,21 @@
 title: Canvas 协作
 description: 同画布 Agent 引用、受管工具、文本产物、消息队列与可核验通信边。
 sources:
-  - app/shared/collaboration-protocol.mjs c6b8d152216f COLLABORATION_CONTRACT collaborationReady validateCollaborationArgs validateCollaborationResult
+  - app/shared/collaboration-protocol.mjs 813a7bac1493 COLLABORATION_CONTRACT collaborationReady validateCollaborationArgs validateCollaborationResult
   - app/shared/collaboration-package.mjs bbcc71c2fceb readCollaborationPackage
   - app/scripts/canvas-channel.mjs 423b626ff829
-  - skills/canvas-collaboration/SKILL.md ba3eaae46f56
-  - app/api/e/collaboration.ts 096ce14475bf CollaborationStore
+  - skills/canvas-collaboration/SKILL.md 22ab9d615eca
+  - app/api/e/collaboration.ts da9fcb9b5731 CollaborationStore
   - app/api/e/collaboration-authorization.ts 26a34844b106 authorizeCollaboration
-  - app/api/e/collaboration-contracts.ts e54a2cc5f043 CommunicationRecord
+  - app/api/e/collaboration-contracts.ts 03d4156005ba CommunicationRecord
   - app/api/e/message-origins.ts 2167cd9ebfec associateMessageOrigins orderedMessages
   - app/scripts/canvas-adapter.mjs b0965c80795c prepareCanvasAdapter
   - app/scripts/canvas-tools.mjs ca0839f2ed5a install
   - app/src/pages/canvas/CommunicationTrace.tsx e5b7550444b7 CommunicationTrace
   - app/src/pages/canvas/use-agent-identities.ts 8526c53bb917 useAgentIdentities
   - app/shared/agent-reference.mjs bbb0ad9222b4 sessionIdentities resolveAgentReference
-  - app/api/e/session-manager.ts f1a051ecac53 SessionManager
-  - app/api/routes.ts 7cbd733eaf33 applyCommunications
+  - app/api/e/session-manager.ts 4ae0c14e0652 SessionManager
+  - app/api/routes.ts a121973dd5ba applyCommunications
 covers:
   - app/scripts/canvas-channel.mjs
   - app/scripts/collaboration-inspect.mjs
@@ -45,10 +45,11 @@ covers:
 
 ## 对外接口
 
-- `app/scripts/canvas-tools.mjs` 注册 `canvas_agents`、`canvas_read`、`canvas_publish`、`canvas_send`，工具定义来自共享契约；独立 `skills/canvas-collaboration/SKILL.md` 由 worker 显式加载并绑定到系统指令，不依赖全局自动发现，也没有公开 HTTP 发送接口。
-- `prepareCanvasAdapter` 在当前会话 generation 目录生成 ADE 适配器的本地副本，只扩展审批工具名单并重定位相对导入；原 ADE 保持只读。过渡审批锚点不匹配时停用协作并回退原适配器，普通聊天继续，绝不启用无审批的协作。四个 Canvas 工具均走原有 e 审批，辅助模式默认转人工，Full Access 遵循用户现有的会话授权；不新增审批白名单或精确授权种类。
+- `app/scripts/canvas-tools.mjs` 注册 `canvas_agents`、`canvas_read`、`canvas_publish`、`canvas_send`、`canvas_spawn`，工具定义来自共享契约；独立 `skills/canvas-collaboration/SKILL.md` 由 worker 显式加载并绑定到系统指令，不依赖全局自动发现，也没有公开 HTTP 发送接口。
+- `prepareCanvasAdapter` 在当前会话 generation 目录生成 ADE 适配器的本地副本，只扩展审批工具名单并重定位相对导入；原 ADE 保持只读。过渡审批锚点不匹配时停用协作并回退原适配器，普通聊天继续，绝不启用无审批的协作。五个 Canvas 工具均走原有 e 审批（`canvas_spawn` 固定转人工），辅助策略 v2 在共享契约验证后交独立 AI 审查，敏感内容先转人工；Full Access 遵循用户现有的会话授权。不新增直接审批白名单或精确授权种类，Skill/同伴内容不能授予权限。
 - `authorizeCollaboration` 先要求完整就绪证据与版本化请求，再核对父 IPC 绑定的活动 worker、同 native 快照、正在执行的工具、完整参数与已批准的审批。`CollaborationStore.execute` 校验参数、同画布目标、自引用、配额和幂等回执。
 - `sessionIdentities` / `resolveAgentReference` 使用共享 `@"昵称"#hash` 引用；名字仅描述，hash 负责定位。重名、NFC、转义字符和 hash 冲突有确定性处理；过期或歧义引用拒绝，不猜名字。
+- `canvas_spawn` 由 `CollaborationStore` 预留 lineage 后调用 `SessionManager.spawn`：同步注册 record 并返回 `starting`，后台启动 worker，ready 后把任务作为首轮输入投递；`routes` 在 `spawned` 事件里放置子卡并写 `spawn` 边。失败回滚预留，不留半张卡。
 - `CommunicationTrace` 只读该关系的最近 50 条记录。`applyCommunications` 把持久化记录投影为 `kind:'communication'` 边，通过现有图补丁通道广播。
 
 ## 资源包与就绪证据

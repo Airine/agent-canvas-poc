@@ -183,7 +183,7 @@ node test/browser/real-multi.mjs
 
 ## 卡片视图与审批策略
 
-每卡可独立选择自动／缩略／详细，刷新后保留。真实会话的“工具审批”可选手动、帮我审批（白名单＋显式配置的独立 AI）、Full Access。后两者仅当前运行实例有效，停止/恢复/服务重启回到手动；不改变 Pi 全局默认。实际规则、风险边界、审计和验收见 [docs/card-views-and-approvals.md](../card-views-and-approvals.md)。旧 `auto` API 不再接受。
+每卡可独立选择自动／缩略／详细，刷新后保留。真实会话的“工具审批”可选手动、帮我审批（白名单＋显式配置的独立 AI）、Full Access。后两者仅当前运行实例有效，停止/恢复/服务重启回到手动；不改变 Pi 全局默认。实际规则、风险边界、审计和验收见 [docs/card-views-and-approvals.md](../card-views-and-approvals.md)。旧 `auto` API 不再接受。审批策略 v2 将支持的引号/管道/命令链、静态只读 Node 及受管 Canvas 工具交给 AI，而非因语法直接转人工；高风险与未知执行仍由规则拦截。权限详情显示实际 API 策略版本，旧 API 需要安全重载，前端刷新不足以启用。
 
 
 ## Canvas 协作工具（后续增量）

@@ -4,7 +4,7 @@ import type { SessionView, SessionRef, Lifecycle } from '../../../api/e/contract
 
 export type NodeStatus = 'queued' | 'running' | 'waiting' | 'completed' | 'failed' | 'skipped';
 export type NodeType = 'coordinator' | 'operation' | 'chat' | 'artifact';
-export type EdgeKind = 'strong' | 'weak' | 'error' | 'communication';
+export type EdgeKind = 'strong' | 'weak' | 'error' | 'communication' | 'spawn';
 
 export interface CanvasNode {
   backend?: 'e' | 'herdr'; sessionRef?: SessionRef; sessionState?: Lifecycle; sessionStatus?: string; summary?: string;

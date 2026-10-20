@@ -7,15 +7,16 @@ import { sessionIdentities, resolveAgentReference } from '../../shared/agent-ref
 import { orderedMessages } from './message-origins.js';
 import { exactOperationKey } from './approval-binding.js';
 import type { MessageOrigin, SessionView, SessionTool } from './contracts.js';
-import type { AgentArtifact, CollaborationRequest, CommunicationRecord, CommunicationState } from './collaboration-contracts.js';
+import type { AgentArtifact, CollaborationRequest, CommunicationRecord, CommunicationState, SpawnRecord } from './collaboration-contracts.js';
 import type { CanvasEdge } from '../types.js';
 
 const stateLabels: Record<CommunicationState, string> = { preparing: '准备投递', pending: '待发', paused: '已暂停', submitted: '待确认消费', consumed: '已消费', unknown: '结果未知', rejected: '已拒绝', cancelled: '已移除', read: '已读取' };
 interface Receipt { signature: string; result?: unknown; error?: string; errorCode?: CollaborationErrorCode }
-interface Ledger { version: 1; records: CommunicationRecord[]; artifacts: AgentArtifact[]; receipts: Record<string, Receipt> }
+interface Ledger { version: 2; records: CommunicationRecord[]; artifacts: AgentArtifact[]; spawns: SpawnRecord[]; receipts: Record<string, Receipt> }
 interface Host {
   list(workspaceId: string): SessionView[];
   enqueue(target: SessionView, id: string, content: string, origin: MessageOrigin): void;
+  spawn(input: { workspaceId: string; parent: string; spawnId: string; title: string; task: string; depth: number; origin: MessageOrigin }): SessionView;
   changed(workspaceId: string): void;
 }
 const digest = (s: string) => createHash('sha256').update(s).digest('hex');
@@ -26,9 +27,11 @@ export class CollaborationStore {
   constructor(private readonly file: string, private readonly host: Host) {}
   private load(): Ledger {
     if (this.ledger) return this.ledger;
-    if (!fs.existsSync(this.file)) return this.ledger = { version: 1, records: [], artifacts: [], receipts: Object.create(null) };
+    if (!fs.existsSync(this.file)) return this.ledger = { version: 2, records: [], artifacts: [], spawns: [], receipts: Object.create(null) };
     const value = JSON.parse(fs.readFileSync(this.file, 'utf8')) as Ledger;
-    if (value.version !== 1 || !Array.isArray(value.records) || !Array.isArray(value.artifacts) || !value.receipts) throw new CollaborationError('INTERNAL', 'collaboration ledger invalid; refusing to reset');
+    if (![1, 2].includes(value.version) || !Array.isArray(value.records) || !Array.isArray(value.artifacts) || !value.receipts) throw new CollaborationError('INTERNAL', 'collaboration ledger invalid; refusing to reset');
+    if (!Array.isArray(value.spawns)) value.spawns = [];
+    value.version = 2;
     value.receipts = Object.assign(Object.create(null), value.receipts);
     return this.ledger = value;
   }
@@ -83,7 +86,9 @@ export class CollaborationStore {
     ledger.receipts[key] = { signature }; this.save();
     try {
       let result: unknown;
-      if (request.tool === 'canvas_publish') {
+      if (request.tool === 'canvas_spawn') {
+        result = this.spawn(source, tool, args as { title: string; task: string });
+      } else if (request.tool === 'canvas_publish') {
         if (ledger.artifacts.filter(a => a.nodeId === source.nodeId && a.workspaceId === source.workspaceId).length >= LIMITS.artifactsPerAgent || ledger.artifacts.length >= LIMITS.artifacts) throw new CollaborationError('LIMIT_EXCEEDED', 'artifact limit reached');
         const artifact: AgentArtifact = { id: `artifact:${randomUUID()}`, workspaceId: source.workspaceId, nodeId: source.nodeId, nativeSessionId: source.ref.nativeSessionId, title: args.title.trim(), content: args.content, digest: digest(args.content), createdAt: now() };
         ledger.artifacts.push(artifact); result = { ...artifact, reference: identities.get(source.nodeId)!.reference };
@@ -127,6 +132,28 @@ export class CollaborationStore {
       ledger.receipts[key] = { signature, error: message, errorCode: collaborationError(error).code }; this.save(); this.host.changed(source.workspaceId); throw error;
     }
   }
+  private spawn(source: SessionView, tool: SessionTool, args: { title: string; task: string }): unknown {
+    if (!tool.runId) throw new CollaborationError('FORBIDDEN', 'missing authoritative run identity');
+    const ledger = this.load(), spawns = ledger.spawns;
+    const own = spawns.find(s => s.child === source.nodeId);
+    const depth = (own?.depth ?? 0) + 1;
+    if (depth > LIMITS.spawnDepth) throw new CollaborationError('LIMIT_EXCEEDED', `spawn depth limit: ${LIMITS.spawnDepth}`);
+    if (spawns.filter(s => s.parent === source.nodeId).length >= LIMITS.spawnChildren) throw new CollaborationError('LIMIT_EXCEEDED', `spawn children limit: ${LIMITS.spawnChildren}`);
+    if (spawns.filter(s => s.workspaceId === source.workspaceId && s.sourceNativeSessionId === source.ref.nativeSessionId && s.runId === tool.runId).length >= LIMITS.spawnPerRun) throw new CollaborationError('LIMIT_EXCEEDED', `spawn per-run limit: ${LIMITS.spawnPerRun}`);
+    if (this.host.list(source.workspaceId).length >= LIMITS.spawnSessions) throw new CollaborationError('LIMIT_EXCEEDED', `workspace session limit: ${LIMITS.spawnSessions}`);
+    const spawnId = `spawn-${randomUUID()}`;
+    const record: SpawnRecord = { id: spawnId, workspaceId: source.workspaceId, parent: source.nodeId, child: '', depth, runId: tool.runId, sourceNativeSessionId: source.ref.nativeSessionId, createdAt: now() };
+    // Reserve lineage before creating anything; a failed spawn must not consume quota silently or leave a child without a parent record.
+    ledger.spawns.push(record); this.save();
+    let view: SessionView;
+    try {
+      const label = sessionIdentities(this.host.list(source.workspaceId), source.workspaceId).get(source.nodeId)?.reference ?? source.nodeId;
+      view = this.host.spawn({ workspaceId: source.workspaceId, parent: source.nodeId, spawnId, title: args.title.trim(), task: args.task, depth,
+        origin: { kind: 'agent', label, channel: 'canvas-collaboration', authenticated: true, sourceNodeId: source.nodeId, sourceNativeSessionId: source.ref.nativeSessionId, communicationId: spawnId, intentId: spawnId } });
+    } catch (error) { ledger.spawns = ledger.spawns.filter(s => s.id !== spawnId); this.save(); throw error; }
+    record.child = view.nodeId; this.save();
+    return { spawnId, nodeId: view.nodeId, workspaceId: source.workspaceId, reference: sessionIdentities(this.host.list(source.workspaceId), source.workspaceId).get(view.nodeId)?.reference ?? '', state: 'starting', depth, note: 'Card/session created with its first input attached; starting is not ready and is not consumption.' };
+  }
   private reply(view: SessionView, id?: string) {
     const messages = (view.snapshot?.messages ?? []).filter(m => m.role === 'assistant' && m.state === 'completed' && !m.error && !['error', 'aborted'].includes(m.stopReason ?? '') && (!id || m.id === id));
     for (const message of orderedMessages(messages).reverse()) {
@@ -144,10 +171,14 @@ export class CollaborationStore {
     if (!input) throw new CollaborationError('FORBIDDEN', 'missing input ancestry');
     const origin = input.origin as MessageOrigin | undefined;
     if (origin?.kind === 'agent') {
-      const parent = sends.find(r => r.id === origin.communicationId && r.target === source.nodeId);
-      if (!parent) throw new CollaborationError('FORBIDDEN', 'unknown Agent ancestry');
-      record.parentId = parent.id; record.rootId = parent.rootId; record.hop = parent.hop + 1;
-      if (record.hop >= LIMITS.chainHops || sends.filter(r => r.rootId === record.rootId).length >= LIMITS.chainMessages) throw new CollaborationError('LIMIT_EXCEEDED', 'Agent conversation budget exhausted; ask the user for a new task');
+      const spawn = this.load().spawns.find(s => s.id === origin.communicationId && s.child === source.nodeId);
+      if (spawn) { record.rootId = spawn.id; record.hop = 0; }
+      else {
+        const parent = sends.find(r => r.id === origin.communicationId && r.target === source.nodeId);
+        if (!parent) throw new CollaborationError('FORBIDDEN', 'unknown Agent ancestry');
+        record.parentId = parent.id; record.rootId = parent.rootId; record.hop = parent.hop + 1;
+        if (record.hop >= LIMITS.chainHops || sends.filter(r => r.rootId === record.rootId).length >= LIMITS.chainMessages) throw new CollaborationError('LIMIT_EXCEEDED', 'Agent conversation budget exhausted; ask the user for a new task');
+      }
     }
   }
 }

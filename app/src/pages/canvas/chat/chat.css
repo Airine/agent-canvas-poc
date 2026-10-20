@@ -173,3 +173,28 @@
 @media(prefers-reduced-motion:reduce){.chat-config-pending{animation:none}}
 
 .chat-reasoning-preview{min-height:36px;margin-top:8px}.chat-reasoning-preview .chat-reasoning-help{font-size:11px;line-height:1.5;color:var(--text-secondary);margin:0}.chat-reasoning-footer{flex-wrap:wrap}.chat-config-details{font-size:11px;min-width:0}.chat-config-details summary{cursor:pointer;min-height:32px;display:flex;align-items:center}.chat-config-details[open]{flex-basis:100%;order:2}.chat-config-details p{margin:3px 0!important;overflow-wrap:anywhere}
+
+/* Execution is a compact hierarchy, not a sequence of empty assistant paragraphs. */
+.chat-turn-process,.live-chat-focus .chat-turn-process{margin-bottom:8px}
+.chat-turn-assistant:not(.chat-turn-process):has(+.chat-turn-process){margin-bottom:12px}
+.chat-execution{min-width:0;margin:6px 0 12px}
+.chat-turn-process>.chat-execution{margin:0}
+.chat-execution>.chat-disclosure{margin:0}
+.chat-execution>.chat-disclosure>.chat-disclosure-trigger{width:100%;min-height:32px;gap:8px;padding:4px 3px}
+.chat-execution-title{flex-shrink:0;font-weight:550}
+.chat-execution-count{flex-shrink:0;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.chat-execution-description{min-width:0;flex:0 1 auto;max-width:440px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--text-secondary)}
+.chat-execution-breakdown{color:var(--text-secondary);font-size:12px;line-height:1.5;margin:3px 0 7px;overflow-wrap:anywhere}
+.chat-execution-state{margin-left:2px;font-size:12px;white-space:nowrap;flex-shrink:0}
+.chat-execution-state.error{color:var(--st-failed)}.chat-execution-state.warning{color:var(--st-waiting)}
+.chat-execution>.chat-disclosure>.chat-disclosure-body{padding-top:2px;padding-bottom:2px}
+.chat-execution-steps{display:flex;flex-direction:column;gap:2px;min-width:0}
+.chat-execution-step{min-width:0}.chat-execution-step>.chat-disclosure,.chat-execution-step>.chat-tool>.chat-disclosure{margin:0}
+.chat-execution-step .chat-tool>.chat-disclosure>.chat-disclosure-trigger{width:100%;min-height:34px;gap:7px}
+.chat-execution .chat-tool-summary{flex:1;min-width:0;max-width:none}
+.chat-execution .chat-tool-name,.chat-tool-state{white-space:nowrap;flex-shrink:0}
+.chat-tool-metadata{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:2px 0 8px}
+.chat-tool-metadata .chat-resolved{padding:0}
+.chat-execution-details{margin-top:5px}.chat-execution-details>.chat-disclosure{margin:0}
+.chat-execution-details>.chat-disclosure>.chat-disclosure-trigger{font-size:12px!important;color:var(--text-tertiary)}
+@container(max-width:560px){.chat-execution>.chat-disclosure>.chat-disclosure-trigger{gap:6px}.chat-execution-count{flex:0 0 auto}.chat-execution .chat-tool-name{max-width:112px;overflow:hidden;text-overflow:ellipsis}.chat-execution .chat-disclosure-body{padding-left:10px}}

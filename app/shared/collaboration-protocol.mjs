@@ -1,10 +1,11 @@
 /** One portable contract for model tool schemas, server validation and inspection. No transport authority here. */
-export const COLLABORATION_PROTOCOL_VERSION = 1;
-export const COLLABORATION_EXTENSION_VERSION = 1;
-export const COLLABORATION_SKILL = Object.freeze({ id: 'canvas-collaboration', version: 1 });
-export const COLLABORATION_LIMITS = Object.freeze({ textCharacters: 12000, textBytes: 16384, targetCharacters: 600, sendsPerRun: 8, sendsPerMinute: 10, chainHops: 4, chainMessages: 16, artifactsPerAgent: 100, artifacts: 1000, records: 5000, receipts: 10000 });
+export const COLLABORATION_PROTOCOL_VERSION = 2;
+export const COLLABORATION_EXTENSION_VERSION = 2;
+export const COLLABORATION_SKILL = Object.freeze({ id: 'canvas-collaboration', version: 2 });
+export const COLLABORATION_LIMITS = Object.freeze({ textCharacters: 12000, textBytes: 16384, targetCharacters: 600, sendsPerRun: 8, sendsPerMinute: 10, chainHops: 4, chainMessages: 16, artifactsPerAgent: 100, artifacts: 1000, records: 5000, receipts: 10000, spawnDepth: 2, spawnChildren: 3, spawnPerRun: 2, spawnSessions: 8 });
 export const COLLABORATION_ERROR_CODES = Object.freeze(['INVALID_ARGUMENT', 'UNSUPPORTED_TOOL', 'PROTOCOL_MISMATCH', 'NOT_READY', 'EVIDENCE_PENDING', 'FORBIDDEN', 'NOT_FOUND', 'CONFLICT', 'LIMIT_EXCEEDED', 'OUTCOME_UNKNOWN', 'INVALID_RESULT', 'INTERNAL']);
 const string = (maxLength = 1000, extra = {}) => ({ type: 'string', maxLength, ...extra });
+const number = (extra = {}) => ({ type: 'number', ...extra });
 const object = (properties, required = Object.keys(properties)) => ({ type: 'object', properties, required, additionalProperties: false });
 const array = (items, maxItems) => ({ type: 'array', items, ...(maxItems === undefined ? {} : { maxItems }) });
 const boolean = { type: 'boolean' };
@@ -21,6 +22,8 @@ const definitions = [
     parameters: object({ title: string(120, { minLength: 1, pattern: '\\S' }), content: text }), result: object({ id: string(), workspaceId: string(), nodeId: string(), nativeSessionId: string(), title: string(120), content: text, digest: string(64), createdAt: string(), reference: string() }) },
   { name: 'canvas_send', label: 'Canvas · 发送消息', effect: 'enqueue', description: 'Queue a necessary message for a peer’s next turn. No Steer, wake or auto-resume. A pending/paused receipt is not consumption or completion. Read the canvas-collaboration skill before coordinating.',
     parameters: object({ target, message: text }), result: object({ communicationId: string(), target: string(), state: string(10, { enum: ['pending', 'paused'] }), note: string(2000) }) },
+  { name: 'canvas_spawn', label: 'Canvas · 派生会话', effect: 'spawn', description: 'Create one new Canvas card/session in this workspace, with the given task as its first input, and a spawn edge from this session. Requires human approval; bounded by depth, children, per-run and workspace limits. The child starts as starting and is not confirmed ready.',
+    parameters: object({ title: string(120, { minLength: 1, pattern: '\\S' }), task: text }), result: object({ spawnId: string(), nodeId: string(), workspaceId: string(), reference: string(), state: string(10, { enum: ['starting'] }), depth: number(), note: string(2000) }) },
 ].map(tool => ({ ...tool, approval: 'e-exact-tool', scope: 'same-canvas', executionMode: 'sequential', automaticRetry: false }));
 function freeze(value) { if (value && typeof value === 'object') { Object.values(value).forEach(freeze); Object.freeze(value); } return value; }
 export const COLLABORATION_TOOLS = freeze(definitions);
