@@ -16,7 +16,7 @@ sources:
   - app/src/pages/canvas/use-agent-identities.ts 8526c53bb917 useAgentIdentities
   - app/shared/agent-reference.mjs bbb0ad9222b4 sessionIdentities resolveAgentReference
   - app/api/e/session-manager.ts 01240a44eb90 SessionManager
-  - app/api/routes.ts 8727ff4c9a19 applyCommunications
+  - app/api/routes.ts 19871b34460c applyCommunications
 covers:
   - app/scripts/canvas-channel.mjs
   - app/scripts/collaboration-inspect.mjs

@@ -2,6 +2,8 @@
 title: 会话交互
 description: 真实 e 会话的消息呈现、草稿、待发队列和审批操作。
 sources:
+  - app/native/pi.tsx 874bdf11cc39
+  - app/native/pi-projection.ts f3f9066ba5f7 projectPiMessages
   - app/src/pages/canvas/chat/QueuePanel.tsx 14344a53ad03 QueuePanel
   - app/src/pages/canvas/chat/QueueReceipts.tsx da27f4a2800d QueueReceipts
   - app/src/pages/canvas/chat/ExecutionGroup.tsx 948d362fbbb0 ExecutionGroup
@@ -21,10 +23,17 @@ sources:
   - app/src/pages/canvas/chat/error-presentation.ts c29909dfeee8 redact safeLink errorStatusTitle
   - app/src/pages/canvas/chat/RuntimeConfigControl.tsx 18eac6869cc9 RuntimeConfigControl
 covers:
+  - app/native/
   - app/src/pages/canvas/chat/
 ---
 
 ## 职责
+
+当前默认卡片保留 PI Desktop 原版 `ChatTranscript`、`Composer` 和 store，由 `app/native/pi.tsx` 适配现有 e/Pi 后端。每张卡片独立 iframe 隔离全局 store 与样式；正文通过 `native-state` 轮询，发送和审批仍走原有控制接口。审批携带实际显示参数对应的 digest，worker 再次核对。消息按跨轮时间排序，不能把轮内 order 当全局顺序。
+
+Codex 使用独立原版 Webview 和 app-server，不经过此 Pi 投影。构建、版本、恢复步骤、验收记录及尚未接入的桌面功能见仓库中的 `app/native/README.md`。
+
+以下是保留在仓库及 `archive/self-built-chat-ui-2026-10-21` 分支中的自研聊天模块说明，已不作为默认正文和输入台。其队列、附件及模型配置功能不能算作原版组件适配层已支持的能力；标题状态、诊断和部分通用控件仍复用。
 
 让用户在真实会话里读消息、写草稿、查看工具执行并决定审批。界面区分会话生命周期、当前轮状态、审批状态和操作结果未知，不能把“请求已发出”显示成“执行已成功”。
 

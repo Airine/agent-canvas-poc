@@ -1,10 +1,10 @@
 ---
 title: 文档导航
 description: 从本地启动到代码边界，找到 Agent Canvas 的实现依据。
-baseline: c428a53c41dffc93fddb96676b83b90a5a3b3afb
+baseline: 40d97dabd2903a68e0a219c616f1d82d07acc0e6
 sources:
   - app/src/App.tsx 10682b846ed7 App
-  - app/api/index.ts fb665635c747 wireBroadcasts
+  - app/api/index.ts d5215586de34 wireBroadcasts
 exclude:
   - docs/chat-experience/
   - docs/desktop-chat-evidence/
@@ -19,7 +19,7 @@ exclude:
 
 # 文档导航
 
-Agent Canvas 是本地多 Agent 会话工作台。当前主线使用 e / Pi 运行真实会话；React Flow 承载画布，Hono 提供本地控制面。旧 herdr 路径与两个画布原型仍保留，但它们的能力不能直接算到 e MVP 上。
+Agent Canvas 是本地多 Agent 会话工作台。当前分支使用 PI Desktop 原版组件接入 e / Pi，另有 Codex 原版 Webview 接入独立 app-server；React Flow 承载画布，Hono 提供本地控制面。两套原版 UI 都需要独立获取和构建资源，详见仓库中的 `app/native/README.md`。旧自研 UI、herdr 路径与两个画布原型仍保留，但它们的能力不能直接算到原版 UI 适配层上。
 
 ## 先找到要做的事
 

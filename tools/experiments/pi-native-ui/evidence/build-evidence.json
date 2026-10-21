@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "cb88131b34680afd45d931a37d4bd0a7893f29ed",
+  "installedVersion": "0.20.1",
+  "inputModules": 5193,
+  "upstreamModules": 345,
+  "stylesheetFiles": [
+    "out/renderer/assets/index-Cjil2IJK.css",
+    "out/renderer/assets/ChatSurface-LzS4DeZN.css",
+    "out/renderer/assets/LiveVoiceWidget-BUed3gce.css",
+    "out/renderer/assets/Markdown-Bu6RnutN.css",
+    "out/renderer/assets/ScheduledPage-C3Ll5dWc.css",
+    "out/renderer/assets/WorkPanel-DDdQ6bLV.css",
+    "out/renderer/assets/use-transcript-view-DCSogO21.css"
+  ],
+  "hostRuntimeConnected": false
+}

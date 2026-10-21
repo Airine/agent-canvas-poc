@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Codex native UI live probe</title>
+<style>
+body{margin:0;background:#edf0f3;color:#20242a;font:14px system-ui;padding:24px}
+h1{font-size:22px;margin:0 0 8px}p{color:#59616e;margin:0 0 18px}
+.card{width:650px;max-width:calc(100vw - 48px);border:1px solid #cbd0d7;border-radius:14px;overflow:hidden;background:white}
+.bar{padding:12px 16px;border-bottom:1px solid #e4e7eb;font-weight:600}
+.bar span{float:right;font-size:12px;font-weight:400;color:#666}
+iframe{display:block;width:100%;height:640px;border:0}
+[hidden]{display:none!important}
+.notice{padding:24px;line-height:1.6}.notice p{margin:0 0 12px}
+</style></head><body>
+<h1>Official Codex UI / live app-server</h1>
+<p>Isolated workspace. Read-only sandbox. Approval test supports rejection only.</p>
+<section class="card"><div class="bar">Agent card <span>LIVE PROBE / SINGLE SESSION</span></div>
+<div class="notice" id="file-notice" hidden>
+<p>This page needs the local probe server. Opening card.html directly cannot load the Codex UI.</p>
+<p>Start bridge.py, then <a href="http://127.0.0.1:4392/">open the local preview</a> (default port 4392). Keep the server running while using the card.</p>
+</div>
+<iframe title="Official Codex renderer" hidden></iframe>
+<noscript><p class="notice">JavaScript and the local probe server are required.</p></noscript></section>
+<script>
+if (location.protocol === 'file:') {
+  document.getElementById('file-notice').hidden = false;
+} else {
+  const frame = document.querySelector('iframe');
+  frame.src = '/ui/';
+  frame.hidden = false;
+}
+</script>
+</body></html>

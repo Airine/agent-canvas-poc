@@ -14,11 +14,11 @@ sources:
   - app/test/browser/e-canvas.spec.ts 6dbdbfa1d93d
   - app/api/e/approval-rules.ts f4596999d61c approvalRule
   - app/api/e/message-queue.ts 035004c14654 mutateQueue
-  - app/src/pages/canvas/live-store.ts 30cd63eddcb7 LiveStore
+  - app/src/pages/canvas/live-store.ts 340c2297e1d0 LiveStore
   - app/src/pages/canvas/LiveTerminal.tsx c93871702251 LiveTerminal
-  - app/src/pages/canvas/index.tsx 9e21ff626ae2
+  - app/src/pages/canvas/index.tsx b5fd4c2af28a
   - app/src/pages/canvas/chat/attachments.ts 6bc4fc390f29 readAttachment
-  - app/api/routes.ts 8727ff4c9a19 wsHandlers
+  - app/api/routes.ts 19871b34460c wsHandlers
   - app/api/eventbus.ts 47b4e6ed936c
   - app/api/coordinator.ts 2f2630aa80fe
 ---

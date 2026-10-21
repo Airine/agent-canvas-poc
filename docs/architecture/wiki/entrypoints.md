@@ -2,7 +2,7 @@
 title: 入口对账
 description: 逐项裁决静态图的零入度候选，区分运行入口、工具配置和未接入代码。
 generated: npm --prefix docs-site run architecture:analyze
-generated-at: c428a53c41dffc93fddb96676b83b90a5a3b3afb
+generated-at: 40d97dabd2903a68e0a219c616f1d82d07acc0e6
 ---
 # 入口对账
 
@@ -12,6 +12,7 @@ generated-at: c428a53c41dffc93fddb96676b83b90a5a3b3afb
 | --- | --- |
 | `app/api/index.ts` | 真实入口：HTTP / WebSocket 控制面，见数据流「控制面入口」 |
 | `app/eslint.config.js` | 非入口：构建或检查配置，由对应工具加载 |
+| `app/native/pi.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/playwright.config.ts` | 非入口：构建或检查配置，由对应工具加载 |
 | `app/postcss.config.js` | 非入口：构建或检查配置，由对应工具加载 |
 | `app/scripts/canvas-tools.mjs` | 真实入口：由会话 worker 生成的扩展显式加载，走私有 FD 与 e 审批，见数据流「Agent 协作」 |
@@ -25,6 +26,7 @@ generated-at: c428a53c41dffc93fddb96676b83b90a5a3b3afb
 | `app/shared/message-content.d.mts` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/shared/model-recovery.d.mts` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/src/main.tsx` | 真实入口：浏览器启动 → 路由 → 工作区/画布，见数据流「浏览器入口」 |
+| `app/src/pages/canvas/LiveChat.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/tailwind.config.js` | 非入口：构建或检查配置，由对应工具加载 |
 | `app/test/browser/card-approval-modes.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/browser/chat-experience.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
@@ -78,6 +80,9 @@ generated-at: c428a53c41dffc93fddb96676b83b90a5a3b3afb
 | `app/test/unit/health-regressions.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/live-store-reconnect.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/message-origins.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
+| `app/test/unit/native-assets.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
+| `app/test/unit/native-layout.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
+| `app/test/unit/pi-native-projection.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/production-assets.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/quant-canvas-demo.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/recovery-presentation.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |

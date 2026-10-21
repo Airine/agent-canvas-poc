@@ -11,7 +11,7 @@ export function projectSession(view: SessionView, prior?: CanvasNode, index = 0)
     // Compatibility colour only. Session lifecycle/run result are independent.
     status: view.lifecycle === 'failed' ? 'failed' : view.lifecycle === 'starting' ? 'queued' : active ? 'running' : 'waiting',
     harness: 'pi', env: 'e-core', agentId: view.ref.agentSessionId,
-    x: prior?.x ?? 80 + index % 3 * 520, y: prior?.y ?? 80 + Math.floor(index / 3) * 420,
+    x: prior?.x ?? 80 + index % 3 * 640, y: prior?.y ?? 80 + Math.floor(index / 3) * 640,
     ...(prior?.zoneId ? { zoneId: prior.zoneId } : {}),
     sessionRef: view.ref, sessionState: view.lifecycle, sessionStatus: snapshot?.status,
     // Explicitly clear the marker when GraphStore merges a restored projection.

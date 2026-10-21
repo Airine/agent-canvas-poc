@@ -1,0 +1,19 @@
+{
+  "sourceVersion": "0.20.1",
+  "sourceCommit": "cb88131b34680afd45d931a37d4bd0a7893f29ed",
+  "fixtureOnly": true,
+  "nativeTranscriptAndComposerRendered": true,
+  "originalToolProcessExpanded": true,
+  "originalToolOutputExpanded": true,
+  "submittedText": "ONLY_CARD_A_731",
+  "cardAContainsSubmittedText": true,
+  "cardBContainsSubmittedText": false,
+  "nativePermissionCardDisplayed": true,
+  "nativeDenyButtonDeliveredDecision": "deny",
+  "realModelInvoked": false,
+  "realCommandExecuted": false,
+  "productionCanvasModified": false,
+  "unmodifiedUpstreamCheckout": true,
+  "unsupportedHostFeatures": ["todo recovery", "file references", "model configuration", "desktop actions"],
+  "notVerified": ["live streaming", "real approvals", "session persistence", "production multi-card lifecycle"]
+}

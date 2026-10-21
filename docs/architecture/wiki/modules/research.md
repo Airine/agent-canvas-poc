@@ -12,6 +12,7 @@ sources:
   - docs/plans/plan_product.md 49c20fee682c
   - docs/research/report/agent_canvas.agent.final.md 77c747ba261a
 covers:
+  - tools/experiments/
   - tools/legacy/
   - docs/research/analysis/
   - docs/plans/plan.md

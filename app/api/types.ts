@@ -19,6 +19,7 @@ export interface ApprovalInfo {
 }
 
 export interface CanvasNode {
+  nativeEngine?: 'codex';
   backend?: 'e' | 'herdr';
   sessionRef?: SessionRef;
   sessionState?: Lifecycle;

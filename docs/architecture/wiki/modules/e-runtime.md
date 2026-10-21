@@ -6,7 +6,7 @@ sources:
   - app/api/e/config.ts 9cf2024e1ea2 runtimeConfig runtimeStatus MAX_SESSIONS
   - app/api/e/session-manager.ts 01240a44eb90 SessionManager eSessions
   - app/api/e/message-queue.ts 035004c14654 mutateQueue reconcileQueue queueReady
-  - app/api/e/projection.ts 2effa5473b3b projectSession
+  - app/api/e/projection.ts 2eaada3dde64 projectSession
   - app/scripts/e-runtime-worker.mts 640693a1eb1f control publish init
   - app/scripts/e-configuration.mjs 7ae7bdbb1b77 readConfiguration assertIdle changeConfiguration
   - app/scripts/e-control.mjs ed63498cbe6f controlSession

@@ -14,6 +14,8 @@ import { wirePumpToGraph } from './pump.js';
 import { ensureServer } from './herdr-adapter.js';
 import { eSessions } from './e-adapter.js';
 import { localRequestAllowed } from './local-access.js';
+import { nativeAssets } from './native-assets.js';
+import { codexNative } from './codex-native.js';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = Number(process.env.PORT || 3000);
@@ -25,6 +27,7 @@ app.use('*', async (c, next) => {
   await next();
 });
 app.route('/api', api);
+app.route('/native', nativeAssets);
 
 // static frontend (dist/) with SPA fallback
 app.use(
@@ -74,7 +77,7 @@ async function shutdown() {
   for (const client of wss.clients) client.close(1001, 'API shutting down');
   wss.close(); server.close();
   const deadline = setTimeout(() => process.exit(1), 15_000); deadline.unref();
-  await eSessions.close();
+  await Promise.all([eSessions.close(), codexNative.close()]);
   process.exit(0);
 }
 process.on('SIGINT', () => { void shutdown(); });

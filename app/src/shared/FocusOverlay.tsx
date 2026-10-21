@@ -24,11 +24,12 @@ export interface FocusOverlayProps {
   inlineClassName?: string;
   className?: string;
   children?: ReactNode;
+  preserveFrameState?: boolean;
 }
 
 export function FocusOverlay({
   open, onClose, kind, title, titleContent, statusContent, compactHeader=false, headerActions, identity, status,
-  statusDetail, sessionLabel, inlineClassName, className, children,
+  statusDetail, sessionLabel, inlineClassName, className, children, preserveFrameState = false,
 }: FocusOverlayProps) {
   const [fullViewport, setFullViewport] = useState(false);
   // A fresh focus visit always starts floating, including externally closed windows.
@@ -49,7 +50,11 @@ export function FocusOverlay({
     const target = open ? overlaySlotRef.current : inlineSlotRef.current;
     if (target && carrier.parentElement !== target) {
       const active = document.activeElement;
-      target.appendChild(carrier);
+      // appendChild reloads descendant iframes even when React does not remount.
+      // Keep both slots connected and use a state-preserving DOM move for native UI.
+      if (preserveFrameState && carrier.isConnected && 'moveBefore' in target) {
+        (target as HTMLDivElement & {moveBefore(node: Node, before: Node | null): void}).moveBefore(carrier, null);
+      } else target.appendChild(carrier);
       if (active instanceof HTMLElement && carrier.contains(active)) active.focus({ preventScroll: true });
     }
   });
@@ -102,8 +107,9 @@ export function FocusOverlay({
   return <>
     <div ref={inlineSlotRef} className={cn('min-h-0', inlineClassName)} />
     {createPortal(<div className={cn('h-full min-h-0 w-full', className)}>{children}</div>, carrier)}
-    {open && createPortal(
+    {(open || preserveFrameState) && createPortal(
       <div role="dialog" aria-modal="false" aria-label={`专注模式 · ${title}`} data-focus-overlay
+        style={{display: open ? 'flex' : 'none'}}
         data-window-mode={fullViewport ? 'full' : 'floating'}
         className="focus-window-backdrop fixed inset-0 z-focus-overlay flex items-center justify-center"
         onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}>

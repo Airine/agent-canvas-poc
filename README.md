@@ -1,5 +1,11 @@
 # Agent Canvas — 本地 e / Pi MVP
 
+## 当前分支：原版 Agent 界面
+
+`feat/native-agent-ui` 的卡片默认保留 PI Desktop 原版组件和 Codex 官方 Webview，分别接入现有 e/Pi 后端与独立 app-server。接入范围是文本对话、工具单次批准/拒绝、本地持久化和重启恢复；不是两款桌面应用的全部功能。
+
+原自研聊天界面保存在 `archive/self-built-chat-ui-2026-10-21`（`40d97da`）。下面的旧功能清单和历史验收文档不能当作原版界面已接通的功能。资源获取、配置、许可证边界和本次实测记录见 [Native cards](app/native/README.md)。原版资源需独立获取，不包含在仓库中。
+
 ## 开发者文档
 
 文档站位于独立的 `docs-site/`，基于 Fumadocs，首页为 Landing Page，不替换产品首页。
@@ -30,7 +36,7 @@ cp .env.e.example .env.e  # 已有本地配置时不要覆盖
 npm run dev:e
 ```
 
-打开启动器打印的 URL。默认 5173（UI）/3300（API），本机已配置为 5199/3319。e 模式默认只展示真实工作区，旧示例和 herdr 兼容入口在首页独立导航中。
+打开启动器打印的 URL。默认 5173（UI）/3300（API），以本地 `.env.e` 为准；本分支的隔离验收实例使用 5207/3327，不占用旧实例。e 模式默认只展示真实工作区，旧示例和 herdr 兼容入口在首页独立导航中。
 
 详细启动、数据目录、生产单服务、质量门禁与真实验收见 [docs/guides/E_BACKEND.md](docs/guides/E_BACKEND.md) 和 [docs/guides/E_INTEGRATION_VERIFICATION.md](docs/guides/E_INTEGRATION_VERIFICATION.md)。
 

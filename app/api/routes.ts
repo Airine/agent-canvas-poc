@@ -24,6 +24,7 @@ import { runtimeRouter, requireHerdr } from './runtime-router.js';
 import { PROJECT_ROOT } from './workspace-paths.js';
 import type { SessionView, ControlOperation } from './e/contracts.js';
 import { bindApproval } from './e/approval-binding.js';
+import { codexNative } from './codex-native.js';
 
 // -- zod schemas for POST /api/workspaces ------------------------------------
 
@@ -134,6 +135,7 @@ export function wireBroadcasts(): void {
   wired = true;
   // Rehydrate from durable session snapshots, not stale live statuses in graph JSON.
   for (const workspace of registry.list()) if (workspace.backend === 'e') {
+    for (const node of workspace.graph.nodes) if (node.nativeEngine === 'codex') getGraphStore(workspace.id)?.patchNode(node.id, {sessionState: 'interrupted', status: 'waiting'});
     for (const session of eSessions.list(workspace.id)) applySession(session);
     eSessions.collaboration.reconcile(workspace.id);applyCommunications(workspace.id);
   }
@@ -149,7 +151,7 @@ export function wireBroadcasts(): void {
     const view = eSessions.get(payload.workspaceId, payload.nodeId) ?? payload.view;
     const parent = store.getNode(payload.parent);
     const node = projectSession(view, undefined, store.graph.nodes.length);
-    node.x = (parent?.x ?? 80) + 560; node.y = parent?.y ?? 80;
+    node.x = (parent?.x ?? 80) + 640; node.y = parent?.y ?? 80;
     if (parent?.zoneId) node.zoneId = parent.zoneId;
     store.upsertNode(node);
     store.upsertEdge({ id: `spawn:${payload.spawnId}`, source: payload.parent, target: payload.nodeId, kind: 'spawn', label: `派生 · 深度 ${payload.depth}` });
@@ -216,9 +218,34 @@ api.get('/runtime/status', async c => c.json(await runtimeStatus()));
 api.get('/backends', async c => c.json({ active: process.env.CANVAS_BACKEND || 'herdr', backends: { e: await runtimeStatus(), herdr: { available: null, reason: 'Checked on explicit run' } } }));
 api.all('/e/*', c => c.json({ error: 'Legacy e socket/bind endpoints retired. Use workspace-scoped sessions.' }, 410));
 
+api.post('/workspaces/:wid/codex-cards', async c => {
+  const wid = c.req.param('wid');
+  if (registry.backend(wid) !== 'e') return c.json({error: 'e workspace not found'}, 404);
+  registry.assertWritable(wid);
+  const store = getGraphStore(wid)!, index = store.graph.nodes.length, nid = `n-${randomUUID()}`;
+  store.upsertNode({id: nid, type: 'chat', backend: 'e', nativeEngine: 'codex', title: 'Codex',
+    harness: 'codex', env: 'app-server', agentId: nid, status: 'queued', sessionState: 'starting',
+    x: 80 + index % 3 * 640, y: 80 + Math.floor(index / 3) * 640});
+  registry.persist();
+  try { await codexNative.start(wid, nid); }
+  catch (error) {
+    store.patchNode(nid, {sessionState: 'failed', status: 'failed', statusReason: 'Codex host could not start'});
+    registry.persist(); throw error;
+  }
+  return c.json({node: store.getNode(nid)}, 201);
+});
+api.get('/workspaces/:wid/nodes/:nid/codex', c => c.json(codexNative.status(c.req.param('wid'), c.req.param('nid'))));
+api.post('/workspaces/:wid/nodes/:nid/codex/:operation', async c => {
+  const wid = c.req.param('wid'), nid = c.req.param('nid'), operation = c.req.param('operation');
+  if (operation === 'resume') return c.json(await codexNative.start(wid, nid));
+  if (operation === 'stop') return c.json(await codexNative.stop(wid, nid));
+  return c.json({error: 'unsupported Codex lifecycle operation'}, 400);
+});
+
 const sessionSchema = z.object({ title: z.string().trim().min(1).max(160).default('Pi Agent'), provider: z.string().min(1).max(160).optional(), model: z.string().min(1).max(256).optional() }).strict();
 const attachmentSchema=z.object({id:z.string().min(1).max(128),name:z.string().min(1).max(160),mimeType:z.enum(['text/plain','image/png','image/jpeg','image/webp']),data:z.string().max(3*1024*1024)}).strict();
 const controlSchema = z.object({
+  expectedApprovalDigest: z.string().regex(/^[a-f0-9]{64}$/).optional(),
   intentId: z.string().min(1).max(256), content: z.string().max(100000).optional(), attachments:z.array(attachmentSchema).max(4).optional(),
   deliverAs: z.enum(['nextTurn', 'steer', 'followUp']).optional(), targetRunId: z.string().max(256).optional(),
   approvalId: z.string().max(256).optional(), decision: z.enum(['approved', 'rejected', 'cancelled']).optional(), response: z.unknown().optional(),
@@ -281,6 +308,16 @@ api.patch('/workspaces/:wid/nodes/:nid/approval-mode', async c => {
 api.get('/workspaces/:wid/nodes/:nid/session', c => {
   const session = eSessions.get(c.req.param('wid'), c.req.param('nid'));
   return session && registry.backend(c.req.param('wid')) === 'e' ? c.json({ session }) : c.json({ error: 'session not found' }, 404);
+});
+api.get('/workspaces/:wid/nodes/:nid/native-state', c => {
+  const wid = c.req.param('wid'), nid = c.req.param('nid');
+  const session = eSessions.get(wid, nid);
+  if (!session || registry.backend(wid) !== 'e') return c.json({error: 'session not found'}, 404);
+  const snapshot = session.snapshot;
+  const approvals = snapshot?.approvals?.filter(a => a.state === 'pending').flatMap(a => {
+    const binding = bindApproval(snapshot, a.id); return binding ? [binding] : [];
+  }) ?? [];
+  return c.json({session, approvals, readOnly: !!registry.get(wid)?.archivedAt || !!session.archivedAt});
 });
 api.patch('/workspaces/:wid/nodes/:nid/session',async c=>{
   const wid=c.req.param('wid'),nid=c.req.param('nid');
@@ -371,7 +408,10 @@ api.patch('/workspaces/:id', async c => {
   if (!parsed.success) return c.json({ error: 'invalid workspace update' }, 400);
   // Archive first to prevent concurrent starts/controls; no history is deleted.
   registry.update(id, parsed.data);
-  if (parsed.data.archived) await Promise.all(eSessions.list(id).map(s => eSessions.stop(id, s.nodeId)));
+  if (parsed.data.archived) await Promise.all([
+    ...eSessions.list(id).map(s => eSessions.stop(id, s.nodeId)),
+    ...(getGraphStore(id)?.graph.nodes ?? []).filter(n => n.nativeEngine === 'codex').map(n => codexNative.stop(id, n.id)),
+  ]);
   broadcast(graphMessage(id));
   return c.json(registry.get(id));
 });

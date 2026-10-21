@@ -483,7 +483,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
           </button>
           <span className="flex items-center gap-1.5 rounded-pill bg-surface-2 px-2.5 py-1 text-small text-text-secondary shadow-node">
             <Radio className="size-3 text-accent" />
-            {store.backendKind === 'e' ? 'e · 真实 AgentSession' : 'herdr / 示例'}
+            {store.backendKind === 'e' ? 'Native UI · e/Pi + Codex' : 'herdr / 示例'}
           </span>
           {workspaceId && (
             <span
@@ -521,7 +521,7 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
           >
             活窗 {liveCount}/{windowTotal}
           </span>
-          {store.backendKind === 'e' ? <div className="flex items-center gap-2 rounded bg-surface-2 p-2 text-small"><span>{store.connState}</span><button disabled={store.connState !== 'online'} onClick={()=>void store.addSession().catch(e=>toast.error(String(e)))}>添加 Pi 会话</button><ArchivedSessionsControl store={store}/></div> : <RunBar
+          {store.backendKind === 'e' ? <div className="flex items-center gap-2 rounded bg-surface-2 p-2 text-small"><span>{store.connState}</span><button disabled={store.connState !== 'online'} onClick={()=>void store.addSession().catch(e=>toast.error(String(e)))}>添加 Pi 会话</button><button disabled={store.connState !== 'online'} onClick={()=>void store.addCodexCard().catch(e=>toast.error(String(e)))}>添加 Codex</button><ArchivedSessionsControl store={store}/></div> : <RunBar
             runState={store.runState}
             connState={store.connState}
             onRun={() => store.run()}

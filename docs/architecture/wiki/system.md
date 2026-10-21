@@ -3,8 +3,8 @@ title: 系统总览
 description: 本地多 Agent 会话工作台
 sources:
   - app/src/App.tsx 10682b846ed7 App
-  - app/api/index.ts fb665635c747 wireBroadcasts
-  - app/api/routes.ts 8727ff4c9a19 applySession wsHandlers
+  - app/api/index.ts d5215586de34 wireBroadcasts
+  - app/api/routes.ts 19871b34460c applySession wsHandlers
   - app/api/e/session-manager.ts 01240a44eb90 SessionManager
   - app/scripts/e-runtime-worker.mts 640693a1eb1f
   - app/api/coordinator.ts 2f2630aa80fe
@@ -14,7 +14,7 @@ sources:
 
 ## 当前主线
 
-浏览器展示工作区和会话卡片，本地控制面管理工作区，每个真实会话由独立 worker 接入 e 核心与 Pi。消息和审批属于会话系统，画布保存的是位置、分区、身份和状态投影。
+浏览器展示工作区和会话卡片，本地控制面管理工作区。Pi 卡片保留 PI Desktop 原版组件，由独立 worker 接入 e 核心与 Pi；Codex 卡片保留官方 Webview，由独立 host 接入 app-server，不创建虚假的 e 会话。消息和审批由各自运行器负责，画布保存的是位置、身份与状态投影。
 
 `app/src/App.tsx` 的 `/` 是工作区列表，`/canvas/:workspaceId` 是产品画布。新建的文档站是独立工程 `docs-site/`，其 `/` 才是文档 Landing Page；它不替换产品首页，也不读取用户会话内容。
 
@@ -25,6 +25,7 @@ sources:
 | 浏览器 | 路由、画布、聊天呈现、本地界面状态 | `app/src/App.tsx`、[画布](modules/canvas.md)、[聊天](modules/chat-ui.md) |
 | 本地 Node 控制面 | HTTP / WS、工作区、生命周期与权限路由 | `app/api/index.ts`、`app/api/routes.ts` |
 | 会话 worker | 串行执行控制，桥接 e 核心和 Pi，汇报快照 | `app/scripts/e-runtime-worker.mts` |
+| Codex host | 每卡独立 app-server、持久线程、原版 UI transport | `app/api/codex-native.ts`、`tools/experiments/codex-native-ui/bridge.py` |
 | 外部 ADE / Pi | 提供核心会话协议、原生会话与模型访问 | worker 从已配置的 ADE 安装动态加载；不在本仓库内实现 |
 | herdr 兼容服务 | pane、tab、终端和旧图调度 | `app/api/coordinator.ts`、[herdr 模块](modules/herdr.md) |
 
@@ -33,6 +34,8 @@ sources:
 ## 两种后端不能混用
 
 e 工作区允许创建真实 Pi 会话、发消息、管理待发、调整模型与思考级别、审批工具、停止与恢复。会话是否可控制，以核心快照中的能力及就绪状态为准。模型列表和原生身份来自运行时，不是 UI 编造。
+
+这些是 e 后端能力，不代表新的原版组件输入台已接入所有功能。当前适配范围是文本对话、工具单次批准/拒绝和本地恢复；队列、附件和桌面服务的界面限制见仓库中的 `app/native/README.md`。同一工作区可添加 Codex 卡片，但 Codex 不参与 e 协作、Pi 配置和 Pi 已归档列表。
 
 herdr 工作区保留强、弱、错误边调度与终端输入。控制路由会拒绝在 e 工作区执行旧图运行。e 现在通过 [Canvas 协作](modules/collaboration.md)提供同画布受管的读取、发布与消息发送，实际记录投影成独立通信边；连线仍不触发自动 DAG 调度、建会话或 Git 合并。
 

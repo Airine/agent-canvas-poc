@@ -8,7 +8,7 @@ sources:
   - app/src/pages/home/CreateSessionForm.tsx 5a3183cc3eb9 CreateSessionForm
   - app/src/theme/ThemeProvider.tsx ebbfcb273a1c ThemeProvider
   - app/src/index.css 41d59ac8e5b6
-  - app/vite.config.ts cf1d2d5a5f57 apiPort
+  - app/vite.config.ts 0c7889528521 apiPort
   - app/src/lib/utils.ts bd0c391ddd10 cn
 covers:
   - app/src/App.tsx

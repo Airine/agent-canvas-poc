@@ -12,7 +12,7 @@
 import type { Graph, CanvasNode } from './types.js';
 
 function widthOf(n: CanvasNode): number {
-  return n.type === 'coordinator' ? 320 : 400;
+  return n.type === 'coordinator' ? 320 : n.backend === 'e' ? 600 : 400;
 }
 
 const NODE_H = 310;
@@ -141,7 +141,7 @@ export function computeLayout(graph: Graph): LayoutResult {
     for (const node of column) {
       positions.push({ id: node.id, x: cursorX, y });
       columnWidth = Math.max(columnWidth, widthOf(node));
-      y += NODE_H + NODE_GAP_Y;
+      y += (node.backend === 'e' ? 620 : NODE_H) + NODE_GAP_Y;
     }
     cursorX += columnWidth + RANK_GAP_X;
   }

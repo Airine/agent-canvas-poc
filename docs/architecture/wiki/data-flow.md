@@ -3,9 +3,9 @@ title: 数据流
 description: 沿浏览器、HTTP、WebSocket、IPC 和工具脚本追踪真实调用。
 sources:
   - app/src/App.tsx 10682b846ed7 App
-  - app/src/pages/canvas/live-store.ts 30cd63eddcb7 LiveStore
-  - app/api/index.ts fb665635c747 wireBroadcasts
-  - app/api/routes.ts 8727ff4c9a19 wsHandlers applySession
+  - app/src/pages/canvas/live-store.ts 340c2297e1d0 LiveStore
+  - app/api/index.ts d5215586de34 wireBroadcasts
+  - app/api/routes.ts 19871b34460c wsHandlers applySession
   - app/api/e/session-manager.ts 01240a44eb90 SessionManager
   - app/scripts/e-runtime-worker.mts 640693a1eb1f
   - app/scripts/dev-e.mjs 82c22e9d56a3
@@ -70,13 +70,9 @@ flows:
     page: data-flow.md#发送消息
     steps:
       - from: chat-ui
-        to: canvas
-        title: 提交会话命令
-        sources: [app/src/pages/canvas/chat/Composer.tsx]
-      - from: canvas
         to: control-plane
-        title: 工作区 HTTP 请求
-        sources: [app/src/pages/canvas/live-store.ts]
+        title: 原版 Pi 输入台提交工作区 HTTP 请求
+        sources: [app/native/pi.tsx]
       - from: control-plane
         to: e-runtime
         title: 校验后交给会话管理器

@@ -311,24 +311,179 @@
       "status": "removed"
     }
   ],
-  "head": "c428a53c41dffc93fddb96676b83b90a5a3b3afb",
-  "files": 232,
+  "head": "40d97dabd2903a68e0a219c616f1d82d07acc0e6",
+  "files": 242,
   "dead": [],
-  "suspects": [],
-  "deadExports": 0,
+  "suspects": [
+    {
+      "file": "app/src/pages/canvas/ApprovalModeControl.tsx",
+      "refs": [
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "docs/chat-ui-polish-evidence/assisted-approval-v2/verification.json",
+        "docs/chat-ui-polish-evidence/integrity.json"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/LiveChat.tsx",
+      "refs": [
+        "docs/chat-experience.md",
+        "docs/chat-ui-polish-evidence/integrity.json",
+        "docs/guides/E_BACKEND.md",
+        "tools/experiments/pi-native-ui/README.md"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/ApprovalRequest.tsx",
+      "refs": [
+        "app/src/pages/canvas/chat/ConversationView.tsx",
+        "docs/chat-ui-polish-evidence/assisted-approval-v2/verification.json"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/AttachmentTray.tsx",
+      "refs": [
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "app/src/pages/canvas/chat/QueuePanel.tsx",
+        "docs/chat-ui-polish-evidence/integrity.json",
+        "docs/desktop-chat-experience.md"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/CodeBlock.tsx",
+      "refs": [
+        "app/src/pages/canvas/chat/MarkdownContent.tsx",
+        "docs/themes.md",
+        "tools/experiments/codex-native-ui/host.js"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/Composer.tsx",
+      "refs": [
+        "app/native/pi.tsx",
+        "app/src/pages/canvas/LiveChat.tsx",
+        "docs/card-views-and-approvals.md",
+        "docs/chat-ui-polish-evidence/assisted-approval-v2/verification.json",
+        "docs/chat-ui-polish-evidence/integrity.json",
+        "docs/chat-ui-polish-evidence/recovery/verification.json",
+        "docs/chat-ui-polish.md",
+        "docs/desktop-chat-experience.md",
+        "docs/guides/E_BACKEND.md",
+        "docs/research/analysis/agent_canvas_dim05.md",
+        "docs/research/analysis/agent_canvas_dim10.md",
+        "docs/research/report/agent_canvas.agent.final.converted.md",
+        "docs/research/report/agent_canvas.agent.final.md",
+        "docs/research/report/agent_canvas.citation.jsonl",
+        "docs/research/report/agent_canvas_ref.md",
+        "docs/research/report/agent_canvas_sec06.md",
+        "docs/research/report/agent_canvas_sec06_refs.md",
+        "tools/experiments/pi-native-ui/README.md",
+        "tools/experiments/pi-native-ui/evidence/browser-results.json",
+        "tools/experiments/pi-native-ui/fixture.tsx"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/ConversationView.tsx",
+      "refs": [
+        "app/src/pages/canvas/LiveChat.tsx",
+        "docs/chat-experience.md",
+        "docs/chat-ui-polish-evidence/integrity.json",
+        "docs/chat-ui-polish-evidence/tool-hierarchy/verification.json"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/ExecutionGroup.tsx",
+      "refs": [
+        "app/src/pages/canvas/chat/TurnView.tsx",
+        "docs/chat-ui-polish-evidence/execution-activity-summary/verification.json",
+        "docs/chat-ui-polish-evidence/tool-hierarchy-v2/verification.json",
+        "docs/chat-ui-polish-evidence/tool-hierarchy/verification.json"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/MarkdownContent.tsx",
+      "refs": [
+        "app/src/pages/canvas/chat/ExecutionGroup.tsx",
+        "app/src/pages/canvas/chat/TurnView.tsx"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/QueuePanel.tsx",
+      "refs": [
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "docs/chat-ui-polish-evidence/integrity.json",
+        "docs/chat-ui-polish-evidence/queue-receipts-placement/README.md",
+        "docs/chat-ui-polish-evidence/queue-receipts-placement/verification.json",
+        "docs/desktop-chat-experience.md"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
+      "refs": [
+        "app/src/pages/canvas/chat/Composer.tsx",
+        "docs/chat-ui-polish-evidence/integrity.json",
+        "docs/chat-ui-polish-evidence/tool-hierarchy-v2/verification.json",
+        "docs/desktop-chat-experience.md"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/SessionNotice.tsx",
+      "refs": [
+        "app/src/pages/canvas/LiveChat.tsx",
+        "docs/chat-ui-polish.md"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/ToolActivity.tsx",
+      "refs": [
+        "app/src/pages/canvas/chat/ExecutionGroup.tsx",
+        "docs/chat-ui-polish-evidence/tool-hierarchy/verification.json"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/TurnView.tsx",
+      "refs": [
+        "app/src/pages/canvas/chat/ConversationView.tsx",
+        "docs/chat-experience.md",
+        "docs/chat-ui-polish-evidence/integrity.json",
+        "docs/chat-ui-polish-evidence/tool-hierarchy-v2/verification.json",
+        "docs/chat-ui-polish-evidence/tool-hierarchy/verification.json",
+        "docs/desktop-chat-experience.md"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/use-agent-mentions.tsx",
+      "refs": [
+        "app/src/pages/canvas/chat/Composer.tsx"
+      ]
+    },
+    {
+      "file": "app/src/pages/canvas/chat/useConversationScroll.ts",
+      "refs": [
+        "app/src/pages/canvas/chat/ConversationView.tsx",
+        "docs/desktop-chat-experience.md"
+      ]
+    }
+  ],
+  "deadExports": 6,
   "cycles": [],
   "hotspots": [
     {
       "file": "app/api/routes.ts",
-      "changes": 3,
-      "lines": 544,
-      "score": 1632
+      "changes": 4,
+      "lines": 584,
+      "score": 2336
     },
     {
       "file": "app/src/pages/canvas/live-store.ts",
+      "changes": 4,
+      "lines": 475,
+      "score": 1900
+    },
+    {
+      "file": "app/src/pages/canvas/index.tsx",
       "changes": 3,
-      "lines": 470,
-      "score": 1410
+      "lines": 612,
+      "score": 1836
     },
     {
       "file": "app/src/pages/canvas/mock-server.ts",
@@ -349,22 +504,16 @@
       "score": 1227
     },
     {
-      "file": "app/src/pages/canvas/index.tsx",
-      "changes": 2,
-      "lines": 612,
-      "score": 1224
+      "file": "app/api/e/session-manager.ts",
+      "changes": 3,
+      "lines": 391,
+      "score": 1173
     },
     {
       "file": "app/src/pages/reactflow/index.tsx",
       "changes": 2,
       "lines": 475,
       "score": 950
-    },
-    {
-      "file": "app/api/e/session-manager.ts",
-      "changes": 2,
-      "lines": 391,
-      "score": 782
     },
     {
       "file": "app/scripts/demo-quant-canvas/run.mjs",
@@ -388,6 +537,10 @@
     {
       "file": "app/eslint.config.js",
       "kind": "非入口：构建或检查配置，由对应工具加载"
+    },
+    {
+      "file": "app/native/pi.tsx",
+      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
     },
     {
       "file": "app/playwright.config.ts",
@@ -440,6 +593,10 @@
     {
       "file": "app/src/main.tsx",
       "kind": "真实入口：浏览器启动 → 路由 → 工作区/画布，见数据流「浏览器入口」"
+    },
+    {
+      "file": "app/src/pages/canvas/LiveChat.tsx",
+      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
     },
     {
       "file": "app/tailwind.config.js",
@@ -651,6 +808,18 @@
     },
     {
       "file": "app/test/unit/message-origins.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/native-assets.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/native-layout.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/pi-native-projection.test.mjs",
       "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
     },
     {

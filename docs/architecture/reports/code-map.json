@@ -1,5 +1,18 @@
 {
   "files": {
+    "app/api/codex-native.ts": {
+      "loc": 109,
+      "exports": [
+        "CodexNativeManager",
+        "codexNative"
+      ],
+      "imports": [
+        "app/api/e/config.ts",
+        "app/api/graph.ts",
+        "app/api/registry.ts"
+      ],
+      "packages": []
+    },
     "app/api/coordinator.ts": {
       "loc": 617,
       "exports": [
@@ -343,12 +356,14 @@
       "packages": []
     },
     "app/api/index.ts": {
-      "loc": 83,
+      "loc": 86,
       "exports": [],
       "imports": [
+        "app/api/codex-native.ts",
         "app/api/e-adapter.ts",
         "app/api/herdr-adapter.ts",
         "app/api/local-access.ts",
+        "app/api/native-assets.ts",
         "app/api/pump.ts",
         "app/api/routes.ts"
       ],
@@ -377,6 +392,18 @@
       "imports": [],
       "packages": []
     },
+    "app/api/native-assets.ts": {
+      "loc": 39,
+      "exports": [
+        "nativeAssets"
+      ],
+      "imports": [
+        "app/api/codex-native.ts"
+      ],
+      "packages": [
+        "hono"
+      ]
+    },
     "app/api/pump.ts": {
       "loc": 135,
       "exports": [
@@ -404,7 +431,7 @@
       "packages": []
     },
     "app/api/routes.ts": {
-      "loc": 544,
+      "loc": 584,
       "exports": [
         "WSContext",
         "wireBroadcasts",
@@ -412,6 +439,7 @@
         "api"
       ],
       "imports": [
+        "app/api/codex-native.ts",
         "app/api/coordinator.ts",
         "app/api/e-adapter.ts",
         "app/api/e/approval-binding.ts",
@@ -452,7 +480,7 @@
       "packages": []
     },
     "app/api/types.ts": {
-      "loc": 113,
+      "loc": 114,
       "exports": [
         "NodeStatus",
         "NodeType",
@@ -496,6 +524,43 @@
         "eslint-plugin-react-refresh",
         "globals",
         "typescript-eslint"
+      ]
+    },
+    "app/native/focus-guard.ts": {
+      "loc": 14,
+      "exports": [
+        "guardCardFocus"
+      ],
+      "imports": [],
+      "packages": []
+    },
+    "app/native/pi-projection.ts": {
+      "loc": 33,
+      "exports": [
+        "projectPiMessages"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/native/pi.tsx": {
+      "loc": 127,
+      "exports": [],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/native/focus-guard.ts",
+        "app/native/pi-projection.ts"
+      ],
+      "packages": [
+        "@pi-desktop/i18n",
+        "@upstream/components",
+        "@upstream/features",
+        "@upstream/stores",
+        "i18next",
+        "react",
+        "react-dom",
+        "react-i18next"
       ]
     },
     "app/playwright.config.ts": {
@@ -1042,7 +1107,7 @@
       ]
     },
     "app/src/pages/canvas/LiveNode.tsx": {
-      "loc": 221,
+      "loc": 226,
       "exports": [
         "LiveFlowNode",
         "LiveNode"
@@ -1052,11 +1117,13 @@
         "app/src/pages/canvas/ApprovalCard.tsx",
         "app/src/pages/canvas/CardViewControl.tsx",
         "app/src/pages/canvas/L0Summary.tsx",
-        "app/src/pages/canvas/LiveChat.tsx",
         "app/src/pages/canvas/LiveTerminal.tsx",
+        "app/src/pages/canvas/NativeCodexChat.tsx",
+        "app/src/pages/canvas/NativePiChat.tsx",
         "app/src/pages/canvas/SessionHeaderActions.tsx",
         "app/src/pages/canvas/SessionIdentity.tsx",
         "app/src/pages/canvas/canvas-context.ts",
+        "app/src/pages/canvas/chat/Diagnostics.tsx",
         "app/src/pages/canvas/chat/presentation-state.ts",
         "app/src/pages/canvas/live-store.ts",
         "app/src/pages/canvas/session-store.ts",
@@ -1087,6 +1154,28 @@
         "xterm",
         "xterm-addon-fit"
       ]
+    },
+    "app/src/pages/canvas/NativeCodexChat.tsx": {
+      "loc": 29,
+      "exports": [
+        "NativeCodexChat"
+      ],
+      "imports": [
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": [
+        "react"
+      ]
+    },
+    "app/src/pages/canvas/NativePiChat.tsx": {
+      "loc": 9,
+      "exports": [
+        "NativePiChat"
+      ],
+      "imports": [
+        "app/src/pages/canvas/live-store.ts"
+      ],
+      "packages": []
     },
     "app/src/pages/canvas/RunBar.tsx": {
       "loc": 140,
@@ -1690,7 +1779,7 @@
       ]
     },
     "app/src/pages/canvas/contracts.ts": {
-      "loc": 108,
+      "loc": 109,
       "exports": [
         "NodeStatus",
         "NodeType",
@@ -1742,7 +1831,7 @@
       ]
     },
     "app/src/pages/canvas/live-store.ts": {
-      "loc": 470,
+      "loc": 475,
       "exports": [
         "default",
         "LiveStore",
@@ -2244,7 +2333,7 @@
       ]
     },
     "app/src/shared/FocusOverlay.tsx": {
-      "loc": 143,
+      "loc": 149,
       "exports": [
         "FocusOverlayProps",
         "FocusOverlay"
@@ -3053,6 +3142,32 @@
       ],
       "packages": []
     },
+    "app/test/unit/native-assets.test.mjs": {
+      "loc": 32,
+      "exports": [],
+      "imports": [
+        "app/api/native-assets.ts"
+      ],
+      "packages": [
+        "hono"
+      ]
+    },
+    "app/test/unit/native-layout.test.mjs": {
+      "loc": 11,
+      "exports": [],
+      "imports": [
+        "app/api/layout.ts"
+      ],
+      "packages": []
+    },
+    "app/test/unit/pi-native-projection.test.mjs": {
+      "loc": 31,
+      "exports": [],
+      "imports": [
+        "app/native/pi-projection.ts"
+      ],
+      "packages": []
+    },
     "app/test/unit/production-assets.test.mjs": {
       "loc": 14,
       "exports": [],
@@ -3116,7 +3231,7 @@
       "packages": []
     },
     "app/vite.config.ts": {
-      "loc": 32,
+      "loc": 33,
       "exports": [
         "default"
       ],

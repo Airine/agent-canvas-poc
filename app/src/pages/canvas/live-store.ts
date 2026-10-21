@@ -344,6 +344,11 @@ export class LiveStore {
     const res = await fetch(`/api/workspaces/${encodeURIComponent(this.workspaceId)}/sessions`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(options)});
     const data = await res.json();if(!res.ok)throw new Error(data.error || `HTTP ${res.status}`);
   }
+  async addCodexCard(): Promise<void> {
+    if (!this.workspaceId || this.connState !== 'online') throw new Error('画布尚未连接');
+    const res = await fetch(`/api/workspaces/${encodeURIComponent(this.workspaceId)}/codex-cards`, {method: 'POST'});
+    const data = await res.json(); if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+  }
   async saveLayout(positions: Array<{id:string;x:number;y:number}>): Promise<void> {
     if (!this.workspaceId || this.connState !== 'online') return;
     const res=await fetch(`/api/workspaces/${encodeURIComponent(this.workspaceId)}/layout`, {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({positions})});

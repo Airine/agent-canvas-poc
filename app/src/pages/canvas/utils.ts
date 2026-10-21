@@ -79,7 +79,7 @@ export const EDGE_KIND_SEMANTIC: Record<EdgeKind, string> = {
 
 /** 节点 DOM 宽（§3.2：默认态固定 400px；Coordinator 320px，§3.3.4） */
 export function nodeWidth(node: CanvasNode): number {
-  return node.type === 'coordinator' ? 320 : 400;
+  return node.type === 'coordinator' ? 320 : node.backend === 'e' ? 600 : 400;
 }
 
 /** minimap 节点色块（SVG fill attribute 不支持 var()，用与令牌一致的 hex） */

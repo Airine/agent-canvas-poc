@@ -2,20 +2,24 @@
 title: 实时画布
 description: 将工作区图、终端与会话状态投影到可交互画布。
 sources:
+  - app/src/pages/canvas/NativePiChat.tsx 739fce67361a NativePiChat
+  - app/src/pages/canvas/NativeCodexChat.tsx 5d7320e9eb73 NativeCodexChat
   - app/src/pages/canvas/GlobalCardViewControl.tsx 5eeacac098c7 GlobalCardViewControl
   - app/src/pages/canvas/CardViewControl.tsx 2a0b6806cfd0 CardViewControl
   - app/src/pages/canvas/ApprovalModeControl.tsx 600aaa3b12e7 ApprovalModeControl
   - app/src/pages/canvas/ArchivedSessionsControl.tsx 7e4c4517c1ba ArchivedSessionsControl
   - app/src/pages/canvas/SessionHeaderActions.tsx 36820f437092 SessionHeaderActions
-  - app/src/pages/canvas/contracts.ts e0b86ed4908f
-  - app/src/pages/canvas/index.tsx 9e21ff626ae2 CanvasPage CanvasRedirect computeTiers
-  - app/src/pages/canvas/live-store.ts 30cd63eddcb7 LiveStore fetchWorkspaces sessionAction subscribeTerm
+  - app/src/pages/canvas/contracts.ts a4cef3be1ff4
+  - app/src/pages/canvas/index.tsx b5fd4c2af28a CanvasPage CanvasRedirect computeTiers
+  - app/src/pages/canvas/live-store.ts 340c2297e1d0 LiveStore fetchWorkspaces sessionAction subscribeTerm
   - app/src/pages/canvas/session-store.ts a1af822c02ec SessionStore capabilityAvailable
-  - app/src/pages/canvas/LiveNode.tsx 4465d81b5bb1 LiveNode LiveNodeComponent
+  - app/src/pages/canvas/LiveNode.tsx 07bf3cd52cee LiveNode LiveNodeComponent
   - app/src/pages/canvas/LiveTerminal.tsx c93871702251 LiveTerminal EventReplay
   - app/src/pages/canvas/SessionIdentity.tsx 51d05a98dec9 SessionIdentity SessionStatus
   - app/src/pages/canvas/RunBar.tsx d2020529a6d3 RunBar
 covers:
+  - app/src/pages/canvas/NativePiChat.tsx
+  - app/src/pages/canvas/NativeCodexChat.tsx
   - app/src/pages/canvas/ArchivedSessionsControl.tsx
   - app/src/pages/canvas/GlobalCardViewControl.tsx
   - app/src/pages/canvas/global-card-view.css
@@ -51,6 +55,10 @@ covers:
 本页覆盖的文件超过 20 个，但职责仍集中在工作区的实时画布适配。对话内容与输入规则单列在[会话交互](chat-ui.md)，跨画布的显示组件单列在[画布原型与共享呈现](prototypes.md)。
 
 ## 对外接口
+
+`LiveNode` 当前按 `nativeEngine: codex` 选择 Codex 原版 iframe，其余 e 节点选择 PI Desktop 原版组件 iframe。e 卡片宽 600px、正文高 560px，专注模式沿用现有宿主。Pi 的进程和标题控件仍走 e 会话管理器；Codex 单独提供停止/恢复及卡片视图，不伪造 e SessionView。两类卡片使用同源 `/native` 资源路径，但运行器、数据目录和会话身份互不共享。
+
+原版卡片在专注切换时保留两个已连接的插槽，通过 `FocusOverlay.preserveFrameState` 使用 `moveBefore`，避免普通 DOM 搬迁重载 iframe、丢失草稿。旧浏览器不支持该 API 时仍会重载。自动布局也按原版卡片的宽高留出间距；不沿用旧 400px 卡片尺寸。
 
 | 接口 | 定义位置 | 调用方与用途 |
 | --- | --- | --- |

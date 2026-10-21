@@ -1,0 +1,25 @@
+{
+  "pi": {
+    "nativeSessionId": "a52e0682-0b3a-4e07-9557-2619bd37e886",
+    "liveReply": true,
+    "approvedToolExecuted": true,
+    "deniedTool": true,
+    "firstRestartRecall": "CEDAR-6184",
+    "epochBeforeRestart": "157c51fd-285c-42f2-a69f-ece32c66d4e2",
+    "sameNativeIdAfterApiRestart": true,
+    "newEpochAfterApiRestart": true,
+    "secondRestartRecall": "PI_RESTORED_CEDAR-6184",
+    "deniedResult": "denied by user"
+  },
+  "codex": {
+    "threadId": "01a15c79-1534-7820-957d-e58737ed60e0",
+    "liveReply": true,
+    "approvedExitCode": 0,
+    "deniedStatus": "declined",
+    "deniedOutputEmpty": true,
+    "hostRunBeforeRestart": "03a767ac-1730-4ccb-ab15-1c177ace8d93",
+    "sameThreadAfterApiRestart": true,
+    "newHostProcessRun": true,
+    "restartRecall": "MAPLE-9265"
+  }
+}

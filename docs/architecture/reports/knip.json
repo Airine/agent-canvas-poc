@@ -3,10 +3,94 @@
   "status": 2,
   "stderr": "ERROR: Invalid issue type: cycles\n",
   "fallback": "npx -y knip@5 --reporter json --include files,exports",
-  "fallbackStatus": 0,
+  "fallbackStatus": 1,
   "fallbackError": "",
   "result": {
-    "files": [],
-    "issues": []
+    "files": [
+      "src/pages/canvas/ApprovalModeControl.tsx",
+      "src/pages/canvas/LiveChat.tsx",
+      "src/pages/canvas/chat/ApprovalRequest.tsx",
+      "src/pages/canvas/chat/AttachmentTray.tsx",
+      "src/pages/canvas/chat/CodeBlock.tsx",
+      "src/pages/canvas/chat/Composer.tsx",
+      "src/pages/canvas/chat/ConversationView.tsx",
+      "src/pages/canvas/chat/ExecutionGroup.tsx",
+      "src/pages/canvas/chat/MarkdownContent.tsx",
+      "src/pages/canvas/chat/QueuePanel.tsx",
+      "src/pages/canvas/chat/RuntimeConfigControl.tsx",
+      "src/pages/canvas/chat/SessionNotice.tsx",
+      "src/pages/canvas/chat/ToolActivity.tsx",
+      "src/pages/canvas/chat/TurnView.tsx",
+      "src/pages/canvas/chat/use-agent-mentions.tsx",
+      "src/pages/canvas/chat/useConversationScroll.ts"
+    ],
+    "issues": [
+      {
+        "file": "api/codex-native.ts",
+        "exports": [
+          {
+            "name": "CodexNativeManager",
+            "line": 12,
+            "col": 14,
+            "pos": 515
+          }
+        ]
+      },
+      {
+        "file": "src/pages/canvas/chat/presentation-state.ts",
+        "exports": [
+          {
+            "name": "approvalLabel",
+            "line": 5,
+            "col": 14,
+            "pos": 276
+          }
+        ]
+      },
+      {
+        "file": "src/pages/canvas/chat/attachments.ts",
+        "exports": [
+          {
+            "name": "pastedAttachment",
+            "line": 6,
+            "col": 17,
+            "pos": 325
+          }
+        ]
+      },
+      {
+        "file": "src/pages/canvas/chat/chat-ui-store.ts",
+        "exports": [
+          {
+            "name": "getChatUI",
+            "line": 37,
+            "col": 17,
+            "pos": 4464
+          }
+        ]
+      },
+      {
+        "file": "src/pages/canvas/chat/execution-presentation.ts",
+        "exports": [
+          {
+            "name": "isProcessPart",
+            "line": 4,
+            "col": 14,
+            "pos": 132
+          }
+        ]
+      },
+      {
+        "file": "src/pages/canvas/chat/primitives.tsx",
+        "exports": [
+          {
+            "name": "Disclosure",
+            "line": 7,
+            "col": 17,
+            "pos": 717
+          }
+        ]
+      }
+    ]
   }
 }

@@ -8,7 +8,7 @@ sources:
   - app/src/pages/tldraw/TldrawPage.tsx 82667d254c67 TldrawPage EventEngine
   - app/src/shared/mock/engine.ts 2069eba7941f EventEngine buildSnapshot
   - app/src/shared/ViewModeManager.ts 0ae2b785db35 ViewModeManager modeForScreenWidth
-  - app/src/shared/FocusOverlay.tsx a60114c77b42 FocusOverlay
+  - app/src/shared/FocusOverlay.tsx 8d5553ae3aff FocusOverlay
   - app/src/pages/PocLanding.tsx 11a61d8c9b07 Home
 covers:
   - app/src/pages/reactflow/

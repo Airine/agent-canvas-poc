@@ -1,0 +1,17 @@
+{
+  "extensionVersion": "26.51007.21434",
+  "codexVersion": "0.162.0-alpha.17.2",
+  "threadId": "01a15afb-1341-7c40-b6bd-3828fa5898b4",
+  "realUiTurns": 2,
+  "firstReply": "CODEX_NATIVE_UI_LIVE_OK",
+  "firstTurnStatus": "completed",
+  "approvalMethod": "item/commandExecution/requestApproval",
+  "approvalRequestId": 0,
+  "command": "/bin/zsh -lc 'printf CODEX_NATIVE_UI_APPROVAL_OK'",
+  "uiDecision": "decline",
+  "commandStatus": "declined",
+  "commandProcessId": null,
+  "finalReply": "APPROVAL_DECLINED_OK",
+  "finalTurnStatus": "completed",
+  "approvedExecutionTested": false
+}

@@ -7,6 +7,7 @@ export type NodeType = 'coordinator' | 'operation' | 'chat' | 'artifact';
 export type EdgeKind = 'strong' | 'weak' | 'error' | 'communication' | 'spawn';
 
 export interface CanvasNode {
+  nativeEngine?: 'codex';
   backend?: 'e' | 'herdr'; sessionRef?: SessionRef; sessionState?: Lifecycle; sessionStatus?: string; summary?: string;
   id: string;
   type: NodeType;

@@ -2,16 +2,20 @@
 title: 本地控制面
 description: HTTP、WebSocket 与工作区持久化的共同边界。
 sources:
-  - app/api/index.ts fb665635c747
-  - app/api/routes.ts 8727ff4c9a19 wireBroadcasts wsHandlers api
+  - app/api/native-assets.ts 2efa4d689d62 nativeAssets
+  - app/api/codex-native.ts 60dbf70a8b84 CodexNativeManager
+  - app/api/index.ts d5215586de34
+  - app/api/routes.ts 19871b34460c wireBroadcasts wsHandlers api
   - app/api/registry.ts 4ccc91d72dac registry
   - app/api/graph.ts 112b00eb033d GraphStore onAnyPatch
-  - app/api/layout.ts 4db5586b7967 computeLayout
+  - app/api/layout.ts 8bc396673207 computeLayout
   - app/api/local-access.ts 160bda3f88d5 localRequestAllowed
   - app/api/runtime-router.ts 16802d8055c1 requireHerdr runtimeRouter
-  - app/api/types.ts 76c3fb554487 CanvasNode ServerMessage ClientMessage
+  - app/api/types.ts 1f6fba1e368c CanvasNode ServerMessage ClientMessage
   - app/api/workspace-paths.ts d251249d59c7 PROJECT_ROOT migrateLegacySeedPath
 covers:
+  - app/api/native-assets.ts
+  - app/api/codex-native.ts
   - app/api/index.ts
   - app/api/routes.ts
   - app/api/registry.ts
@@ -33,6 +37,10 @@ covers:
 工作区记录与画布状态由服务管理。会话消息由独立的运行时模块保存，画布只投影会话身份和状态；它不是会话历史的事实源。
 
 ## 对外接口
+
+- `/native/pi/*` 只托管独立构建的原版组件包，限制 realpath，不回退 SPA。`/native/codex/:wid/:nid/*` 只转发已启动、属于该工作区的 Codex 卡片，不能通过请求选择任意代理目标；仍受本机 Host/Origin 检查。
+- `CodexNativeManager` 管理每卡独立的 Python host 和 app-server，持久化路径在 `CANVAS_DATA_DIR/codex-native/:nid/`。每次打开原版 UI 更换 renderer token，旧视图停止接收；持久线程不随视图卸载删除。API 退出和工作区归档停止两类运行器。新建与恢复只允许可写工作区。
+- Pi 的 `native-state` 返回 SessionView 和审批参数绑定；审批接口接受 `expectedApprovalDigest`，由现有 worker 校验，不能绕过 e 能力和代次检查。Codex 单次审批由 app-server 请求 ID 绑定，禁止会话级授权和权限扩展。
 
 - `app/api/index.ts` 挂载 `/api`、升级 `/ws`，并托管 `app/dist/`。静态文件不存在时回退到首页；尚未构建首页则返回 404。
 - `app/api/routes.ts` 的 `api` 提供工作区创建、查询、重命名、归档、布局及后端控制。`/api/e/*` 已退役，返回 410。旧 `/api/graph` 与 `/api/nodes/:id/*` 仍按活动工作区解释，新调用应使用 `/api/workspaces/:wid/...`。
