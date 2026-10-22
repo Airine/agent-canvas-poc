@@ -6,7 +6,7 @@ sources:
   - app/shared/collaboration-package.mjs bbcc71c2fceb readCollaborationPackage
   - app/scripts/canvas-channel.mjs 423b626ff829
   - skills/canvas-collaboration/SKILL.md 22ab9d615eca
-  - app/api/e/collaboration.ts da9fcb9b5731 CollaborationStore
+  - app/api/e/collaboration.ts 4783f32850af CollaborationStore
   - app/api/e/collaboration-authorization.ts 26a34844b106 authorizeCollaboration
   - app/api/e/collaboration-contracts.ts 03d4156005ba CommunicationRecord
   - app/api/e/message-origins.ts 2167cd9ebfec associateMessageOrigins orderedMessages
@@ -15,8 +15,8 @@ sources:
   - app/src/pages/canvas/CommunicationTrace.tsx e5b7550444b7 CommunicationTrace
   - app/src/pages/canvas/use-agent-identities.ts 8526c53bb917 useAgentIdentities
   - app/shared/agent-reference.mjs bbb0ad9222b4 sessionIdentities resolveAgentReference
-  - app/api/e/session-manager.ts 42f937409e41 SessionManager
-  - app/api/routes.ts 66658ffbac2c applyCommunications
+  - app/api/e/session-manager.ts e8ccaba53413 SessionManager
+  - app/api/routes.ts d38de58bd856 applyCommunications
 covers:
   - app/scripts/canvas-channel.mjs
   - app/scripts/collaboration-inspect.mjs
@@ -69,6 +69,8 @@ API 传期望 manifest，worker 独立校验，扩展通过实际 SDK 命令/工
 读取返回有来源和完整文本摘要的结果，截断会明确标记，并落一条读取记录。发布保存不可变文本。发送先写操作意图，再向目标的现有待发队列加入带受管来源的消息，最后保存回执。目标忙时等待空闲；停止、用户暂停或重启暂停的目标不会被自动唤醒或解冻。初始未授权的空队列只在目标已就绪且本次发送已获批准时获得继续授权。
 
 队列状态才是消费事实：核心观察到精确输入元组才显示已消费，模型回复与任务成功是另一件事。结果未知不自动重试。重启保留回执、产物和通信记录，重新投影连线；恢复会话和恢复队列是两个明确操作。
+
+用户人工核实后结束跟踪的队列条目，通信账本仍记为未知并保留原始错误；重复工具调用返回原回执，不因人工处理而重新入队。人工处理不构成发送成功或取消执行的证据。
 
 可信输入来源先由真实动作应用事件与观察消息关联。历史重放改变消息 ID 时，只用先前记录的同原生会话、时间与完整内容摘要精确唯一匹配恢复标签；不能从正文中的名字认人。没有先前绑定、时间或内容不同、观察不可信、重复元组时维持来源未知。最新结果按真实消息时间选取，不能按快照数组末项猜测。
 

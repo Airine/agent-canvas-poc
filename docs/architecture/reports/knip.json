@@ -10,13 +10,11 @@
       "src/pages/canvas/ApprovalModeControl.tsx",
       "src/pages/canvas/LiveChat.tsx",
       "src/pages/canvas/chat/ApprovalRequest.tsx",
-      "src/pages/canvas/chat/AttachmentTray.tsx",
       "src/pages/canvas/chat/CodeBlock.tsx",
       "src/pages/canvas/chat/Composer.tsx",
       "src/pages/canvas/chat/ConversationView.tsx",
       "src/pages/canvas/chat/ExecutionGroup.tsx",
       "src/pages/canvas/chat/MarkdownContent.tsx",
-      "src/pages/canvas/chat/QueuePanel.tsx",
       "src/pages/canvas/chat/RuntimeConfigControl.tsx",
       "src/pages/canvas/chat/SessionNotice.tsx",
       "src/pages/canvas/chat/ToolActivity.tsx",
@@ -41,20 +39,9 @@
         "exports": [
           {
             "name": "approvalLabel",
-            "line": 5,
-            "col": 14,
-            "pos": 276
-          }
-        ]
-      },
-      {
-        "file": "src/pages/canvas/chat/attachments.ts",
-        "exports": [
-          {
-            "name": "pastedAttachment",
             "line": 6,
-            "col": 17,
-            "pos": 325
+            "col": 14,
+            "pos": 353
           }
         ]
       },

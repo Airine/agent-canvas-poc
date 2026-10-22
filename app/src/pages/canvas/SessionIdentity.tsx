@@ -4,6 +4,7 @@ import type { SessionView } from '../../../api/e/contracts';
 import { useLiveStore, type CanvasNode, type LiveStore } from './live-store';
 import { useSession } from './session-store';
 import { QueueReceipts } from './chat/QueueReceipts';
+import { QueuePanel } from './chat/QueuePanel';
 import { CollaborationStatus } from './chat/CollaborationStatus';
 import { sessionIndicator } from './chat/presentation-state';
 import { ChatPopover } from './chat/ChatPopover';
@@ -89,7 +90,7 @@ export function SessionIdentity({ store, node }: { store: LiveStore; node: Canva
 export function SessionStatus({ store, node }: { store: LiveStore; node: CanvasNode }) {
  const view=useSession(store.sessions,node.id);useLiveStore(store);const now=useSecondClock(view?.lifecycle==='ready');
  const indicator=sessionIndicator(view,store.connState==='online',now,store.readOnly),{state,usage}=indicator;
- const important=indicator.tone==='danger'||!!state.warning||state.recovery||state.pending.length>0||store.connState!=='online'||store.readOnly||view?.lifecycle==='stopped';
+ const important=indicator.tone==='danger'||!!indicator.queueLabel||!!state.warning||state.recovery||state.pending.length>0||store.connState!=='online'||store.readOnly||view?.lifecycle==='stopped';
  const percent=usage?`${Number(usage.percent!.toFixed(1))}%`:undefined;
  const explanation=[indicator.explanation,usage?`上下文 ${percent} · ${usage.tokens} / ${usage.contextWindow} tokens · 采集于 ${indicator.confirmedAt}`:'当前不展示上下文用量'].join(' · ');
  const tooltipId=useId();
@@ -97,12 +98,15 @@ export function SessionStatus({ store, node }: { store: LiveStore; node: CanvasN
   <ChatPopover id="session-status" label="会话状态与上下文" title={null} side="bottom" align="end" className="session-status-trigger" contentClassName="chat-status-popover" triggerProps={{'data-session-status':node.id,'aria-label':explanation,'aria-describedby':tooltipId}} trigger={<>
    {usage?<svg className="session-context-ring" viewBox="0 0 24 24" aria-hidden="true"><circle className="session-context-track" cx="12" cy="12" r="9"/><circle className="session-context-fill" cx="12" cy="12" r="9" pathLength="100" strokeDasharray={`${Math.min(100,usage.percent!)} 100`} transform="rotate(-90 12 12)"/></svg>:<span className="session-status-light" aria-hidden="true"/>}
    {usage?<span className="session-context-value">{percent}</span>:important?<span className="session-status-important">{indicator.label}</span>:<span className="sr-only">{indicator.label}</span>}
+   {indicator.queueLabel&&<span className="session-queue-status">{indicator.queueLabel}</span>}
   </>}>
    <p className="chat-status-label">{indicator.label}</p>{state.reason&&<p className="chat-muted">{state.reason}</p>}{state.warning&&<p className="chat-warning">{state.warning}</p>}
+   {indicator.queueLabel&&<p className="chat-warning">{indicator.queueLabel}。会话恢复与队列处理是两步；请在下方展开待发列表核实，处理后仍须单独恢复待发。</p>}
    {usage?<><p className="chat-context-value">{percent}</p><p className="chat-muted">{usage.tokens?.toLocaleString()} / {usage.contextWindow.toLocaleString()} tokens</p><p className="chat-muted">Pi contextUsage · 采集于 <time dateTime={indicator.confirmedAt}>{indicator.confirmedAt}</time></p></>:<p className="chat-muted">{indicator.tone==='danger'?'异常状态优先显示；请查看会话诊断或执行配置核实。':state.pending.length?'请先处理待审批请求。':view?.lifecycle==='ready'?'尚无有效上下文数据，不使用累计 token 估算。':'会话就绪并取得真实用量后显示上下文。'}</p>}
+   <QueuePanel view={view} store={store} nodeId={node.id}/>
    <QueueReceipts view={view}/>
    <CollaborationStatus view={view} online={store.connState==='online'}/>
   </ChatPopover>
-  <span id={tooltipId} role="tooltip" className="session-status-tooltip chat-control-tooltip is-below">{indicator.label}{usage?` · 上下文 ${percent}`:''} · 点击查看详情</span>
+  <span id={tooltipId} role="tooltip" className="session-status-tooltip chat-control-tooltip is-below">{indicator.label}{indicator.queueLabel?` · ${indicator.queueLabel}`:''}{usage?` · 上下文 ${percent}`:''} · 点击查看详情</span>
  </span>;
 }

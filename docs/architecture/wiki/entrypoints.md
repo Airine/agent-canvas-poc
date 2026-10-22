@@ -2,7 +2,7 @@
 title: 入口对账
 description: 逐项裁决静态图的零入度候选，区分运行入口、工具配置和未接入代码。
 generated: npm --prefix docs-site run architecture:analyze
-generated-at: da78cdf4250390a9eb61498d7c161e8c5365c756
+generated-at: 476b55640cc3f6293b9288727587fa6f76486dc5
 ---
 # 入口对账
 
@@ -25,6 +25,7 @@ generated-at: da78cdf4250390a9eb61498d7c161e8c5365c756
 | `app/shared/collaboration-protocol.d.mts` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/shared/message-content.d.mts` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/shared/model-recovery.d.mts` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
+| `app/shared/queue-review.d.mts` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/src/main.tsx` | 真实入口：浏览器启动 → 路由 → 工作区/画布，见数据流「浏览器入口」 |
 | `app/src/pages/canvas/LiveChat.tsx` | 非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力 |
 | `app/tailwind.config.js` | 非入口：构建或检查配置，由对应工具加载 |
@@ -39,6 +40,7 @@ generated-at: da78cdf4250390a9eb61498d7c161e8c5365c756
 | `app/test/browser/e-canvas.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/browser/global-card-view.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/browser/identity-window.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
+| `app/test/browser/queue-review.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/browser/real-e.spec.ts` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/browser/real-multi.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/browser/real-tools.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
@@ -85,6 +87,7 @@ generated-at: da78cdf4250390a9eb61498d7c161e8c5365c756
 | `app/test/unit/pi-native-projection.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/production-assets.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/quant-canvas-demo.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
+| `app/test/unit/queue-review.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/recovery-presentation.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/runtime-config-presentation.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |
 | `app/test/unit/session-identity.test.mjs` | 测试入口：由测试运行器或显式命令执行，不是产品服务 |

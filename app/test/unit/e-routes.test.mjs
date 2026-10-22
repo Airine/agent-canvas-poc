@@ -32,6 +32,20 @@ test('Codex provider is explicit, immutable card metadata with no credential fie
 });
 test.after(async () => { await eSessions.close(); fs.rmSync(dir, { recursive:true, force:true }); });
 
+test('manual queue review requires confirmation and note, and cannot accept client-authored audit',async t=>{
+ const w=await make(),view={workspaceId:w.id,nodeId:'n-review'};
+ t.mock.method(eSessions,'get',()=>view);
+ const queue=t.mock.method(eSessions,'queue',async()=>view),url=`/workspaces/${w.id}/nodes/n-review/queue`;
+ const body={mutationId:'review',expectedRevision:1,operation:'reviewUnknown',itemId:'old',confirmReview:true,reviewNote:'Checked history'};
+ for(const patch of [{confirmReview:false},{reviewNote:''},{reviewNote:'  '},{reviewNote:'x'.repeat(1001)},{review:{actor:'system'}}]){
+  assert.equal((await request(url,'POST',{...body,...patch})).status,400);
+ }
+ assert.equal(queue.mock.calls.length,0);
+ assert.equal((await request(url,'POST',body)).status,200);assert.deepEqual(queue.mock.calls[0].arguments,[w.id,'n-review',body]);
+ await request(`/workspaces/${w.id}`,'PATCH',{archived:true});
+ assert.equal((await request(url,'POST',body)).status,409);assert.equal(queue.mock.calls.length,1);
+});
+
 test('e workspace is empty, local and never accepts demo nodes as live', async () => {
  const w = await make(); assert.equal(w.backend, 'e'); assert.equal(w.source, 'live'); assert.deepEqual(w.graph.nodes, []);
  const res = await request(`/workspaces/${w.id}/run`, 'POST', {}); assert.equal(res.status,409);

@@ -15,6 +15,7 @@
 .session-status[data-tone=ready]{--session-status-color:var(--st-completed)}
 .session-status[data-tone=active]{--session-status-color:var(--st-running)}
 .session-status[data-tone=approval]{--session-status-color:var(--st-waiting)}
+.session-status[data-tone=warning]{--session-status-color:var(--st-waiting)}
 .session-status[data-tone=danger]{--session-status-color:var(--st-failed)}
 .session-status-light{display:inline-block;width:10px;height:10px;flex-shrink:0;border-radius:50%;background:var(--session-status-color);box-shadow:0 0 0 3px color-mix(in srgb,var(--session-status-color) 12%,transparent)}
 .session-status-important{font-size:11px;color:var(--session-status-color);overflow-wrap:anywhere}
@@ -50,6 +51,9 @@ body:has([data-focus-overlay]) .theme-switcher-global{z-index:calc(var(--z-focus
 
 /* Context and lifecycle share exactly one primary indicator. */
 .session-status-trigger{display:inline-flex;gap:6px;align-items:center;min-height:32px;padding:4px 7px!important;border-radius:18px!important;font-size:13px!important;white-space:nowrap;font-family:inherit}
+.session-status-trigger:has(.session-queue-status){display:grid;grid-template-columns:9px minmax(0,1fr);max-width:100%;column-gap:6px;row-gap:2px;text-align:left}
+.session-status-trigger .session-queue-status{grid-column:2;max-width:100%;min-width:0}
+.session-status-trigger:has(.session-queue-status) .session-status-important{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .session-status-trigger:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .session-status[data-indicator=context] .session-status-trigger{background:var(--surface-2);color:var(--text-primary)}
 .session-context-ring{width:20px;height:20px;flex-shrink:0;fill:none;stroke-width:3;stroke-linecap:round}

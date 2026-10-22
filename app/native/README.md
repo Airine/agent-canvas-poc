@@ -7,6 +7,18 @@ implementation remains available in `archive/self-built-chat-ui-2026-10-21`
 
 ## Ownership
 
+Canvas queue recovery is available in the card header's session-status popover.
+It reuses the audited queue controls outside the native iframe: reviewing an
+unknown delivery records evidence, never marks it successful or resends it, and
+leaves remaining messages paused until a separate explicit resume. Pi's original
+transcript/composer are unchanged; its own `queuePrompt` remains unsupported.
+
+Codex transport failures settle matching RPC/fetch requests instead of leaving
+the official UI waiting. A disconnected event stream blocks new actions and
+retries only event reads from the last cursor with bounded backoff. Expired
+renderer leases require a refresh. Outbound actions are never automatically
+replayed; network/5xx failures warn that execution may be unknown.
+
 - **Pi:** `native/pi.tsx` projects the existing e `SessionView` into PI Desktop's
   store. Only Canvas's existing e/Pi process executes tools. The adapter polls
   `native-state`, sends existing session controls, and binds approvals to the

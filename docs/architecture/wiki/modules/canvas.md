@@ -15,7 +15,7 @@ sources:
   - app/src/pages/canvas/session-store.ts a1af822c02ec SessionStore capabilityAvailable
   - app/src/pages/canvas/LiveNode.tsx 07bf3cd52cee LiveNode LiveNodeComponent
   - app/src/pages/canvas/LiveTerminal.tsx c93871702251 LiveTerminal EventReplay
-  - app/src/pages/canvas/SessionIdentity.tsx 51d05a98dec9 SessionIdentity SessionStatus
+  - app/src/pages/canvas/SessionIdentity.tsx 7b2ddc2ba807 SessionIdentity SessionStatus
   - app/src/pages/canvas/RunBar.tsx d2020529a6d3 RunBar
 covers:
   - app/src/pages/canvas/NativePiChat.tsx
@@ -75,6 +75,8 @@ covers:
 `contracts.ts` 独立承载图与消息类型，真实 store 和 mock 共同依赖它；store 保留类型转导出，避免一次改动所有调用方。
 
 ## 数据怎么流
+
+标题状态详情区分运行器状态和队列状态：已恢复会话仍可有待核实队列，不能将队列阻塞显示为会话未恢复。人工处理记录独立于已确认消费回执。
 
 打开工作区后，浏览器建立同源 WebSocket，先声明要查看的工作区。收到全量图后建立节点、边和分区，再按增量更新局部状态。消息带有工作区、代次和序号时，客户端过滤错工作区和旧帧；发现序号缺口就重新请求全量图。连接失败会退避重连，保留最后快照。
 

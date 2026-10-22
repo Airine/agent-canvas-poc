@@ -311,8 +311,8 @@
       "status": "removed"
     }
   ],
-  "head": "da78cdf4250390a9eb61498d7c161e8c5365c756",
-  "files": 243,
+  "head": "476b55640cc3f6293b9288727587fa6f76486dc5",
+  "files": 247,
   "dead": [],
   "suspects": [
     {
@@ -337,15 +337,6 @@
       "refs": [
         "app/src/pages/canvas/chat/ConversationView.tsx",
         "docs/chat-ui-polish-evidence/assisted-approval-v2/verification.json"
-      ]
-    },
-    {
-      "file": "app/src/pages/canvas/chat/AttachmentTray.tsx",
-      "refs": [
-        "app/src/pages/canvas/chat/Composer.tsx",
-        "app/src/pages/canvas/chat/QueuePanel.tsx",
-        "docs/chat-ui-polish-evidence/integrity.json",
-        "docs/desktop-chat-experience.md"
       ]
     },
     {
@@ -407,16 +398,6 @@
       ]
     },
     {
-      "file": "app/src/pages/canvas/chat/QueuePanel.tsx",
-      "refs": [
-        "app/src/pages/canvas/chat/Composer.tsx",
-        "docs/chat-ui-polish-evidence/integrity.json",
-        "docs/chat-ui-polish-evidence/queue-receipts-placement/README.md",
-        "docs/chat-ui-polish-evidence/queue-receipts-placement/verification.json",
-        "docs/desktop-chat-experience.md"
-      ]
-    },
-    {
       "file": "app/src/pages/canvas/chat/RuntimeConfigControl.tsx",
       "refs": [
         "app/src/pages/canvas/chat/Composer.tsx",
@@ -464,26 +445,32 @@
       ]
     }
   ],
-  "deadExports": 6,
+  "deadExports": 5,
   "cycles": [],
   "hotspots": [
     {
       "file": "app/api/routes.ts",
-      "changes": 5,
-      "lines": 584,
-      "score": 2920
+      "changes": 6,
+      "lines": 591,
+      "score": 3546
     },
     {
       "file": "app/src/pages/canvas/index.tsx",
-      "changes": 4,
-      "lines": 612,
-      "score": 2448
+      "changes": 5,
+      "lines": 622,
+      "score": 3110
     },
     {
       "file": "app/src/pages/canvas/live-store.ts",
-      "changes": 5,
-      "lines": 475,
-      "score": 2375
+      "changes": 6,
+      "lines": 476,
+      "score": 2856
+    },
+    {
+      "file": "app/api/e/session-manager.ts",
+      "changes": 4,
+      "lines": 399,
+      "score": 1596
     },
     {
       "file": "app/src/pages/canvas/mock-server.ts",
@@ -502,12 +489,6 @@
       "changes": 3,
       "lines": 409,
       "score": 1227
-    },
-    {
-      "file": "app/api/e/session-manager.ts",
-      "changes": 3,
-      "lines": 391,
-      "score": 1173
     },
     {
       "file": "app/src/pages/reactflow/index.tsx",
@@ -591,6 +572,10 @@
       "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
     },
     {
+      "file": "app/shared/queue-review.d.mts",
+      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
+    },
+    {
       "file": "app/src/main.tsx",
       "kind": "真实入口：浏览器启动 → 路由 → 工作区/画布，见数据流「浏览器入口」"
     },
@@ -644,6 +629,10 @@
     },
     {
       "file": "app/test/browser/identity-window.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/queue-review.spec.ts",
       "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
     },
     {
@@ -828,6 +817,10 @@
     },
     {
       "file": "app/test/unit/quant-canvas-demo.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/queue-review.test.mjs",
       "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
     },
     {

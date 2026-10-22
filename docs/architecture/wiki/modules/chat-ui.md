@@ -5,13 +5,13 @@ sources:
   - app/native/pi-host.ts d803f938729b createPiFileHost confirmPermission
   - app/native/pi.tsx 4dbefccf30c3
   - app/native/pi-projection.ts f8c8d466d07f projectPiMessages
-  - app/src/pages/canvas/chat/QueuePanel.tsx 14344a53ad03 QueuePanel
-  - app/src/pages/canvas/chat/QueueReceipts.tsx da27f4a2800d QueueReceipts
+  - app/src/pages/canvas/chat/QueuePanel.tsx ee0f45effae2 QueuePanel
+  - app/src/pages/canvas/chat/QueueReceipts.tsx a762f70e7fa7 QueueReceipts
   - app/src/pages/canvas/chat/ExecutionGroup.tsx 948d362fbbb0 ExecutionGroup
   - app/src/pages/canvas/chat/execution-presentation.ts d331f2a51450 groupExecutionTurns isExecutionOnly executionSummary
   - app/src/pages/canvas/chat/approval-presentation.ts 39f8b243c17b approvalAuditLabel approvalProgress allPendingReviewing
   - app/src/pages/canvas/chat/runtime-config-presentation.ts be479d7748ab configurationBasis thinkingLevels configurationBlockReason modelGroups
-  - app/src/pages/canvas/chat/ChatPopover.tsx 8cb0cb4f5108 ChatPopover ChatConfirm
+  - app/src/pages/canvas/chat/ChatPopover.tsx 05f00dd71b5a ChatPopover ChatConfirm
   - app/src/pages/canvas/chat/TurnView.tsx 6e24ee1ca16e TurnView
   - app/src/pages/canvas/chat/SessionNotice.tsx 8f1c327919b2 SessionNotice
   - app/src/pages/canvas/chat/Composer.tsx 8bb0926fa82b Composer
@@ -19,7 +19,7 @@ sources:
   - app/src/pages/canvas/chat/project-transcript.ts cf3e836071a7 TranscriptProjector
   - app/src/pages/canvas/chat/ConversationView.tsx c44472e6df67 ConversationView
   - app/src/pages/canvas/chat/ApprovalRequest.tsx f7b8d4c8ace0 ApprovalRequest
-  - app/src/pages/canvas/chat/presentation-state.ts dd9866b3c526 presentation sessionNotices
+  - app/src/pages/canvas/chat/presentation-state.ts 7f58eb0814aa presentation sessionNotices
   - app/src/pages/canvas/chat/attachments.ts 6bc4fc390f29 readAttachment pastedAttachment
   - app/src/pages/canvas/chat/error-presentation.ts c29909dfeee8 redact safeLink errorStatusTitle
   - app/src/pages/canvas/chat/RuntimeConfigControl.tsx 18eac6869cc9 RuntimeConfigControl
@@ -36,7 +36,9 @@ Codex 使用独立原版 Webview 和 app-server，不经过此 Pi 投影。构�
 
 原版 Pi 模型选择器现已接入 e 的真实模型目录、版本检查和配置回读；原版附件入口通过 `pi-host.ts` 读取浏览器选择的字节，按卡片身份保存在 IndexedDB，发送仍复用共享内容校验。历史图片来自 e 快照，不读取任意宿主路径。原版权限选择器映射 manual/edits/full，扩权需宿主确认，停止或恢复后回到 manual。Codex 原版模型/推理选择、上传与权限字段由受限宿主桥适配；完整功能矩阵见 native README，不能把显示了按钮当成服务已接通。
 
-以下是保留在仓库及 `archive/self-built-chat-ui-2026-10-21` 分支中的自研聊天模块说明，已不作为默认正文和输入台。其队列、附件及模型配置功能不能算作原版组件适配层已支持的能力；标题状态、诊断和部分通用控件仍复用。
+Canvas 队列的核实、单独恢复和审计记录已接到 Pi 卡片标题的“会话状态与上下文”窗口，位于原版 iframe 外侧，不改原版组件。Pi 原版输入台的 `queuePrompt` 仍未适配。
+
+以下是保留在仓库及 `archive/self-built-chat-ui-2026-10-21` 分支中的自研聊天模块说明，已不作为默认正文和输入台。其附件及模型配置功能不能算作原版组件适配层已支持的能力；标题状态、队列恢复、诊断和部分通用控件仍复用。
 
 让用户在真实会话里读消息、写草稿、查看工具执行并决定审批。界面区分会话生命周期、当前轮状态、审批状态和操作结果未知，不能把“请求已发出”显示成“执行已成功”。
 
@@ -54,6 +56,8 @@ Codex 使用独立原版 Webview 和 app-server，不经过此 Pi 投影。构�
 - `readAttachment`、`pastedAttachment`（`attachments.ts`）形成契约中的 base64 附件；约束检查复用 `app/shared/message-content.mjs`，会话类型来自 `app/api/e/contracts.ts`。
 
 ## 数据怎么流
+
+会话是否就绪与队列是否阻塞分开显示，未知派发不会覆盖“会话已就绪”“会话已停止”或真实运行器故障。展开待发列表可核实未知消息；确认框要求核实说明和明确勾选，过期队列版本必须重新检查，提交失败保留说明。处理完成后仍需单独恢复待发。状态详情把人工处理记录与真实消费回执分开列出，旧 API 不提供无法执行的按钮。
 
 服务端会话快照先按实体标识和修订号去重，再把助手消息按轮次合并。工具调用与结果只呈现一次，有明确轮次或父消息的工具放回对应位置；无法关联的工具和审批单独显示，避免猜测归属。
 

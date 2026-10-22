@@ -3,12 +3,12 @@ title: 本地控制面
 description: HTTP、WebSocket 与工作区持久化的共同边界。
 sources:
   - tools/experiments/codex-native-ui/bridge.py 7ea1b9be5992
-  - tools/experiments/codex-native-ui/host.js 32eefa5afb4a
+  - tools/experiments/codex-native-ui/host.js 16c869fecbb6
   - tools/experiments/codex-native-ui/attachments.py 3a41d9c06f1f
   - app/api/native-assets.ts 1f03f86ad121 nativeAssets
   - app/api/codex-native.ts 410721c16563 CodexNativeManager
   - app/api/index.ts d5215586de34
-  - app/api/routes.ts 66658ffbac2c wireBroadcasts wsHandlers api
+  - app/api/routes.ts d38de58bd856 wireBroadcasts wsHandlers api
   - app/api/registry.ts 4ccc91d72dac registry
   - app/api/graph.ts 112b00eb033d GraphStore onAnyPatch
   - app/api/layout.ts 8bc396673207 computeLayout

@@ -20,5 +20,5 @@
   // canvas-tools is loaded inside the installed Pi runtime, which supplies pi-ai.
   "ignoreDependencies": ["@earendil-works/pi-ai"],
   // TypeScript resolves each declaration alongside its same-named .mjs implementation.
-  "ignore": ["shared/message-content.d.mts", "shared/agent-reference.d.mts", "shared/collaboration-protocol.d.mts", "shared/collaboration-package.d.mts", "shared/model-recovery.d.mts"]
+  "ignore": ["shared/message-content.d.mts", "shared/agent-reference.d.mts", "shared/collaboration-protocol.d.mts", "shared/collaboration-package.d.mts", "shared/model-recovery.d.mts", "shared/queue-review.d.mts"]
 }
