@@ -6,13 +6,13 @@ import { codexNative } from './codex-native.js';
 
 /** Serve locally built, separately licensed upstream assets; no SPA fallback. */
 export const nativeAssets = new Hono();
-nativeAssets.use('/codex/*', bodyLimit({maxSize: 1_000_000}));
+nativeAssets.use('/codex/*', bodyLimit({maxSize: 12 * 1024 * 1024}));
 nativeAssets.all('/codex/:wid/:nid/*', async c => {
   try {
     const origin = codexNative.upstream(c.req.param('wid'), c.req.param('nid'));
     const prefix = `/native/codex/${c.req.param('wid')}/${c.req.param('nid')}`;
     const suffix = c.req.path.slice(prefix.length);
-    if (!['GET', 'POST'].includes(c.req.method) || !/^\/(ui\/|bridge$|events$)/.test(suffix)) return c.text('Not found', 404);
+    if (!['GET', 'POST'].includes(c.req.method) || !/^\/(ui\/|bridge$|events$|attachments$)/.test(suffix)) return c.text('Not found', 404);
     const target = new URL(origin + suffix); target.search = new URL(c.req.url).search;
     const headers = new Headers();
     for (const key of ['content-type', 'x-probe-token']) { const value = c.req.header(key); if (value) headers.set(key, value); }

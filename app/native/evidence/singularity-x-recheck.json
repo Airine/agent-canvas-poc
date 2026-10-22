@@ -1,0 +1,13 @@
+{
+  "provider": "singularity-x",
+  "privateTraceRoot": "/Users/aaron/Library/Application Support/agent-canvas/native-integration/singularity-x-flbmd8dz",
+  "threadId": "01a15f59-237b-7993-b37c-02396eee3f27",
+  "sameThreadResumed": true,
+  "historyRestored": true,
+  "followupResponsePassed": false,
+  "upstreamHttpStatus": 502,
+  "upstreamErrorCode": "turn_rate_limit_exceeded",
+  "upstreamMessage": "Codex is at capacity",
+  "applicationResubmitted": false,
+  "nativeUIVerified": false
+}

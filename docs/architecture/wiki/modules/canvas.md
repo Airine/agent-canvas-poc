@@ -3,15 +3,15 @@ title: 实时画布
 description: 将工作区图、终端与会话状态投影到可交互画布。
 sources:
   - app/src/pages/canvas/NativePiChat.tsx 739fce67361a NativePiChat
-  - app/src/pages/canvas/NativeCodexChat.tsx 5d7320e9eb73 NativeCodexChat
+  - app/src/pages/canvas/NativeCodexChat.tsx 0ef0e913dba6 NativeCodexChat
   - app/src/pages/canvas/GlobalCardViewControl.tsx 5eeacac098c7 GlobalCardViewControl
   - app/src/pages/canvas/CardViewControl.tsx 2a0b6806cfd0 CardViewControl
-  - app/src/pages/canvas/ApprovalModeControl.tsx 600aaa3b12e7 ApprovalModeControl
+  - app/src/pages/canvas/ApprovalModeControl.tsx 739582da0723 ApprovalModeControl
   - app/src/pages/canvas/ArchivedSessionsControl.tsx 7e4c4517c1ba ArchivedSessionsControl
   - app/src/pages/canvas/SessionHeaderActions.tsx 36820f437092 SessionHeaderActions
-  - app/src/pages/canvas/contracts.ts a4cef3be1ff4
-  - app/src/pages/canvas/index.tsx b5fd4c2af28a CanvasPage CanvasRedirect computeTiers
-  - app/src/pages/canvas/live-store.ts 340c2297e1d0 LiveStore fetchWorkspaces sessionAction subscribeTerm
+  - app/src/pages/canvas/contracts.ts 0f6596291602
+  - app/src/pages/canvas/index.tsx df78605bbbb7 CanvasPage CanvasRedirect computeTiers
+  - app/src/pages/canvas/live-store.ts 6419edf89df3 LiveStore fetchWorkspaces sessionAction subscribeTerm
   - app/src/pages/canvas/session-store.ts a1af822c02ec SessionStore capabilityAvailable
   - app/src/pages/canvas/LiveNode.tsx 07bf3cd52cee LiveNode LiveNodeComponent
   - app/src/pages/canvas/LiveTerminal.tsx c93871702251 LiveTerminal EventReplay

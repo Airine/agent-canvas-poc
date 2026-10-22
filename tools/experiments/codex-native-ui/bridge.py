@@ -1,5 +1,6 @@
 """Local, single-client proof of concept. Vendor assets are NOT redistributed."""
 import argparse
+import base64
 import hmac
 import json
 import os
@@ -14,6 +15,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from mimetypes import guess_type
 from urllib.parse import urlsplit, parse_qs
 from storage import HostStorage
+from attachments import Attachments
+import provider
 
 HERE = Path(__file__).parent
 READ_METHODS = {
@@ -41,6 +44,8 @@ class Runtime:
         self.args = args
         self.pending = {}
         self.approvals = {}
+        self.permission_grants = {}
+        self.attachments = Attachments(args.home)
         self.storage = HostStorage(args.home, args.cwd)
         saved = self.storage.load()
         self.threads = set(saved['threads'])
@@ -55,6 +60,10 @@ class Runtime:
                       'selected-project': {'type': 'local', 'projectId': project['id']},
                       'viewed2025-09-15-nux': True}
         self.atoms = {'recent-tasks-filter': 'local', **saved['atoms']}
+        # Preferences are not durable authorization. Start each host read-only.
+        if getattr(args, 'canvas_host', False):
+            self.atoms['permission-selection-by-host-id:local'] = {'kind':'agent-mode', 'agentMode':'read-only'}
+            self.atoms['agent-mode-by-host-id'] = {'local':'read-only'}
         self.capn_sessions = {}
         self.token = secrets.token_urlsafe(32)
         self.origin = f'http://127.0.0.1:{args.port}'
@@ -69,6 +78,14 @@ class Runtime:
         flags = ['sandbox_mode="read-only"', 'approval_policy="on-request"',
                  'approvals_reviewer="user"', 'web_search="disabled"',
                  'analytics.enabled=false', 'features.multi_agent=false']
+        self.provider_models = None
+        if getattr(args, 'provider', 'chatgpt') == provider.PROVIDER:
+            if (args.home / 'auth.json').exists() or (args.home / 'auth.json').is_symlink():
+                raise ValueError('Custom provider requires a separate home without ChatGPT auth')
+            credential, self.provider_models = provider.credentials_and_models()
+            env[provider.ENV_KEY] = credential
+            flags += provider.flags()
+            del credential
         command = [str(args.codex), 'app-server', '--listen', 'stdio://']
         for flag in flags:
             command += ['-c', flag]
@@ -76,6 +93,7 @@ class Runtime:
         self.process = subprocess.Popen(command, cwd=args.cwd, env=env,
                                         stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                         stderr=self.stderr, text=True, bufsize=1)
+        env.pop(provider.ENV_KEY, None)
         threading.Thread(target=self.read_loop, daemon=True).start()
         result = self.call('initialize', {
             'clientInfo': {'name': 'agent_canvas_native_ui_probe', 'title': 'Isolated native UI probe', 'version': '0.1.0'},
@@ -147,8 +165,9 @@ class Runtime:
             params = {'includeToken': False, 'refreshToken': False}
         if method == 'thread/list':
             params['cwd'] = str(self.args.cwd)
+        requested = dict(params)
         if method in {'thread/start', 'thread/resume'}:
-            # Never accept a UI override that broadens runtime permissions.
+            # Normalize safe defaults; Canvas expansion is checked below.
             params = {k: v for k, v in params.items() if k in
                       {'threadId', 'model', 'excludeTurns', 'initialTurnsPage'}}
             params.update(cwd=str(self.args.cwd), sandbox='read-only',
@@ -169,10 +188,80 @@ class Runtime:
                         'The host supports individual execution approval, not session-wide grants.')
         if method == 'turn/start':
             params = {k: v for k, v in params.items() if k in
-                      {'threadId', 'input', 'model', 'clientUserMessageId'}}
+                      {'threadId', 'input', 'model', 'clientUserMessageId', 'effort'}}
             params.update(cwd=str(self.args.cwd), approvalPolicy='on-request',
-                          approvalsReviewer='user', sandboxPolicy={'type': 'readOnly'}, effort='low')
+                          approvalsReviewer='user', sandboxPolicy={'type': 'readOnly'})
+            if not getattr(self.args, 'canvas_host', False):
+                params['effort'] = 'low'
+        if getattr(self.args, 'canvas_host', False) and method in {'thread/start','thread/resume','turn/start'}:
+            sandbox = requested.get('sandboxPolicy') or {}
+            if not isinstance(sandbox, dict):
+                raise ValueError('Invalid sandbox policy')
+            selection = self.atoms.get('permission-selection-by-host-id:local') or {}
+            mode = selection.get('agentMode', 'read-only') if selection.get('kind', 'agent-mode') == 'agent-mode' else 'unsupported'
+            selected_policy = {'read-only':'readOnly','auto':'workspaceWrite','full-access':'dangerFullAccess'}.get(mode)
+            policy = sandbox.get('type') or ({'read-only':'readOnly','workspace-write':'workspaceWrite','danger-full-access':'dangerFullAccess'}.get(requested['sandbox']) if requested.get('sandbox') else selected_policy)
+            collaboration = requested.get('collaborationMode')
+            if collaboration is not None:
+                if not isinstance(collaboration, dict) or collaboration.get('mode') != 'default':
+                    raise ValueError('Only default collaboration mode is connected')
+                settings = collaboration.get('settings') or {}
+                if not isinstance(settings, dict):
+                    raise ValueError('Invalid collaboration settings')
+                # The official composer stores its model/effort here and sends
+                # null top-level fields. Never substitute a different model.
+                if settings.get('model'):
+                    params['model'] = settings['model']
+                if method == 'turn/start' and settings.get('reasoning_effort'):
+                    params['effort'] = settings['reasoning_effort']
+            if policy not in {'readOnly','workspaceWrite','dangerFullAccess'}:
+                raise ValueError('Unsupported sandbox policy')
+            owner = requested.get('threadId', '__new__')
+            if policy != 'readOnly' and getattr(self, 'permission_grants', {}).get(owner) != policy:
+                raise ValueError('Permission expansion requires host confirmation for this running session')
+            if policy == 'readOnly':
+                getattr(self, 'permission_grants', {}).pop(owner, None)
+            params['approvalPolicy'] = 'never' if policy == 'dangerFullAccess' else 'on-request'
+            params['approvalsReviewer'] = 'user'
+            if method == 'turn/start':
+                params['sandboxPolicy'] = {'type':policy}
+                if policy == 'workspaceWrite':
+                    params['sandboxPolicy'].update(writableRoots=[str(self.args.cwd)], networkAccess=False, excludeTmpdirEnvVar=True, excludeSlashTmp=True)
+            else:
+                params['sandbox'] = {'readOnly':'read-only','workspaceWrite':'workspace-write','dangerFullAccess':'danger-full-access'}[policy]
+                params['config'] = {'sandbox_workspace_write': {'writable_roots':[str(self.args.cwd)], 'network_access':False, 'exclude_tmpdir_env_var':True,'exclude_slash_tmp':True}}
+        if method in {'turn/start','turn/steer'}:
+            for item in params.get('input', []):
+                if item.get('type') == 'localImage':
+                    self.attachments.read(item['path'])
+                elif item.get('type') == 'image':
+                    url = item.get('url', '')
+                    if not url.startswith(('data:image/png;base64,','data:image/jpeg;base64,','data:image/webp;base64,')) or len(url) > 3 * 1024 * 1024:
+                        raise ValueError('Only bounded inline images are supported')
+        if getattr(self, 'provider_models', None) is not None and method in {'thread/start','thread/resume','turn/start'}:
+            model = params.get('model')
+            if method == 'thread/start':
+                model = model or provider.DEFAULT_MODEL
+            if model is not None and model not in self.provider_models:
+                raise ValueError('Model is not available from Singularity-X: ' + str(model))
+            if model is not None:
+                params['model'] = model
+            else:
+                # Let app-server retain the thread's selected model on restore.
+                params.pop('model', None)
+            if method != 'turn/start':
+                params['modelProvider'] = 'singularity_x'
         result = self.call(method, params)
+        if getattr(self, 'provider_models', None) is not None and method == 'model/list':
+            result = provider.filter_models(result, self.provider_models)
+        if method == 'account/read':
+            # One read-only retry fits the Canvas proxy's 35-second deadline
+            # when discovery itself times out after 15 seconds.
+            for _ in range(1):
+                if result.get('error', {}).get('message', '') not in {'workspace routing discovery failed', 'workspace routing discovery timed out'}:
+                    break
+                time.sleep(0.5)
+                result = self.call(method, params)
         if method == 'thread/start' and 'result' in result:
             self.threads.add(result['result']['thread']['id'])
             self.save()
@@ -185,8 +274,11 @@ class Runtime:
 
     def host_fetch(self, url, body):
         key = url.removeprefix('vscode://codex/')
+        if key in {'read-file-binary', 'read-file-metadata'}:
+            data = self.attachments.read(body['path'])
+            return {'contentsBase64':base64.b64encode(data).decode()} if key == 'read-file-binary' else {'sizeBytes':len(data), 'isDirectory':False}
         if key == 'account-info':
-            result = self.call('account/read', {})['result']
+            result = self.rpc({'method':'account/read','params':{}})['result']
             account = result.get('account') or {}
             return {'accountId': None, 'userId': None, 'plan': account.get('planType'),
                     'email': None, 'computeResidency': None,
@@ -233,11 +325,15 @@ class Runtime:
     def _handle(self, msg):
         self.log('from-ui', msg)
         kind = msg.get('type')
-        if kind == 'mcp-request':
+        if kind == 'canvas-confirm-permissions':
+            if not getattr(self.args, 'canvas_host', False) or msg.get('threadId') not in self.threads | {'__new__'} or msg.get('policy') not in {'workspaceWrite','dangerFullAccess'}:
+                raise ValueError('Invalid permission confirmation')
+            self.permission_grants[msg['threadId']] = msg['policy']
+        elif kind == 'mcp-request':
             req = msg['request']
             try:
                 result = self.rpc(req)
-            except (ValueError, KeyError) as error:
+            except (ValueError, KeyError, TypeError, AttributeError) as error:
                 result = {'error': {'code': -32601, 'message': str(error)}}
             self.emit({'type': 'mcp-response', 'hostId': 'local',
                        'message': {'id': req['id'], **result}})
@@ -261,7 +357,7 @@ class Runtime:
             try:
                 value = self.host_fetch(msg['url'], json.loads(msg.get('body') or '{}'))
                 reply.update(responseType='success', status=200, headers={}, bodyJsonString=json.dumps(value))
-            except (ValueError, KeyError) as error:
+            except (ValueError, KeyError, TypeError, AttributeError) as error:
                 reply.update(responseType='error', status=501, error=str(error))
             self.emit(reply)
         elif kind == 'persisted-atom-sync-request':
@@ -413,18 +509,21 @@ class Handler(BaseHTTPRequestHandler):
             self.send_error(404)
 
     def do_POST(self):
-        if self.path != '/bridge' or not self.authorized():
+        if self.path not in {'/bridge','/attachments'} or not self.authorized():
             self.send_error(403)
             return
         size = int(self.headers.get('Content-Length', '0'))
-        if not 0 < size < 1_000_000:
+        if not 0 < size < 12 * 1024 * 1024:
             self.send_error(413)
             return
         try:
             msg = json.loads(self.rfile.read(size))
+            if self.path == '/attachments':
+                self.send_data(json.dumps(self.server.runtime.attachments.upload(msg.get('files'))).encode())
+                return
             self.server.runtime.handle(msg)
             self.send_data(b'{"ok":true}')
-        except (ValueError, KeyError) as error:
+        except (ValueError, KeyError, TypeError, AttributeError) as error:
             self.send_data(json.dumps({'error': str(error)}).encode(), status=400)
 
 
@@ -434,6 +533,7 @@ def main():
         parser.add_argument('--' + name, type=Path, required=True)
     parser.add_argument('--port', type=int, default=4392)
     parser.add_argument('--canvas-host', action='store_true')
+    parser.add_argument('--provider', choices=['chatgpt', provider.PROVIDER], default='chatgpt')
     parser.add_argument('--base-path', default='')
     parser.add_argument('--parent-origin', action='append', default=[])
     args = parser.parse_args()

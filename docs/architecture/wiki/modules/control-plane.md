@@ -2,16 +2,19 @@
 title: 本地控制面
 description: HTTP、WebSocket 与工作区持久化的共同边界。
 sources:
-  - app/api/native-assets.ts 2efa4d689d62 nativeAssets
-  - app/api/codex-native.ts 60dbf70a8b84 CodexNativeManager
+  - tools/experiments/codex-native-ui/bridge.py 7ea1b9be5992
+  - tools/experiments/codex-native-ui/host.js 32eefa5afb4a
+  - tools/experiments/codex-native-ui/attachments.py 3a41d9c06f1f
+  - app/api/native-assets.ts 1f03f86ad121 nativeAssets
+  - app/api/codex-native.ts 410721c16563 CodexNativeManager
   - app/api/index.ts d5215586de34
-  - app/api/routes.ts 19871b34460c wireBroadcasts wsHandlers api
+  - app/api/routes.ts 66658ffbac2c wireBroadcasts wsHandlers api
   - app/api/registry.ts 4ccc91d72dac registry
   - app/api/graph.ts 112b00eb033d GraphStore onAnyPatch
   - app/api/layout.ts 8bc396673207 computeLayout
   - app/api/local-access.ts 160bda3f88d5 localRequestAllowed
   - app/api/runtime-router.ts 16802d8055c1 requireHerdr runtimeRouter
-  - app/api/types.ts 1f6fba1e368c CanvasNode ServerMessage ClientMessage
+  - app/api/types.ts 6d1f3baf28a7 CanvasNode ServerMessage ClientMessage
   - app/api/workspace-paths.ts d251249d59c7 PROJECT_ROOT migrateLegacySeedPath
 covers:
   - app/api/native-assets.ts
@@ -40,6 +43,7 @@ covers:
 
 - `/native/pi/*` 只托管独立构建的原版组件包，限制 realpath，不回退 SPA。`/native/codex/:wid/:nid/*` 只转发已启动、属于该工作区的 Codex 卡片，不能通过请求选择任意代理目标；仍受本机 Host/Origin 检查。
 - `CodexNativeManager` 管理每卡独立的 Python host 和 app-server，持久化路径在 `CANVAS_DATA_DIR/codex-native/:nid/`。每次打开原版 UI 更换 renderer token，旧视图停止接收；持久线程不随视图卸载删除。API 退出和工作区归档停止两类运行器。新建与恢复只允许可写工作区。
+- Codex 卡片可在创建时选择 `singularity-x`，不修改已有 ChatGPT 卡片。宿主从 macOS 钥匙串读取固定凭据，只传给独立 app-server 子进程并从工具 shell 环境排除；自定义 Provider 的 home 禁止带 ChatGPT auth。模型选择器保留原版组件，目录取 app-server 元数据与 Provider 实时模型 ID 的交集。模型请求发送到 Singularity-X，线程和审批仍由本地 app-server 管理。
 - Pi 的 `native-state` 返回 SessionView 和审批参数绑定；审批接口接受 `expectedApprovalDigest`，由现有 worker 校验，不能绕过 e 能力和代次检查。Codex 单次审批由 app-server 请求 ID 绑定，禁止会话级授权和权限扩展。
 
 - `app/api/index.ts` 挂载 `/api`、升级 `/ws`，并托管 `app/dist/`。静态文件不存在时回退到首页；尚未构建首页则返回 404。

@@ -9,12 +9,27 @@ process.env.CANVAS_EVENTS_LOG = path.join(dir, 'events.jsonl');
 const { api, wsHandlers, wireBroadcasts } = await import('../../api/routes.ts');
 const { registry } = await import('../../api/registry.ts');
 const { eSessions } = await import('../../api/e-adapter.ts');
+const { codexNative } = await import('../../api/codex-native.ts');
 const { getGraphStore } = await import('../../api/graph.ts');
 const { localRequestAllowed } = await import('../../api/local-access.ts');
 const { eventbus } = await import('../../api/eventbus.ts');
 wireBroadcasts();
 const request = (url, method='GET', body) => api.request(url, { method, ...(body === undefined ? {} : { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }) });
 const make = async () => (await request('/workspaces','POST',{title:'Route fixture',backend:'e'})).json();
+test('Codex provider is explicit, immutable card metadata with no credential fields', async t => {
+ const w = await make();
+ t.mock.method(codexNative, 'start', async () => ({url:'/native/test'}));
+ const url = `/workspaces/${w.id}/codex-cards`;
+ const legacy = await request(url, 'POST');
+ assert.equal(legacy.status, 201); assert.equal((await legacy.json()).node.codexProvider, 'chatgpt');
+ const custom = await request(url, 'POST', {provider:'singularity-x'});
+ assert.equal(custom.status, 201); assert.equal((await custom.json()).node.codexProvider, 'singularity-x');
+ for (const body of [{provider:'unknown'}, {provider:'singularity-x',apiKey:'not-a-real-key'}, {provider:'singularity-x',baseUrl:'https://other.invalid'}]) {
+   assert.equal((await request(url, 'POST', body)).status, 400);
+ }
+ assert.equal((await api.request(url, {method:'POST', body:'{invalid'})).status, 400);
+ assert.equal(getGraphStore(w.id).graph.nodes.length, 2);
+});
 test.after(async () => { await eSessions.close(); fs.rmSync(dir, { recursive:true, force:true }); });
 
 test('e workspace is empty, local and never accepts demo nodes as live', async () => {

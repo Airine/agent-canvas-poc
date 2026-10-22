@@ -44,7 +44,7 @@ export function capabilityAvailable(view: SessionView | undefined, name: string,
     (c.expiresAt === undefined || Date.parse(c.expiresAt) > now));
 }
 
-export type ApprovalMode = 'manual' | 'assisted' | 'full';
+export type ApprovalMode = 'manual' | 'assisted' | 'edits' | 'full';
 export interface ApprovalAudit {reviewAttempted?:boolean;approvalId:string;digest:string;source:'whitelist'|'ai'|'full'|'manual';state:'reviewing'|'manual'|'submitting'|'submitted'|'cancelled'|'failed';reason:string;rule?:string;at:string;reviewer?:{provider:string;model:string}}
 
 export interface Attachment { id: string; name: string; mimeType: 'text/plain' | 'image/png' | 'image/jpeg' | 'image/webp'; data: string }

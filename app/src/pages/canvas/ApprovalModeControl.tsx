@@ -24,7 +24,7 @@ export function ApprovalModeControl({store,nodeId,view}:{store:LiveStore;nodeId:
   catch(e){setError(redact(String(e)));}finally{setBusy(false);}
  }
  const modern=(view?.approvalPolicyVersion??0)>=2;
- const labels={manual:'手动审批',assisted:'帮我审批',full:'Full Access'};
+ const labels={manual:'手动审批',assisted:'帮我审批',edits:'自动接受受限编辑',full:'Full Access'};
  const description=`权限：${labels[mode]}${mode==='full'?' · 高风险，本会话工具自动批准':''}${view?.sessionApprovalGrantCount?` · ${view.sessionApprovalGrantCount} 项精确授权`:''}`;
  return <><span className="chat-permission-entry"><ChatPopover id="permissions" label="权限设置" title={null} triggerProps={{'data-approval-mode':mode,'aria-describedby':tooltipId}} className={mode==='full'?'chat-permission-trigger is-risk':'chat-permission-trigger'} trigger={<ModeIcon mode={mode}/>}>
   <div className="chat-choice-list" role="group" aria-label="工具审批模式">{(['manual','assisted','full'] as const).map(value=><button type="button" data-chat-option key={value} className={`chat-choice ${value==='full'?'is-risk':''}`} aria-pressed={mode===value} disabled={!online||busy||value!=='manual'&&view?.lifecycle!=='ready'} onClick={()=>void choose(value)}>

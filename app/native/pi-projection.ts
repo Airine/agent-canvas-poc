@@ -10,16 +10,18 @@ export function projectPiMessages(view: SessionView) {
     id: message.id, role: ['user', 'assistant', 'system'].includes(message.role) ? message.role : 'tool',
     content: message.blocks.filter(b => b.type === 'text').map(b => b.text ?? '').join('\n') || (message.error ? text(message.error) : ''),
     thinking: message.blocks.filter(b => ['thinking', 'reasoning'].includes(b.type)).map(b => b.text ?? b.thinking ?? '').join('\n') || undefined,
+    attachments: message.blocks.flatMap((b, i) => b.type === 'image' && typeof b.data === 'string'
+      ? [{kind:'image',name:'Attached image',ref:`canvas-message/${message.id}/${i}`,mimeType:String(b.mimeType)}] : []),
     createdAt: message.createdAt ?? '1970-01-01T00:00:00.000Z',
     status: message.error || message.stopReason === 'error' ? 'error' : ['streaming', 'running'].includes(message.state) ? 'streaming' : message.state === 'aborted' ? 'aborted' : 'complete',
   }));
   // Tool calls are normalized by e; do not render the duplicate tool-result message.
-  const rows = messages.filter(m => m.role !== 'tool' && (m.content || m.thinking));
+  const rows = messages.filter(m => m.role !== 'tool' && (m.content || m.thinking || m.attachments.length));
   for (const tool of [...snapshot.tools].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))) {
     const denied = snapshot.approvals?.some(a => a.toolCallId === tool.id && ['rejected', 'cancelled'].includes(a.state));
     const row = {
       id: `tool:${tool.id}`, role: 'tool', content: '', createdAt: tool.createdAt ?? '1970-01-01T00:00:00.000Z',
-      status: 'complete', thinking: undefined, toolCallId: tool.id, toolName: tool.name,
+      status: 'complete', thinking: undefined, attachments: [], toolCallId: tool.id, toolName: tool.name,
       toolArgs: tool.arguments, toolResult: text(tool.result ?? tool.partialResult),
       toolStatus: denied || ['denied', 'rejected', 'declined'].includes(tool.state) ? 'denied' : tool.isError || ['failed', 'error'].includes(tool.state) ? 'error' : ['completed', 'succeeded', 'success'].includes(tool.state) ? 'success' : 'running',
     };

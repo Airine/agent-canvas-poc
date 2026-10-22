@@ -521,7 +521,17 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
           >
             活窗 {liveCount}/{windowTotal}
           </span>
-          {store.backendKind === 'e' ? <div className="flex items-center gap-2 rounded bg-surface-2 p-2 text-small"><span>{store.connState}</span><button disabled={store.connState !== 'online'} onClick={()=>void store.addSession().catch(e=>toast.error(String(e)))}>添加 Pi 会话</button><button disabled={store.connState !== 'online'} onClick={()=>void store.addCodexCard().catch(e=>toast.error(String(e)))}>添加 Codex</button><ArchivedSessionsControl store={store}/></div> : <RunBar
+          {store.backendKind === 'e' ? <div className="flex flex-wrap items-center gap-2 rounded bg-surface-2 p-2 text-small">
+            <span>{store.connState}</span>
+            <button disabled={store.connState !== 'online'} onClick={()=>void store.addSession().catch(e=>toast.error(String(e)))}>添加 Pi 会话</button>
+            <button disabled={store.connState !== 'online'} onClick={()=>void store.addCodexCard().catch(e=>toast.error(String(e)))}>添加 Codex</button>
+            <button disabled={store.connState !== 'online'} onClick={() => {
+              if (window.confirm('创建独立的 Singularity-X Codex 卡片？此卡片的提示词和工具上下文将发送到 api.singularity-x.ai:9443。Key 仅从 macOS 钥匙串读取，现有 ChatGPT 卡片不变。')) {
+                void store.addCodexCard('singularity-x').catch(e=>toast.error(String(e)));
+              }
+            }}>添加 Codex · SX</button>
+            <ArchivedSessionsControl store={store}/>
+          </div> : <RunBar
             runState={store.runState}
             connState={store.connState}
             onRun={() => store.run()}

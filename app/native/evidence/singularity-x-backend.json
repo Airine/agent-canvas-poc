@@ -1,0 +1,20 @@
+{
+  "provider": "singularity-x",
+  "model": "gpt-5.6-sol",
+  "privateTraceRoot": "/Users/aaron/Library/Application Support/agent-canvas/native-integration/singularity-x-n42oten2",
+  "threadId": "01a15f57-5dda-7450-bf86-5657b67dd585",
+  "chatgptAuthLinked": false,
+  "keySource": "macOS Keychain",
+  "realToolRoundTrip": true,
+  "realApprovalDenied": true,
+  "listedAfterRestart": true,
+  "sameThreadResumed": true,
+  "markerRecalledAfterRestart": true,
+  "nativeUIVerified": false,
+  "models": [
+    "gpt-6-astra",
+    "gpt-5.6-sol",
+    "gpt-5.6-terra",
+    "gpt-5.6-luna"
+  ]
+}

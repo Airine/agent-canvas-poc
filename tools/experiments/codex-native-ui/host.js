@@ -39,6 +39,7 @@
   let state;
   let cursor = __PROBE_CURSOR__;
   let stopped = false;
+  let disconnected = false;
   let outbound = Promise.resolve();
   const showError = text => {
     let banner = document.getElementById('canvas-host-error');
@@ -50,6 +51,93 @@
     }
     banner.textContent = text;
   };
+  const confirmed = new Map();
+  let permissionSelection;
+  function observePermissions(message) {
+    if (message.type === 'persisted-atom-sync') permissionSelection = message.state?.['permission-selection-by-host-id:local'];
+    if (message.type === 'persisted-atom-update' && message.key === 'permission-selection-by-host-id:local') permissionSelection = message.deleted ? undefined : message.value;
+  }
+  const confirmPermission = policy => new Promise(resolve => {
+    const dialog = document.createElement('dialog');
+    const text = document.createElement('p');
+    text.textContent = policy === 'workspaceWrite'
+      ? 'Allow this Codex session to write in this workspace? Network remains sandboxed. Escalations still require approval. This authorization resets when the host stops.'
+      : 'Enable Full Access for this Codex session? Commands can access files and network without sandboxing or tool approval. This authorization resets when the host stops.';
+    const yes = document.createElement('button'); yes.textContent = 'Allow permission change';
+    const no = document.createElement('button'); no.textContent = 'Cancel';
+    const done = value => { dialog.close(); dialog.remove(); resolve(value); };
+    yes.onclick = () => done(true); no.onclick = () => done(false); dialog.oncancel = () => done(false);
+    dialog.style.cssText = 'max-width:420px;padding:24px;border:1px solid #bbb;border-radius:14px;color:#222;background:white';
+    dialog.append(text,no,yes); document.body.append(dialog); dialog.showModal();
+  });
+  const emit = message => window.postMessage(message, location.origin);
+  const ensureConnected = () => {
+    if (stopped || disconnected) throw new Error('Event connection unavailable; action was not submitted. Wait for reconnection or refresh.');
+  };
+  const rejectMessage = (message, detail, status = 503) => {
+    if (message.type === 'mcp-request') {
+      emit({type:'mcp-response',hostId:message.hostId || 'local',message:{id:message.request.id,error:{code:-32000,message:detail}}});
+    } else if (message.type === 'fetch') {
+      emit({type:'fetch-response',requestId:message.requestId,responseType:'error',status,error:detail});
+    }
+    showError(detail);
+  };
+  async function pickFiles(message) {
+    const options = JSON.parse(message.body || '{}');
+    if (options.kind === 'directory') throw new Error('Directory attachments are not supported');
+    const files = await new Promise(resolve => {
+      const picker = document.createElement('input'); picker.type = 'file'; picker.multiple = options.allowMultiple !== false;
+      picker.accept = options.imagesOnly ? '.png,.jpg,.jpeg,.webp' : '.txt,.md,.json,.csv,.ts,.js,.py,.png,.jpg,.jpeg,.webp'; picker.hidden = true;
+      const done = value => { picker.remove(); resolve(value); };
+      picker.onchange = () => done(Array.from(picker.files || [])); picker.oncancel = () => done([]);
+      document.body.append(picker); picker.click();
+    });
+    let result = {files:[]};
+    if (files.length) {
+      if (files.length > 4 || files.some(f => f.size > 2 * 1024 * 1024)) throw new Error('At most 4 files, 2 MiB each');
+      const data = await Promise.all(files.map(async file => {
+        let raw = ''; for (const b of new Uint8Array(await file.arrayBuffer())) raw += String.fromCharCode(b);
+        return {name:file.name,mimeType:file.type,data:btoa(raw)};
+      }));
+      ensureConnected();
+      const response = await fetch(base + '/attachments', {method:'POST',headers,body:JSON.stringify({files:data})});
+      result = await response.json(); if (!response.ok) throw new Error(result.error || 'Upload failed');
+    }
+    emit({type:'fetch-response',requestId:message.requestId,responseType:'success',status:200,headers:{},bodyJsonString:JSON.stringify(result)});
+  }
+  async function dispatch(message) {
+    ensureConnected();
+    observePermissions(message);
+    if (message.type === 'fetch' && message.url === 'vscode://codex/pick-files') {
+      try { await pickFiles(message); }
+      catch (error) { emit({type:'fetch-response',requestId:message.requestId,responseType:'error',status:400,error:error.message}); showError(error.message); }
+      return {ok:true};
+    }
+    const req = message.type === 'mcp-request' ? message.request : null;
+    if (req && ['thread/start','thread/resume','turn/start'].includes(req.method)) {
+      const p = req.params || {}, owner = p.threadId || '__new__';
+      const selectedPolicy = permissionSelection == null ? 'readOnly' : permissionSelection.kind === 'agent-mode'
+        ? ({'read-only':'readOnly',auto:'workspaceWrite','full-access':'dangerFullAccess'})[permissionSelection.agentMode] : undefined;
+      const policy = p.sandboxPolicy?.type || (p.sandbox ? ({'read-only':'readOnly','workspace-write':'workspaceWrite','danger-full-access':'dangerFullAccess'})[p.sandbox] : selectedPolicy);
+      if (!['readOnly','workspaceWrite','dangerFullAccess'].includes(policy)) {
+        emit({type:'mcp-response',hostId:'local',message:{id:req.id,error:{code:-32000,message:'This permission profile is not connected. Choose a supported mode.'}}});
+        return {ok:true};
+      }
+      if (policy === 'readOnly') confirmed.delete(owner);
+      else if (confirmed.get(owner) !== policy) {
+        if (!await confirmPermission(policy)) {
+          emit({type:'mcp-response',hostId:'local',message:{id:req.id,error:{code:-32000,message:'Permission change cancelled; nothing was submitted.'}}});
+          return {ok:true};
+        }
+        ensureConnected();
+        const result = await fetch(base + '/bridge', {method:'POST',headers,body:JSON.stringify({type:'canvas-confirm-permissions',threadId:owner,policy})});
+        if (!result.ok) return result;
+        confirmed.set(owner, policy);
+      }
+    }
+    ensureConnected();
+    return fetch(base + '/bridge', {method:'POST',headers,body:JSON.stringify(message)});
+  }
   window.addEventListener('pagehide', () => { stopped = true; });
   window.acquireVsCodeApi = () => ({
     getState: () => state,
@@ -61,28 +149,37 @@
         ? {...value, type: 'mcp-request', probeOriginalType: value.type} : value;
       // VS Code postMessage is ordered. Concurrent HTTP requests are not:
       // a capability pull arriving before its push leaves bootstrap unresolved.
-      outbound = outbound.then(() => fetch(base + '/bridge', {method: 'POST', headers, body: JSON.stringify(message)}))
+      outbound = outbound.then(() => dispatch(message))
         .then(async response => {
           if (!response.ok) {
             const detail = await response.json().catch(() => ({}));
-            showError(response.status === 403 ? 'This card connection expired or another view became active. Refresh to reconnect.'
-              : `Host rejected action (${response.status}): ${detail.error || 'Unsupported or unavailable action'}`);
+            if (response.status === 403) { stopped = true; disconnected = true; }
+            rejectMessage(message, response.status === 403 ? 'This card connection expired or another view became active. Refresh to reconnect.'
+              : response.status >= 500 ? `Host unavailable (${response.status}); outcome is unknown. Check history before retrying.`
+              : `Host rejected action (${response.status}): ${detail.error || 'Unsupported or unavailable action'}`, response.status);
           }
-        }).catch(error => showError('Host unavailable: ' + error.message));
+        }).catch(error => rejectMessage(message, 'Host unavailable: ' + error.message + ' If submission started, its outcome is unknown; check history before retrying.'));
     },
   });
   async function poll() {
+    let failures = 0;
     while (!stopped) {
       try {
         const response = await fetch(base + '/events?after=' + cursor, {headers});
+        if (response.status === 403) stopped = true;
         if (!response.ok) throw new Error('HTTP ' + response.status);
         const batch = await response.json();
-        for (const message of batch.messages) window.postMessage(message, location.origin);
+        for (const message of batch.messages) { observePermissions(message); window.postMessage(message, location.origin); }
         cursor = batch.cursor;
+        if (disconnected) document.getElementById('canvas-host-error')?.remove();
+        disconnected = false;
+        failures = 0;
       } catch (error) {
         console.error('Probe event transport failed', error.message);
-        showError('Host disconnected or this card was opened in another view. Refresh to reconnect.');
-        stopped = true;
+        disconnected = true;
+        showError(stopped ? 'This card connection expired. Refresh to reconnect.' : 'Host disconnected. Reconnecting; new actions are blocked.');
+        // Retry only the read-only event stream, never an outbound action.
+        if (!stopped) await new Promise(resolve => setTimeout(resolve, Math.min(1000 * 2 ** failures++, 10000)));
       }
     }
   }

@@ -9,6 +9,78 @@ from bridge import Runtime, redact
 
 
 class BridgePolicyTests(unittest.TestCase):
+    def test_custom_provider_is_pinned_and_rejects_unavailable_models(self):
+        self.runtime.provider_models = {'gpt-5.6-sol'}
+        self.runtime.call.return_value = {'result': {'thread': {'id': 'new'}}}
+        self.runtime.rpc({'method':'thread/start','params':{'modelProvider':'openai'}})
+        params = self.runtime.call.call_args.args[1]
+        self.assertEqual(params['modelProvider'], 'singularity_x')
+        self.assertEqual(params['model'], 'gpt-5.6-sol')
+        self.runtime.rpc({'method':'thread/resume','params':{'threadId':'owned'}})
+        self.assertNotIn('model', self.runtime.call.call_args.args[1])
+        self.assertEqual(self.runtime.call.call_args.args[1]['modelProvider'], 'singularity_x')
+        with self.assertRaisesRegex(ValueError, 'not available from Singularity-X'):
+            self.runtime.rpc({'method':'turn/start','params':{'threadId':'owned','model':'unavailable'}})
+
+    def test_official_permission_atom_requires_confirmation_with_null_turn_fields(self):
+        self.runtime.args.canvas_host = True
+        self.runtime.permission_grants = {}
+        self.runtime.atoms['permission-selection-by-host-id:local'] = {'kind':'agent-mode','agentMode':'auto'}
+        request = {'method':'turn/start','params':{'threadId':'owned','sandboxPolicy':None}}
+        with self.assertRaises(ValueError): self.runtime.rpc(request)
+        self.runtime.handle({'type':'canvas-confirm-permissions','threadId':'owned','policy':'workspaceWrite'})
+        self.runtime.rpc(request)
+        self.assertEqual(self.runtime.call.call_args.args[1]['sandboxPolicy']['type'], 'workspaceWrite')
+        self.runtime.atoms['permission-selection-by-host-id:local'] = {'kind':'agent-mode','agentMode':'read-only'}
+        self.runtime.rpc(request)
+        self.assertEqual(self.runtime.call.call_args.args[1]['sandboxPolicy'], {'type':'readOnly'})
+        self.assertEqual(self.runtime.permission_grants, {})
+        self.runtime.atoms['permission-selection-by-host-id:local'] = {'kind':'profile','profileId':'arbitrary'}
+        with self.assertRaises(ValueError): self.runtime.rpc(request)
+
+    def test_official_composer_null_policy_and_collaboration_model(self):
+        self.runtime.args.canvas_host = True
+        self.runtime.rpc({'method':'turn/start','params':{
+            'threadId':'owned','input':[], 'sandboxPolicy':None,
+            'model':None,'effort':None,'collaborationMode':{'mode':'default',
+                'settings':{'model':'gpt-6-sol','reasoning_effort':'medium',
+                            'developer_instructions':'must not forward'}}}})
+        params = self.runtime.call.call_args.args[1]
+        self.assertEqual(params['model'], 'gpt-6-sol')
+        self.assertEqual(params['effort'], 'medium')
+        self.assertEqual(params['sandboxPolicy'], {'type':'readOnly'})
+        self.assertNotIn('collaborationMode', params)
+        with self.assertRaises(ValueError):
+            self.runtime.rpc({'method':'turn/start','params':{
+                'threadId':'owned', 'collaborationMode':{'mode':'plan'}}})
+
+    def test_canvas_permission_confirmation_is_live_and_scoped(self):
+        self.runtime.args.canvas_host = True
+        self.runtime.permission_grants = {}
+        req = {'method':'turn/start','params':{'threadId':'owned','input':[], 'sandboxPolicy':{'type':'workspaceWrite','writableRoots':['/'], 'networkAccess':True},'effort':'high','model':'chosen'}}
+        with self.assertRaises(ValueError): self.runtime.rpc(req)
+        self.runtime.handle({'type':'canvas-confirm-permissions','threadId':'owned','policy':'workspaceWrite'})
+        self.runtime.rpc(req)
+        params = self.runtime.call.call_args.args[1]
+        self.assertEqual(params['sandboxPolicy']['writableRoots'], ['/tmp/probe'])
+        self.assertFalse(params['sandboxPolicy']['networkAccess'])
+        self.assertEqual(params['model'], 'chosen')
+        self.assertEqual(params['effort'], 'high')
+        self.assertEqual(params['approvalPolicy'], 'on-request')
+        self.runtime.rpc({'method':'turn/start','params':{'threadId':'owned','input':[]}})
+        self.assertNotIn('owned', self.runtime.permission_grants)
+        with self.assertRaises(ValueError): self.runtime.rpc(req)
+
+    def test_full_access_needs_its_own_confirmation(self):
+        self.runtime.args.canvas_host = True
+        self.runtime.permission_grants = {'owned':'workspaceWrite'}
+        req = {'method':'turn/start','params':{'threadId':'owned','input':[], 'sandboxPolicy':{'type':'dangerFullAccess'}}}
+        with self.assertRaises(ValueError): self.runtime.rpc(req)
+        self.runtime.handle({'type':'canvas-confirm-permissions','threadId':'owned','policy':'dangerFullAccess'})
+        self.runtime.rpc(req)
+        self.assertEqual(self.runtime.call.call_args.args[1]['approvalPolicy'], 'never')
+        with self.assertRaises(ValueError): self.runtime.handle({'type':'canvas-confirm-permissions','threadId':'foreign','policy':'dangerFullAccess'})
+
     def setUp(self):
         self.runtime = Runtime.__new__(Runtime)
         self.runtime.args = SimpleNamespace(cwd=Path('/tmp/probe'), home=Path('/tmp/probe-home'))

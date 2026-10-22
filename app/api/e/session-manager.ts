@@ -129,7 +129,7 @@ export class SessionManager extends EventEmitter {
   }
   setApprovalMode(wid:string,nid:string,mode:ApprovalMode,reviewer?:ReviewerConfig):SessionView {
     const record=this.record(wid,nid);
-    if(!['manual','assisted','full'].includes(mode))throw new Error('invalid approval mode');
+    if(!['manual','assisted','edits','full'].includes(mode))throw new Error('invalid approval mode');
     if(mode!=='manual'&&record.view.lifecycle!=='ready')throw new Error('session not ready');
     if(mode==='assisted'&&(!reviewer?.provider||!reviewer?.model))throw new Error('explicit reviewer model required');
     this.engine(record).set(mode,mode==='assisted'?reviewer:undefined);

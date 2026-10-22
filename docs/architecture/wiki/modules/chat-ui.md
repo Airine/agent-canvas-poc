@@ -2,8 +2,9 @@
 title: 会话交互
 description: 真实 e 会话的消息呈现、草稿、待发队列和审批操作。
 sources:
-  - app/native/pi.tsx 874bdf11cc39
-  - app/native/pi-projection.ts f3f9066ba5f7 projectPiMessages
+  - app/native/pi-host.ts d803f938729b createPiFileHost confirmPermission
+  - app/native/pi.tsx 4dbefccf30c3
+  - app/native/pi-projection.ts f8c8d466d07f projectPiMessages
   - app/src/pages/canvas/chat/QueuePanel.tsx 14344a53ad03 QueuePanel
   - app/src/pages/canvas/chat/QueueReceipts.tsx da27f4a2800d QueueReceipts
   - app/src/pages/canvas/chat/ExecutionGroup.tsx 948d362fbbb0 ExecutionGroup
@@ -32,6 +33,8 @@ covers:
 当前默认卡片保留 PI Desktop 原版 `ChatTranscript`、`Composer` 和 store，由 `app/native/pi.tsx` 适配现有 e/Pi 后端。每张卡片独立 iframe 隔离全局 store 与样式；正文通过 `native-state` 轮询，发送和审批仍走原有控制接口。审批携带实际显示参数对应的 digest，worker 再次核对。消息按跨轮时间排序，不能把轮内 order 当全局顺序。
 
 Codex 使用独立原版 Webview 和 app-server，不经过此 Pi 投影。构建、版本、恢复步骤、验收记录及尚未接入的桌面功能见仓库中的 `app/native/README.md`。
+
+原版 Pi 模型选择器现已接入 e 的真实模型目录、版本检查和配置回读；原版附件入口通过 `pi-host.ts` 读取浏览器选择的字节，按卡片身份保存在 IndexedDB，发送仍复用共享内容校验。历史图片来自 e 快照，不读取任意宿主路径。原版权限选择器映射 manual/edits/full，扩权需宿主确认，停止或恢复后回到 manual。Codex 原版模型/推理选择、上传与权限字段由受限宿主桥适配；完整功能矩阵见 native README，不能把显示了按钮当成服务已接通。
 
 以下是保留在仓库及 `archive/self-built-chat-ui-2026-10-21` 分支中的自研聊天模块说明，已不作为默认正文和输入台。其队列、附件及模型配置功能不能算作原版组件适配层已支持的能力；标题状态、诊断和部分通用控件仍复用。
 

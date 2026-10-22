@@ -58,7 +58,11 @@ export class ApprovalEngine {
    if(!granted&&mode!=='full'){
     const result=(this.services.rule??approvalRule)(input,this.host.get().ref.cwd);rule=result.rule;reason=result.reason;
     if(result.route==='manual'){report('manual',reason);return;}
-    if(result.route==='allow')source='whitelist';
+    if(mode==='edits'){
+     if(!['new-project-file-v1','bounded-project-edit-v1'].includes(result.rule)){report('manual','自动接受编辑仅限项目内受限文件编辑，其他工具需人工确认');return;}
+     source='whitelist';reason='用户启用自动接受编辑：受限项目文件修改';
+    }
+    else if(result.route==='allow')source='whitelist';
     else {
      source='ai';if(!reviewer){report('manual','未配置独立审查模型');return;}
      const view=this.host.get();const task=[...(view.snapshot?.messages??[])].filter(m=>m.role==='user'&&(!(m.origin as MessageOrigin|undefined)||(m.origin as MessageOrigin).kind==='human')).sort((a,b)=>(b.createdAt??'').localeCompare(a.createdAt??'')||b.order-a.order)[0]?.blocks.filter(b=>b.type==='text').map(b=>b.text??'').join('\n')??'';

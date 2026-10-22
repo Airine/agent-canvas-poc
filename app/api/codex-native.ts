@@ -45,14 +45,17 @@ export class CodexNativeManager {
     if (!binary || !webview || !fs.existsSync(binary) || !fs.existsSync(path.join(webview, 'index.html'))) throw new Error('Codex native assets not configured');
     const root = path.join(DATA_ROOT, 'codex-native', nid), home = path.join(root, 'home');
     fs.mkdirSync(home, {recursive: true, mode: 0o700});
+    const provider = this.node(wid, nid).codexProvider ?? 'chatgpt';
+    if (!['chatgpt', 'singularity-x'].includes(provider)) throw new Error('Unsupported Codex provider');
     const auth = process.env.CODEX_NATIVE_AUTH_FILE;
-    if (auth && !fs.existsSync(path.join(home, 'auth.json'))) {
+    if (provider === 'singularity-x' && fs.existsSync(path.join(home, 'auth.json'))) throw new Error('Custom provider requires a separate home without ChatGPT auth');
+    if (provider === 'chatgpt' && auth && !fs.existsSync(path.join(home, 'auth.json'))) {
       // Local reference only. Credentials never cross into the renderer or logs.
       fs.symlinkSync(fs.realpathSync(auth), path.join(home, 'auth.json'));
     }
     const script = fileURLToPath(new URL('../../tools/experiments/codex-native-ui/bridge.py', import.meta.url));
     const args = [script, '--canvas-host', '--port', '0', '--base-path', this.publicUrl(wid, nid).replace(/\/ui\/$/, ''), '--codex', binary, '--webview', webview,
-      '--home', home, '--cwd', registry.get(wid)!.path, '--evidence', path.join(root, 'runs', randomUUID())];
+      '--home', home, '--cwd', registry.get(wid)!.path, '--evidence', path.join(root, 'runs', randomUUID()), '--provider', provider];
     for (const port of new Set([process.env.PORT || '3000', process.env.CANVAS_UI_PORT || '5173'])) {
       if (!/^\d+$/.test(port)) throw new Error('Invalid Canvas port');
       args.push('--parent-origin', `http://127.0.0.1:${port}`);

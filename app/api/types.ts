@@ -20,6 +20,7 @@ export interface ApprovalInfo {
 
 export interface CanvasNode {
   nativeEngine?: 'codex';
+  codexProvider?: 'chatgpt' | 'singularity-x';
   backend?: 'e' | 'herdr';
   sessionRef?: SessionRef;
   sessionState?: Lifecycle;

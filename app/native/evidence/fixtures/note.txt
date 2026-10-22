@@ -1,0 +1,3 @@
+Synthetic native attachment acceptance record.
+The verification marker is RIVER-4827.
+The expected quantity is 17.

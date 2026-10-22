@@ -2,6 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { projectPiMessages } from '../../native/pi-projection.ts';
 const message = (id, role, order, createdAt, content) => ({id, role, order, createdAt, state: 'completed', blocks: [{type: 'text', text: content}]});
+test('native projection retains image-only history with snapshot-owned references', () => {
+  const view = {snapshot:{messages:[{...message('image','user',0,'2026-01-01T00:00:00Z',''),
+    blocks:[{type:'image',mimeType:'image/png',data:'test-bytes'}]}],tools:[]}};
+  const rows = projectPiMessages(view);
+  assert.equal(rows.length, 1);
+  assert.deepEqual(rows[0].attachments, [{kind:'image',name:'Attached image',ref:'canvas-message/image/0',mimeType:'image/png'}]);
+  assert.equal(rows[0].content, '');
+});
 test('native projection preserves cross-run chronology, including restored history', () => {
   const view = {snapshot: {messages: [
     message('u1','user',0,'2026-01-01T00:00:01Z','one'),

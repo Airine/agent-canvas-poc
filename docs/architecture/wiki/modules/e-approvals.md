@@ -6,10 +6,10 @@ sources:
   - app/api/e/approval-shell.ts f6797d63a2bc shellRule
   - app/api/e/approval-paths.ts 91d74f8a41e0 safePath
   - app/api/e/approval-binding.ts 130196b90918 bindApproval exactOperationKey
-  - app/api/e/approval-engine.ts 40bf6ecd5a6d ApprovalEngine
+  - app/api/e/approval-engine.ts 64c1717cd895 ApprovalEngine
   - app/api/e/approval-rules.ts f4596999d61c approvalRule
   - app/api/e/approval-reviewer.ts 518389128357 reviewApproval parseReview
-  - app/api/e/session-manager.ts 01240a44eb90 setApprovalMode grantExactApproval
+  - app/api/e/session-manager.ts 42f937409e41 setApprovalMode grantExactApproval
   - app/scripts/e-control.mjs ed63498cbe6f controlSession
 covers:
   - app/api/e/approval-node.ts
@@ -32,7 +32,7 @@ covers:
 ## 对外接口
 
 - `bindApproval` 在 `app/api/e/approval-binding.ts` 中把待审批记录和工具参数绑定，生成 `digest`。它同时比对工具记录与消息块中的名称、参数，只有完整一致的输入才标记为 `complete`。`exactOperationKey` 为工具名称与完整参数生成稳定摘要。
-- `ApprovalEngine` 在 `app/api/e/approval-engine.ts` 中提供 `set`、`reset`、`manual`、`grantExact` 和 `observe`。模式有 `manual`、`assisted`、`full`。
+- `ApprovalEngine` 在 `app/api/e/approval-engine.ts` 中提供 `set`、`reset`、`manual`、`grantExact` 和 `observe`。模式有 `manual`、`assisted`、`edits`、`full`。`edits` 用于原版 Pi 的 Accept edits：只自动批准 `new-project-file-v1` 和 `bounded-project-edit-v1`，不调用 AI 审查、不批准 shell；最终仍复核 digest、代次与路径。它不是 assisted 的别名，也不是文件系统沙箱。
 - `approvalRule` 在 `app/api/e/approval-rules.ts` 中返回 `allow`、`review` 或 `manual`。精确命中的只读命令可直接通过，支持的可见命令链、静态只读 Node、小范围文件改动和契约有效的受管 Canvas 工具交独立模型审查；高风险、动态或未知效果留给人工。
 - `reviewApproval` 启动无工具的独立 Pi 审查进程。`parseReview` 用严格 schema 解析结果，只接受明确的低风险批准；并发最多 2 个，45 秒超时。
 - `grantExact` 使用工具与完整参数精确匹配。未接入的正则建议生成器已经删除，不存在正则授权入口。

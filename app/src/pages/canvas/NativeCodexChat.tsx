@@ -18,7 +18,7 @@ export function NativeCodexChat({store, node}: {store: LiveStore; node: CanvasNo
     } catch (e) { setError(String(e)); } finally { setBusy(false); }
   }
   return <section className="nodrag nowheel" style={{height: '100%', display: 'flex', flexDirection: 'column', background: '#fff'}}>
-    <div style={{fontSize: 12, padding: 6, color: '#333'}}>Codex · read-only · explicit approval
+    <div style={{fontSize: 12, padding: 6, color: '#333'}}>Codex · {node.codexProvider === 'singularity-x' ? 'Singularity-X API · ' : ''}permissions set in native composer
       <button disabled={busy || store.readOnly && !url} onClick={() => void action(url ? 'stop' : 'resume')} style={{marginLeft: 10}}>{url ? '停止' : '恢复 Codex'}</button>
       {error && <p role="alert">{error}</p>}
     </div>

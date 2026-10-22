@@ -61,7 +61,7 @@
       "packages": []
     },
     "app/api/e/approval-engine.ts": {
-      "loc": 86,
+      "loc": 90,
       "exports": [
         "ApprovalEngine"
       ],
@@ -534,8 +534,20 @@
       "imports": [],
       "packages": []
     },
+    "app/native/pi-host.ts": {
+      "loc": 83,
+      "exports": [
+        "createPiFileHost",
+        "confirmPermission"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts",
+        "app/shared/message-content.mjs"
+      ],
+      "packages": []
+    },
     "app/native/pi-projection.ts": {
-      "loc": 33,
+      "loc": 35,
       "exports": [
         "projectPiMessages"
       ],
@@ -545,12 +557,14 @@
       "packages": []
     },
     "app/native/pi.tsx": {
-      "loc": 127,
+      "loc": 174,
       "exports": [],
       "imports": [
         "app/api/e/contracts.ts",
         "app/native/focus-guard.ts",
-        "app/native/pi-projection.ts"
+        "app/native/pi-host.ts",
+        "app/native/pi-projection.ts",
+        "app/shared/message-content.mjs"
       ],
       "packages": [
         "@pi-desktop/i18n",
@@ -2862,7 +2876,7 @@
       ]
     },
     "app/test/unit/approval-policy.test.mjs": {
-      "loc": 86,
+      "loc": 93,
       "exports": [],
       "imports": [
         "app/api/e/approval-binding.ts",
@@ -3161,7 +3175,7 @@
       "packages": []
     },
     "app/test/unit/pi-native-projection.test.mjs": {
-      "loc": 31,
+      "loc": 39,
       "exports": [],
       "imports": [
         "app/native/pi-projection.ts"

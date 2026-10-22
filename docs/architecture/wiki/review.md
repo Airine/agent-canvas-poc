@@ -5,7 +5,7 @@ sources:
   - app/test/unit/health-regressions.test.mjs 4ce16fe1aaa5
   - app/test/unit/live-store-reconnect.test.mjs 0f76b07a6e4c
   - app/test/unit/coordinator-failure.test.mjs 7e6aeeacbf12
-  - app/test/unit/e-routes.test.mjs 866f95173379
+  - app/test/unit/e-routes.test.mjs fbc146505ae7
   - app/test/unit/e-session-manager.test.mjs 88f8298a86b3
   - app/test/unit/e-projection.test.mjs 9a4262e89208
   - app/test/unit/recovery-presentation.test.mjs 08dae2d21338
@@ -14,11 +14,11 @@ sources:
   - app/test/browser/e-canvas.spec.ts 6dbdbfa1d93d
   - app/api/e/approval-rules.ts f4596999d61c approvalRule
   - app/api/e/message-queue.ts 035004c14654 mutateQueue
-  - app/src/pages/canvas/live-store.ts 340c2297e1d0 LiveStore
+  - app/src/pages/canvas/live-store.ts 6419edf89df3 LiveStore
   - app/src/pages/canvas/LiveTerminal.tsx c93871702251 LiveTerminal
-  - app/src/pages/canvas/index.tsx b5fd4c2af28a
+  - app/src/pages/canvas/index.tsx df78605bbbb7
   - app/src/pages/canvas/chat/attachments.ts 6bc4fc390f29 readAttachment
-  - app/api/routes.ts 19871b34460c wsHandlers
+  - app/api/routes.ts 66658ffbac2c wsHandlers
   - app/api/eventbus.ts 47b4e6ed936c
   - app/api/coordinator.ts 2f2630aa80fe
 ---

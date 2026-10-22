@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-21",
+  "originalVendorComponentsPreserved": true,
+  "pi": {
+    "nativeSessionId": "a52e0682-0b3a-4e07-9557-2619bd37e886",
+    "model": "gpt-6.1-sol",
+    "reasoning": "low",
+    "imageBytesMatchFixture": true,
+    "attachmentReplyVerified": true,
+    "boundedEditExecuted": true,
+    "shellDeniedWithoutOutput": true,
+    "finalApprovalMode": "manual",
+    "sameNativeIdAfterRestore": true,
+    "postRestoreRecall": "Latest live attempt failed upstream (fetch failed); history and configuration restored",
+    "autoLiveTest": "Network fetch failed; aborted; not counted as passed",
+    "lunaAttachmentAttempt": "Bytes delivered but model did not identify attachments; 6.1 Sol passed"
+  },
+  "codex": {
+    "threadId": "01a15c79-1534-7820-957d-e58737ed60e0",
+    "model": "gpt-6-sol",
+    "reasoning": "medium",
+    "imageBytesMatchFixture": true,
+    "attachmentReplyVerified": true,
+    "workspaceWriteExitCode": 0,
+    "writeWithoutEscalation": true,
+    "networkAccess": false,
+    "sameThreadResumedInNewHost": true,
+    "resumedSandbox": "read-only",
+    "restoredReply": "CODEX_RESTORED_ATTACHMENTS RIVER-4827 17",
+    "fullAccessLiveTest": "Not run: isolated workspace authorization does not cover unsandboxed access"
+  }
+}

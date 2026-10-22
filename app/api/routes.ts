@@ -222,8 +222,15 @@ api.post('/workspaces/:wid/codex-cards', async c => {
   const wid = c.req.param('wid');
   if (registry.backend(wid) !== 'e') return c.json({error: 'e workspace not found'}, 404);
   registry.assertWritable(wid);
+  let body: unknown;
+  try { const text = await c.req.text(); body = text ? JSON.parse(text) : {}; }
+  catch { return c.json({error: 'Invalid Codex card JSON'}, 400); }
+  const parsed = z.object({provider: z.enum(['chatgpt', 'singularity-x']).default('chatgpt')}).strict().safeParse(body);
+  if (!parsed.success) return c.json({error: 'Invalid Codex provider'}, 400);
+  const provider = parsed.data.provider;
   const store = getGraphStore(wid)!, index = store.graph.nodes.length, nid = `n-${randomUUID()}`;
-  store.upsertNode({id: nid, type: 'chat', backend: 'e', nativeEngine: 'codex', title: 'Codex',
+  store.upsertNode({id: nid, type: 'chat', backend: 'e', nativeEngine: 'codex', codexProvider: provider,
+    title: provider === 'singularity-x' ? 'Codex · Singularity-X' : 'Codex',
     harness: 'codex', env: 'app-server', agentId: nid, status: 'queued', sessionState: 'starting',
     x: 80 + index % 3 * 640, y: 80 + Math.floor(index / 3) * 640});
   registry.persist();
@@ -297,7 +304,7 @@ api.patch('/workspaces/:wid/nodes/:nid/approval-mode', async c => {
   const wid = c.req.param('wid'), nid = c.req.param('nid');
   if (registry.backend(wid) !== 'e' || !eSessions.get(wid, nid)) return c.json({ error: 'session not found' }, 404);
   registry.assertWritable(wid);
-  const parsed = z.object({ mode: z.enum(['manual', 'assisted', 'full']), confirmRisk: z.boolean().optional(), reviewer:z.object({provider:z.string().min(1).max(160),model:z.string().min(1).max(256)}).strict().optional() }).strict().safeParse(await c.req.json().catch(() => null));
+  const parsed = z.object({ mode: z.enum(['manual', 'assisted', 'edits', 'full']), confirmRisk: z.boolean().optional(), reviewer:z.object({provider:z.string().min(1).max(160),model:z.string().min(1).max(256)}).strict().optional() }).strict().safeParse(await c.req.json().catch(() => null));
   if (!parsed.success || parsed.data.mode !== 'manual' && parsed.data.confirmRisk !== true) return c.json({ error: 'automatic approval requires explicit confirmation' }, 400);
   if(parsed.data.mode==='assisted'){
     const status=await runtimeStatus();const reviewer=parsed.data.reviewer;
