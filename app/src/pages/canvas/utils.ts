@@ -13,18 +13,29 @@ export function fmtElapsed(ms: number): string {
 }
 
 /** 状态徽章后缀（§3.1）：running=elapsed / waiting=reason / done=duration / failed=一行摘要 */
+/**
+ * 契约里的时间戳是 ISO 字符串（后端 toISOString），历史版本误当 number 用，
+ * 直接做减法会得到 NaN（"NaNmNaNs"）。统一在此归一为 epoch ms。
+ */
+function toMs(v: number | string | undefined): number | undefined {
+  if (v === undefined) return undefined;
+  if (typeof v === 'number') return v;
+  const t = Date.parse(v);
+  return Number.isNaN(t) ? undefined : t;
+}
+
 export function statusDetailFor(node: CanvasNode, nowMs: number): string | undefined {
+  const started = toMs(node.startedAt);
+  const ended = toMs(node.endedAt);
   switch (node.status) {
     case 'running':
-      return fmtElapsed(nowMs - (node.startedAt ?? nowMs));
+      return started === undefined ? undefined : fmtElapsed(nowMs - started);
     case 'waiting':
       return node.statusReason;
     case 'completed':
       return (
         node.statusReason ??
-        (node.startedAt !== undefined && node.endedAt !== undefined
-          ? fmtElapsed(node.endedAt - node.startedAt)
-          : undefined)
+        (started !== undefined && ended !== undefined ? fmtElapsed(ended - started) : undefined)
       );
     case 'failed':
       return node.statusReason;

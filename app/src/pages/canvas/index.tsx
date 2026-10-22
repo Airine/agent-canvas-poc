@@ -26,7 +26,7 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import '../reactflow/reactflow.css';
-import { Diamond, Maximize, Minus, Plus, Radio } from 'lucide-react';
+import { Diamond, LayoutGrid, Maximize, Minus, Plus, Radio } from 'lucide-react';
 import { toast } from 'sonner';
 import { Toaster } from '@/components/ui/sonner';
 import {
@@ -239,6 +239,12 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
     lastResetSeq.current = store.resetSeq;
     dragPos.current.clear();
   }
+  /* 一键布局确认后：丢弃本地拖拽位置，跟随服务端新坐标 */
+  const lastLayoutSeq = useRef(0);
+  if (store.layoutSeq !== lastLayoutSeq.current) {
+    lastLayoutSeq.current = store.layoutSeq;
+    dragPos.current.clear();
+  }
   const [nodes, setNodes] = useState<LiveFlowNode[]>([]);
   useEffect(() => {
     setNodes((prev) => {
@@ -316,6 +322,17 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
     [],
   );
 
+  /* ---- 一键布局后自动 fitView（layoutSeq 由 store.autoLayout() 递增） ---- */
+  const lastFitLayoutSeq = useRef(0);
+  useEffect(() => {
+    if (store.layoutSeq !== lastFitLayoutSeq.current) {
+      lastFitLayoutSeq.current = store.layoutSeq;
+      // 等 node 补丁渲染完一帧再适应
+      const t = setTimeout(() => void rf.fitView({ duration: 400, padding: 0.15 }), 120);
+      return () => clearTimeout(t);
+    }
+  }, [store, rf]); // store.layoutSeq 变化必然先触发本 effect
+
   /* ---- 选中 / 双向锚定闪烁（600ms×2） ---- */
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const onSelectionChange = useCallback((params: OnSelectionChangeParams) => {
@@ -367,10 +384,11 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
       else if (e.key === 'f' || e.key === 'F') void rf.fitView({ duration: 300, padding: 0.2 });
       else if (e.key === 'Escape') setTraceEdgeId(null);
       else if (e.key === 'Enter' && selectedId) manager.enterFocus(selectedId);
+      else if (e.key === 'l' || e.key === 'L') void store.autoLayout().catch(() => {});
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [rf, manager, selectedId]);
+  }, [rf, manager, selectedId, store]);
 
   /* ---- 窄屏提示（§7：桌面优先，<1024px 提示但仍可用） ---- */
   const [narrow, setNarrow] = useState(
@@ -473,8 +491,18 @@ function CanvasInner({ workspaceId }: { workspaceId?: string }) {
           onAnimationsChange={(v) => manager.setAnimationsOverride(v)}
         />
 
-        {/* 顶部右侧：RunBar（运行/重置/runState/连接状态）+ 活窗配额 */}
+        {/* 顶部右侧：RunBar（运行/重置/runState/连接状态）+ 活窗配额 + 一键布局 */}
         <div className="absolute right-4 top-4 z-legend flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="一键最优布局"
+            title="一键最优布局（L）：按依赖方向整理为 zone 泳道"
+            onClick={() => void store.autoLayout().catch(() => {})}
+            className="flex h-9 items-center gap-1.5 rounded-pill bg-surface-2 px-3 text-small text-text-secondary shadow-node transition-colors duration-fast hover:bg-surface-3 hover:text-text-primary"
+          >
+            <LayoutGrid className="size-4" />
+            布局
+          </button>
           <span
             className="tnum flex h-9 items-center rounded-pill bg-surface-2 px-3 text-small text-text-secondary shadow-node"
             title="活窗配额：超出降为 2fps 心跳帧 / 快照，点窗口栏标记可手动点亮（§3.2.2）"

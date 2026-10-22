@@ -11,6 +11,7 @@ import { z } from 'zod';
 // minimal structural socket type (backed by ws WebSocket)
 export interface WSContext { send(data: string): void }
 import { getGraphStore, listGraphStores, onAnyPatch, type GraphStore } from './graph.js';
+import { computeLayout } from './layout.js';
 import { eventbus } from './eventbus.js';
 import { coordinator } from './coordinator.js';
 import { pump } from './pump.js';
@@ -219,6 +220,18 @@ api.post('/workspaces/:id/reset', async (c) => {
   registry.setActive(id);
   await coordinator.reset(id);
   return c.json({ ok: true });
+});
+
+// 一键最优布局：dagre + zone 泳道列；坐标写回 graph 并以 node 补丁广播
+api.post('/workspaces/:id/layout', (c) => {
+  const id = c.req.param('id');
+  const store = getGraphStore(id);
+  if (!store) return c.json({ error: 'workspace not found' }, 404);
+  registry.setActive(id);
+  const { positions } = computeLayout(store.graph);
+  for (const p of positions) store.patchNode(p.id, { x: p.x, y: p.y });
+  registry.persist();
+  return c.json({ ok: true, count: positions.length });
 });
 
 // -- workspace-scoped node endpoints: explicit wid, no active pointer --

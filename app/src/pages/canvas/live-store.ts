@@ -127,6 +127,8 @@ export class LiveStore {
   graphSeq = 0;
   /** 前端发起的 reset 序号（适配层据此重置本地拖拽位置；graph 消息不动拖拽位置） */
   resetSeq = 0;
+  /** 前端发起的一键布局序号（适配层据此清拖拽位置缓存并 fitView） */
+  layoutSeq = 0;
   /** 目标 workspace（冻结契约：hello 可带 workspaceId，响应为对应 workspace 全量 graph） */
   readonly workspaceId?: string;
 
@@ -347,6 +349,19 @@ export class LiveStore {
     this.events = [];
     this.termLast.clear();
     this.resetSeq += 1;
+    this.emit();
+  }
+
+  /**
+   * 一键最优布局（canvas-optimization.md）：后端 dagre + zone 泳道列，
+   * 坐标经 node 补丁回推。layoutSeq 供适配层清拖拽缓存 + fitView。
+   */
+  async autoLayout(): Promise<void> {
+    const path = this.workspaceId
+      ? `/workspaces/${encodeURIComponent(this.workspaceId)}/layout`
+      : '/graph/layout';
+    await this.backend?.post(path);
+    this.layoutSeq += 1;
     this.emit();
   }
 

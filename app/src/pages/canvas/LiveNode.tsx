@@ -65,6 +65,13 @@ function LiveNodeComponent({ id, selected }: NodeProps<LiveFlowNode>) {
     return () => manager.unregisterNode(id);
   }, [manager, id, width]);
 
+  /* reset / pane close 后退出残留专注态，避免 queued 节点显示“已接管交互”空终端 */
+  useEffect(() => {
+    if (focused && (!node?.paneId || node?.status === 'queued')) {
+      manager.exitFocus();
+    }
+  }, [focused, manager, node?.paneId, node?.status]);
+
   if (!node) return null;
   const detail = statusDetailFor(node, nowMs);
 
