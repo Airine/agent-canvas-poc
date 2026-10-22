@@ -3,9 +3,9 @@ title: 未使用导出复核
 description: 保存基线后逐项处理 36 个导出，保留内部实现和真实类型声明。
 sources:
   - docs/architecture/unused-export-review.json 74937dc07f91
-  - app/knip.jsonc 536d92549483
+  - app/knip.jsonc 19f2426b4045
   - app/shared/model-recovery.d.mts 3633aa468dde
-  - docs-site/scripts/declaration-resolution.test.mjs 761811b10e6b
+  - docs-site/scripts/declaration-resolution.test.mjs 12f75dc080cd
 ---
 
 # 未使用导出复核
@@ -72,6 +72,8 @@ sources:
 ## 新增类型声明不是死文件
 
 本轮新扫描唯一的文件候选是 `app/shared/model-recovery.d.mts`。运行时入口 `app/scripts/e-runtime-worker.mts` 导入 `../shared/model-recovery.mjs`；TypeScript 的 NodeNext 解析器会为这个导入选择同名 `.d.mts` 声明。已经通过真实解析调用及 `declaration-resolution.test.mjs` 验证，故沿用其他同名声明的配置惯例，把该**单个文件**加入 Knip 的声明豁免。运行时实现仍参与扫描，没有放宽整目录。
+
+后续人工核实功能新增 `app/shared/queue-review.d.mts`，同样只豁免这个声明文件。`declaration-resolution.test.mjs` 同时验证队列引擎与浏览器状态模块的实际导入解析到该声明；共享实现仍由两个调用方引用并参与扫描。
 
 这属于已确认的类型系统引用，不是“疑似动态调用”。文档中的一般字符串命中不能作为这种豁免的依据。
 

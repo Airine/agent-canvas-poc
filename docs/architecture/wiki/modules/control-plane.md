@@ -3,7 +3,7 @@ title: 本地控制面
 description: HTTP、WebSocket 与工作区持久化的共同边界。
 sources:
   - app/api/index.ts fb665635c747
-  - app/api/routes.ts 8727ff4c9a19 wireBroadcasts wsHandlers api
+  - app/api/routes.ts d337b8303f4f wireBroadcasts wsHandlers api
   - app/api/registry.ts 4ccc91d72dac registry
   - app/api/graph.ts 112b00eb033d GraphStore onAnyPatch
   - app/api/layout.ts 4db5586b7967 computeLayout

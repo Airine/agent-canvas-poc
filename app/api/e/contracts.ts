@@ -19,11 +19,13 @@ export interface SessionRef {
   agentSessionId: string; nativeSessionId: string; cwd: string; provider?: string; model?: string;
 }
 export const SESSION_LIFECYCLE_VERSION = 2;
+export const QUEUE_REVIEW_VERSION = 1;
 export interface SessionView {
   workspaceId: string; nodeId: string; title: string; lifecycle: Lifecycle; ref: SessionRef;
   snapshot?: SessionSnapshot; error?: string; updatedAt: string; version: number;
   configuration?: RuntimeConfiguration; configurationPending?: boolean; configurationError?: string;
   queue?: MessageQueue;
+  queueReviewVersion?: number;
   collaborationAvailable?: boolean;
   archivedAt?: string;
   sessionLifecycleVersion?: number;
@@ -57,15 +59,17 @@ export interface RuntimeConfiguration {
 export interface ConfigurationChange { intentId: string; expectedRevision: number; provider?: string; model?: string; thinkingLevel?: string }
 export interface QueueItem {
   id: string; intentId: string; content: string; attachments: Attachment[];
-  state: 'pending' | 'dispatching' | 'submitted' | 'consumed' | 'unknown' | 'rejected';
+  state: 'pending' | 'dispatching' | 'submitted' | 'consumed' | 'unknown' | 'rejected' | 'dismissed';
+  review?: { mutationId: string; actor: 'user'; decision: 'stop-tracking'; priorState: 'unknown'; at: string; note: string };
   origin?: MessageOrigin;
   createdAt: string; submittedAt?: string; consumedAt?: string; actionId?: string; error?: string;
 }
 export interface MessageQueue { revision: number; paused: boolean; reason?: string; items: QueueItem[] }
 export interface QueueMutation {
   mutationId: string; expectedRevision: number;
-  operation: 'add' | 'edit' | 'delete' | 'move' | 'pause' | 'resume' | 'sendNow';
+  operation: 'add' | 'edit' | 'delete' | 'move' | 'pause' | 'resume' | 'sendNow' | 'reviewUnknown';
   itemId?: string; content?: string; attachments?: Attachment[]; direction?: 'up' | 'down';
   authorize?: boolean; confirmSteer?: boolean;
+  confirmReview?: boolean; reviewNote?: string;
 }
 export interface MessageOrigin { sourceNodeId?: string; sourceNativeSessionId?: string; communicationId?: string; kind: 'human' | 'agent' | 'system' | 'unknown'; label: string; channel: string; authenticated: boolean; intentId?: string }

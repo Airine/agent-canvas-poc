@@ -4,8 +4,8 @@ description: 本地多 Agent 会话工作台
 sources:
   - app/src/App.tsx 10682b846ed7 App
   - app/api/index.ts fb665635c747 wireBroadcasts
-  - app/api/routes.ts 8727ff4c9a19 applySession wsHandlers
-  - app/api/e/session-manager.ts 01240a44eb90 SessionManager
+  - app/api/routes.ts d337b8303f4f applySession wsHandlers
+  - app/api/e/session-manager.ts 0eca4df56113 SessionManager
   - app/scripts/e-runtime-worker.mts 640693a1eb1f
   - app/api/coordinator.ts 2f2630aa80fe
 ---

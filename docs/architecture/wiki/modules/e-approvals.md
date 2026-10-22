@@ -9,7 +9,7 @@ sources:
   - app/api/e/approval-engine.ts 40bf6ecd5a6d ApprovalEngine
   - app/api/e/approval-rules.ts f4596999d61c approvalRule
   - app/api/e/approval-reviewer.ts 518389128357 reviewApproval parseReview
-  - app/api/e/session-manager.ts 01240a44eb90 setApprovalMode grantExactApproval
+  - app/api/e/session-manager.ts 0eca4df56113 setApprovalMode grantExactApproval
   - app/scripts/e-control.mjs ed63498cbe6f controlSession
 covers:
   - app/api/e/approval-node.ts

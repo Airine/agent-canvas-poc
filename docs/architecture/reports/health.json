@@ -311,8 +311,8 @@
       "status": "removed"
     }
   ],
-  "head": "c428a53c41dffc93fddb96676b83b90a5a3b3afb",
-  "files": 232,
+  "head": "f8249ea46c1fc0513d9462600449e5755b06dc69",
+  "files": 236,
   "dead": [],
   "suspects": [],
   "deadExports": 0,
@@ -320,15 +320,21 @@
   "hotspots": [
     {
       "file": "app/api/routes.ts",
-      "changes": 3,
+      "changes": 4,
       "lines": 544,
-      "score": 1632
+      "score": 2176
     },
     {
       "file": "app/src/pages/canvas/live-store.ts",
-      "changes": 3,
+      "changes": 4,
       "lines": 470,
-      "score": 1410
+      "score": 1880
+    },
+    {
+      "file": "app/src/pages/canvas/index.tsx",
+      "changes": 3,
+      "lines": 612,
+      "score": 1836
     },
     {
       "file": "app/src/pages/canvas/mock-server.ts",
@@ -349,22 +355,16 @@
       "score": 1227
     },
     {
-      "file": "app/src/pages/canvas/index.tsx",
-      "changes": 2,
-      "lines": 612,
-      "score": 1224
+      "file": "app/api/e/session-manager.ts",
+      "changes": 3,
+      "lines": 399,
+      "score": 1197
     },
     {
       "file": "app/src/pages/reactflow/index.tsx",
       "changes": 2,
       "lines": 475,
       "score": 950
-    },
-    {
-      "file": "app/api/e/session-manager.ts",
-      "changes": 2,
-      "lines": 391,
-      "score": 782
     },
     {
       "file": "app/scripts/demo-quant-canvas/run.mjs",
@@ -438,6 +438,10 @@
       "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
     },
     {
+      "file": "app/shared/queue-review.d.mts",
+      "kind": "非入口：未接入文件或可复用组件，结合死代码复核，不推断运行能力"
+    },
+    {
       "file": "app/src/main.tsx",
       "kind": "真实入口：浏览器启动 → 路由 → 工作区/画布，见数据流「浏览器入口」"
     },
@@ -487,6 +491,10 @@
     },
     {
       "file": "app/test/browser/identity-window.spec.ts",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/browser/queue-review.spec.ts",
       "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
     },
     {
@@ -659,6 +667,10 @@
     },
     {
       "file": "app/test/unit/quant-canvas-demo.test.mjs",
+      "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
+    },
+    {
+      "file": "app/test/unit/queue-review.test.mjs",
       "kind": "测试入口：由测试运行器或显式命令执行，不是产品服务"
     },
     {

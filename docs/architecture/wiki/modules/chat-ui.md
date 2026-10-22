@@ -2,13 +2,13 @@
 title: 会话交互
 description: 真实 e 会话的消息呈现、草稿、待发队列和审批操作。
 sources:
-  - app/src/pages/canvas/chat/QueuePanel.tsx 14344a53ad03 QueuePanel
-  - app/src/pages/canvas/chat/QueueReceipts.tsx da27f4a2800d QueueReceipts
+  - app/src/pages/canvas/chat/QueuePanel.tsx ee0f45effae2 QueuePanel
+  - app/src/pages/canvas/chat/QueueReceipts.tsx dfa8b539cd77 QueueReceipts
   - app/src/pages/canvas/chat/ExecutionGroup.tsx 948d362fbbb0 ExecutionGroup
   - app/src/pages/canvas/chat/execution-presentation.ts d331f2a51450 groupExecutionTurns isExecutionOnly executionSummary
   - app/src/pages/canvas/chat/approval-presentation.ts 39f8b243c17b approvalAuditLabel approvalProgress allPendingReviewing
   - app/src/pages/canvas/chat/runtime-config-presentation.ts be479d7748ab configurationBasis thinkingLevels configurationBlockReason modelGroups
-  - app/src/pages/canvas/chat/ChatPopover.tsx 8cb0cb4f5108 ChatPopover ChatConfirm
+  - app/src/pages/canvas/chat/ChatPopover.tsx 05f00dd71b5a ChatPopover ChatConfirm
   - app/src/pages/canvas/chat/TurnView.tsx 6e24ee1ca16e TurnView
   - app/src/pages/canvas/chat/SessionNotice.tsx 8f1c327919b2 SessionNotice
   - app/src/pages/canvas/chat/Composer.tsx 8bb0926fa82b Composer
@@ -16,7 +16,7 @@ sources:
   - app/src/pages/canvas/chat/project-transcript.ts cf3e836071a7 TranscriptProjector
   - app/src/pages/canvas/chat/ConversationView.tsx c44472e6df67 ConversationView
   - app/src/pages/canvas/chat/ApprovalRequest.tsx f7b8d4c8ace0 ApprovalRequest
-  - app/src/pages/canvas/chat/presentation-state.ts dd9866b3c526 presentation sessionNotices
+  - app/src/pages/canvas/chat/presentation-state.ts 7f58eb0814aa presentation sessionNotices
   - app/src/pages/canvas/chat/attachments.ts 6bc4fc390f29 readAttachment pastedAttachment
   - app/src/pages/canvas/chat/error-presentation.ts c29909dfeee8 redact safeLink errorStatusTitle
   - app/src/pages/canvas/chat/RuntimeConfigControl.tsx 18eac6869cc9 RuntimeConfigControl
@@ -42,6 +42,8 @@ covers:
 - `readAttachment`、`pastedAttachment`（`attachments.ts`）形成契约中的 base64 附件；约束检查复用 `app/shared/message-content.mjs`，会话类型来自 `app/api/e/contracts.ts`。
 
 ## 数据怎么流
+
+会话是否就绪与队列是否阻塞分开显示，未知派发不会覆盖“会话已就绪”“会话已停止”或真实运行器故障。展开待发列表可核实未知消息；确认框要求核实说明和明确勾选，过期队列版本必须重新检查，提交失败保留说明。处理完成后仍需单独恢复待发。状态详情把人工处理记录与真实消费回执分开列出，旧 API 不提供无法执行的按钮。
 
 服务端会话快照先按实体标识和修订号去重，再把助手消息按轮次合并。工具调用与结果只呈现一次，有明确轮次或父消息的工具放回对应位置；无法关联的工具和审批单独显示，避免猜测归属。
 

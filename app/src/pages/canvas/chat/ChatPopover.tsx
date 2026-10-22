@@ -26,13 +26,13 @@ export function ChatPopover({id,label,title,trigger,children,className='',conten
   </Popover.Content></Popover.Portal>
  </Popover.Root>;
 }
-export function ChatConfirm({open,title,description,confirmLabel='确认',danger=false,busy=false,onCancel,onConfirm}:{open:boolean;title:string;description:ReactNode;confirmLabel?:string;danger?:boolean;busy?:boolean;onCancel:()=>void;onConfirm:()=>void}) {
+export function ChatConfirm({open,title,description,confirmLabel='确认',danger=false,busy=false,confirmDisabled=false,onCancel,onConfirm}:{open:boolean;title:string;description:ReactNode;confirmLabel?:string;danger?:boolean;busy?:boolean;confirmDisabled?:boolean;onCancel:()=>void;onConfirm:()=>void}) {
  const scope=useContext(ChatOverlayContext);const cancel=useRef<HTMLButtonElement>(null),previous=useRef<HTMLElement|null>(null);
  return <AlertDialog.Root open={open} onOpenChange={value=>{if(!value&&!busy)onCancel();}}><AlertDialog.Portal>
   <AlertDialog.Overlay className="chat-confirm-overlay"/>
   <AlertDialog.Content className="chat-confirm" onOpenAutoFocus={e=>{e.preventDefault();previous.current=document.activeElement instanceof HTMLElement?document.activeElement:null;cancel.current?.focus();}} onCloseAutoFocus={e=>{e.preventDefault();if(previous.current?.isConnected)previous.current.focus({preventScroll:true});}} onEscapeKeyDown={e=>{if(busy||e.isComposing||e.keyCode===229||scope?.composing.current)e.preventDefault();}}>
    <AlertDialog.Title>{title}</AlertDialog.Title><AlertDialog.Description asChild><div className="chat-confirm-description">{description}</div></AlertDialog.Description>
-   <div className="chat-confirm-actions"><AlertDialog.Cancel asChild><button ref={cancel} type="button" disabled={busy}>取消</button></AlertDialog.Cancel><button type="button" className={danger?'chat-danger-button':'chat-primary'} disabled={busy} onClick={onConfirm}>{busy?'提交中…':confirmLabel}</button></div>
+   <div className="chat-confirm-actions"><AlertDialog.Cancel asChild><button ref={cancel} type="button" disabled={busy}>取消</button></AlertDialog.Cancel><button type="button" className={danger?'chat-danger-button':'chat-primary'} disabled={busy||confirmDisabled} onClick={onConfirm}>{busy?'提交中…':confirmLabel}</button></div>
   </AlertDialog.Content>
  </AlertDialog.Portal></AlertDialog.Root>;
 }

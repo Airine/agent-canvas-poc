@@ -2,10 +2,12 @@
 title: 共享内容合同
 description: 浏览器、API 和工作进程共用消息校验，保持附件内容、模型能力与会话线协议一致。
 sources:
-  - app/api/e/contracts.ts fcd0017d416d SessionView SessionSnapshot Attachment capabilityAvailable
+  - app/api/e/contracts.ts c34db2b2d50c SessionView SessionSnapshot Attachment capabilityAvailable
   - app/api/e/attachments.ts 91fc1060693b
   - app/shared/message-content.mjs 854c2cb3c439 ATTACHMENT_LIMITS validateMessage messageBlocks
   - app/shared/message-content.d.mts ba4a912c7298 validateMessage messageBlocks
+  - app/shared/queue-review.mjs 0cc1cd6ca538 isReviewedQueueAction
+  - app/shared/queue-review.d.mts 906eef5a7fbd isReviewedQueueAction
   - app/scripts/e-message-preflight.mjs 74c4cb0f8959 loadPiImageProcessor assertImagesUnchanged
   - app/scripts/e-runtime-worker.mts 640693a1eb1f control
 covers:
@@ -27,6 +29,7 @@ covers:
 
 - `app/api/e/contracts.ts` 定义 `SessionView`、`SessionSnapshot`、`ControlPayload`、`RuntimeConfiguration`、`MessageQueue`、`Attachment` 和 `MessageOrigin` 等线协议类型，供浏览器安全地做类型导入。
 - `capabilityAvailable` 要求会话处于 `ready`，能力可用、来源权威，且尚未过期。它检查单个能力，不代替服务端的业务约束。
+- `app/shared/queue-review.mjs` 的 `isReviewedQueueAction` 由队列引擎和浏览器共同使用，只识别与人工结束跟踪记录精确匹配的未知发送动作；类型侧文件为 `queue-review.d.mts`，由声明解析测试证明实际使用。未决派发和不相符的动作标识不能被豁免。
 - `app/shared/message-content.mjs` 导出 `decodeAttachment`、`attachmentText`、`validateMessage`、`messageBlocks` 和 `ATTACHMENT_LIMITS`；对应声明位于 `message-content.d.mts`。`app/api/e/attachments.ts` 转导出这些函数。
 - `validateMessage` 返回原正文和附件的深拷贝，不会顺手清洗或压缩附件。`messageBlocks` 返回纯字符串，或一个文本块加若干图片块。
 - `loadPiImageProcessor` 从当前 Pi 可执行文件向上查找兼容安装，加载图片处理器；`assertImagesUnchanged` 比较处理前后的编码、MIME 与处理提示。

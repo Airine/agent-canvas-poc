@@ -5,8 +5,8 @@ sources:
   - app/src/App.tsx 10682b846ed7 App
   - app/src/pages/canvas/live-store.ts 30cd63eddcb7 LiveStore
   - app/api/index.ts fb665635c747 wireBroadcasts
-  - app/api/routes.ts 8727ff4c9a19 wsHandlers applySession
-  - app/api/e/session-manager.ts 01240a44eb90 SessionManager
+  - app/api/routes.ts d337b8303f4f wsHandlers applySession
+  - app/api/e/session-manager.ts 0eca4df56113 SessionManager
   - app/scripts/e-runtime-worker.mts 640693a1eb1f
   - app/scripts/dev-e.mjs 82c22e9d56a3
   - app/api/coordinator.ts 2f2630aa80fe
@@ -168,6 +168,8 @@ flows:
 核心 action 与快照回到父进程，写入记录，再经 WebSocket 推送给当前工作区。HTTP 返回“已接受”不代表模型已经回复；结果以核心 action 和会话状态为准。
 
 待发编辑使用 `/queue {mutationId,expectedRevision,operation,itemId,...}`。新增与编辑在提交前验证最终队列的总字节容量，超限不改变队列。管理器保存后在会话就绪时尝试发送。只有核心确认相同幂等键的 action 已应用，队列项才变成已消费；结果未知时暂停，不自动重发。回归入口见[审查记录](review.md)。
+
+人工核实走同一端点的 `reviewUnknown` 分支，另需 `confirmReview:true` 与 `reviewNote`。版本和运行状态检查通过后，原条目变为 `dismissed` 并保存审计记录，广播到队列与状态详情；该分支不发送 IPC 消息，队列仍暂停。会话恢复不会代替核实，核实也不会代替用户恢复待发。
 
 ## Agent 协作
 

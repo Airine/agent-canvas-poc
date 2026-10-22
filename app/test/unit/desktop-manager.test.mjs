@@ -7,3 +7,20 @@ test('nickname CAS persists without native identity change',async t=>{const {m,o
 test('configuration mutation excludes concurrent config/send and preserves confirmed thinking on resume',async t=>{const {m}=await setup(t),s=m.get('w','n-one'),change={intentId:'config',expectedRevision:s.configuration.revision,thinkingLevel:'high'},first=m.configuration('w','n-one',change);await assert.rejects(m.configuration('w','n-one',change),/进行中/);await assert.rejects(m.control('w','n-one','messages',{intentId:'send',content:'x'}),/配置/);assert.equal((await first).configuration.thinkingLevel,'high');await assert.rejects(m.configuration('w','n-one',{...change,intentId:'stale'}),/冲突/);await m.stop('w','n-one');assert.equal((await m.resume('w','n-one')).configuration.thinkingLevel,'high');});
 test('queue ordered consumption, mutation idempotency, conflicts and restart pause',async t=>{const {m,options}=await setup(t);const add={mutationId:'add',expectedRevision:0,operation:'add',itemId:'one',content:'one'};await m.queue('w','n-one',add);await m.queue('w','n-one',add);assert.equal(m.get('w','n-one').queue.items.length,1);await assert.rejects(m.queue('w','n-one',{...add,mutationId:'other',itemId:'two'}),/冲突/);await m.queue('w','n-one',{...add,mutationId:'two',expectedRevision:1,itemId:'two',content:'two'});await m.queue('w','n-one',{mutationId:'resume',expectedRevision:2,operation:'resume',authorize:true});await wait(()=>m.get('w','n-one').queue.items.every(i=>i.state==='consumed'));const q=m.get('w','n-one').queue;assert.ok(q.items[0].consumedAt<=q.items[1].submittedAt);await m.stop('w','n-one');const second=new SessionManager(options);t.after(()=>second.close());const s=await second.resume('w','n-one');assert.equal(s.queue.paused,true);assert.equal(s.queue.items.length,2);});
 test('queue unknown result freezes rather than retrying; only pending editable',async t=>{const {m}=await setup(t);await m.queue('w','n-one',{mutationId:'hung',expectedRevision:0,operation:'add',itemId:'hung',content:'hang',authorize:true});await wait(()=>m.get('w','n-one').queue.items[0].state==='unknown');const s=m.get('w','n-one');assert.equal(s.queue.paused,true);await assert.rejects(m.queue('w','n-one',{mutationId:'edit',expectedRevision:s.queue.revision,operation:'edit',itemId:'hung',content:'changed'}),/尚未/);await assert.rejects(m.queue('w','n-one',{mutationId:'resume',expectedRevision:s.queue.revision,operation:'resume',authorize:true}),/未知/);});
+
+test('restored unknown queue can be reviewed without replay, then separately resume only pending work',async t=>{
+ const {m}=await setup(t),control=t.mock.method(m,'control');
+ await m.queue('w','n-one',{mutationId:'hung',expectedRevision:0,operation:'add',itemId:'hung',content:'hang',authorize:true});
+ await wait(()=>m.get('w','n-one').queue.items[0].state==='unknown');
+ await m.queue('w','n-one',{mutationId:'next',expectedRevision:m.get('w','n-one').queue.revision,operation:'add',itemId:'next',content:'new task'});
+ const native=m.get('w','n-one').ref.nativeSessionId;await m.stop('w','n-one');await m.resume('w','n-one');
+ let s=m.get('w','n-one');assert.equal(s.lifecycle,'ready');assert.equal(s.ref.nativeSessionId,native);assert.equal(s.snapshot.pendingActions.length,0);
+ s=await m.queue('w','n-one',{mutationId:'review',expectedRevision:s.queue.revision,operation:'reviewUnknown',itemId:'hung',confirmReview:true,reviewNote:'Reviewed history, keep outcome unknown.'});
+ await new Promise(resolve=>setTimeout(resolve,100));
+ assert.equal(control.mock.calls.length,1);assert.equal(s.queue.paused,true);assert.equal(s.queue.items[1].state,'pending');
+ await m.queue('w','n-one',{mutationId:'resume-next',expectedRevision:s.queue.revision,operation:'resume',authorize:true});
+ await wait(()=>m.get('w','n-one').queue.items[1].state==='consumed');
+ const q=m.get('w','n-one').queue;assert.equal(q.items[0].state,'dismissed');assert.equal(q.items[0].consumedAt,undefined);
+ assert.ok(q.items[0].review);assert.match(q.items[0].error,/unknown/);
+ assert.deepEqual(control.mock.calls.map(c=>c.arguments[3].content),['hang','new task']);
+});

@@ -5,20 +5,22 @@ sources:
   - app/test/unit/health-regressions.test.mjs 4ce16fe1aaa5
   - app/test/unit/live-store-reconnect.test.mjs 0f76b07a6e4c
   - app/test/unit/coordinator-failure.test.mjs 7e6aeeacbf12
-  - app/test/unit/e-routes.test.mjs 866f95173379
+  - app/test/unit/e-routes.test.mjs 420d926388e1
   - app/test/unit/e-session-manager.test.mjs 88f8298a86b3
   - app/test/unit/e-projection.test.mjs 9a4262e89208
   - app/test/unit/recovery-presentation.test.mjs 08dae2d21338
   - app/test/browser/recovery-ui.spec.ts 3e222113f189
   - app/test/browser/desktop-composer.spec.ts 48fb860d3e9b
   - app/test/browser/e-canvas.spec.ts 6dbdbfa1d93d
+  - app/test/unit/queue-review.test.mjs 044e3b5c0882
+  - app/test/browser/queue-review.spec.ts 6549c0d4c299
   - app/api/e/approval-rules.ts f4596999d61c approvalRule
-  - app/api/e/message-queue.ts 035004c14654 mutateQueue
+  - app/api/e/message-queue.ts bb27d54c6e5d mutateQueue
   - app/src/pages/canvas/live-store.ts 30cd63eddcb7 LiveStore
   - app/src/pages/canvas/LiveTerminal.tsx c93871702251 LiveTerminal
   - app/src/pages/canvas/index.tsx 9e21ff626ae2
   - app/src/pages/canvas/chat/attachments.ts 6bc4fc390f29 readAttachment
-  - app/api/routes.ts 8727ff4c9a19 wsHandlers
+  - app/api/routes.ts d337b8303f4f wsHandlers
   - app/api/eventbus.ts 47b4e6ed936c
   - app/api/coordinator.ts 2f2630aa80fe
 ---
@@ -62,6 +64,14 @@ sources:
 | 最近五条回执误按队列位置选择 | 按确认时间排序，不修改原队列；`desktop-composer.spec.ts` 覆盖乱序消费。 |
 
 此轮测试使用临时目录和 HTTP/WS fixture，没有归档、恢复或删除真实会话。既有证据目录中的日期、哈希与测试数字是各轮历史快照，不代表本轮重新验证。
+
+## 未知消息的人工处理
+
+会话恢复后，运行器可能不再返回旧派发动作，队列却仍保留未知结果。此前既不能恢复待发，也没有人工处理入口，顶部还把队列异常显示成会话异常。
+
+现在分别展示会话生命周期和队列状态。用户核对历史与工具结果后，可填写说明并明确确认，将未知条目标记为结束跟踪。原消息、动作标识、来源和错误保留，新增服务器时间、操作标识与核实说明；不会改成成功，不会重发，也不会自动恢复其余待发。人工记录单独显示，不计入消费回执。
+
+`queue-review.test.mjs` 覆盖状态转换、版本冲突、精确动作匹配、持久化与幂等重试；`desktop-manager.test.mjs` 覆盖超时后停止、恢复、旧动作消失和人工处理的完整路径，确认只有另行授权后才发送下一条。`queue-review.spec.ts` 覆盖确认表单、窄屏、旧 API、运行中禁用、失败保留输入与重载后的暂停状态。协作消息的人工处理仍向发送方报告未知，不伪造成功回执。
 
 ## 验证边界
 

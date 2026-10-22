@@ -2,6 +2,7 @@ import type { DeliverAs, SessionView, SessionRef } from '../../../../api/e/contr
 import { allPendingReviewing } from './approval-presentation';
 import { errorStatusTitle } from './error-presentation';
 import { capabilityAvailable } from '../session-store';
+import { isReviewedQueueAction } from '../../../../shared/queue-review.mjs';
 export const approvalLabel:Record<string,string>={approved:'已批准',rejected:'已拒绝',cancelled:'已取消',pending:'等待批准','outcome-unknown':'结果未证实'};
 /** No cause is inferred from interrupted alone: it is also used when loading history. */
 export function needsSessionRecovery(view:SessionView|undefined):boolean {
@@ -36,7 +37,7 @@ export function presentation(view: SessionView|undefined, online: boolean, mode:
   label=pending.length?`${allPendingReviewing(view)?'AI 审查中':'等待批准'} · ${pending.length}`:active?(s?.tools.some(t=>t.state==='running')?'正在执行工具':'正在生成'):'可继续对话';
   reason=!capabilityAvailable(view,capability,now)?'当前发送能力不可用或已过期，草稿会保留':mode==='nextTurn'&&active?'当前轮执行中，可先写草稿，或选择 Steer/Follow-up':'';
  }
- const unknown=s?.pendingActions?.filter(a=>a.state==='outcome-unknown'&&a.kind!=='model').length??0;
+ const unknown=s?.pendingActions?.filter(a=>a.state==='outcome-unknown'&&a.kind!=='model'&&!isReviewedQueueAction(view?.queue,a)).length??0;
  const latest=[...(s?.messages??[])].filter(m=>m.role==='assistant').sort((a,b)=>(b.createdAt??'').localeCompare(a.createdAt??'')||b.order-a.order)[0];
  const showLastResult=online&&!readOnly&&view?.lifecycle==='ready'&&!fault&&!active&&!pending.length;
  const cancelled=latest?.state==='cancelled'||latest?.stopReason==='aborted';
@@ -61,7 +62,7 @@ export function sessionNotices(view:SessionView|undefined,online:boolean,readOnl
  const pending=view?.snapshot?.approvals?.filter(a=>a.state==='pending').length??0;
  if(pending)notices.push({id:'approval',title:`${allPendingReviewing(view)?'AI 审查中':'等待批准'} · ${pending} 项`,description:allPendingReviewing(view)?'独立 AI 正在审查；无需重复点批准，也可随时人工接管。':'查看具体工具请求后再决定，不会自动放宽权限。',tone:'warning',approval:true});
  const covered=new Set(view?.queue?.items.filter(i=>i.state==='unknown'||i.state==='rejected').map(i=>i.intentId));
- const unresolved=view?.snapshot?.pendingActions?.filter(a=>a.kind!=='model'&&!covered.has(a.idempotencyKey??'')&&(a.state==='outcome-unknown'||a.state==='rejected'||(['submitted','dispatched'].includes(a.state)&&!!a.deadlineAt&&Date.parse(a.deadlineAt)<now))).length??0;
+ const unresolved=view?.snapshot?.pendingActions?.filter(a=>a.kind!=='model'&&!covered.has(a.idempotencyKey??'')&&!isReviewedQueueAction(view?.queue,a)&&(a.state==='outcome-unknown'||a.state==='rejected'||(['submitted','dispatched'].includes(a.state)&&!!a.deadlineAt&&Date.parse(a.deadlineAt)<now))).length??0;
  if(unresolved)notices.push({id:'actions',title:`${unresolved} 项操作未确认或被拒绝`,description:'请在会话诊断中核对。不会自动重发，也不等同任务成功。',tone:'warning'});
  return notices;
 }
@@ -79,11 +80,13 @@ export function automaticDelivery(view:SessionView|undefined,online:boolean,now=
 /** One primary indicator: actionable abnormal states take precedence over context usage. */
 export function sessionIndicator(view:SessionView|undefined,online:boolean,now=Date.now(),readOnly=false) {
  const state=presentation(view,online,'nextTurn',now,readOnly),config=view?.configuration,usage=config?.contextUsage;
- const queueUnknown=view?.queue?.items.some(i=>i.state==='unknown'||i.state==='rejected');
- const abnormal=state.tone==='danger'||!!state.warning||!!view?.configurationError||queueUnknown;
- const label=view?.configurationError?'配置未确认':queueUnknown?'派发未确认':state.label;
- const current=online&&!readOnly&&view?.lifecycle==='ready'&&['idle','live'].includes(view.snapshot?.status??'')&&!view.configurationPending&&!abnormal&&!state.pending.length&&config?.nativeSessionId===view.ref.nativeSessionId;
+ const items=view?.queue?.items??[],unknown=items.filter(i=>i.state==='unknown').length,rejected=items.filter(i=>i.state==='rejected').length;
+ const pending=items.filter(i=>i.state==='pending').length,submitted=items.some(i=>i.state==='submitted'||i.state==='dispatching');
+ const queueLabel=unknown?`队列待核实 · ${unknown} 条`:rejected?`队列有拒绝记录 · ${rejected} 条`:submitted?'队列等待回执':view?.queue?.paused&&(pending||items.some(i=>i.state==='dismissed'))?'队列已暂停':pending?`队列待发 · ${pending} 条`:undefined;
+ const abnormal=state.tone==='danger'||!!state.warning||!!view?.configurationError;
+ const label=view?.configurationError?'配置未确认':queueLabel&&state.label==='可继续对话'?'会话已就绪':state.label;
+ const current=online&&!readOnly&&view?.lifecycle==='ready'&&['idle','live'].includes(view.snapshot?.status??'')&&!view.configurationPending&&!abnormal&&!queueLabel&&!state.pending.length&&config?.nativeSessionId===view.ref.nativeSessionId;
  const valid=!!usage&&usage.tokens!==null&&Number.isFinite(usage.tokens)&&usage.tokens>=0&&Number.isFinite(usage.contextWindow)&&usage.contextWindow>0&&usage.percent!==null&&Number.isFinite(usage.percent)&&usage.percent>=0&&(!config?.model?.contextWindow||config.model.contextWindow===usage.contextWindow);
- return {state,label,tone:abnormal?'danger':state.tone,usage:current&&valid?usage:undefined,confirmedAt:config?.confirmedAt,
-  explanation:[label,state.reason,state.warning,view?.configurationError?'请重新回读配置核实':undefined,queueUnknown?'对应待发已冻结，不会自动重发':undefined].filter(Boolean).join(' · ')};
+ return {state,label,queueLabel,tone:abnormal?'danger':unknown||rejected?'warning':state.tone,usage:current&&valid?usage:undefined,confirmedAt:config?.confirmedAt,
+  explanation:[label,queueLabel,state.reason,state.warning,view?.configurationError?'请重新回读配置核实':undefined,unknown?'未知消息阻塞待发；恢复会话不会自动解除，请展开待发列表核实':undefined].filter(Boolean).join(' · ')};
 }

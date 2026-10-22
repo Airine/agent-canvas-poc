@@ -196,7 +196,7 @@
       "packages": []
     },
     "app/api/e/contracts.ts": {
-      "loc": 72,
+      "loc": 76,
       "exports": [
         "Lifecycle",
         "DeliverAs",
@@ -209,6 +209,7 @@
         "SessionSnapshot",
         "SessionRef",
         "SESSION_LIFECYCLE_VERSION",
+        "QUEUE_REVIEW_VERSION",
         "SessionView",
         "ControlOperation",
         "ControlPayload",
@@ -242,7 +243,7 @@
       "packages": []
     },
     "app/api/e/message-queue.ts": {
-      "loc": 55,
+      "loc": 64,
       "exports": [
         "emptyQueue",
         "pauseQueue",
@@ -252,7 +253,8 @@
       ],
       "imports": [
         "app/api/e/attachments.ts",
-        "app/api/e/contracts.ts"
+        "app/api/e/contracts.ts",
+        "app/shared/queue-review.mjs"
       ],
       "packages": []
     },
@@ -268,7 +270,7 @@
       "packages": []
     },
     "app/api/e/session-manager.ts": {
-      "loc": 391,
+      "loc": 399,
       "exports": [
         "SessionManager",
         "eSessions"
@@ -791,6 +793,24 @@
       "imports": [],
       "packages": []
     },
+    "app/shared/queue-review.d.mts": {
+      "loc": 3,
+      "exports": [
+        "isReviewedQueueAction"
+      ],
+      "imports": [
+        "app/api/e/contracts.ts"
+      ],
+      "packages": []
+    },
+    "app/shared/queue-review.mjs": {
+      "loc": 9,
+      "exports": [
+        "isReviewedQueueAction"
+      ],
+      "imports": [],
+      "packages": []
+    },
     "app/src/App.tsx": {
       "loc": 28,
       "exports": [
@@ -1142,7 +1162,7 @@
       ]
     },
     "app/src/pages/canvas/SessionIdentity.tsx": {
-      "loc": 109,
+      "loc": 111,
       "exports": [
         "SessionIdentity",
         "SessionStatus"
@@ -1376,7 +1396,7 @@
       ]
     },
     "app/src/pages/canvas/chat/QueuePanel.tsx": {
-      "loc": 36,
+      "loc": 55,
       "exports": [
         "QueuePanel"
       ],
@@ -1393,12 +1413,13 @@
       ]
     },
     "app/src/pages/canvas/chat/QueueReceipts.tsx": {
-      "loc": 18,
+      "loc": 31,
       "exports": [
         "QueueReceipts"
       ],
       "imports": [
-        "app/api/e/contracts.ts"
+        "app/api/e/contracts.ts",
+        "app/src/pages/canvas/chat/error-presentation.ts"
       ],
       "packages": []
     },
@@ -1600,7 +1621,7 @@
       "packages": []
     },
     "app/src/pages/canvas/chat/presentation-state.ts": {
-      "loc": 90,
+      "loc": 93,
       "exports": [
         "approvalLabel",
         "needsSessionRecovery",
@@ -1612,6 +1633,7 @@
       ],
       "imports": [
         "app/api/e/contracts.ts",
+        "app/shared/queue-review.mjs",
         "app/src/pages/canvas/chat/approval-presentation.ts",
         "app/src/pages/canvas/chat/error-presentation.ts",
         "app/src/pages/canvas/session-store.ts"
@@ -2673,6 +2695,16 @@
         "@playwright/test"
       ]
     },
+    "app/test/browser/queue-review.spec.ts": {
+      "loc": 60,
+      "exports": [],
+      "imports": [
+        "app/test/browser/fixtures/desktop.ts"
+      ],
+      "packages": [
+        "@playwright/test"
+      ]
+    },
     "app/test/browser/real-e.spec.ts": {
       "loc": 35,
       "exports": [],
@@ -2869,7 +2901,7 @@
       "packages": []
     },
     "app/test/unit/collaboration.test.mjs": {
-      "loc": 73,
+      "loc": 81,
       "exports": [],
       "imports": [
         "app/api/e/collaboration-authorization.ts",
@@ -2918,7 +2950,7 @@
       "packages": []
     },
     "app/test/unit/desktop-manager.test.mjs": {
-      "loc": 10,
+      "loc": 27,
       "exports": [],
       "imports": [
         "app/api/e/session-manager.ts"
@@ -2968,7 +3000,7 @@
       "packages": []
     },
     "app/test/unit/e-routes.test.mjs": {
-      "loc": 121,
+      "loc": 135,
       "exports": [],
       "imports": [
         "app/api/e-adapter.ts",
@@ -3066,6 +3098,16 @@
         "app/scripts/demo-quant-canvas/lib/canvas.mjs",
         "app/scripts/demo-quant-canvas/lib/market.mjs",
         "app/scripts/demo-quant-canvas/lib/strategy.mjs"
+      ],
+      "packages": []
+    },
+    "app/test/unit/queue-review.test.mjs": {
+      "loc": 98,
+      "exports": [],
+      "imports": [
+        "app/api/e/message-queue.ts",
+        "app/api/e/session-manager.ts",
+        "app/src/pages/canvas/chat/presentation-state.ts"
       ],
       "packages": []
     },

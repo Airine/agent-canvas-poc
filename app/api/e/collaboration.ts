@@ -45,7 +45,7 @@ export class CollaborationStore {
     const sessions = this.host.list(workspaceId), ledger = this.load(); let changed = false;
     for (const record of ledger.records.filter(r => r.workspaceId === workspaceId && r.operation === 'send')) {
       const target = sessions.find(s => s.nodeId === record.target), item = target?.queue?.items.find(i => i.id === record.itemId);
-      const state: CommunicationState = item ? item.state === 'pending' ? target?.queue?.paused ? 'paused' : 'pending' : item.state === 'dispatching' ? 'submitted' : item.state
+      const state: CommunicationState = item ? item.state === 'pending' ? target?.queue?.paused ? 'paused' : 'pending' : item.state === 'dispatching' ? 'submitted' : item.state === 'dismissed' ? 'unknown' : item.state
         : ['preparing', 'unknown'].includes(record.state) ? 'unknown' : record.state === 'pending' || record.state === 'paused' ? 'cancelled' : record.state;
       const error = item?.error ?? (state === 'unknown' && !item ? 'No durable queue receipt; not retried' : undefined);
       if (record.state !== state || record.error !== error) { record.state = state; record.error = error; record.updatedAt = now(); changed = true; }

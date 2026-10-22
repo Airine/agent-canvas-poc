@@ -18,7 +18,7 @@ import { APPROVAL_POLICY_VERSION } from './approval-rules.js';
 import type { ApprovalMode } from './contracts.js';
 import type { ReviewerConfig } from './approval-reviewer.js';
 import { bindApproval } from './approval-binding.js';
-import { SESSION_LIFECYCLE_VERSION, type SessionView, type SessionSnapshot, type SessionRef, type ControlOperation, type ControlPayload } from './contracts.js';
+import { QUEUE_REVIEW_VERSION, SESSION_LIFECYCLE_VERSION, type SessionView, type SessionSnapshot, type SessionRef, type ControlOperation, type ControlPayload } from './contracts.js';
 import { APP_ROOT, DATA_ROOT, MAX_SESSIONS, runtimeConfig, runtimeStatus } from './config.js';
 
 interface WorkerMessage { request?: CollaborationRequest; collaboration?: CollaborationStatus; type: string; id?: string; error?: string; snapshot?: SessionSnapshot; ref?: SessionRef; result?: unknown; configuration?: RuntimeConfiguration; origins?: Record<string, MessageOrigin> }
@@ -74,6 +74,7 @@ export class SessionManager extends EventEmitter {
         record.view.sessionApprovalGrantCount = 0;
         record.view.approvalPolicyVersion = APPROVAL_POLICY_VERSION;
         record.view.sessionLifecycleVersion = SESSION_LIFECYCLE_VERSION;
+        record.view.queueReviewVersion = QUEUE_REVIEW_VERSION;
         record.view.approvalMode = 'manual';
         delete record.view.approvalModeError;delete record.view.approvalReviewer;
         record.view.version++;record.view.updatedAt = new Date().toISOString();
@@ -92,6 +93,7 @@ export class SessionManager extends EventEmitter {
   private changed(record: RecordData) {
     record.view.approvalPolicyVersion = APPROVAL_POLICY_VERSION;
     record.view.sessionLifecycleVersion = SESSION_LIFECYCLE_VERSION;
+    record.view.queueReviewVersion = QUEUE_REVIEW_VERSION;
     record.view.queue ??= emptyQueue();
     if(record.view.lifecycle!=='ready'&&!record.view.queue.paused)pauseQueue(record.view.queue,'会话不可用，需明确恢复待发');
     if(record.view.snapshot){
@@ -187,6 +189,12 @@ export class SessionManager extends EventEmitter {
     const signature=JSON.stringify(input),prior=record.queueMutations![input.mutationId];
     if(prior){if(prior!==signature)throw new Error('queue mutation id reused');return structuredClone(record.view);}
     if(Object.keys(record.queueMutations!).length>=10000)throw new Error('队列操作记录达到容量限制');
+    if(input.operation==='reviewUnknown'){
+      const item=record.view.queue.items.find(i=>i.id===input.itemId);
+      const liveAction=record.view.snapshot?.pendingActions.some(a=>
+        (a.idempotencyKey===item?.intentId || !!item?.actionId&&a.id===item.actionId) && ['submitted','dispatched'].includes(a.state));
+      if(this.queueJobs.has(key)||liveAction||record.view.lifecycle==='ready'&&record.view.snapshot?.runs.some(r=>r.state==='running'))throw new Error('仍有派发或运行进行中，请等待后再核实');
+    }
     if(input.operation==='edit'&&record.view.queue.items.find(i=>i.id===input.itemId)?.origin?.kind==='agent')throw new Error('Agent 来源消息不可改写；可移除后以自己的身份重新发送');
     if(['add','edit'].includes(input.operation))validateMessage(input.content??'',input.attachments??[],record.view.configuration?.model?.input.includes('image')??false);
     if(input.operation==='sendNow'){

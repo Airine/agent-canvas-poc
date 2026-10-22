@@ -2,11 +2,11 @@
 title: 代码体检
 description: 未使用文件、循环依赖、历史热点和静态解析断点。
 generated: npm --prefix docs-site run architecture:analyze
-generated-at: c428a53c41dffc93fddb96676b83b90a5a3b3afb
+generated-at: f8249ea46c1fc0513d9462600449e5755b06dc69
 ---
 # 代码体检
 
-本页由 `npm --prefix docs-site run architecture:analyze` 再生。范围为当前工作区（包含未跟踪、未忽略文件），共 232 个 JS/TS 源文件。历史 churn 仅来自已提交记录，不代表未提交代码的风险大小。原始结果位于 `docs/architecture/reports/`。
+本页由 `npm --prefix docs-site run architecture:analyze` 再生。范围为当前工作区（包含未跟踪、未忽略文件），共 236 个 JS/TS 源文件。历史 churn 仅来自已提交记录，不代表未提交代码的风险大小。原始结果位于 `docs/architecture/reports/`。
 
 ## 死代码
 
@@ -34,14 +34,14 @@ Knip 报告 0 个未使用文件、0 个未使用导出。经过文件名和基�
 
 | 文件 | 12 个月改动次数 | 行数 | 乘积 |
 | --- | ---: | ---: | ---: |
-| `app/api/routes.ts` | 3 | 544 | 1632 |
-| `app/src/pages/canvas/live-store.ts` | 3 | 470 | 1410 |
+| `app/api/routes.ts` | 4 | 544 | 2176 |
+| `app/src/pages/canvas/live-store.ts` | 4 | 470 | 1880 |
+| `app/src/pages/canvas/index.tsx` | 3 | 612 | 1836 |
 | `app/src/pages/canvas/mock-server.ts` | 2 | 640 | 1280 |
 | `app/api/coordinator.ts` | 2 | 617 | 1234 |
 | `app/api/herdr-adapter.ts` | 3 | 409 | 1227 |
-| `app/src/pages/canvas/index.tsx` | 2 | 612 | 1224 |
+| `app/api/e/session-manager.ts` | 3 | 399 | 1197 |
 | `app/src/pages/reactflow/index.tsx` | 2 | 475 | 950 |
-| `app/api/e/session-manager.ts` | 2 | 391 | 782 |
 | `app/scripts/demo-quant-canvas/run.mjs` | 1 | 763 | 763 |
 | `app/src/shared/ViewModeManager.ts` | 3 | 253 | 759 |
 

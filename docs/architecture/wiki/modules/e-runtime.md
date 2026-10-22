@@ -4,8 +4,8 @@ description: 会话从持久化记录启动独立工作进程，经 e-core 与 P
 sources:
   - app/api/e-adapter.ts e4029903d0d7 eSessions SessionManager
   - app/api/e/config.ts 9cf2024e1ea2 runtimeConfig runtimeStatus MAX_SESSIONS
-  - app/api/e/session-manager.ts 01240a44eb90 SessionManager eSessions
-  - app/api/e/message-queue.ts 035004c14654 mutateQueue reconcileQueue queueReady
+  - app/api/e/session-manager.ts 0eca4df56113 SessionManager eSessions
+  - app/api/e/message-queue.ts bb27d54c6e5d mutateQueue reconcileQueue queueReady
   - app/api/e/projection.ts 2effa5473b3b projectSession
   - app/scripts/e-runtime-worker.mts 640693a1eb1f control publish init
   - app/scripts/e-configuration.mjs 7ae7bdbb1b77 readConfiguration assertIdle changeConfiguration
@@ -34,6 +34,7 @@ covers:
 - `SessionManager` 提供 `create`、`list`、`get`、`rename`、`stop`、`resume`、`archive`、`deleteArchived`、`control`、`queue`、`configuration` 与 `close`；状态变更通过 `changed` 事件发布完整 `SessionView` 副本。
 - `control` 接受 `messages`、`abort` 或 `approval`，使用 `intentId` 保存请求签名与结果。同一标识不能用于不同请求；超时记为结果未知，不自动重试。
 - `mutateQueue` 处理待发消息的增加、修改、删除、移动和暂停恢复。`reconcileQueue` 用运行时动作记录确认消费，`queueReady` 决定是否可以继续派发。
+- `reviewUnknown` 要求 `expectedRevision`、`itemId`、`confirmReview:true` 和非空 `reviewNote`。只将未知条目改为 `dismissed`，保留原始内容和错误；`review` 记录服务器时间、用户来源、操作标识和核实说明。`queueMutations` 保证同一请求幂等，旧版本和冲突请求不改动记录。`queueReviewVersion:1` 由当前 API 标注，不能从旧持久化值推断功能可用。
 - `runtimeConfig` 读取 `ADE_ROOT`、`PI_BIN` 和项目目录。`runtimeStatus` 检查外部模块接口、Pi 版本与模型目录，结果缓存 15 秒。并发会话默认上限为 4，可由 `CANVAS_MAX_SESSIONS` 调整至 1–8。上限只约束正在运行/启动的 worker，归档或停止后的记录不占额度；`sessionLifecycleVersion=2` 让前端识别当前 API 是否支持归档/删除入口。
 - 工作进程只接收父进程 IPC。`init` 启动运行时，`control` 处理消息和控制请求，`publish` 发出快照；这不是供浏览器直接调用的公共服务。
 
@@ -44,6 +45,8 @@ covers:
 发送消息先在父进程校验正文和附件，再持久化发送意图。工作进程重新读取模型状态，普通下一轮消息还要确认运行器空闲；图片会额外检查是否能原样交给 Pi。控制适配层读取最新能力与版本后提交动作。核心事件经订阅桥汇成快照，父进程更新记录、发布状态，再尝试消费下一条待发消息。附件规则见[共享内容合同](message-content.md)，审批分支见[审批与权限](e-approvals.md)。
 
 待发消息从暂停状态开始，明确授权后才会自动发送。HTTP 或 IPC 返回成功不等于模型已经收到消息；队列还会等待核心动作变成已应用。重启前处于派发或已提交状态的消息会改为结果未知，队列冻结，避免重复发送。
+
+用户核实后可以结束未知条目的本地跟踪，但这不证明派发成功，也不撤回运行器可能已经执行的操作。处理记录与原消息一起持久保存，不删除或重发；队列继续暂停。用户另行恢复待发后，只豁免与该处理记录精确匹配的未知动作；仍在派发、执行或等待审批的工作，以及其他未知消息继续阻止发送。协作账本中的原派发仍为未知，不冒充消费成功。会话恢复、核实未知消息、恢复待发是三个独立操作。
 
 切换配置前，父进程检查版本和正在进行的操作；工作进程再次检查空闲状态。模型切换走核心授权接口，思考级别走受限的 Pi 配置通道，最后回读实际配置。会话投影只提供画布兼容颜色与摘要，不能据此推断某一轮执行成功。
 

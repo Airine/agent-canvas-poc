@@ -303,7 +303,7 @@ api.post('/workspaces/:wid/nodes/:nid/queue',async c=>{
   const wid=c.req.param('wid'),nid=c.req.param('nid');
   if(registry.backend(wid)!=='e'||!eSessions.get(wid,nid))return c.json({error:'session not found'},404);
   registry.assertWritable(wid);
-  const parsed=z.object({mutationId:z.string().min(1).max(256),expectedRevision:z.number().int().nonnegative(),operation:z.enum(['add','edit','delete','move','pause','resume','sendNow']),itemId:z.string().min(1).max(128).optional(),content:z.string().max(100000).optional(),attachments:z.array(attachmentSchema).max(4).optional(),direction:z.enum(['up','down']).optional(),authorize:z.boolean().optional(),confirmSteer:z.boolean().optional()}).strict().safeParse(await c.req.json().catch(()=>null));
+  const parsed=z.object({mutationId:z.string().min(1).max(256),expectedRevision:z.number().int().nonnegative(),operation:z.enum(['add','edit','delete','move','pause','resume','sendNow','reviewUnknown']),itemId:z.string().min(1).max(128).optional(),content:z.string().max(100000).optional(),attachments:z.array(attachmentSchema).max(4).optional(),direction:z.enum(['up','down']).optional(),authorize:z.boolean().optional(),confirmSteer:z.boolean().optional(),confirmReview:z.boolean().optional(),reviewNote:z.string().trim().min(1).max(1000).optional()}).strict().refine(v=>v.operation!=='reviewUnknown'||!!v.itemId&&v.confirmReview===true&&!!v.reviewNote).safeParse(await c.req.json().catch(()=>null));
   if(!parsed.success)return c.json({error:'invalid queue request'},400);
   return c.json({session:await eSessions.queue(wid,nid,parsed.data)});
 });
