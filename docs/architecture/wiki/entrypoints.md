@@ -2,7 +2,7 @@
 title: 入口对账
 description: 逐项裁决静态图的零入度候选，区分运行入口、工具配置和未接入代码。
 generated: npm --prefix docs-site run architecture:analyze
-generated-at: 476b55640cc3f6293b9288727587fa6f76486dc5
+generated-at: 0b0f3d2f987b4b147eae0fa1ec1eb39c76e9bbe3
 ---
 # 入口对账
 

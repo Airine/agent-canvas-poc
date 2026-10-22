@@ -311,7 +311,7 @@
       "status": "removed"
     }
   ],
-  "head": "476b55640cc3f6293b9288727587fa6f76486dc5",
+  "head": "0b0f3d2f987b4b147eae0fa1ec1eb39c76e9bbe3",
   "files": 247,
   "dead": [],
   "suspects": [
@@ -450,9 +450,9 @@
   "hotspots": [
     {
       "file": "app/api/routes.ts",
-      "changes": 6,
+      "changes": 7,
       "lines": 591,
-      "score": 3546
+      "score": 4137
     },
     {
       "file": "app/src/pages/canvas/index.tsx",
@@ -468,9 +468,9 @@
     },
     {
       "file": "app/api/e/session-manager.ts",
-      "changes": 4,
+      "changes": 5,
       "lines": 399,
-      "score": 1596
+      "score": 1995
     },
     {
       "file": "app/src/pages/canvas/mock-server.ts",

@@ -2,7 +2,7 @@
 title: 代码体检
 description: 未使用文件、循环依赖、历史热点和静态解析断点。
 generated: npm --prefix docs-site run architecture:analyze
-generated-at: 476b55640cc3f6293b9288727587fa6f76486dc5
+generated-at: 0b0f3d2f987b4b147eae0fa1ec1eb39c76e9bbe3
 ---
 # 代码体检
 
@@ -47,10 +47,10 @@ Knip 报告 14 个未使用文件、5 个未使用导出。经过文件名和基
 
 | 文件 | 12 个月改动次数 | 行数 | 乘积 |
 | --- | ---: | ---: | ---: |
-| `app/api/routes.ts` | 6 | 591 | 3546 |
+| `app/api/routes.ts` | 7 | 591 | 4137 |
 | `app/src/pages/canvas/index.tsx` | 5 | 622 | 3110 |
 | `app/src/pages/canvas/live-store.ts` | 6 | 476 | 2856 |
-| `app/api/e/session-manager.ts` | 4 | 399 | 1596 |
+| `app/api/e/session-manager.ts` | 5 | 399 | 1995 |
 | `app/src/pages/canvas/mock-server.ts` | 2 | 640 | 1280 |
 | `app/api/coordinator.ts` | 2 | 617 | 1234 |
 | `app/api/herdr-adapter.ts` | 3 | 409 | 1227 |
