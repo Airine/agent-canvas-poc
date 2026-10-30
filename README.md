@@ -6,6 +6,33 @@
 
 原自研聊天界面保存在 `archive/self-built-chat-ui-2026-10-21`（`40d97da`）。下面的旧功能清单和历史验收文档不能当作原版界面已接通的功能。资源获取、配置、许可证边界和本次实测记录见 [Native cards](app/native/README.md)。原版资源需独立获取，不包含在仓库中。
 
+## 产品实机截图
+
+以下为本地真实运行验收截图（**2026-10-21 至 10-22 入库**），使用独立测试工作区，展示原生 Pi / Codex 卡片。画面中的文本是验收用例，不是设计稿或模拟界面；具体能力与限制见 [Native cards 验收记录](app/native/README.md#verification)。
+
+### Pi 与 Codex 并排画布
+
+![Agent Canvas 实机截图：Pi 与 Codex 原生会话并排展示，恢复后保留对话历史](app/native/evidence/native-cards-restored.png)
+
+两种原生会话放在同一画布中，保留各自的聊天与输入界面。图中展示重启恢复后的对话和测试标记，不表示两种运行器已经接入统一自动编排。
+
+<details>
+<summary>更多实机画面：工具审批与专注视图</summary>
+
+### 工具执行审批
+
+![Agent Canvas 实机截图：Codex 原生界面中的工具执行审批](app/native/evidence/codex-approval.png)
+
+Codex 在执行验收用的 `printf` 命令前显示原生审批界面。批准、拒绝及实际执行结果另由 [运行验收记录](app/native/evidence/acceptance.json) 核对，不仅依据按钮状态判断。
+
+### 专注视图与会话恢复
+
+![Agent Canvas 实机截图：Codex 专注视图中的历史记录与恢复后回复](app/native/evidence/controls-codex-restored.png)
+
+单卡进入专注视图后继续保留原生聊天界面。图中包含历史写入结果及恢复后的附件标记回复；对应范围见 [控件验收记录](app/native/evidence/controls-acceptance.json)。
+
+</details>
+
 ## 开发者文档
 
 文档站位于独立的 `docs-site/`，基于 Fumadocs，首页为 Landing Page，不替换产品首页。
